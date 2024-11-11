@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS tbl_get_badge CASCADE;
+DROP TABLE IF EXISTS tbl_badge CASCADE;
 DROP TABLE IF EXISTS tbl_member CASCADE;
 DROP TABLE IF EXISTS tbl_authority CASCADE;
-DROP TABLE IF EXISTS tbl_badge CASCADE;
 DROP TABLE IF EXISTS tbl_point_reward CASCADE;
 
 DROP TABLE IF EXISTS tbl_member_reviews CASCADE;
@@ -30,6 +30,7 @@ CREATE TABLE IF NOT EXISTS tbl_authority
     authority_name VARCHAR(255) NOT NULL COMMENT '권한명',
     authority_desc VARCHAR(4000) NOT NULL COMMENT '권한설명',
     CONSTRAINT pk_authority_code PRIMARY KEY (authority_code)
+
 ) ENGINE=InnoDB COMMENT '권한';
 
 -- 회원 테이블
@@ -264,3 +265,212 @@ CREATE TABLE IF NOT EXISTS tbl_message
     CONSTRAINT fk_chatroom_code FOREIGN KEY (chatroom_code) REFERENCES tbl_chatroom(chatroom_code),
     CONSTRAINT fk_member_code9 FOREIGN KEY (member_code) REFERENCES tbl_member(member_code)
 ) ENGINE=InnoDB COMMENT '메시지';
+
+-- 권한 테이블 더미 데이터
+INSERT INTO tbl_authority (authority_code, authority_name, authority_desc)
+VALUES
+    (1, 'Admin', '관리자 권한'),
+    (2, 'User', '일반 사용자 권한');
+
+-- 회원 테이블 더미 데이터
+INSERT INTO tbl_member (member_code, authority_code, member_name, member_nickname, member_mobile_number, member_created_at, member_id, member_password, member_level, member_certification) VALUES
+(1, 1, '홍길동', '길동이', '010-1234-5678', '2024-01-01', 'user1', 'password1', 1, 'Y'),
+(2, 2, '김철수', '철수', '010-9876-5432', '2024-02-15', 'user2', 'password2', 2, 'N'),
+(3, 2, '박영희', '영희', '010-1111-2222', '2024-03-01', 'user3', 'password3', 3, 'Y'),
+(4, 2, '이민호', '민호', '010-2222-3333', '2024-03-10', 'user4', 'password4', 1, 'Y'),
+(5, 2, '최수지', '수지', '010-3333-4444', '2024-04-20', 'user5', 'password5', 2, 'N'),
+(6, 2, '정준하', '준하', '010-4444-5555', '2024-05-05', 'user6', 'password6', 3, 'Y'),
+(7, 2, '강동원', '동원', '010-5555-6666', '2024-06-12', 'user7', 'password7', 1, 'N'),
+(8, 2, '한소희', '소희', '010-6666-7777', '2024-07-08', 'user8', 'password8', 2, 'Y'),
+(9, 2, '김유나', '유나', '010-7777-8888', '2024-08-16', 'user9', 'password9', 3, 'N'),
+(10, 2, '이강현', '강현', '010-8888-9999', '2024-09-01', 'user10', 'password10', 1, 'Y');
+
+-- 배지 테이블 더미 데이터
+INSERT INTO tbl_badge (badge_code, badge_name, badge_criteria, badge_create_at) VALUES
+(1, '초심자', '첫 가입 후 활동 시작', '2024-01-10'),
+(2, '활동가', '활동 10회 이상', '2024-02-10');
+
+-- 배지 획득 테이블 더미 데이터
+INSERT INTO tbl_get_badge (badge_code, member_code) VALUES
+(1, 1),
+(2, 2);
+
+-- 포인트 리워드 테이블 더미 데이터
+INSERT INTO tbl_point_reward (point_reward_code, member_code, point_reward_reason, point_reward_point) VALUES
+(1, 1, '가입 기념 포인트', 50),
+(2, 2, '리뷰 작성', 30);
+
+-- 리뷰 카테고리 테이블 더미 데이터
+INSERT INTO tbl_review_category (review_category_code, reivew_category_level) VALUES
+(1, 1),
+(2, 2);
+
+-- 회원 후기 테이블 더미 데이터
+INSERT INTO tbl_member_reviews (member_review_code, review_category_code, member_code, member_review) VALUES
+(1, 1, 1, '매우 친절합니다.'),
+(2, 2, 2, '여행 동반자로 추천합니다.');
+
+INSERT INTO tbl_review_text (review_category_code, review_text) VALUES
+(1, '매우 친절합니다.1'),
+(2, '여행 동반자로 추천합니다.2');
+
+-- 여행 일정 테이블 더미 데이터
+INSERT INTO tbl_travel_schedule (travel_code, member_code, travel_name, travel_start_date, travel_end_date, travel_total_date, travel_total_night, travel_destination, travel_onoff) VALUES
+(1, 1, '유럽 여행', '2024-04-01', '2024-04-14', '14일', '13박', '파리', 'N'),
+(2, 2, '일본 도쿄 여행', '2024-05-05', '2024-05-10', '6일', '5박', '도쿄', 'Y'),
+(3, 3, '미국 뉴욕 여행', '2024-06-01', '2024-06-10', '10일', '9박', '뉴욕', 'N'),
+(4, 4, '호주 시드니 여행', '2024-07-10', '2024-07-17', '8일', '7박', '시드니', 'Y'),
+(5, 5, '태국 방콕 여행', '2024-08-15', '2024-08-20', '6일', '5박', '방콕', 'N'),
+(6, 6, '이탈리아 로마 여행', '2024-09-01', '2024-09-10', '10일', '9박', '로마', 'Y'),
+(7, 7, '그리스 아테네 여행', '2024-10-05', '2024-10-12', '8일', '7박', '아테네', 'N'),
+(8, 8, '영국 런던 여행', '2024-11-10', '2024-11-15', '6일', '5박', '런던', 'Y'),
+(9, 9, '스페인 바르셀로나 여행', '2024-12-01', '2024-12-08', '8일', '7박', '바르셀로나', 'N'),
+(10, 10, '캐나다 토론토 여행', '2025-01-10', '2025-01-20', '11일', '10박', '토론토', 'Y');
+
+INSERT INTO tbl_travel_day (day_code, travel_code, day_number, day_date) VALUES
+(1, 1, 1, 1),
+(2, 1, 2, 2),
+(3, 1, 1, 1),
+(4, 1, 1, 1),
+(5, 1, 1, 1),
+(6, 1, 1, 1),
+(7, 1, 1, 1),
+(8, 1, 1, 1),
+(9, 1, 1, 1),
+(10, 1, 1, 1);
+# (3, 1, 1, 2);
+
+INSERT INTO tbl_activity (activity_code, day_code, activity_title, activity_detail) VALUES
+(1, 1, '세부활동제목1', '세부적인 활동을 적는 란.1'),
+(2, 2, '세부활동제목2', '세부적인 활동을 적는 란.2'),
+(3, 3, '세부활동제목3', '세부적인 활동을 적는 란.3'),
+(4, 4, '세부활동제목4', '세부적인 활동을 적는 란.4'),
+(5, 5, '세부활동제목5', '세부적인 활동을 적는 란.5'),
+(6, 6, '세부활동제목6', '세부적인 활동을 적는 란.6'),
+(7, 7, '세부활동제목7', '세부적인 활동을 적는 란.7'),
+(8, 8, '세부활동제목8', '세부적인 활동을 적는 란.8'),
+(9, 9, '세부활동제목9', '세부적인 활동을 적는 란.9'),
+(10, 10, '세부활동제목10', '세부적인 활동을 적는 란.10');
+# (3, 3, '세부활동제목3', '세부적인 활동을 적는 란.3');
+
+INSERT INTO tbl_expense (expense_code, activity_code, expense_total_amount) VALUES
+(1, 1, 1000),
+(2, 2, 2500),
+(3, 3, 1500),
+(4, 4, 3200),
+(5, 5, 2800),
+(6, 6, 5000),
+(7, 7, 4000),
+(8, 8, 2300),
+(9, 9, 1800),
+(10, 10, 3000);
+
+INSERT INTO tbl_expense_detail (expense_detail_code, expense_code, expense_detail_amount, member_code) VALUES
+(1, 1, 500, 1),
+(2, 1, 500, 2),
+(3, 2, 1250, 3),
+(4, 2, 1250, 4),
+(5, 3, 750, 5),
+(6, 3, 750, 6),
+(7, 4, 1600, 7),
+(8, 4, 1600, 8),
+(9, 5, 1400, 9),
+(10, 5, 1400, 10);
+
+INSERT INTO tbl_travel_country (country_code, country_name) VALUES
+(1, 'Korea'),
+(2, 'Japan'),
+(3, 'France'),
+(4, 'USA'),
+(5, 'Canada'),
+(6, 'Germany'),
+(7, 'Australia'),
+(8, 'Brazil'),
+(9, 'Italy'),
+(10, 'India');
+
+INSERT INTO tbl_population (travel_code, member_code, country_code, population_title, population_description, population_created_at, population_views, population_people, population_onoff) VALUES
+(1, 1, 1, 'Korea Adventure', 'Join us for an exciting trip across Korea', '2024-01-01', 100, 5, 'Y'),
+(2, 2, 2, 'Japan Discovery', 'Explore the beauty of Japan together', '2024-02-15', 200, 4, 'N'),
+(3, NULL, 3, 'France Romance', 'Romantic getaway in France', '2024-03-10', 150, 2, 'Y'),
+(4, 3, 4, 'USA Road Trip', 'Cross-country adventure in the USA', '2024-04-05', 300, 10, 'N'),
+(5, 4, 5, 'Canada Nature Trek', 'Experience the wilderness of Canada', '2024-05-20', 250, 8, 'Y'),
+(6, 5, 6, 'Germany History Tour', 'Dive deep into German culture', '2024-06-18', 180, 7, 'N'),
+(7, NULL, 7, 'Australia Outback', 'Adventure in the Australian outback', '2024-07-25', 90, 3, 'Y'),
+(8, 6, 8, 'Brazil Carnival', 'Experience the vibrant Carnival', '2024-08-12', 400, 15, 'N'),
+(9, 7, 9, 'Italy Food Tour', 'Gastronomic trip through Italy', '2024-09-03', 270, 6, 'Y'),
+(10, NULL, 10, 'India Spiritual Journey', 'Discover the spirituality of India', '2024-10-10', 320, 12, 'N');
+
+INSERT INTO tbl_notice_category (notice_category_code, notice_category_name) VALUES
+(1, 'General Notice'),
+(2, 'Travel Tips'),
+(3, 'Event Announcements'),
+(4, 'Updates'),
+(5, 'Safety Guidelines'),
+(6, 'Promotions'),
+(7, 'Member Stories'),
+(8, 'Travel Deals'),
+(9, 'Policy Changes'),
+(10, 'Miscellaneous');
+
+INSERT INTO tbl_notice (notice_code, notice_category_code, notice_title, notice_content, notice_created_at, member_code) VALUES
+(1, 1, 'Welcome to the Travel Community', 'A warm welcome to all our new members!', '2024-01-01', 1),
+(2, 2, 'Packing Tips for Your Next Trip', 'Check out our essential packing guide.', '2024-02-10', 2),
+(3, 3, 'Upcoming Travel Fair', 'Join us at the biggest travel fair this summer.', '2024-03-05', NULL),
+(4, 4, 'System Maintenance Notice', 'Scheduled maintenance on April 15th.', '2024-04-01', 3),
+(5, 5, 'Safety Tips While Traveling', 'Important safety tips to remember.', '2024-05-12', 4),
+(6, 6, 'Summer Sale Announcement', 'Exciting summer discounts available now!', '2024-06-20', NULL),
+(7, 7, 'Share Your Travel Stories', 'We are looking for member stories.', '2024-07-05', 5),
+(8, 8, 'Limited-Time Travel Deals', 'Book your trip before the deals expire.', '2024-08-18', 6),
+(9, 9, 'Policy Updates on Bookings', 'Updates to our booking policies.', '2024-09-25', 7),
+(10, 10, 'General Information', 'Find answers to common questions.', '2024-10-30', NULL);
+
+INSERT INTO tbl_comment (comment_code, notice_code, member_code, comment_content, comment_created_at) VALUES
+(1, 1, 1, 'Great announcement! Looking forward to it.', '2024-01-02'),
+(2, 2, 2, 'Thanks for the packing tips, very helpful.', '2024-02-11'),
+(3, 3, NULL, 'Can\'t wait for the travel fair!', '2024-03-06'),
+(4, 4, 3, 'Noted about the maintenance. Thanks!', '2024-04-02'),
+(5, 5, 4, 'Good safety tips. Very useful.', '2024-05-13'),
+(6, 6, 5, 'Looking forward to the promotions!', '2024-06-21'),
+(7, 7, NULL, 'I will definitely share my story soon.', '2024-07-06'),
+(8, 8, 6, 'The travel deals are amazing!', '2024-08-19'),
+(9, 9, 7, 'Policy updates are always good to know.', '2024-09-26'),
+(10, 10, NULL, 'Thanks for the general information.', '2024-10-31');
+
+INSERT INTO tbl_population_review (population_review_code, population_code, member_code, review_content, review_created_at) VALUES
+(1, 1, 1, 'Had a fantastic experience on the Korea trip!', '2024-01-15'),
+(2, 2, 2, 'Japan was beautiful, would recommend!', '2024-02-20'),
+(3, 3, NULL, 'Romantic trip to France was unforgettable.', '2024-03-25'),
+(4, 4, 3, 'USA road trip was a blast, lots of memories.', '2024-04-18'),
+(5, 5, 4, 'Nature trekking in Canada was refreshing.', '2024-05-30'),
+(6, 6, 5, 'Germany history tour was deeply insightful.', '2024-06-25'),
+(7, 7, NULL, 'Outback adventure in Australia was unique.', '2024-07-30'),
+(8, 8, 6, 'Carnival in Brazil was full of energy!', '2024-08-25'),
+(9, 9, 7, 'Italian food tour was delicious and fulfilling.', '2024-09-15'),
+(10, 10, NULL, 'India\'s spiritual journey was life-changing.', '2024-10-20');
+
+-- 채팅방 테이블 더미 데이터
+INSERT INTO tbl_chatroom (chatroom_code, chatroom_name, chatroom_created_at) VALUES
+(1, 'General Discussion', '2024-01-05'),
+(2, 'Travel Buddies', '2024-02-15'),
+(3, 'Foodies Chat', '2024-03-10'),
+(4, 'Tech Enthusiasts', '2024-04-20'),
+(5, 'Photography Club', '2024-05-01'),
+(6, 'Fitness Fanatics', '2024-06-18'),
+(7, 'Book Lovers', '2024-07-12'),
+(8, 'Pet Owners Corner', '2024-08-03'),
+(9, 'Outdoor Adventures', '2024-09-22'),
+(10, 'Movie Buffs', '2024-10-11');
+
+-- 메시지 테이블 더미 데이터
+INSERT INTO tbl_message (message_code, chatroom_code, member_code, message_content, message_sent_at) VALUES
+(1, 1, 1, 'Welcome to the General Discussion chat!', '2024-01-05 10:00:00'),
+(2, 1, 2, 'Hi everyone! How are you all doing?', '2024-01-05 10:05:00'),
+(3, 2, 3, 'Anyone up for a trip to Japan next month?', '2024-02-16 09:30:00'),
+(4, 2, NULL, 'Sounds interesting! I might join.', '2024-02-16 09:45:00'),
+(5, 3, 4, 'What\'s your favorite street food?', '2024-03-10 12:15:00'),
+(6, 3, 5, 'I love tacos! Especially the spicy ones.', '2024-03-10 12:20:00'),
+(7, 4, 6, 'Has anyone tried the new VR headset?', '2024-04-20 16:00:00'),
+(8, 5, NULL, 'Looking for tips on landscape photography.', '2024-05-01 14:45:00'),
+(9, 6, 7, 'What\'s your workout routine these days?', '2024-06-18 07:30:00'),
+(10, 7, NULL, 'Just finished a great book on self-growth!', '2024-07-12 18:20:00');
