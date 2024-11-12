@@ -1,28 +1,30 @@
 DROP TABLE IF EXISTS tbl_get_badge CASCADE;
 DROP TABLE IF EXISTS tbl_badge CASCADE;
+DROP TABLE IF EXISTS tbl_point_reward CASCADE;
+DROP TABLE IF EXISTS tbl_member_reviews CASCADE;
+DROP TABLE IF EXISTS tbl_expense_detail CASCADE;
+DROP TABLE IF EXISTS tbl_expense CASCADE;
+DROP TABLE IF EXISTS tbl_activity CASCADE;
+DROP TABLE IF EXISTS tbl_travel_day CASCADE;
+DROP TABLE IF EXISTS tbl_population CASCADE;
+DROP TABLE IF EXISTS tbl_travel_plans CASCADE;
+DROP TABLE IF EXISTS tbl_comment CASCADE;
+DROP TABLE IF EXISTS tbl_notice CASCADE;
+DROP TABLE IF EXISTS tbl_travel_reports CASCADE;
+DROP TABLE IF EXISTS tbl_message CASCADE;
 DROP TABLE IF EXISTS tbl_member CASCADE;
 DROP TABLE IF EXISTS tbl_authority CASCADE;
-DROP TABLE IF EXISTS tbl_point_reward CASCADE;
+DROP TABLE IF EXISTS tbl_member_reviews_text CASCADE;
 
-DROP TABLE IF EXISTS tbl_member_reviews CASCADE;
-DROP TABLE IF EXISTS tbl_review_category CASCADE;
-DROP TABLE IF EXISTS tbl_review_text CASCADE;
-DROP TABLE IF EXISTS tbl_travel_schedule CASCADE;
-DROP TABLE IF EXISTS tbl_travel_day CASCADE;
+DROP TABLE IF EXISTS tbl_member_reviews_category CASCADE;
 
-DROP TABLE IF EXISTS tbl_activity CASCADE;
-DROP TABLE IF EXISTS tbl_expense CASCADE;
-DROP TABLE IF EXISTS tbl_expense_detail CASCADE;
-DROP TABLE IF EXISTS tbl_population CASCADE;
 DROP TABLE IF EXISTS tbl_travel_country CASCADE;
 
 DROP TABLE IF EXISTS tbl_notice_category CASCADE;
-DROP TABLE IF EXISTS tbl_notice CASCADE;
-DROP TABLE IF EXISTS tbl_comment CASCADE;
-DROP TABLE IF EXISTS tbl_population_review CASCADE;
 DROP TABLE IF EXISTS tbl_chatroom CASCADE;
 DROP TABLE IF EXISTS tbl_message CASCADE;
 DROP TABLE IF EXISTS tbl_member_role CASCADE;
+
 
 -- 권한 테이블
 CREATE TABLE IF NOT EXISTS tbl_authority
@@ -90,7 +92,7 @@ CREATE TABLE IF NOT EXISTS tbl_point_reward
 ) ENGINE=InnoDB COMMENT '포인트 리워드';
 
 -- 리뷰 카테고리 테이블
-CREATE TABLE IF NOT EXISTS tbl_review_category
+CREATE TABLE IF NOT EXISTS tbl_member_reviews_category
 (
     review_category_code INT AUTO_INCREMENT NOT NULL COMMENT '리뷰카테고리코드',
     reivew_category_level INT COMMENT '카테고리등급',
@@ -105,20 +107,20 @@ CREATE TABLE IF NOT EXISTS tbl_member_reviews
     member_code INT COMMENT '회원식별코드',
     member_review VARCHAR(100) NOT NULL COMMENT '리뷰내용',
     CONSTRAINT pk_member_review_code PRIMARY KEY (member_review_code),
-    CONSTRAINT fk_review_category_code FOREIGN KEY (review_category_code) REFERENCES tbl_review_category(review_category_code),
+    CONSTRAINT fk_review_category_code FOREIGN KEY (review_category_code) REFERENCES tbl_member_reviews_category(review_category_code),
     CONSTRAINT fk_member_code2 FOREIGN KEY (member_code) REFERENCES tbl_member(member_code)
 ) ENGINE=InnoDB COMMENT '회원후기';
 
 -- 리뷰 내용 테이블
-CREATE TABLE IF NOT EXISTS tbl_review_text
+CREATE TABLE IF NOT EXISTS tbl_member_reviews_text
 (
     review_category_code INT NOT NULL COMMENT '리뷰카테고리코드',
     review_text VARCHAR(100) NOT NULL COMMENT '내용',
-    CONSTRAINT fk_review_category_code1 FOREIGN KEY (review_category_code) REFERENCES tbl_review_category(review_category_code)
+    CONSTRAINT fk_review_category_code1 FOREIGN KEY (review_category_code) REFERENCES tbl_member_reviews_category(review_category_code)
 ) ENGINE=InnoDB COMMENT '후기내용';
 
 -- 여행 일정 테이블
-CREATE TABLE IF NOT EXISTS tbl_travel_schedule
+CREATE TABLE IF NOT EXISTS tbl_travel_plans
 (
     travel_code INT AUTO_INCREMENT NOT NULL COMMENT '여행코드',
     member_code INT COMMENT '회원식별코드',
@@ -141,7 +143,7 @@ CREATE TABLE IF NOT EXISTS tbl_travel_day
     day_number INT NOT NULL COMMENT '여행차수',
     day_date INT NOT NULL COMMENT '해당 일',
     CONSTRAINT pk_day_code PRIMARY KEY (day_code),
-    CONSTRAINT fk_travel_code FOREIGN KEY (travel_code) REFERENCES tbl_travel_schedule(travel_code)
+    CONSTRAINT fk_travel_code FOREIGN KEY (travel_code) REFERENCES tbl_travel_plans(travel_code)
 ) ENGINE=InnoDB COMMENT '일정별일과';
 
 -- 활동 정보 테이블
@@ -200,7 +202,7 @@ CREATE TABLE IF NOT EXISTS tbl_population
     population_people INT NOT NULL COMMENT '모집인원수',
     population_onoff VARCHAR(1) NOT NULL COMMENT '모집여부',
     CONSTRAINT pk_population_code PRIMARY KEY (population_code),
-    CONSTRAINT fk_travel_code1 FOREIGN KEY (travel_code) REFERENCES tbl_travel_schedule(travel_code),
+    CONSTRAINT fk_travel_code1 FOREIGN KEY (travel_code) REFERENCES tbl_travel_plans(travel_code),
     CONSTRAINT fk_member_code5 FOREIGN KEY (member_code) REFERENCES tbl_member(member_code),
     CONSTRAINT fk_country_code FOREIGN KEY (country_code) REFERENCES tbl_travel_country(country_code)
 ) ENGINE=InnoDB COMMENT '모집공고';
@@ -240,18 +242,19 @@ CREATE TABLE IF NOT EXISTS tbl_comment
     CONSTRAINT fk_member_code7 FOREIGN KEY (member_code) REFERENCES tbl_member(member_code)
 ) ENGINE=InnoDB COMMENT '댓글';
 
--- 모집공고에 대한 후기 테이블
-CREATE TABLE IF NOT EXISTS tbl_population_review
+-- 여행 후기 테이블
+CREATE TABLE IF NOT EXISTS tbl_travel_reports
 (
-    population_review_code INT AUTO_INCREMENT NOT NULL COMMENT '모집공고 후기코드',
-    population_code INT NOT NULL COMMENT '공고코드',
+    report_code INT AUTO_INCREMENT NOT NULL COMMENT '여행후기코드',
     member_code INT COMMENT '회원식별코드',
-    review_content TEXT NOT NULL COMMENT '후기내용',
-    review_created_at DATE NOT NULL COMMENT '작성일자',
-    CONSTRAINT pk_population_review_code PRIMARY KEY (population_review_code),
-    CONSTRAINT fk_population_code FOREIGN KEY (population_code) REFERENCES tbl_population(population_code),
+    report_title TEXT NOT NULL COMMENT '후기제목',
+    report_content TEXT NOT NULL COMMENT '후기내용',
+    report_destination TEXT NOT NULL COMMENT '여행지',
+    report_theme TEXT NOT NULL COMMENT '여행테마',
+    report_created_at DATE NOT NULL COMMENT '작성일자',
+    CONSTRAINT pk_report_code PRIMARY KEY (report_code),
     CONSTRAINT fk_member_code8 FOREIGN KEY (member_code) REFERENCES tbl_member(member_code)
-) ENGINE=InnoDB COMMENT '모집공고에 대한 후기';
+) ENGINE=InnoDB COMMENT '여행후기';
 
 -- 채팅방 테이블
 CREATE TABLE IF NOT EXISTS tbl_chatroom
@@ -310,7 +313,7 @@ INSERT INTO tbl_point_reward (point_reward_code, member_code, point_reward_reaso
 (2, 2, '리뷰 작성', 30);
 
 -- 리뷰 카테고리 테이블 더미 데이터
-INSERT INTO tbl_review_category (review_category_code, reivew_category_level) VALUES
+INSERT INTO tbl_member_reviews_category (review_category_code, reivew_category_level) VALUES
 (1, 1),
 (2, 2);
 
@@ -319,12 +322,12 @@ INSERT INTO tbl_member_reviews (member_review_code, review_category_code, member
 (1, 1, 1, '매우 친절합니다.'),
 (2, 2, 2, '여행 동반자로 추천합니다.');
 
-INSERT INTO tbl_review_text (review_category_code, review_text) VALUES
+INSERT INTO tbl_member_reviews_text (review_category_code, review_text) VALUES
 (1, '매우 친절합니다.1'),
 (2, '여행 동반자로 추천합니다.2');
 
 -- 여행 일정 테이블 더미 데이터
-INSERT INTO tbl_travel_schedule (travel_code, member_code, travel_name, travel_start_date, travel_end_date, travel_total_date, travel_total_night, travel_destination, travel_onoff) VALUES
+INSERT INTO tbl_travel_plans (travel_code, member_code, travel_name, travel_start_date, travel_end_date, travel_total_date, travel_total_night, travel_destination, travel_onoff) VALUES
 (1, 1, '유럽 여행', '2024-04-01', '2024-04-14', '14일', '13박', '파리', 'N'),
 (2, 2, '일본 도쿄 여행', '2024-05-05', '2024-05-10', '6일', '5박', '도쿄', 'Y'),
 (3, 3, '미국 뉴욕 여행', '2024-06-01', '2024-06-10', '10일', '9박', '뉴욕', 'N'),
@@ -446,17 +449,47 @@ INSERT INTO tbl_comment (comment_code, notice_code, member_code, comment_content
 (9, 9, 7, 'Policy updates are always good to know.', '2024-09-26'),
 (10, 10, NULL, 'Thanks for the general information.', '2024-10-31');
 
-INSERT INTO tbl_population_review (population_review_code, population_code, member_code, review_content, review_created_at) VALUES
-(1, 1, 1, 'Had a fantastic experience on the Korea trip!', '2024-01-15'),
-(2, 2, 2, 'Japan was beautiful, would recommend!', '2024-02-20'),
-(3, 3, NULL, 'Romantic trip to France was unforgettable.', '2024-03-25'),
-(4, 4, 3, 'USA road trip was a blast, lots of memories.', '2024-04-18'),
-(5, 5, 4, 'Nature trekking in Canada was refreshing.', '2024-05-30'),
-(6, 6, 5, 'Germany history tour was deeply insightful.', '2024-06-25'),
-(7, 7, NULL, 'Outback adventure in Australia was unique.', '2024-07-30'),
-(8, 8, 6, 'Carnival in Brazil was full of energy!', '2024-08-25'),
-(9, 9, 7, 'Italian food tour was delicious and fulfilling.', '2024-09-15'),
-(10, 10, NULL, 'India\'s spiritual journey was life-changing.', '2024-10-20');
+INSERT INTO tbl_travel_reports (member_code, report_title,report_content, report_destination, report_theme,report_created_at) VALUES
+(1,  '환상적인 제주 여행',
+'제주의 푸른 바다와 아름다운 자연을 만끽한 3박 4일 여행기입니다. 다양한 맛집도 소개해드릴게요.',
+'제주도', '자연', '2024-10-01'),
+
+(2, '도쿄의 밤은 낮보다 아름답다',
+'도쿄 여행에서 느낀 감동적인 야경과 먹거리를 소개합니다. 쇼핑과 맛집 탐방이 즐거웠던 여행이었습니다.',
+'도쿄', '도시 탐방', '2024-10-02'),
+
+(3, '발리에서의 휴양',
+'발리의 해변에서 즐긴 여유로운 하루. 서핑과 스파로 몸과 마음을 힐링했어요.',
+'발리', '휴양', '2024-10-03'),
+
+(4, '뉴욕 브로드웨이 투어',
+'뉴욕의 브로드웨이 뮤지컬을 관람하며 문화와 예술을 만끽한 여행기입니다.',
+'뉴욕', '문화', '2024-10-04'),
+
+(5, '파리에서의 낭만적인 하루',
+'에펠탑과 루브르 박물관을 다녀오고, 노트르담 성당 앞에서 찍은 사진도 공유합니다.',
+'파리', '역사', '2024-10-05'),
+
+(6, '로마에서 만난 이탈리아의 매력',
+'콜로세움과 바티칸 투어로 가득 찬 하루, 이탈리아의 매력에 빠졌던 여행이었어요.',
+'로마', '역사', '2024-10-06'),
+
+(7, '싱가포르의 마리나 베이 탐방',
+'마리나 베이 샌즈에서 보는 야경이 정말 인상 깊었습니다. 다양한 관광지도 함께 소개할게요.',
+'싱가포르', '도시 탐방', '2024-10-07'),
+
+(8, '호주 골드코스트 서핑 도전기',
+'호주의 해변에서 서핑을 배우며 즐긴 자유로운 여행기입니다.',
+'골드코스트', '액티비티', '2024-10-08'),
+
+(9, '스위스 알프스 트레킹',
+'스위스 알프스를 트레킹하며 본 경치가 정말 환상적이었어요. 자연과 함께한 시간이 기억에 남습니다.',
+'스위스', '자연', '2024-10-09'),
+
+(10, '태국 방콕의 숨은 명소 탐방',
+'방콕의 잘 알려지지 않은 명소들을 다녀왔습니다. 맛있는 길거리 음식도 함께 소개합니다.',
+'방콕', '음식', '2024-10-10');
+
 
 -- 채팅방 테이블 더미 데이터
 INSERT INTO tbl_chatroom (chatroom_code, chatroom_name, chatroom_created_at) VALUES
