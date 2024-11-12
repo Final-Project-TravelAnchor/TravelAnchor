@@ -6,6 +6,7 @@ import Population from './components/items/Population';
 import TravelReport from './pages/reports/TravelReport';
 import AddReportDate from './pages/reports/AddReportDate';
 import AddReportDestination from './pages/reports/AddReportDestination';
+import Accommodation from './apis/Main';
 
 export default function App() {
   return (
@@ -19,6 +20,8 @@ export default function App() {
             <Route path='TravelReport' element={ <TravelReport/> }/>
             <Route path='AddReportDate' element={ <AddReportDate/> }/>
             <Route path='AddReportDestination' element={ <AddReportDestination/> }/>
+            <Route path="/Accommodation" index element={ <Accommodation/> }/>
+
           </Route>
           <Route path='*' element={ <Error/> }/>
         </Routes>
