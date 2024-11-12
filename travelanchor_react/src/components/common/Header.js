@@ -112,7 +112,7 @@ function Header() {
 					</li>
 					<li class="nav-item"><a href="#">일정</a></li>
 					<li class="nav-item"><NavLink to="/items/population">메이트</NavLink></li>
-					<li class="nav-item"><a href="#">후기</a></li>
+					<li class="nav-item"><NavLink to="/TravelReport">후기</NavLink></li>
 					<li class="nav-item"><a href="#">자유게시판</a></li>
 					<li class="nav-item"><a href="#">공지사항</a></li>
 					<li>

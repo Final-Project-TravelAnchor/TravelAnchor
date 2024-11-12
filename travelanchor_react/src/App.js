@@ -3,6 +3,9 @@ import Layout from './layouts/Layout';
 import Main from './pages/Main';
 import Error from './pages/Error';
 import Population from './components/items/Population';
+import TravelReport from './pages/reports/TravelReport';
+import AddReportDate from './pages/reports/AddReportDate';
+import AddReportDestination from './pages/reports/AddReportDestination';
 
 export default function App() {
   return (
@@ -13,6 +16,9 @@ export default function App() {
           <Route path="/" element={ <Layout/> }>
             <Route index element={ <Main/> }/>
             <Route path='items/population' element={ <Population/> }/>
+            <Route path='TravelReport' element={ <TravelReport/> }/>
+            <Route path='AddReportDate' element={ <AddReportDate/> }/>
+            <Route path='AddReportDestination' element={ <AddReportDestination/> }/>
           </Route>
           <Route path='*' element={ <Error/> }/>
         </Routes>
