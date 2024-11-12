@@ -1,33 +1,66 @@
-package travelanchor_server.population.dto;
+package travelanchor_server.population.entity;
 
 import jakarta.persistence.*;
 
 import java.util.Date;
 
-public class PopulationDTO {
+@Entity
+@Table(name = "tbl_population")
+public class Population {
 
+    @Id
+    @Column(name = "population_code")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int populationCode;
+
+    @Column(name = "travel_code")
     private int travelCode;
+
+    @Column(name = "member_code")
     private int memberCode;
+
+    @Column(name = "country_code")
+    private int countryCode;
+
+    @Column(name = "population_title")
     private String populationTitle;
+
+    @Column(name = "population_description")
     private String populationDescription;
+
+    @Column(name = "population_created_at")
     private Date populationCreatedAt;
+
+    @Column(name = "population_views")
     private int populationViews;
+
+    @Column(name = "population_people")
     private int populationPeople;
+
+    @Column(name = "population_onoff")
     private String populationOnoff;
 
-    public PopulationDTO() {}
+    public Population() {}
 
-    public PopulationDTO(int populationCode, int travelCode, int memberCode, String populationTitle, String populationDescription, Date populationCreatedAt, int populationViews, int populationPeople, String populationOnoff) {
+    public Population(int populationCode, int travelCode, int memberCode, int countryCode, String populationTitle, String populationDescription, Date populationCreatedAt, int populationViews, int populationPeople, String populationOnoff) {
         this.populationCode = populationCode;
         this.travelCode = travelCode;
         this.memberCode = memberCode;
+        this.countryCode = countryCode;
         this.populationTitle = populationTitle;
         this.populationDescription = populationDescription;
         this.populationCreatedAt = populationCreatedAt;
         this.populationViews = populationViews;
         this.populationPeople = populationPeople;
         this.populationOnoff = populationOnoff;
+    }
+
+    public int getCountryCode() {
+        return countryCode;
+    }
+
+    public void setCountryCode(int countryCode) {
+        this.countryCode = countryCode;
     }
 
     public int getPopulationCode() {

@@ -1,8 +1,18 @@
 package travelanchor_server.population.service;
 
+import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import travelanchor_server.common.Criteria;
+import travelanchor_server.population.dto.PopulationDTO;
+import travelanchor_server.population.entity.Population;
+import travelanchor_server.population.repository.PopulationRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,17 +22,28 @@ public class PopulationService {
 
     private static final Logger log = LoggerFactory.getLogger(PopulationService.class);
 
-    public Object selectProductListAboutMeal() {
-        log.info("[ProductService] selectProductListAboutMeal() Start");
+    private final PopulationRepository populationRepository;
+    private final ModelMapper modelMapper;
 
-        List<Product> productListAboutMeal = productRepository.findByCategoryCode(1);
+    @Autowired
+    public PopulationService(PopulationRepository populationRepository, ModelMapper modelMapper) {
+        this.populationRepository = populationRepository;
+        this.modelMapper = modelMapper;
+    }
 
-        for(int i = 0 ; i < productListAboutMeal.size() ; i++) {
-            productListAboutMeal.get(i).setProductImageUrl(IMAGE_URL + productListAboutMeal.get(i).getProductImageUrl());
-        }
+    public Object selectPopulationList() {
 
-        log.info("[ProductService] selectProductListAboutMeal() End");
+        log.info("[PopulationService] selectPopulationList() Start");
 
-        return productListAboutMeal.stream().map(product -> modelMapper.map(product, ProductDTO.class)).collect(Collectors.toList());
+        List<Population> populationList = populationRepository.findAll();
+//        List<PopulationDTO> populationDTOList = populationList.stream()
+//                .map(population -> modelMapper.map(population, PopulationDTO.class))
+//                .collect(Collectors.toList());
+        log.info("[PopulationService] populationList = " + populationList);
+
+        log.info("[PopulationService] selectPopulationList() End");
+
+//        return modelMapper.map(populationList, Population.class);
+        return populationList.stream().map(population -> modelMapper.map(population, Population.class)).collect(Collectors.toList());
     }
 }
