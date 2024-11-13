@@ -32,4 +32,12 @@ public class AuthController {
                 .ok()
                 .body(new ResponseDTO(HttpStatus.OK, "로그인 성공~", authService.login(memberDTO)));
     }
+
+    @Operation(summary = "회원 가입 요청", description = "회원 가입이 진행됩니다.", tags = {"AuthController"})
+    @PostMapping("/signup")
+    public ResponseEntity<ResponseDTO> signup(@RequestBody MemberDTO memberDTO) {	// 회원 가입 정보를 받아 냄
+        return ResponseEntity
+                .ok()
+                .body(new ResponseDTO(HttpStatus.CREATED, "회원가입 성공", authService.signup(memberDTO)));
+    }
 }
