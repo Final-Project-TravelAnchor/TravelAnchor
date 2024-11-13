@@ -6,10 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import travelanchor_server.common.Criteria;
 import travelanchor_server.common.PagingResponseDTO;
 import travelanchor_server.common.ResponseDTO;
@@ -39,5 +36,11 @@ public class PopulationController {
         log.info("[PopulationController] selectPopulationList Start");
 
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "조회 성공", populationService.selectPopulationList()));
+    }
+
+    @Operation(summary = "여행메이트 등록 요청", description = "해당 여행메이트 등록이 진행됩니다.", tags = { "PopulationController" })
+    @PostMapping("/populations")
+    public ResponseEntity<ResponseDTO> insertPopulation(@ModelAttribute PopulationDTO populationDTO) {
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "여행메이트 등록 성공", populationService.insertPopulation(populationDTO)));
     }
 }
