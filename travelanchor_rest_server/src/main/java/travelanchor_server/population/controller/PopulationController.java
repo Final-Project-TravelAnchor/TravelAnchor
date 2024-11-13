@@ -31,7 +31,7 @@ public class PopulationController {
     }
 
     @Operation(summary = "여행메이트 리스트 조회 요청", description = "여행메이트 리스트 조회 처리가 진행됩니다.", tags = { "PopulationController" })
-    @GetMapping("/items/population")
+    @GetMapping("/populations")
     public ResponseEntity<ResponseDTO> selectPopulationList(){
 
         log.info("[PopulationController] selectPopulationList Start");
@@ -46,5 +46,16 @@ public class PopulationController {
         log.info("[PopulationController] selectPopulationDetail Start");
 
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "상세정보 조회 성공", populationService.selectPopulationDetail(populationCode)));
+
+    @Operation(summary = "여행메이트 등록 요청", description = "해당 여행메이트 등록이 진행됩니다.", tags = { "PopulationController" })
+    @PostMapping("/populations")
+    public ResponseEntity<ResponseDTO> insertPopulation(@ModelAttribute PopulationDTO populationDTO) {
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "여행메이트 등록 성공", populationService.insertPopulation(populationDTO)));
+
+    @Operation(summary = "여행메이트 수정 요청", description = "해당 여행메이트 수정이 진행됩니다.", tags = { "PopulationController" })
+    @PostMapping("/populations")
+    public ResponseEntity<ResponseDTO> updatePopulation(@ModelAttribute PopulationDTO populationDTO) {
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "여행메이트 수정 성공", populationService.updatePopulation(populationDTO)));
+      
     }
 }

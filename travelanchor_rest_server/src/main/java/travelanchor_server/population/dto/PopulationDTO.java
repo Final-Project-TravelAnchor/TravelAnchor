@@ -9,6 +9,7 @@ public class PopulationDTO {
     private int populationCode;
     private int travelCode;
     private int memberCode;
+    private int countryCode;
     private String populationTitle;
     private String populationDescription;
     private Date populationCreatedAt;
@@ -18,16 +19,25 @@ public class PopulationDTO {
 
     public PopulationDTO() {}
 
-    public PopulationDTO(int populationCode, int travelCode, int memberCode, String populationTitle, String populationDescription, Date populationCreatedAt, int populationViews, int populationPeople, String populationOnoff) {
+    public PopulationDTO(int populationCode, int travelCode, int memberCode, int countryCode, String populationTitle, String populationDescription, Date populationCreatedAt, int populationViews, int populationPeople, String populationOnoff) {
         this.populationCode = populationCode;
         this.travelCode = travelCode;
         this.memberCode = memberCode;
+        this.countryCode = countryCode;
         this.populationTitle = populationTitle;
         this.populationDescription = populationDescription;
         this.populationCreatedAt = populationCreatedAt;
         this.populationViews = populationViews;
         this.populationPeople = populationPeople;
         this.populationOnoff = populationOnoff;
+    }
+
+    public int getCountryCode() {
+        return countryCode;
+    }
+
+    public void setCountryCode(int countryCode) {
+        this.countryCode = countryCode;
     }
 
     public int getPopulationCode() {

@@ -4,12 +4,8 @@ import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import travelanchor_server.common.Criteria;
+import org.springframework.transaction.annotation.Transactional;
 import travelanchor_server.population.dto.PopulationDTO;
 import travelanchor_server.population.entity.Population;
 import travelanchor_server.population.repository.PopulationRepository;
@@ -59,5 +55,53 @@ public class PopulationService {
 
         log.info("[PopulationService] selectPopulationDetail() End");
         return modelMapper.map(population, Population.class);
+    }
+
+    public Object insertPopulation(PopulationDTO populationDTO) {
+        log.info("[PopulationService] insertPopulation() Start");
+        log.info("[PopulationService] populationDTO : ", populationDTO);
+        int result = 0;
+
+        try {
+            Population insertPopulation = modelMapper.map(populationDTO, Population.class);
+
+            populationRepository.save(insertPopulation);
+
+            result = 1;
+          } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+      log.info("[PopulationService] insertPopulation() End");
+
+        return (result > 0) ? "여행메이트 입력 성공" : "여행메이트 입력 실패";
+    }
+
+
+    @Transactional
+    public Object updatePopulation(PopulationDTO populationDTO) {
+        log.info("[PopulationService] updatePopulation() Start");
+        log.info("[PopulationService] populationDTO : ", populationDTO);
+        int result = 0;
+
+        try{
+
+            Population population = populationRepository.findById(populationDTO.getPopulationCode()).get();
+
+            population.setTravelCode(populationDTO.getTravelCode());
+            population.setMemberCode(populationDTO.getMemberCode());
+            population.setCountryCode(populationDTO.getCountryCode());
+            population.setPopulationTitle(populationDTO.getPopulationTitle());
+            population.setPopulationDescription(populationDTO.getPopulationDescription());
+            population.setPopulationCreatedAt(populationDTO.getPopulationCreatedAt());
+            population.setPopulationViews(populationDTO.getPopulationViews());
+            population.setPopulationPeople(populationDTO.getPopulationPeople());
+            population.setPopulationOnoff(populationDTO.getPopulationOnoff());
+
+            result = 1;
+          } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        log.info("[PopulationService] updatePopulation() End");
+        return (result > 0) ? "여행메이트 수정 성공" : "여행메이트 수정 실패";
     }
 }
