@@ -18,7 +18,7 @@ import travelanchor_server.population.service.PopulationService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/population/v1")
 public class PopulationController {
 
     private static final Logger log = LoggerFactory.getLogger(PopulationController.class);
@@ -32,28 +32,30 @@ public class PopulationController {
 
     @Operation(summary = "여행메이트 리스트 조회 요청", description = "여행메이트 리스트 조회 처리가 진행됩니다.", tags = { "PopulationController" })
     @GetMapping("/populations")
-    public ResponseEntity<ResponseDTO> selectPopulationList(){
+    public ResponseEntity<ResponseDTO> findPopulationList(){
 
-        log.info("[PopulationController] selectPopulationList Start");
+        log.info("[PopulationController] findPopulationList Start");
 
-        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "조회 성공", populationService.selectPopulationList()));
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "조회 성공", populationService.findPopulationList()));
     }
 
     @Operation(summary = "여행메이트 상세 조회 요청", description = "여행메이트 상세 조회 처리가 진행됩니다.", tags = { "PopulationController" })
     @GetMapping("/populations/{populationCode}")
-    public ResponseEntity<ResponseDTO> selectPopulationDetail(@PathVariable int populationCode){
+    public ResponseEntity<ResponseDTO> findPopulationDetail(@PathVariable int populationCode) {
 
-        log.info("[PopulationController] selectPopulationDetail Start");
+        log.info("[PopulationController] findPopulationDetail Start");
 
-        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "상세정보 조회 성공", populationService.selectPopulationDetail(populationCode)));
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "상세정보 조회 성공", populationService.findPopulationDetail(populationCode)));
+    }
 
     @Operation(summary = "여행메이트 등록 요청", description = "해당 여행메이트 등록이 진행됩니다.", tags = { "PopulationController" })
     @PostMapping("/populations")
     public ResponseEntity<ResponseDTO> insertPopulation(@ModelAttribute PopulationDTO populationDTO) {
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "여행메이트 등록 성공", populationService.insertPopulation(populationDTO)));
+    }
 
     @Operation(summary = "여행메이트 수정 요청", description = "해당 여행메이트 수정이 진행됩니다.", tags = { "PopulationController" })
-    @PostMapping("/populations")
+    @PutMapping("/populations")
     public ResponseEntity<ResponseDTO> updatePopulation(@ModelAttribute PopulationDTO populationDTO) {
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "여행메이트 수정 성공", populationService.updatePopulation(populationDTO)));
       

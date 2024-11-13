@@ -98,7 +98,9 @@ CREATE TABLE IF NOT EXISTS tbl_point_reward
 CREATE TABLE IF NOT EXISTS tbl_member_reviews_category
 (
     review_category_code INT AUTO_INCREMENT NOT NULL COMMENT '리뷰카테고리코드',
-    reivew_category_level INT COMMENT '카테고리등급',
+    review_category_level INT COMMENT '카테고리등급',
+    review_category_sub_code INT NOT NULL COMMENT '리뷰카테고리서브코드',
+    member_review VARCHAR(100) NOT NULL COMMENT '내용',
     CONSTRAINT pk_review_category_code PRIMARY KEY (review_category_code)
 ) ENGINE=InnoDB COMMENT '후기카테고리';
 
@@ -106,21 +108,23 @@ CREATE TABLE IF NOT EXISTS tbl_member_reviews_category
 CREATE TABLE IF NOT EXISTS tbl_member_reviews
 (
     member_review_code INT AUTO_INCREMENT NOT NULL COMMENT '후기코드',
-    review_category_code INT NOT NULL COMMENT '리뷰카테고리코드',
     member_code INT COMMENT '회원식별코드',
+    review_category_code INT NOT NULL COMMENT '리뷰카테고리코드',
+    review_category_sub_code INT NOT NULL COMMENT '리뷰카테고리서브코드',
     member_review VARCHAR(100) NOT NULL COMMENT '리뷰내용',
     CONSTRAINT pk_member_review_code PRIMARY KEY (member_review_code),
     CONSTRAINT fk_review_category_code FOREIGN KEY (review_category_code) REFERENCES tbl_member_reviews_category(review_category_code),
     CONSTRAINT fk_member_code2 FOREIGN KEY (member_code) REFERENCES tbl_member(member_code)
 ) ENGINE=InnoDB COMMENT '회원후기';
 
--- 리뷰 내용 테이블
-CREATE TABLE IF NOT EXISTS tbl_member_reviews_text
-(
-    review_category_code INT NOT NULL COMMENT '리뷰카테고리코드',
-    review_text VARCHAR(100) NOT NULL COMMENT '내용',
-    CONSTRAINT fk_review_category_code1 FOREIGN KEY (review_category_code) REFERENCES tbl_member_reviews_category(review_category_code)
-) ENGINE=InnoDB COMMENT '후기내용';
+# -- 리뷰 내용 테이블
+# CREATE TABLE IF NOT EXISTS tbl_member_reviews_text
+# (
+#     review_category_code INT NOT NULL COMMENT '리뷰카테고리코드',
+#     review_category_sub_code INT NOT NULL COMMENT '리뷰카테고리코드',
+#     review_text VARCHAR(100) NOT NULL COMMENT '내용',
+#     CONSTRAINT fk_review_category_code1 FOREIGN KEY (review_category_code) REFERENCES tbl_member_reviews_category(review_category_code)
+# ) ENGINE=InnoDB COMMENT '후기내용';
 
 -- 여행 일정 테이블
 CREATE TABLE IF NOT EXISTS tbl_travel_plans
@@ -327,18 +331,30 @@ INSERT INTO tbl_point_reward (point_reward_code, member_code, point_reward_reaso
 (2, 2, '리뷰 작성', 30);
 
 -- 리뷰 카테고리 테이블 더미 데이터
-INSERT INTO tbl_member_reviews_category (review_category_code, reivew_category_level) VALUES
-(1, 1),
-(2, 2);
+INSERT INTO tbl_member_reviews_category (review_category_code, review_category_level, review_category_sub_code, member_review) VALUES
+(1, 1, 1, '매우 친절합니다.1'),
+(2, 1, 2, '매우 친절합니다.2'),
+(3, 1, 3, '매우 친절합니다.3'),
+(4, 1, 4, '매우 친절합니다.4'),
+(5, 1, 5, '매우 친절합니다.5'),
+(6, 2, 6, '친절합니다.1'),
+(7, 2, 7, '친절합니다.2'),
+(8, 2, 8, '친절합니다.3'),
+(9, 2, 9, '친절합니다.4'),
+(10,2, 10,  '친절합니다.5'),
+(11,3, 11,  '불친절합니다.1'),
+(12,3, 12,  '불친절합니다.2'),
+(13,3, 13,  '불친절합니다.3'),
+(14,3, 14,  '불친절합니다.4'),
+(15,3, 15,  '불친절합니다.5');
 
 -- 회원 후기 테이블 더미 데이터
-INSERT INTO tbl_member_reviews (member_review_code, review_category_code, member_code, member_review) VALUES
-(1, 1, 1, '매우 친절합니다.'),
-(2, 2, 2, '여행 동반자로 추천합니다.');
+INSERT INTO tbl_member_reviews (member_review_code, member_code, review_category_code, review_category_sub_code, member_review) VALUES
+(1, 1, 1, 1, '매우 친절합니다.'),
+(2, 2, 2, 6, '여행 동반자로 추천합니다.'),
+(3, 2, 3, 15, '여행 동반자로 비추천합니다.');
 
-INSERT INTO tbl_member_reviews_text (review_category_code, review_text) VALUES
-(1, '매우 친절합니다.1'),
-(2, '여행 동반자로 추천합니다.2');
+# INSERT INTO tbl_member_reviews_text (review_category_code, review_category_sub_code, review_text) VALUES
 
 -- 여행 일정 테이블 더미 데이터
 INSERT INTO tbl_travel_plans (travel_code, member_code, travel_name, travel_start_date, travel_end_date, travel_total_date, travel_total_night, travel_destination, travel_onoff) VALUES
