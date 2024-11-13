@@ -45,4 +45,28 @@ public class ReviewService {
 
         return (result > 0) ? "회원후기 작성 성공" : "회원후기 작성 실패";
     }
+
+    @Transactional
+    public Object updateMemberReport(ReviewDTO reviewDTO) {
+        log.info("[ReviewService] updateMemberReport() Start");
+        log.info("[ReviewService] reviewDTO : ", reviewDTO);
+        int result = 0;
+
+        try{
+            Review review = reviewRepository.findById(reviewDTO.getMemberReviewCode()).get();
+
+            review.setMemberReviewCode(reviewDTO.getMemberReviewCode());
+            review.setMemberCode(reviewDTO.getMemberCode());
+            review.setReviewCategoryCode(reviewDTO.getReviewCategoryCode());
+            review.setReviewCategorySubCode(reviewDTO.getReviewCategorySubCode());
+            review.setMemberReview(reviewDTO.getMemberReview());
+
+            result = 1;
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        return (result > 0) ? "회원후기 수정 성공" : "회원후기 수정 실패";
+    }
 }
