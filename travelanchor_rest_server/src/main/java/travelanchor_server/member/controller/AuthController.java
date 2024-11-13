@@ -40,4 +40,20 @@ public class AuthController {
                 .ok()
                 .body(new ResponseDTO(HttpStatus.CREATED, "회원가입 성공", authService.signup(memberDTO)));
     }
+
+    @Operation(summary = "아이디 찾기 요청", description = "회원정보를 통해 아이디를 찾습니다.", tags = {"AuthController"})
+    @PostMapping("/findid")
+    public ResponseEntity<ResponseDTO> findid(@RequestBody MemberDTO memberDTO) {
+        String findMemberId = authService.findid(memberDTO.getMemberMobileNumber());
+
+        if (findMemberId != null) {
+            return ResponseEntity
+                    .ok()
+                    .body(new ResponseDTO(HttpStatus.OK, "아이디 찾기 성공", findMemberId));
+        } else {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body(new ResponseDTO(HttpStatus.NOT_FOUND, "아이디를 찾을 수 없습니다.", null));
+        }
+    }
 }
