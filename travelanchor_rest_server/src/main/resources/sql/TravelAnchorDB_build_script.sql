@@ -296,6 +296,16 @@ CREATE TABLE IF NOT EXISTS tbl_message
     CONSTRAINT fk_member_code9 FOREIGN KEY (member_code) REFERENCES tbl_member(member_code)
 ) ENGINE=InnoDB COMMENT '메시지';
 
+CREATE TABLE IF NOT EXISTS tbl_member_declare
+(
+    declare_code int AUTO_INCREMENT NOT NULL COMMENT '신고코드',
+    member_code INT COMMENT '회원식별코드',
+    declare_created_at DATE NOT NULL COMMENT '생성일자',
+    declare_content TEXT NOT NULL COMMENT '신고내용',
+    CONSTRAINT pk_declare_code PRIMARY KEY (declare_code),
+    CONSTRAINT fk_member_code10 FOREIGN KEY (member_code) REFERENCES tbl_member(member_code)
+) ENGINE=InnoDB COMMENT '회원신고';
+
 -- 권한 테이블 더미 데이터
 INSERT INTO tbl_authority (authority_code, authority_name, authority_desc)
 VALUES
@@ -632,3 +642,8 @@ INSERT INTO tbl_message (message_code, chatroom_code, member_code, message_conte
 (8, 5, NULL, 'Looking for tips on landscape photography.', '2024-05-01 14:45:00'),
 (9, 6, 7, 'What\'s your workout routine these days?', '2024-06-18 07:30:00'),
 (10, 7, NULL, 'Just finished a great book on self-growth!', '2024-07-12 18:20:00');
+
+INSERT INTO tbl_member_declare (declare_code, member_code, declare_created_at, declare_content) VALUES
+(1, 1, '2024-10-09', '욕을 많이 합니다.'),
+(2, 2, '2024-10-19', '예의가 없습니다.'),
+(3, 3, '2024-12-09', '약속장소에 늦습니다.');
