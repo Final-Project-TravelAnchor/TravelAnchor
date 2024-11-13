@@ -10,4 +10,6 @@ public interface MemberRepository extends JpaRepository<Member, Integer> {
 
     @Query("SELECT MAX(m.memberCode) FROM Member m")
     int maxMemberCode();
+
+    Member findByMemberMobileNumber(String memberMobileNumber);
 }

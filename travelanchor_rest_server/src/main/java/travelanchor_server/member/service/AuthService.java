@@ -100,4 +100,20 @@ public class AuthService {
 
         return memberDTO;
     }
+
+    public String findid(String memberMobileNumber) {
+
+        if (memberMobileNumber == null || memberMobileNumber.trim().isEmpty()) {
+            log.error("[AuthService] 필수항목에 빈문자열이 존재합니다.");
+            throw new DuplicatedMemberEmailException("휴대폰 번호를 입력해주세요.");
+        }
+
+        if (!memberMobileNumber.matches("^010-?\\d{3,4}-?\\d{4}$")) {
+            throw new DuplicatedMemberEmailException("올바른 형식의 휴대폰 번호를 입력해주세요.");
+        }
+
+        Member member = memberRepository.findByMemberMobileNumber(memberMobileNumber);
+
+        return (member != null) ? member.getMemberId() : null;
+    }
 }
