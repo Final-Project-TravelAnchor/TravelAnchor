@@ -1,18 +1,23 @@
 package travelanchor_server.member.service;
 
+import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import travelanchor_server.exception.DuplicatedMemberEmailException;
 import travelanchor_server.exception.LoginFailedException;
 import travelanchor_server.jwt.TokenProvider;
 import travelanchor_server.member.dto.MemberDTO;
 import travelanchor_server.member.dto.TokenDTO;
 import travelanchor_server.member.entity.Member;
+import travelanchor_server.member.entity.MemberRole;
 import travelanchor_server.member.repository.MemberRepository;
 import travelanchor_server.member.repository.MemberRoleRepository;
+
+import java.util.Objects;
 
 @Service
 public class AuthService {
@@ -58,5 +63,41 @@ public class AuthService {
         TokenDTO newToken = tokenProvider.generateTokenDTO(member);
 
         return newToken;
+    }
+
+    @Transactional
+    public MemberDTO signup(MemberDTO memberDTO) {
+        log.info("[AuthService] signup() Start.");
+        log.info("[AuthService] memberDTO {}", memberDTO);
+
+        if(Objects.equals(memberDTO.getMemberName(), "") || Objects.equals(memberDTO.getMemberNickName(), "") || Objects.equals(memberDTO.getMemberMobileNumber(), "")) {
+            log.error("[AuthService] 필수항목에 빈문자열이 존재합니다.");
+            throw new DuplicatedMemberEmailException("필수항목에 빈문자열이 존재합니다.");
+        }
+
+        if(memberRepository.findByMemberId(memberDTO.getMemberId()) != null) {
+            log.info("[AuthService] getMemberID() : ", memberDTO.getMemberId());
+            log.info("[AuthService] 아이디가 중복됩니다.");
+            throw new DuplicatedMemberEmailException("아이디가 중복됩니다.");
+        }
+
+        Member registMember = modelMapper.map(memberDTO, Member.class);
+
+        registMember.setMemberPassword(passwordEncoder.encode(registMember.getMemberPassword()));
+        Member result1 = memberRepository.save(registMember);
+
+
+        int maxMemberCode = memberRepository.maxMemberCode();	// JPQL을 사용해 회원번호 max값 추출
+
+        MemberRole registMemberRole = new MemberRole(maxMemberCode, 2);
+
+        MemberRole result2 = memberRoleRepository.save(registMemberRole);
+
+        log.info("[AuthService] Member Insert Result {}",
+                (result1 != null && result2 != null) ? "회원 가입 성공" : "회원 가입 실패");
+
+        log.info("[AuthService] signup() End.");
+
+        return memberDTO;
     }
 }
