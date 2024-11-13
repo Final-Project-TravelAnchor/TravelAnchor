@@ -43,6 +43,27 @@ public class PopulationService {
         return populationList.stream().map(population -> modelMapper.map(population, Population.class)).collect(Collectors.toList());
     }
 
+
+    public Object insertPopulation(PopulationDTO populationDTO) {
+        log.info("[PopulationService] insertPopulation() Start");
+        log.info("[PopulationService] populationDTO : ", populationDTO);
+        int result = 0;
+
+        try {
+            Population insertPopulation = modelMapper.map(populationDTO, Population.class);
+
+            populationRepository.save(insertPopulation);
+
+            result = 1;
+          } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+      log.info("[PopulationService] insertPopulation() End");
+
+        return (result > 0) ? "여행메이트 입력 성공" : "여행메이트 입력 실패";
+    }
+
+
     @Transactional
     public Object updatePopulation(PopulationDTO populationDTO) {
         log.info("[PopulationService] updatePopulation() Start");
@@ -64,12 +85,9 @@ public class PopulationService {
             population.setPopulationOnoff(populationDTO.getPopulationOnoff());
 
             result = 1;
-
-
-        } catch (Exception e) {
+          } catch (Exception e) {
             throw new RuntimeException(e);
         }
-
         log.info("[PopulationService] updatePopulation() End");
         return (result > 0) ? "여행메이트 수정 성공" : "여행메이트 수정 실패";
     }
