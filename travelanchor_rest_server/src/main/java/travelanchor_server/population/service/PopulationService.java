@@ -27,9 +27,9 @@ public class PopulationService {
         this.modelMapper = modelMapper;
     }
 
-    public Object selectPopulationList() {
+    public Object findPopulationList() {
 
-        log.info("[PopulationService] selectPopulationList() Start");
+        log.info("[PopulationService] findPopulationList() Start");
 
         List<Population> populationList = populationRepository.findAll();
 //        List<PopulationDTO> populationDTOList = populationList.stream()
@@ -37,14 +37,14 @@ public class PopulationService {
 //                .collect(Collectors.toList());
         log.info("[PopulationService] populationList = " + populationList);
 
-        log.info("[PopulationService] selectPopulationList() End");
+        log.info("[PopulationService] findPopulationList() End");
 
 //        return modelMapper.map(populationList, Population.class);
         return populationList.stream().map(population -> modelMapper.map(population, Population.class)).collect(Collectors.toList());
     }
 
-    public Object selectPopulationDetail(int populationCode) {
-        log.info("[PopulationService] selectPopulationDetail() Start");
+    public Object findPopulationDetail(int populationCode) {
+        log.info("[PopulationService] findPopulationDetail() Start");
 
         // 해당 Code의 모집공고 가져옴.
         Population population = populationRepository.findById(populationCode).get();
@@ -57,6 +57,7 @@ public class PopulationService {
         return modelMapper.map(population, Population.class);
     }
 
+    @Transactional
     public Object insertPopulation(PopulationDTO populationDTO) {
         log.info("[PopulationService] insertPopulation() Start");
         log.info("[PopulationService] populationDTO : ", populationDTO);
