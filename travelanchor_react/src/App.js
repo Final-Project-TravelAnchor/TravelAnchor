@@ -6,6 +6,7 @@ import Population from './components/items/Population';
 import TravelReport from './pages/reports/TravelReport';
 import AddReportDate from './pages/reports/AddReportDate';
 import AddReportDestination from './pages/reports/AddReportDestination';
+import Report from './apis/MapAPICalls';
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
             <Route path='TravelReport' element={ <TravelReport/> }/>
             <Route path='AddReportDate' element={ <AddReportDate/> }/>
             <Route path='AddReportDestination' element={ <AddReportDestination/> }/>
+            <Route path='Report' element={ <Report/> }/>
           </Route>
           <Route path='*' element={ <Error/> }/>
         </Routes>

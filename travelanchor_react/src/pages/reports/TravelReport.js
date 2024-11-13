@@ -3,6 +3,10 @@ function TravelReport() {
     const onClickAddReportHandler = () => {
         window.location.href = '/AddReportDate';
     }
+    const onClickReport = () => {
+        window.location.href = '/Report';
+    }
+    
 
     return (
         <div>
@@ -10,8 +14,9 @@ function TravelReport() {
                 + 후기 추가하기
             </button>
 
-            <p>남의 후기</p>
-            <p>남의 후기</p>
+            <button  onClick={onClickReport} >
+                후기 내용이 보여질 예정
+            </button>
 
         </div>
     )
