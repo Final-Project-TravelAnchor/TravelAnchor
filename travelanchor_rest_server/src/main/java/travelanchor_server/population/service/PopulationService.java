@@ -43,6 +43,19 @@ public class PopulationService {
         return populationList.stream().map(population -> modelMapper.map(population, Population.class)).collect(Collectors.toList());
     }
 
+    public Object selectPopulationDetail(int populationCode) {
+        log.info("[PopulationService] selectPopulationDetail() Start");
+
+        // 해당 Code의 모집공고 가져옴.
+        Population population = populationRepository.findById(populationCode).get();
+
+        // 가져온 모집공고의 여행Code를 가지고 여행일정 Reposit에서 일정가져오기.
+
+
+
+        log.info("[PopulationService] selectPopulationDetail() End");
+        return modelMapper.map(population, Population.class);
+    }
 
     public Object insertPopulation(PopulationDTO populationDTO) {
         log.info("[PopulationService] insertPopulation() Start");

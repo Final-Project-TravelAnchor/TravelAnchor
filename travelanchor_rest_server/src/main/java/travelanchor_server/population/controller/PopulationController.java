@@ -1,6 +1,7 @@
 package travelanchor_server.population.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.websocket.server.PathParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,13 @@ public class PopulationController {
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "조회 성공", populationService.selectPopulationList()));
     }
 
+    @Operation(summary = "여행메이트 상세 조회 요청", description = "여행메이트 상세 조회 처리가 진행됩니다.", tags = { "PopulationController" })
+    @GetMapping("/populations/{populationCode}")
+    public ResponseEntity<ResponseDTO> selectPopulationDetail(@PathVariable int populationCode){
+
+        log.info("[PopulationController] selectPopulationDetail Start");
+
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "상세정보 조회 성공", populationService.selectPopulationDetail(populationCode)));
 
     @Operation(summary = "여행메이트 등록 요청", description = "해당 여행메이트 등록이 진행됩니다.", tags = { "PopulationController" })
     @PostMapping("/populations")
@@ -48,6 +56,6 @@ public class PopulationController {
     @PostMapping("/populations")
     public ResponseEntity<ResponseDTO> updatePopulation(@ModelAttribute PopulationDTO populationDTO) {
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "여행메이트 수정 성공", populationService.updatePopulation(populationDTO)));
-
+      
     }
 }
