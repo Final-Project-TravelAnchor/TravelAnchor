@@ -14,7 +14,7 @@ import travelanchor_server.travelreport.entity.TravelReport;
 import travelanchor_server.travelreport.service.TravelReportService;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/travel-report/v1")
 public class TravelReportController {
 
     private static final Logger log = LoggerFactory.getLogger(TravelReportController.class);
@@ -25,7 +25,7 @@ public class TravelReportController {
     public TravelReportController(TravelReportService travelReportService) { this.travelReportService = travelReportService; }
 
     @Operation(summary = "여행 후기 리스트 조회 요청", description = "여행 후기 리스트 조회 처리가 진행됩니다.", tags = { "TravelReportController" })
-    @GetMapping("/reports/travelreport")
+    @GetMapping("/travel-report")
     public ResponseEntity<ResponseDTO> findTravelReportList(){
 
         log.info("[TravelReportController] findTravelReportList Start");
