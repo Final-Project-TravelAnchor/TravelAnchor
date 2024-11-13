@@ -520,14 +520,14 @@ INSERT INTO tbl_travel_city (city_code, country_code, city_name, city_iata_code)
 INSERT INTO tbl_population (travel_code, member_code, country_code, population_title, population_description, population_created_at, population_views, population_people, population_onoff) VALUES
 (1, 1, 1, 'Korea Adventure', 'Join us for an exciting trip across Korea', '2024-01-01', 100, 5, 'Y'),
 (2, 2, 2, 'Japan Discovery', 'Explore the beauty of Japan together', '2024-02-15', 200, 4, 'N'),
-(3, NULL, 3, 'France Romance', 'Romantic getaway in France', '2024-03-10', 150, 2, 'Y'),
+(3, 3, 3, 'France Romance', 'Romantic getaway in France', '2024-03-10', 150, 2, 'Y'),
 (4, 3, 4, 'USA Road Trip', 'Cross-country adventure in the USA', '2024-04-05', 300, 10, 'N'),
 (5, 4, 5, 'Canada Nature Trek', 'Experience the wilderness of Canada', '2024-05-20', 250, 8, 'Y'),
 (6, 5, 6, 'Germany History Tour', 'Dive deep into German culture', '2024-06-18', 180, 7, 'N'),
-(7, NULL, 7, 'Australia Outback', 'Adventure in the Australian outback', '2024-07-25', 90, 3, 'Y'),
+(7, 6, 7, 'Australia Outback', 'Adventure in the Australian outback', '2024-07-25', 90, 3, 'Y'),
 (8, 6, 8, 'Brazil Carnival', 'Experience the vibrant Carnival', '2024-08-12', 400, 15, 'N'),
 (9, 7, 9, 'Italy Food Tour', 'Gastronomic trip through Italy', '2024-09-03', 270, 6, 'Y'),
-(10, NULL, 10, 'India Spiritual Journey', 'Discover the spirituality of India', '2024-10-10', 320, 12, 'N');
+(10, 2, 10, 'India Spiritual Journey', 'Discover the spirituality of India', '2024-10-10', 320, 12, 'N');
 
 INSERT INTO tbl_notice_category (notice_category_code, notice_category_name) VALUES
 (1, 'General Notice'),
