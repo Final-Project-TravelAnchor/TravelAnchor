@@ -107,7 +107,7 @@ function Header() {
 						<ul class="dropdown-menu">
 							<li><a href="#">여행지</a></li>
 							<li><a href="#">항공권</a></li>
-							<li><a href="#">숙박</a></li>
+							<li class="nav-item"><NavLink to="/Accommodation">숙박</NavLink></li>
 						</ul>
 					</li>
 					<li class="nav-item"><a href="#">일정</a></li>

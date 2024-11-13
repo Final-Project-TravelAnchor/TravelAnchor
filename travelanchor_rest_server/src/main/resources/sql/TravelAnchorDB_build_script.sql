@@ -18,10 +18,16 @@ DROP TABLE IF EXISTS tbl_member_reviews_text CASCADE;
 
 DROP TABLE IF EXISTS tbl_member_reviews_category CASCADE;
 
+DROP TABLE IF EXISTS tbl_travel_city CASCADE;
 DROP TABLE IF EXISTS tbl_travel_country CASCADE;
 
 DROP TABLE IF EXISTS tbl_notice_category CASCADE;
 DROP TABLE IF EXISTS tbl_chatroom CASCADE;
+DROP TABLE IF EXISTS tbl_message CASCADE;
+DROP TABLE IF EXISTS tbl_member_role CASCADE;
+
+
+
 
 -- 권한 테이블
 CREATE TABLE IF NOT EXISTS tbl_authority
@@ -32,6 +38,14 @@ CREATE TABLE IF NOT EXISTS tbl_authority
     CONSTRAINT pk_authority_code PRIMARY KEY (authority_code)
 
 ) ENGINE=InnoDB COMMENT '권한';
+
+-- tbl_member_role(회원별권한)
+CREATE TABLE IF NOT EXISTS tbl_member_role
+(
+    member_code int auto_increment comment '회원식별코드',
+    authority_code int not null comment '권한식별코드',
+    constraint pk_member_role primary key (member_code, authority_code)
+) ENGINE=InnoDB COMMENT '회원별권한';
 
 -- 회원 테이블
 CREATE TABLE IF NOT EXISTS tbl_member
@@ -177,6 +191,17 @@ CREATE TABLE IF NOT EXISTS tbl_travel_country
     CONSTRAINT pk_country_code PRIMARY KEY (country_code)
 ) ENGINE=InnoDB COMMENT '국가';
 
+-- 도시 테이블
+CREATE TABLE  IF NOT EXISTS tbl_travel_city
+(
+    city_code INT AUTO_INCREMENT NOT NULL COMMENT '도시코드',
+    country_code INT NOT NULL COMMENT '국가코드',
+    city_name VARCHAR(20) NOT NULL COMMENT '도시',
+    city_iata_code VARCHAR(3)  NOT NULL COMMENT '코드',
+    CONSTRAINT pk_city_code PRIMARY KEY (city_code),
+    CONSTRAINT fk_country_code2 FOREIGN KEY (country_code) REFERENCES tbl_travel_country(country_code)
+) ENGINE=InnoDB COMMENT '도시';
+
 -- 모집 공고 테이블
 CREATE TABLE IF NOT EXISTS tbl_population
 (
@@ -193,7 +218,7 @@ CREATE TABLE IF NOT EXISTS tbl_population
     CONSTRAINT pk_population_code PRIMARY KEY (population_code),
     CONSTRAINT fk_travel_code1 FOREIGN KEY (travel_code) REFERENCES tbl_travel_plans(travel_code),
     CONSTRAINT fk_member_code5 FOREIGN KEY (member_code) REFERENCES tbl_member(member_code),
-    CONSTRAINT fk_country_code FOREIGN KEY (country_code) REFERENCES tbl_travel_country(country_code)
+    CONSTRAINT fk_country_code1 FOREIGN KEY (country_code) REFERENCES tbl_travel_country(country_code)
 ) ENGINE=InnoDB COMMENT '모집공고';
 
 -- 공지사항 카테고리 테이블
@@ -275,16 +300,16 @@ VALUES
 
 -- 회원 테이블 더미 데이터
 INSERT INTO tbl_member (member_code, authority_code, member_name, member_nickname, member_mobile_number, member_created_at, member_id, member_password, member_level, member_certification) VALUES
-(1, 1, '홍길동', '길동이', '010-1234-5678', '2024-01-01', 'user1', 'password1', 1, 'Y'),
-(2, 2, '김철수', '철수', '010-9876-5432', '2024-02-15', 'user2', 'password2', 2, 'N'),
-(3, 2, '박영희', '영희', '010-1111-2222', '2024-03-01', 'user3', 'password3', 3, 'Y'),
-(4, 2, '이민호', '민호', '010-2222-3333', '2024-03-10', 'user4', 'password4', 1, 'Y'),
-(5, 2, '최수지', '수지', '010-3333-4444', '2024-04-20', 'user5', 'password5', 2, 'N'),
-(6, 2, '정준하', '준하', '010-4444-5555', '2024-05-05', 'user6', 'password6', 3, 'Y'),
-(7, 2, '강동원', '동원', '010-5555-6666', '2024-06-12', 'user7', 'password7', 1, 'N'),
-(8, 2, '한소희', '소희', '010-6666-7777', '2024-07-08', 'user8', 'password8', 2, 'Y'),
-(9, 2, '김유나', '유나', '010-7777-8888', '2024-08-16', 'user9', 'password9', 3, 'N'),
-(10, 2, '이강현', '강현', '010-8888-9999', '2024-09-01', 'user10', 'password10', 1, 'Y');
+(1, 1, '홍길동', '길동이', '010-1234-5678', '2024-01-01', 'user1', '$2a$10$IhDb9e29Zr.dCr7nPUA/0e0WShLAy.g6EEMZVBY7HF4U4GbCM/hem', 1, 'Y'),
+(2, 2, '김철수', '철수', '010-9876-5432', '2024-02-15', 'user2', '$2a$10$X0HHRqJiasK1lnV84b83guyl6Fuiy72dHz0gRqMWQbpFUG56CPwu6', 2, 'N'),
+(3, 2, '박영희', '영희', '010-1111-2222', '2024-03-01', 'user3', '$2a$10$RaUrEJIDuNOc73mn.9TNF.t1E/0BiX4NJGuIGNg0oAVlOFset9CPe', 3, 'Y'),
+(4, 2, '이민호', '민호', '010-2222-3333', '2024-03-10', 'user4', '$2a$10$koZtyqOFbMZ/zuHGd1k.R.LAL4fVMfC60MuiVImjCLs7XHNkUu4DK', 1, 'Y'),
+(5, 2, '최수지', '수지', '010-3333-4444', '2024-04-20', 'user5', '$2a$10$312n.LuQ2AAPF9LkNTNOHeM9V5USiBqA7B6yeQX6fzyCoBWYuO68y', 2, 'N'),
+(6, 2, '정준하', '준하', '010-4444-5555', '2024-05-05', 'user6', '$2a$10$aZ5.qhA0dJ0n.PjaV.rOHeO2/H6Ksx1ZJyd5DAKO1kTqYq6hawMfi', 3, 'Y'),
+(7, 2, '강동원', '동원', '010-5555-6666', '2024-06-12', 'user7', '$2a$10$5w7VezVF36an5LwgCQAWxeCZfuIO1YrAGy4mZrU0TZVvPH/zLwj8a', 1, 'N'),
+(8, 2, '한소희', '소희', '010-6666-7777', '2024-07-08', 'user8', '$2a$10$140Sv/sKmV/TkD3MN3yzWe4iljEdAwy/79Bl8TYSFobiYCVc.ksAy', 2, 'Y'),
+(9, 2, '김유나', '유나', '010-7777-8888', '2024-08-16', 'user9', '$2a$10$gQoxt8swFds4eO0Du.lV1ukQLolDiYWabK9uV7AGsmcoRhBzyobYa', 3, 'N'),
+(10, 2, '이강현', '강현', '010-8888-9999', '2024-09-01', 'user10', '$2a$10$2H5vp7906QZQxicmDCTJeuDuxL4ye/0YthOlVStS5N/KQOYLUiun2', 1, 'Y');
 
 -- 배지 테이블 더미 데이터
 INSERT INTO tbl_badge (badge_code, badge_name, badge_criteria, badge_create_at) VALUES
@@ -379,16 +404,102 @@ INSERT INTO tbl_expense_detail (expense_detail_code, expense_code, expense_detai
 (10, 5, 1400, 10);
 
 INSERT INTO tbl_travel_country (country_code, country_name) VALUES
-(1, 'Korea'),
-(2, 'Japan'),
-(3, 'France'),
-(4, 'USA'),
-(5, 'Canada'),
-(6, 'Germany'),
-(7, 'Australia'),
-(8, 'Brazil'),
-(9, 'Italy'),
-(10, 'India');
+(1, '대한민국'),
+(2, '일본'),
+(3, '베트남'),
+(4, '태국'),
+(5, '필리핀'),
+(6, '싱가포르'),
+(7, '말레이시아'),
+(8, '인도네시아'),
+(9, '몰디브'),
+(10, '대만'),
+(11, '홍콩'),
+(12, '중국'),
+(13, '몽골'),
+(14, '미국'),
+(15, '호주'),
+(16, '이탈리아'),
+(17, '스페인'),
+(18, '프랑스'),
+(19, '영국'),
+(20, '스위스'),
+(21, '체코'),
+(22, '헝가리'),
+(23, '독일'),
+(24, '캐나다');
+
+INSERT INTO tbl_travel_city (city_code, country_code, city_name, city_iata_code) VALUES
+-- 대한민국
+(NULL, 1, '서울', 'ICN'),
+(NULL, 1, '제주', 'CJU'),
+(NULL, 1, '부산', 'PUS'),
+(NULL, 1, '광주', 'KWJ'),
+(NULL, 1, '청주', 'CJJ'),
+(NULL, 1, '대구', 'TAE'),
+(NULL, 1, '여수', 'RSU'),
+(NULL, 1, '양양', 'YNY'),
+(NULL, 1, '포항', 'KPO'),
+(NULL, 1, '군산', 'KUV'),
+-- 일본
+(NULL, 2, '도쿄', 'HND'),
+(NULL, 2, '오사카', 'KIX'),
+(NULL, 2, '후쿠오카', 'FUK'),
+(NULL, 2, '오키나와', 'OKA'),
+(NULL, 2, '삿포로', 'CTS'),
+(NULL, 2, '나고야', 'NGO'),
+-- 동남아시아 (베트남, 태국, 필리핀 등)
+(NULL, 3, '다낭', 'DAD'),
+(NULL, 3, '나트랑', 'CXR'),
+(NULL, 3, '푸꾸옥', 'PQC'),
+(NULL, 3, '호치민', 'SGN'),
+(NULL, 3, '하노이', 'HAN'),
+(NULL, 4, '방콕', 'BKK'),
+(NULL, 4, '치앙마이', 'CNX'),
+(NULL, 4, '푸켓', 'HKT'),
+(NULL, 5, '세부', 'CEB'),
+(NULL, 5, '보라카이', 'MPH'),
+(NULL, 5, '보홀', 'TAG'),
+(NULL, 6, '싱가포르', 'SIN'),
+(NULL, 7, '코타키나발루', 'BKI'),
+(NULL, 8, '발리', 'DPS'),
+(NULL, 9, '말레', 'MLE'),
+-- 동북아시아 (대만, 홍콩, 중국, 몽골)
+(NULL, 10, '타이베이', 'TPE'),
+(NULL, 10, '가오슝', 'KHH'),
+(NULL, 11, '홍콩', 'HKG'),
+(NULL, 12, '베이징', 'PEK'),
+(NULL, 12, '상하이', 'PVG'),
+(NULL, 13, '울란바토르', 'ULN'),
+-- 대양주 (미국, 호주, 뉴질랜드)
+(NULL, 14, '괌', 'GUM'),
+(NULL, 14, '사이판', 'SPN'),
+(NULL, 15, '시드니', 'SYD'),
+(NULL, 15, '멜버른', 'MEL'),
+(NULL, 16, '오클랜드', 'AKL'),
+(NULL, 15, '브리즈번', 'BNE'),
+(NULL, 15, '퍼스', 'PER'),
+-- 유럽 (이탈리아, 스페인, 프랑스, 영국 등)
+(NULL, 16, '로마', 'FCO'),
+(NULL, 17, '바르셀로나', 'BCN'),
+(NULL, 17, '마드리드', 'MAD'),
+(NULL, 18, '파리', 'CDG'),
+(NULL, 19, '런던', 'LHR'),
+(NULL, 20, '취리히', 'ZRH'),
+(NULL, 21, '프라하', 'PRG'),
+(NULL, 22, '부다페스트', 'BUD'),
+(NULL, 23, '프랑크푸르트', 'FRA'),
+-- 미주 (미국, 캐나다)
+(NULL, 14, '호놀룰루', 'HNL'),
+(NULL, 14, '뉴욕', 'JFK'),
+(NULL, 14, '로스앤젤레스', 'LAX'),
+(NULL, 14, '라스베가스', 'LAS'),
+(NULL, 14, '샌프란시스코', 'SFO'),
+(NULL, 14, '시카고', 'ORD'),
+(NULL, 14, '시애틀', 'SEA'),
+(NULL, 14, '애틀랜타', 'ATL'),
+(NULL, 24, '밴쿠버', 'YVR'),
+(NULL, 24, '토론토', 'YYZ');
 
 INSERT INTO tbl_population (travel_code, member_code, country_code, population_title, population_description, population_created_at, population_views, population_people, population_onoff) VALUES
 (1, 1, 1, 'Korea Adventure', 'Join us for an exciting trip across Korea', '2024-01-01', 100, 5, 'Y'),
