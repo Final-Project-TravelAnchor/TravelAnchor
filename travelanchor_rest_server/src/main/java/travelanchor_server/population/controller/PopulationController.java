@@ -50,14 +50,15 @@ public class PopulationController {
 
     @Operation(summary = "여행메이트 등록 요청", description = "해당 여행메이트 등록이 진행됩니다.", tags = { "PopulationController" })
     @PostMapping("/populations")
-    public ResponseEntity<ResponseDTO> insertPopulation(@ModelAttribute PopulationDTO populationDTO) {
+    public ResponseEntity<ResponseDTO> insertPopulation(@RequestBody PopulationDTO populationDTO) {
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "여행메이트 등록 성공", populationService.insertPopulation(populationDTO)));
     }
 
     @Operation(summary = "여행메이트 수정 요청", description = "해당 여행메이트 수정이 진행됩니다.", tags = { "PopulationController" })
     @PutMapping("/populations")
-    public ResponseEntity<ResponseDTO> updatePopulation(@ModelAttribute PopulationDTO populationDTO) {
+    public ResponseEntity<ResponseDTO> updatePopulation(@RequestBody PopulationDTO populationDTO) {
+        // 수정에서 삭제를 진행할 수 있어야 함.
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "여행메이트 수정 성공", populationService.updatePopulation(populationDTO)));
-      
+
     }
 }

@@ -12,8 +12,12 @@ DROP TABLE IF EXISTS tbl_comment CASCADE;
 DROP TABLE IF EXISTS tbl_notice CASCADE;
 DROP TABLE IF EXISTS tbl_travel_reports CASCADE;
 DROP TABLE IF EXISTS tbl_message CASCADE;
-DROP TABLE IF EXISTS tbl_member_reviews_text CASCADE;
 
+DROP TABLE IF EXISTS tbl_member_declare CASCADE;
+DROP TABLE IF EXISTS tbl_member CASCADE;
+DROP TABLE IF EXISTS tbl_authority CASCADE;
+
+DROP TABLE IF EXISTS tbl_member_reviews_text CASCADE;
 DROP TABLE IF EXISTS tbl_member_reviews_category CASCADE;
 
 DROP TABLE IF EXISTS tbl_travel_city CASCADE;
@@ -113,7 +117,9 @@ CREATE TABLE IF NOT EXISTS tbl_member_reviews
     member_code INT COMMENT '회원식별코드',
     review_category_code INT NOT NULL COMMENT '리뷰카테고리코드',
     review_category_sub_code INT NOT NULL COMMENT '리뷰카테고리서브코드',
+    member_rating_code int NOT NULL COMMENT '평가회원코드',
     member_review VARCHAR(100) NOT NULL COMMENT '리뷰내용',
+    member_review_isvisible VARCHAR(1) NOT NULL COMMENT '화면표시여부',
     CONSTRAINT pk_member_review_code PRIMARY KEY (member_review_code),
     CONSTRAINT fk_review_category_code FOREIGN KEY (review_category_code) REFERENCES tbl_member_reviews_category(review_category_code),
     CONSTRAINT fk_member_code2 FOREIGN KEY (member_code) REFERENCES tbl_member(member_code)
@@ -361,10 +367,13 @@ INSERT INTO tbl_member_reviews_category (review_category_code, review_category_l
 (15,3, 15,  '불친절합니다.5');
 
 -- 회원 후기 테이블 더미 데이터
-INSERT INTO tbl_member_reviews (member_review_code, member_code, review_category_code, review_category_sub_code, member_review) VALUES
-(1, 1, 1, 1, '매우 친절합니다.'),
-(2, 2, 2, 6, '여행 동반자로 추천합니다.'),
-(3, 2, 3, 15, '여행 동반자로 비추천합니다.');
+INSERT INTO tbl_member_reviews (member_review_code, member_code, review_category_code, review_category_sub_code, member_rating_code, member_review, member_review_isvisible) VALUES
+(1, 1, 1, 1, 2, '매우 친절합니다.', 'Y'),
+(2, 2, 2, 6, 3, '여행 동반자로 추천합니다.', 'Y'),
+(3, 2, 3, 15, 1, '여행 동반자로 비추천합니다.', 'Y'),
+(NULL, 1, 2, 6, 2, '여행 동반자로 비추천합니다.', 'Y'),
+(NULL, 1, 1, 2, 3, '경로를 잘 압니다.', 'Y'),
+(NULL, 1, 3, 13, 3, '말이 많습니다.', 'Y');
 
 # INSERT INTO tbl_member_reviews_text (review_category_code, review_category_sub_code, review_text) VALUES
 

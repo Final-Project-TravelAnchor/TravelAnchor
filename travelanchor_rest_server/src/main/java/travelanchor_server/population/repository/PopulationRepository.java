@@ -8,4 +8,6 @@ import java.util.List;
 public interface PopulationRepository extends JpaRepository<Population, Integer>{
 
     List<Population> findAll();
+
+    List<Population> findByPopulationOnoff(String status);
 }

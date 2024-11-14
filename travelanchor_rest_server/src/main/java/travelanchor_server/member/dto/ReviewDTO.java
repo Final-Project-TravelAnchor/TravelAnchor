@@ -7,15 +7,35 @@ public class ReviewDTO {
     private int reviewCategorySubCode;
     private int memberCode;
     private String memberReview;
+    private int memberRatingCode;
+    private String memberReviewIsvisible;
 
     public ReviewDTO() {}
 
-    public ReviewDTO(int memberReviewCode, int reviewCategoryCode, int reviewCategorySubCode, int memberCode, String memberReview) {
+    public ReviewDTO(int memberReviewCode, int reviewCategoryCode, int reviewCategorySubCode, int memberCode, String memberReview, int memberRatingCode, String memberReviewIsvisible) {
         this.memberReviewCode = memberReviewCode;
         this.reviewCategoryCode = reviewCategoryCode;
         this.reviewCategorySubCode = reviewCategorySubCode;
         this.memberCode = memberCode;
         this.memberReview = memberReview;
+        this.memberRatingCode = memberRatingCode;
+        this.memberReviewIsvisible = memberReviewIsvisible;
+    }
+
+    public int getMemberRatingCode() {
+        return memberRatingCode;
+    }
+
+    public void setMemberRatingCode(int memberRatingCode) {
+        this.memberRatingCode = memberRatingCode;
+    }
+
+    public String getMemberReviewIsvisible() {
+        return memberReviewIsvisible;
+    }
+
+    public void setMemberReviewIsvisible(String memberReviewIsvisible) {
+        this.memberReviewIsvisible = memberReviewIsvisible;
     }
 
     public int getReviewCategorySubCode() {
@@ -66,6 +86,8 @@ public class ReviewDTO {
                 ", reviewCategorySubCode=" + reviewCategorySubCode +
                 ", memberCode=" + memberCode +
                 ", memberReview='" + memberReview + '\'' +
+                ", memberRatingCode=" + memberRatingCode +
+                ", memberReviewIsvisible='" + memberReviewIsvisible + '\'' +
                 '}';
     }
 }

@@ -23,15 +23,30 @@ public class Review {
     @Column(name = "member_review")
     private String memberReview;
 
+    @Column(name = "member_rating_code")
+    private int memberRatingCode;
+
+    @Column(name = "member_review_isvisible")
+    private String memberReviewIsvisible;
+
     public Review() {
     }
 
-    public Review(int memberReviewCode, int reviewCategoryCode, int reviewCategorySubCode, int memberCode, String memberReview) {
+    public Review(int memberReviewCode, int reviewCategoryCode, int reviewCategorySubCode, int memberCode, String memberReview, String memberReviewIsvisible) {
         this.memberReviewCode = memberReviewCode;
         this.reviewCategoryCode = reviewCategoryCode;
         this.reviewCategorySubCode = reviewCategorySubCode;
         this.memberCode = memberCode;
         this.memberReview = memberReview;
+        this.memberReviewIsvisible = memberReviewIsvisible;
+    }
+
+    public String getMemberReviewIsvisible() {
+        return memberReviewIsvisible;
+    }
+
+    public void setMemberReviewIsvisible(String memberReviewIsvisible) {
+        this.memberReviewIsvisible = memberReviewIsvisible;
     }
 
     public int getReviewCategorySubCode() {
@@ -82,6 +97,7 @@ public class Review {
                 ", reviewCategorySubCode=" + reviewCategorySubCode +
                 ", memberCode=" + memberCode +
                 ", memberReview='" + memberReview + '\'' +
+                ", memberReviewIsvisible='" + memberReviewIsvisible + '\'' +
                 '}';
     }
 }
