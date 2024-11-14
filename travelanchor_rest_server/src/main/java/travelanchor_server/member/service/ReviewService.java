@@ -8,7 +8,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import travelanchor_server.member.dto.ReviewDTO;
 import travelanchor_server.member.entity.Review;
+import travelanchor_server.member.repository.MemberRepository;
 import travelanchor_server.member.repository.ReviewRepository;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ReviewService {
@@ -16,11 +20,13 @@ public class ReviewService {
     private static final Logger log = LoggerFactory.getLogger(ReviewService.class);
     private final ReviewRepository reviewRepository;
     private final ModelMapper modelMapper;
+    private final MemberRepository memberRepository;
 
     @Autowired
-    public ReviewService(ReviewRepository reviewRepository, ModelMapper modelMapper) {
+    public ReviewService(ReviewRepository reviewRepository, ModelMapper modelMapper, MemberRepository memberRepository) {
         this.reviewRepository = reviewRepository;
         this.modelMapper = modelMapper;
+        this.memberRepository = memberRepository;
     }
 
     @Transactional
@@ -68,6 +74,30 @@ public class ReviewService {
             throw new RuntimeException(e);
         }
 
+        log.info("[ReviewService] updateMemberReport() End");
+
         return (result > 0) ? "회원후기 수정 성공" : "회원후기 수정 실패";
+    }
+
+    public Object findAllMemberReport(int memberCode) {
+        log.info("[ReviewService] findAllMemberReport() Start");
+        log.info("[ReviewService] memberCode : ", memberCode);
+        int result = 0;
+
+        List<Review> reviewList;
+        try {
+
+
+            reviewList = reviewRepository.findByMemberCode(memberCode);
+            log.info("[ReviewService] reviewList : ", reviewList);
+
+
+            result = 1;
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        return reviewList.stream().map(review -> modelMapper.map(review, Review.class)).collect(Collectors.toList());
     }
 }
