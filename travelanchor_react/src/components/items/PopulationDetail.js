@@ -1,9 +1,49 @@
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { replace, useNavigate, useParams } from "react-router-dom";
+import { callPopulationDetailAPI } from "../../apis/PopulationAPICalls";
 
 
 export default function PopulationDetail() {
+
+    const { populationCode } = useParams();
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const population = useSelector(state => state.populationReducer)
+    // const populationDetail = population.data;
+    // console.log(populationDetail);
+
+    const onClickModifyModeHandler = (populationCode) => {
+        console.log("[PopulationDetail]onClickModifyModeHandler ", populationCode);
+        navigator(`/items/populationModify/${populationCode}`, { replace: false });
+    };
+
+    useEffect(() => {
+        console.log("[PopulationDetail] useEffect");
+        dispatch(callPopulationDetailAPI(populationCode));
+    }, []);
+
+    useEffect(() => {
+        console.log("[PopulationDetail] population useEffect");
+        // dispatch(callPopulationDetailAPI(populationCode));
+    }, [population]);
+
     return (
         <div>
-            <h1>Population Detail Page</h1>
+            <button onClick={() => onClickModifyModeHandler(populationCode)}>
+                수정하기
+            </button>
+            {
+                population && 
+                (
+                    <>
+                        <h1>제목 : {population.populationTitle}</h1>
+                        <h2>생성일자 : {population.populationCreatedAt}</h2>
+                        <h2>조회수 : {population.populationViews}</h2>
+                    </>
+                )
+            }
         </div>
     );
 }

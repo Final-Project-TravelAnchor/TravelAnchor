@@ -4,6 +4,7 @@ import Main from './pages/Main';
 import Error from './pages/Error';
 import Population from './components/items/Population';
 import PopulationDetail from './components/items/PopulationDetail';
+import PopulationModify from './components/items/PopulationModify';
 import TravelReport from './pages/reports/TravelReport';
 import AddReportDate from './pages/reports/AddReportDate';
 import AddReportDestination from './pages/reports/AddReportDestination';
@@ -22,6 +23,7 @@ export default function App() {
             <Route path="items">
               <Route path="population" element={<Population />} />
               <Route path=":populationCode" element={<PopulationDetail />} />
+              <Route path="populationModify/:populationCode" element={<PopulationModify />} />
             </Route>
             <Route path='TravelReport' element={ <TravelReport/> }/>
             <Route path='AddReportDate' element={ <AddReportDate/> }/>
