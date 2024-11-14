@@ -31,7 +31,9 @@ public class PopulationService {
 
         log.info("[PopulationService] findPopulationList() Start");
 
-        List<Population> populationList = populationRepository.findAll();
+        // 전체조회
+//        List<Population> populationList = populationRepository.findAll();
+        List<Population> populationList = populationRepository.findByPopulationOnoff("Y");
 //        List<PopulationDTO> populationDTOList = populationList.stream()
 //                .map(population -> modelMapper.map(population, PopulationDTO.class))
 //                .collect(Collectors.toList());
