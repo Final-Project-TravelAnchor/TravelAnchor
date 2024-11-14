@@ -8,9 +8,9 @@ import TravelReport from './pages/reports/TravelReport';
 import AddReportDate from './pages/reports/AddReportDate';
 import AddReportDestination from './pages/reports/AddReportDestination';
 import Report from './apis/MapAPICalls';
-import Accommodation from './apis/AmadeusHotelsAPICalls';
 import Weather from './pages/features/Weather';
 import Flight from './pages/travels/Flight';
+import Accommodation from './pages/travels/Accommodation';
 
 export default function App() {
   return (
