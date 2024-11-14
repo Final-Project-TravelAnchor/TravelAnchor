@@ -34,18 +34,20 @@ public class MemberService {
     }
 
     @Transactional
-    public Object updateMemberInfo(MemberDTO memberDTO) {
+    public Object updateMemberInfo(int memberId, MemberDTO memberDTO) {
         log.info("[MemberService] updateMyMemberInfo() start");
-        log.info("[MemberService] MemberDTO: ", memberDTO);
+        log.info("[MemberService] memberId: " +  memberId);
         int result = 0;
 
         try {
 
-            Member member = memberRepository.findById(memberDTO.getMemberCode()).get();
-
+            Member member = memberRepository.findById(memberId).get();
+            log.info("[MemberService] member: " + member);
             member.setMemberNickName(memberDTO.getMemberNickName());
             member.setMemberPassword(memberDTO.getMemberPassword());
             member.setProfilePhoto((memberDTO.getProfilePhoto()));
+
+            memberRepository.save(member);
 
             result = 1;
         } catch (Exception e) {
