@@ -363,7 +363,10 @@ INSERT INTO tbl_member_reviews_category (review_category_code, review_category_l
 INSERT INTO tbl_member_reviews (member_review_code, member_code, review_category_code, review_category_sub_code, member_review, member_review_isvisible) VALUES
 (1, 1, 1, 1, '매우 친절합니다.', 'Y'),
 (2, 2, 2, 6, '여행 동반자로 추천합니다.', 'Y'),
-(3, 2, 3, 15, '여행 동반자로 비추천합니다.', 'Y');
+(3, 2, 3, 15, '여행 동반자로 비추천합니다.', 'Y'),
+(NULL, 1, 2, 6, '여행 동반자로 비추천합니다.', 'Y'),
+(NULL, 1, 1, 2, '경로를 잘 압니다.', 'Y'),
+(NULL, 1, 3, 13, '말이 많습니다.', 'Y');
 
 # INSERT INTO tbl_member_reviews_text (review_category_code, review_category_sub_code, review_text) VALUES
 
