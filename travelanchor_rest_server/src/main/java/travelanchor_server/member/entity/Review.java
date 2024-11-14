@@ -23,6 +23,9 @@ public class Review {
     @Column(name = "member_review")
     private String memberReview;
 
+    @Column(name = "member_rating_code")
+    private int memberRatingCode;
+
     @Column(name = "member_review_isvisible")
     private String memberReviewIsvisible;
 

@@ -24,12 +24,21 @@ public class ReviewsController {
     }
 
     @Operation(summary = "대표후기 모두 조회 요청", description = "대표후기 모두 조회 요청이 진행됩니다.", tags = {"ReportsController"})
-    @GetMapping("/review/{memberCode}")
-    public ResponseEntity<ResponseDTO> findAllMemberReport(@PathVariable int memberCode) {
+    @GetMapping("/review/{memberRatingCode}")
+    public ResponseEntity<ResponseDTO> findAllMemberReport(@PathVariable int memberRatingCode) {
 
         return ResponseEntity
                 .ok()
-                .body(new ResponseDTO(HttpStatus.OK, "대표후기 조회 성공", reviewService.findAllMemberReport(memberCode)));
+                .body(new ResponseDTO(HttpStatus.OK, "대표후기 조회 성공", reviewService.findAllMemberReport(memberRatingCode)));
+    }
+
+    @Operation(summary = "상대방 후기 조회 요청", description = "상대방이 작성한 나의 후기 조회 요청이 진행됩니다.", tags = {"ReportsController"})
+    @GetMapping("/otherReviews/{memberCode}")
+    public ResponseEntity<ResponseDTO> findOtherMemberReport(@PathVariable int memberCode) {
+
+        return ResponseEntity
+                .ok()
+                .body(new ResponseDTO(HttpStatus.OK, "상대방 후기 조회 성공", reviewService.findOtherMemberReport(memberCode)));
     }
 
     @Operation(summary = "회원후기 작성 요청", description = "회원후기 작성 요청이 진행됩니다.", tags = {"ReportsController"})
