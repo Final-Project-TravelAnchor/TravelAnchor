@@ -60,6 +60,7 @@ public class ReviewService {
             review.setReviewCategoryCode(reviewDTO.getReviewCategoryCode());
             review.setReviewCategorySubCode(reviewDTO.getReviewCategorySubCode());
             review.setMemberReview(reviewDTO.getMemberReview());
+            review.setMemberReviewIsvisible(reviewDTO.getMemberReviewIsvisible());
 
             result = 1;
 

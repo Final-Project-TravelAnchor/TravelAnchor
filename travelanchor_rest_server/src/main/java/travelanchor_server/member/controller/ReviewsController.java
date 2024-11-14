@@ -36,6 +36,7 @@ public class ReviewsController {
     @PutMapping("/review")
     public ResponseEntity<ResponseDTO> updateMemberReport(@RequestBody ReviewDTO reviewDTO) {
 
+        // 회원후기 삭제는 수정에서
         return ResponseEntity
                 .ok()
                 .body(new ResponseDTO(HttpStatus.OK, "회원후기 수정 성공", reviewService.updateMemberReport(reviewDTO)));
