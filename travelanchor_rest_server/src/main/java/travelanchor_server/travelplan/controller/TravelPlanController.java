@@ -46,12 +46,12 @@ public class TravelPlanController {
     public ResponseEntity<ResponseDTO> insertTravelPlan(@RequestBody TravelPlanDTO travelPlanDTO) {
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "여행일정 등록 성공", travelPlanService.insertTravelPlan(travelPlanDTO)));
     }
-//
-//    @Operation(summary = "여행일정 수정 요청", description = "해당 여행일정 수정이 진행됩니다.", tags = { "PopulationController" })
-//    @PutMapping("/populations")
-//    public ResponseEntity<ResponseDTO> updatePopulation(@ModelAttribute PopulationDTO populationDTO) {
-//        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "여행일정 수정 성공", populationService.updatePopulation(populationDTO)));
-//
-//    }
+
+    @Operation(summary = "여행일정 수정 요청", description = "해당 여행일정 수정이 진행됩니다.", tags = { "PopulationController" })
+    @PutMapping("/travel-plan/{travelCode}")
+    public ResponseEntity<ResponseDTO> updatePopulation(@PathVariable int travelCode , @RequestBody TravelPlanDTO travelPlanDTO) {
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "여행일정 수정 성공", travelPlanService.updateTravelPlan(travelCode, travelPlanDTO)));
+
+    }
 
 }
