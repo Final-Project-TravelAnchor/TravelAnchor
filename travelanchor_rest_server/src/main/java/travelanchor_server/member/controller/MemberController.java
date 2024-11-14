@@ -26,8 +26,8 @@ public class MemberController {
 
     @Operation(summary = "회원정보 수정 요청", description = "해당 회원정보 수정이 진행됩니다.", tags = {"MemberController "})
     @PutMapping("/members/{memberId}")
-    public ResponseEntity<ResponseDTO> updateMemberInfo(@PathVariable MemberDTO memberDTO) {
-        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK,"회원정보 수정 성공",memberService.updateMemberInfo(memberDTO)));
+    public ResponseEntity<ResponseDTO> updateMemberInfo(@PathVariable int memberId, @RequestBody MemberDTO memberDTO) {
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK,"회원정보 수정 성공",memberService.updateMemberInfo(memberId, memberDTO)));
     }
 
 }
