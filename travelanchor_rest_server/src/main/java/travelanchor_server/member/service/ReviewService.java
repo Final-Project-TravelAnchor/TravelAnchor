@@ -79,16 +79,16 @@ public class ReviewService {
         return (result > 0) ? "회원후기 수정 성공" : "회원후기 수정 실패";
     }
 
-    public Object findAllMemberReport(int memberCode) {
+    public Object findAllMemberReport(int memberRatingCode) {
         log.info("[ReviewService] findAllMemberReport() Start");
-        log.info("[ReviewService] memberCode : ", memberCode);
+        log.info("[ReviewService] memberRatingCode : ", memberRatingCode);
         int result = 0;
 
         List<Review> reviewList;
         try {
 
 
-            reviewList = reviewRepository.findByMemberCode(memberCode);
+            reviewList = reviewRepository.findByMemberRatingCode(memberRatingCode);
             log.info("[ReviewService] reviewList : ", reviewList);
 
 
@@ -98,6 +98,25 @@ public class ReviewService {
             throw new RuntimeException(e);
         }
 
+        return reviewList.stream().map(review -> modelMapper.map(review, Review.class)).collect(Collectors.toList());
+    }
+
+    public Object findOtherMemberReport(int memberCode) {
+        log.info("[ReviewService] findOtherMemberReport() Start");
+        log.info("[ReviewService] memberCode : ", memberCode);
+        int result = 0;
+
+
+        List<Review> reviewList;
+        try {
+            reviewList = reviewRepository.findByMemberCode(memberCode);
+            log.info("[ReviewService] reviewList : ", reviewList);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        log.info("[ReviewService] findOtherMemberReport() End");
         return reviewList.stream().map(review -> modelMapper.map(review, Review.class)).collect(Collectors.toList());
     }
 }

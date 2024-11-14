@@ -28,9 +28,6 @@ public class TravelPlan {
     @Column(name = "travel_total_date")
     private String travelTotalDate;
 
-    @Column(name = "travel_total_night")
-    private String travelTotalNight;
-
     @Column(name = "travel_destination")
     private String travelDestination;
 
@@ -40,14 +37,13 @@ public class TravelPlan {
     public TravelPlan() {
     }
 
-    public TravelPlan(int travelCode, int memberCode, String travelName, Date travelStartDate, Date travelEndDate, String travelTotalDate, String travelTotalNight, String travelDestination, Boolean travelOnoff) {
+    public TravelPlan(int travelCode, int memberCode, String travelName, Date travelStartDate, Date travelEndDate, String travelTotalDate, String travelDestination, Boolean travelOnoff) {
         this.travelCode = travelCode;
         this.memberCode = memberCode;
         this.travelName = travelName;
         this.travelStartDate = travelStartDate;
         this.travelEndDate = travelEndDate;
         this.travelTotalDate = travelTotalDate;
-        this.travelTotalNight = travelTotalNight;
         this.travelDestination = travelDestination;
         this.travelOnoff = travelOnoff;
     }
@@ -100,14 +96,6 @@ public class TravelPlan {
         this.travelTotalDate = travelTotalDate;
     }
 
-    public String getTravelTotalNight() {
-        return travelTotalNight;
-    }
-
-    public void setTravelTotalNight(String travelTotalNight) {
-        this.travelTotalNight = travelTotalNight;
-    }
-
     public String getTravelDestination() {
         return travelDestination;
     }
@@ -133,7 +121,6 @@ public class TravelPlan {
                 ", travelStartDate=" + travelStartDate +
                 ", travelEndDate=" + travelEndDate +
                 ", travelTotalDate=" + travelTotalDate +
-                ", travelTotalNight=" + travelTotalNight +
                 ", travelDestination='" + travelDestination + '\'' +
                 ", travelOnoff=" + travelOnoff +
                 '}';

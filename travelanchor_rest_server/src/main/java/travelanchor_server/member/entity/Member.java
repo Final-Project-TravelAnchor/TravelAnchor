@@ -41,6 +41,9 @@ public class Member {
     @Column(name = "member_certification")
     private String memberCertification;
 
+    @Column(name = "profile_photo")
+    private String profilePhoto;
+
     @OneToMany
     @JoinColumn(name = "member_code")
     private List<MemberRole> memberRole;
@@ -48,7 +51,7 @@ public class Member {
     public Member() {
     }
 
-    public Member(int memberCode, int authorityCode, String memberName, String memberNickName, String memberMobileNumber, LocalDate memberCreatedAt, String memberId, String memberPassword, int memberLevel, String memberCertification, List<MemberRole> memberRole) {
+    public Member(int memberCode, int authorityCode, String memberName, String memberNickName, String memberMobileNumber, LocalDate memberCreatedAt, String memberId, String memberPassword, int memberLevel, String memberCertification, String profilePhoto, List<MemberRole> memberRole) {
         this.memberCode = memberCode;
         this.authorityCode = authorityCode;
         this.memberName = memberName;
@@ -59,6 +62,7 @@ public class Member {
         this.memberPassword = memberPassword;
         this.memberLevel = memberLevel;
         this.memberCertification = memberCertification;
+        this.profilePhoto = profilePhoto;
         this.memberRole = memberRole;
     }
 
@@ -142,6 +146,14 @@ public class Member {
         this.memberCertification = memberCertification;
     }
 
+    public String getProfilePhoto() {
+        return profilePhoto;
+    }
+
+    public void setProfilePhoto(String profilePhoto) {
+        this.profilePhoto = profilePhoto;
+    }
+
     public List<MemberRole> getMemberRole() {
         return memberRole;
     }
@@ -163,6 +175,7 @@ public class Member {
                 ", memberPassword='" + memberPassword + '\'' +
                 ", memberLevel=" + memberLevel +
                 ", memberCertification='" + memberCertification + '\'' +
+                ", profilePhoto='" + profilePhoto + '\'' +
                 ", memberRole=" + memberRole +
                 '}';
     }

@@ -19,11 +19,12 @@ public class MemberDTO implements UserDetails {
     private String memberPassword;
     private int memberLevel;
     private String memberCertification;
+    private String profilePhoto;
 
     public MemberDTO() {
     }
 
-    public MemberDTO(int memberCode, int authorityCode, String memberName, String memberNickName, String memberMobileNumber, LocalDate memberCreatedAt, String memberId, String memberPassword, int memberLevel, String memberCertification) {
+    public MemberDTO(int memberCode, int authorityCode, String memberName, String memberNickName, String memberMobileNumber, LocalDate memberCreatedAt, String memberId, String memberPassword, int memberLevel, String memberCertification, String profilePhoto, Collection<GrantedAuthority> authorities) {
         this.memberCode = memberCode;
         this.authorityCode = authorityCode;
         this.memberName = memberName;
@@ -34,6 +35,8 @@ public class MemberDTO implements UserDetails {
         this.memberPassword = memberPassword;
         this.memberLevel = memberLevel;
         this.memberCertification = memberCertification;
+        this.profilePhoto = profilePhoto;
+        this.authorities = authorities;
     }
 
     public int getMemberCode() {
@@ -116,6 +119,14 @@ public class MemberDTO implements UserDetails {
         this.memberCertification = memberCertification;
     }
 
+    public String getProfilePhoto() {
+        return profilePhoto;
+    }
+
+    public void setProfilePhoto(String profilePhoto) {
+        this.profilePhoto = profilePhoto;
+    }
+
     @Override
     public String toString() {
         return "MemberDTO{" +
@@ -129,6 +140,8 @@ public class MemberDTO implements UserDetails {
                 ", memberPassword='" + memberPassword + '\'' +
                 ", memberLevel=" + memberLevel +
                 ", memberCertification='" + memberCertification + '\'' +
+                ", profilePhoto='" + profilePhoto + '\'' +
+                ", authorities=" + authorities +
                 '}';
     }
 

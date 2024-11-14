@@ -17,9 +17,13 @@ export default function Population() {
         []
     );
 
+    console.log("[Population] populations : ", populations);
+
     return (
         <div>
-            { populations.map((population) => (<PopulationList key={ population.populationCode } product={ population } />)) }
+            {
+                populations.length > 0 && populations.map((population) => (<PopulationList key={ population.populationCode } population={ population } />)) 
+            }
         </div>
     );
 }

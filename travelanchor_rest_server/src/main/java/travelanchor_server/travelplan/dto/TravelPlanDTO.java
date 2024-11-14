@@ -9,21 +9,19 @@ public class TravelPlanDTO {
     private Date travelStartDate;
     private Date travelEndDate;
     private String travelTotalDate;
-    private String travelTotalNight;
     private String travelDestination;
     private Boolean travelOnoff;
 
     public TravelPlanDTO() {
     }
 
-    public TravelPlanDTO(int travelCode, int memberCode, String travelName, Date travelStartDate, Date travelEndDate, String travelTotalDate, String travelTotalNight, String travelDestination, Boolean travelOnoff) {
+    public TravelPlanDTO(int travelCode, int memberCode, String travelName, Date travelStartDate, Date travelEndDate, String travelTotalDate, String travelDestination, Boolean travelOnoff) {
         this.travelCode = travelCode;
         this.memberCode = memberCode;
         this.travelName = travelName;
         this.travelStartDate = travelStartDate;
         this.travelEndDate = travelEndDate;
         this.travelTotalDate = travelTotalDate;
-        this.travelTotalNight = travelTotalNight;
         this.travelDestination = travelDestination;
         this.travelOnoff = travelOnoff;
     }
@@ -76,14 +74,6 @@ public class TravelPlanDTO {
         this.travelTotalDate = travelTotalDate;
     }
 
-    public String getTravelTotalNight() {
-        return travelTotalNight;
-    }
-
-    public void setTravelTotalNight(String travelTotalNight) {
-        this.travelTotalNight = travelTotalNight;
-    }
-
     public String getTravelDestination() {
         return travelDestination;
     }
@@ -109,7 +99,6 @@ public class TravelPlanDTO {
                 ", travelStartDate=" + travelStartDate +
                 ", travelEndDate=" + travelEndDate +
                 ", travelTotalDate=" + travelTotalDate +
-                ", travelTotalNight=" + travelTotalNight +
                 ", travelDestination='" + travelDestination + '\'' +
                 ", travelOnoff=" + travelOnoff +
                 '}';

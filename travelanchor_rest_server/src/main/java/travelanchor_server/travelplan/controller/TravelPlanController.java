@@ -6,10 +6,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import travelanchor_server.common.ResponseDTO;
+import travelanchor_server.population.dto.PopulationDTO;
+import travelanchor_server.travelplan.dto.TravelPlanDTO;
 import travelanchor_server.travelplan.service.TravelPlanService;
 
 @RestController
@@ -30,6 +30,28 @@ public class TravelPlanController {
         log.info("[TravelPlanController] findTravelPlanList Start");
 
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "조회 성공", travelPlanService.findTravelPlanList()));
+    }
+
+    @Operation(summary = "여행 일정 상세 조회 요청", description = "여행 일정 상세 조회 처리가 진행됩니다.", tags = { "TravelPlanController" })
+    @GetMapping("/travel-plan/{travelCode}")
+    public ResponseEntity<ResponseDTO> findTravelPlanDetail(@PathVariable int travelCode) {
+
+        log.info("[TravelPlanController] findTravelPlanDetail Start");
+
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "상세정보 조회 성공", travelPlanService.findTravelPlanDetail(travelCode)));
+    }
+
+    @Operation(summary = "여행일정 등록 요청", description = "해당 여행 일정 등록이 진행됩니다.", tags = { "TravelPlanController" })
+    @PostMapping("/travel-plan")
+    public ResponseEntity<ResponseDTO> insertTravelPlan(@RequestBody TravelPlanDTO travelPlanDTO) {
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "여행일정 등록 성공", travelPlanService.insertTravelPlan(travelPlanDTO)));
+    }
+
+    @Operation(summary = "여행일정 수정 요청", description = "해당 여행일정 수정이 진행됩니다.", tags = { "PopulationController" })
+    @PutMapping("/travel-plan/{travelCode}")
+    public ResponseEntity<ResponseDTO> updatePopulation(@PathVariable int travelCode , @RequestBody TravelPlanDTO travelPlanDTO) {
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "여행일정 수정 성공", travelPlanService.updateTravelPlan(travelCode, travelPlanDTO)));
+
     }
 
 }
