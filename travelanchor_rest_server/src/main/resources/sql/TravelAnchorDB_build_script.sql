@@ -15,6 +15,8 @@ DROP TABLE IF EXISTS tbl_message CASCADE;
 DROP TABLE IF EXISTS tbl_member CASCADE;
 DROP TABLE IF EXISTS tbl_authority CASCADE;
 DROP TABLE IF EXISTS tbl_member_reviews_text CASCADE;
+DROP TABLE IF EXISTS tbl_travel_destination_save CASCADE;
+DROP TABLE IF EXISTS tbl_restaurant_save CASCADE;
 
 DROP TABLE IF EXISTS tbl_member_reviews_category CASCADE;
 
@@ -306,6 +308,31 @@ CREATE TABLE IF NOT EXISTS tbl_member_declare
     CONSTRAINT pk_declare_code PRIMARY KEY (declare_code),
     CONSTRAINT fk_member_code10 FOREIGN KEY (member_code) REFERENCES tbl_member(member_code)
 ) ENGINE=InnoDB COMMENT '회원신고';
+
+-- 여행지 저장 테이블
+CREATE TABLE IF NOT EXISTS tbl_travel_destination_favorite
+(
+    favorite_code int AUTO_INCREMENT NOT NULL COMMENT '즐겨찾기 코드',
+    member_code INT COMMENT '회원식별코드',
+    api_link VARCHAR(300) NOT NULL COMMENT 'API 링크',
+    destination_name VARCHAR(50) NOT NULL COMMENT '여행지 이름',
+    destination_photos VARCHAR(300) NOT NULL COMMENT '여행지 사진',
+    CONSTRAINT pk_favorite_code PRIMARY KEY (favorite_code),
+    CONSTRAINT fk_member_code11 FOREIGN KEY (member_code) REFERENCES tbl_member(member_code)
+) ENGINE=InnoDB COMMENT '여행지 저장';
+
+-- 맛집 저장 테이블
+CREATE TABLE IF NOT EXISTS tbl_restaurant_favorite
+(
+    favorite_code int AUTO_INCREMENT NOT NULL COMMENT '즐겨찾기 코드',
+    member_code INT COMMENT '회원식별코드',
+    api_link VARCHAR(300) NOT NULL COMMENT 'API 링크',
+    restaurant_name VARCHAR(50) NOT NULL COMMENT '맛집 이름',
+    restaurant_photos VARCHAR(300) NOT NULL COMMENT '맛집 사진',
+    place_type VARCHAR(50) NOT NULL COMMENT '장소 타입',
+    CONSTRAINT pk_favorite_code PRIMARY KEY (favorite_code),
+    CONSTRAINT fk_member_code12 FOREIGN KEY (member_code) REFERENCES tbl_member(member_code)
+) ENGINE=InnoDB COMMENT '맛집 저장';
 
 -- 권한 테이블 더미 데이터
 INSERT INTO tbl_authority (authority_code, authority_name, authority_desc)
@@ -651,3 +678,29 @@ INSERT INTO tbl_member_declare (declare_code, member_code, declare_created_at, d
 (1, 1, '2024-10-09', '욕을 많이 합니다.'),
 (2, 2, '2024-10-19', '예의가 없습니다.'),
 (3, 3, '2024-12-09', '약속장소에 늦습니다.');
+
+-- 여행지 저장 테이블 더미 데이터
+INSERT INTO tbl_travel_destination_save (member_code, api_link, destination_name, destination_photos) VALUES
+(1, 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=Paris&key=AIzaSyBdC2C4NxgvxtnU5i2NY7WiREj1o5zQ4X4&pagetoken', '파리', 'AdDdOWpMvDIjfI2n-1HEQ_fgkzsNiynpwua9c9DDQP5dBxiYnLqKaISWgbL033rIvQuxDAqBpbIcA5RyHMTuijkFj3cNdeksjcDKG6UtavX8ZIDUMXvJ_vQwBMGHUBXCcNrGe86LOhz0Kn0MtIeYqGyeOOQPRfROo_j-j9riiWmM9V1tucpr'),
+(2, 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=Seoul&key=AIzaSyBdC2C4NxgvxtnU5i2NY7WiREj1o5zQ4X4&pagetoken', '서울', 'AdDdOWoEfjIkVZQajmhvqeQBdmZPDNYQuuKW1xIXoWwCTnB-HFSVHXLoFs2ZIyPT1WDR1uX0WkrnzvdLzWKDyJYAV4CUvqpC-eOr7yh9Tw9mqA3xAJcIL-0QodIdev-XeZPLxY0fCqnLD_FeFcD_OUH2VlHy9u35WJujRrRTJxIyNkKWYwlI'),
+(3, 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=tokyo&key=AIzaSyBdC2C4NxgvxtnU5i2NY7WiREj1o5zQ4X4&pagetoken', '도쿄', 'AdDdOWrQKFJUl6N3prsFIQ9MgIrhbcqy5INFy-KbND-KEtC4qTABx6AlgMudVomsb8U2yCS9ONuso4o3EUM9F3Cw_GB2llA_PPLIqMle6Uh8dSgJRDeziei3GU72W7ZCSQaj5fWzixk5URCplrcwRhdKMdGjRz_X--RDIF8qMzc01RvRr0RY'),
+(4, 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=tyipei&key=AIzaSyBdC2C4NxgvxtnU5i2NY7WiREj1o5zQ4X4&pagetoken', '타이페이', 'AdDdOWqY6JdeWLyoDVNAlR-1Cf_0G0kjhEwnTrg-Q0LWlcQjuaUIRkaY2HWCyFjhm29T5-Zp61BenoDdKVBqrXiKhN2LpTSFOrzOZJxVdZKsZ1knhHgV-j5E5lHpPwIrRjK_Md1eq-BNmtFBo6daeaGi4TtWaZ20N6aRFNX3uaYjHNsGBhF9'),
+(5, 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=london&key=AIzaSyBdC2C4NxgvxtnU5i2NY7WiREj1o5zQ4X4&pagetoken', '런던', 'AdDdOWqvpIEsG8lR2G43x3hFue8McV0OGmcWbWn1NbHlOiWqQXnoINGyuuAAOhbwxob4wDx89ot8N7CT7NjRuawS3_4WWv8iuVpVHHyGIltW9BTaP3uP5FmUCRT4RYbm27vPRDJnlvauta0cv_RMAPjnUNNnUJr2f9eyUtclaO5YcWsusrUd'),
+(6, 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=bangkok&key=AIzaSyBdC2C4NxgvxtnU5i2NY7WiREj1o5zQ4X4&pagetoken', '방콕', 'AdDdOWr3Pb4M7pfKXKyTfuSUD3ahdXW9opG0J-HL5FYAZlP5lyNLuGNbWxZkz01BUK__Zd9Nz9BvkAURV0kUbOnJXcaVWw6cgjdNtCE_DoRru3LMHt-vuPgGA9VX9E-l7TLpeaahPuJtJ2UVvY-O8pgjWNFgVxdMVBweiyERyrJW6CgCbQOJ'),
+(7, 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=osaka&key=AIzaSyBdC2C4NxgvxtnU5i2NY7WiREj1o5zQ4X4&pagetoken', '오사카', 'AdDdOWpnnqPdzRL73YqDcL6qJ7CUC00cVFYXNcIc_dCHTnd4komyEl4ewWBNsB87-II0xmk0RgRfXt9Qo5put19XDFYkuQGAL_-k0ecLNlygI43_Xu4qQ8Uwwm-QmNRfZIXD_W_omsRGqbfwRm3GGkcSSXbQ3-JHwzHHbrU7pUk0uRB9aL50'),
+(8, 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=hongkong&key=AIzaSyBdC2C4NxgvxtnU5i2NY7WiREj1o5zQ4X4&pagetoken', '홍콩', 'AdDdOWrGnvcoho3jRCiMFzNIJ_Bm2RomNZVuigNSbiFmK1vU89nbBogtli2jjsXG_QuDj9hca8YR9wouOs8zt1IwvIVrCn9vQDa9Ay_EfnXlrqQAnDjgNfxMIpeTjs4lLknKCWFvHo5oKO2wCMN6pg_ucKJ0gNRH02cBSgse14TFmuE3p1oL'),
+(9, 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=phuquoc&key=AIzaSyBdC2C4NxgvxtnU5i2NY7WiREj1o5zQ4X4&pagetoken', '푸꾸옥', 'AdDdOWqOaWhfGYWbdTI8FhEP1_4qEJ8NTuaGa1f9TaxqrhaGDp6Xp25FYUTCBOEhkOCbBuNfS5yTONnvrQge9QyWauAS_AnnViOn5GKgAxoodUdkAjOUgi7NOo7MdNfYisB0ZQz6MwRUKMXvOASN0Fdu63j_p_N5WcyEKWys7xuk1L8Vkn1m'),
+(10, 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=amsterdam&key=AIzaSyBdC2C4NxgvxtnU5i2NY7WiREj1o5zQ4X4&pagetoken', '암스테르담', 'AdDdOWqdbB95qgJ-R3ipw4COAge-vwisOpQQ0QGsrMXI-fYXe6SmdgEotAGsWU3eLvLK2B_Xdh9vY2_ferbv2O-6h_Rx4CUWsEloyNYq5jVknR6x8OuzBZ6tWt1bddlui3C9YCfajdsZeQfzZokqrZ_HcJourVKCIYOyqSMeGmiMfhQdCuVj');
+
+-- 맛집 저장 테이블 더미 데이터
+INSERT INTO tbl_restaurant_save (member_code, api_link, restaurant_name, restaurant_photos, place_type) VALUES
+(1, 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=Myeongdong Restaurant The Sic-ddang&key=AIzaSyBdC2C4NxgvxtnU5i2NY7WiREj1o5zQ4X4','Myeongdong Restaurant The Sic-ddang', 'AdDdOWpTxKkyJJ_fOsXTc-1naqkWyjFD1sLuDxbqYmHyXtSvuv8CfHTdpeCKTCbDKXV1k2QHPzfUSMkYE62MuSvPyfJUGimer3PhT7Sxql6a3uNOyPedSfME1w9Vx1z86R9zGBiqbYLNA-EkBHEFOWsbuXfYVpCUF4PAWQYEuUR2h6r8vtA', 'restaurant'),
+(2, 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=The Ninth Gate&key=AIzaSyBdC2C4NxgvxtnU5i2NY7WiREj1o5zQ4X4','The Ninth Gate', 'AdDdOWpkQ0-9rV-JEAAPP9-zbzATA4gNWuMZWBhCvH6mhTjr58z_y4gwKNx30AApN5T-SPRm4dsI_0O1-ANK4xLdpQO4caxmRewpXkwzZzFYI0U4zdsTgMOuJ9ZEFBiBdxFD9VkFN_mNFQDBKdB89_bSeNU7kqLjAOKam6SHkmuhreAo1fl0', 'restaurant'),
+(3, 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=Wangbijib Myeongdong Center store&key=AIzaSyBdC2C4NxgvxtnU5i2NY7WiREj1o5zQ4X4','Wangbijib Myeongdong Center store', 'AdDdOWqBt2GF88lt-cm31kMY-QtfGf-VUM0jVOlyXI_x2CYXU1dOJcv0LayquBqyMUSLafyeO2OtmjNF51w2SrTPLkXc0nfJvFfEzfCzc9hY_8hCQLESMswA6v7uPebt-yMDHkpaYHa4NUYHJy49l2jIKd9wEkG3K9gxJxYju3b7NcX_4owf', 'restaurant'),
+(4, 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=Seoul Dining&key=AIzaSyBdC2C4NxgvxtnU5i2NY7WiREj1o5zQ4X4','Seoul Dining', 'AdDdOWpzVHBOz7GqCHZVx_mJp0kwCdCyr5m7S-R4EcyJK2DXmUFZZ3VuswS6XLc1ygwHIHZ-cXscVLMt0HRs3NsQqPZynOV4Vdiz2lqhMJGS7Ja--OcHvUNCY8Y-m1Glg-Czn5RnsMqltAZ5wk9j0GTLFnNwe-m1XRSAJD6Zdes3_pSe9FXA', 'restaurant'),
+(5, 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=Jyoti Indian Restaurant Chungmuro&key=AIzaSyBdC2C4NxgvxtnU5i2NY7WiREj1o5zQ4X4','Jyoti Indian Restaurant Chungmuro', 'AdDdOWrZ7uEBtGyUK21dEcuhuXAiqoJAXepe-KwCJKAcyCxjoldkx3ChP_SJyRVJcv-Bw5CAETYGyytju7rW3KgsWeVqia7ypBmbgFRo9gl7kwSCxM-jpOOq4uL-qY5C2S6XUXOc9fMPLw2aj6ap45eBjeh4r9GNZwfOJWMa5k4m-lvCrf9T', 'restaurant'),
+(6, 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=Daol Charcoal Grilling (Korean BBQ Daol)&key=AIzaSyBdC2C4NxgvxtnU5i2NY7WiREj1o5zQ4X4','Daol Charcoal Grilling (Korean BBQ Daol)', 'AdDdOWqRa3r5uEr8ZzkY7oaS5SElSq78y0PFstLIeIyw8cnWY_hA5PLzOo3gmxlLN6INZKf9trP1Kt3xyizyR9rCOt7oUcQXUBLcqQAr7JkFJdC6dz_r4W2VKGClq7Blh8FoSIcbyxJEPJ4oxYJsaOG-uUPxlS3r-XWv3H2RHMnhU3NlYyYl', 'restaurant'),
+(7, 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=이조식당&key=AIzaSyBdC2C4NxgvxtnU5i2NY7WiREj1o5zQ4X4','이조식당', 'AdDdOWoIXJYLwqkmawzav6uBe0crm2m7JYX4x3scVwlEjJ-XXxkwAkaDOFdJm6LXIOEawTLjKAwK9-t5j21mQo8bmehWSsq8a-VuA7P3c70-1yPYC3WGCvJGGbbPqnPoScGU-_vcd9by9LVaKhhqlE4biuLuvv3WjatMANAPODWD3OyhXixw', 'restaurant'),
+(8, 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=The Green Table&key=AIzaSyBdC2C4NxgvxtnU5i2NY7WiREj1o5zQ4X4','The Green Table', 'AdDdOWoZ2kq1Xx5cvIPhey6b6va5nZDTpF7l5mffPszYDe6YT6rITC_lJ608lDutG4oDTVrqp-rhpTPNgHcnUkGdycGz-VXvGk4tvOjwTP2qR_EY4K52Ii2fmCKhpP6hecevA3g-ItmyEaRtcT4mbMEY-oywlYCB6AHeIUUI2zKxj10XN_7l', 'restaurant'),
+(9, 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=MUGUNGHWA&key=AIzaSyBdC2C4NxgvxtnU5i2NY7WiREj1o5zQ4X4','MUGUNGHWA', 'AdDdOWq-2NX9L3BNpek1bW4Si3KSO7dQPowD2U9K2yAzIVTHYqSIkyAVwcmi_js76uQIsAdtOAFalV8Gj5o1UzQY4q5GmcBuKOzT3zlJjiq-gJ_gix644H9tNx3dpnGLPCTeG8LX_qRIm6p04C-3x2c2aXVT-7wPB5NknkESFJYMCM-UWrfu', 'restaurant'),
+(10, 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=Hangong-Gan&key=AIzaSyBdC2C4NxgvxtnU5i2NY7WiREj1o5zQ4X4','Hangong-Gan', 'AdDdOWr-AKExDw6YkOuMq4qVFJLuI2uA8Xax9MdpCVCx-c2udy0d3TJnT6rFSklCdozVqOvvvk7NDQCPRmi3eVshQ_7g3vCHMa4GXLFyFPmOUI0TGefjRfraQBhl-wSqxhyuWpH3LWKa4Bx4WBbz0qg75pT1eSaTO_Nrp4RMNsgmDc8KoWKg', 'restaurant');
