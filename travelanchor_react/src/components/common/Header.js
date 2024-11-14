@@ -115,6 +115,8 @@ function Header() {
 					<li class="nav-item"><NavLink to="/TravelReport">후기</NavLink></li>
 					<li class="nav-item"><a href="#">자유게시판</a></li>
 					<li class="nav-item"><a href="#">공지사항</a></li>
+					<li class="nav-item"><NavLink to="Weather">날씨</NavLink></li>
+
 					<li>
 						{/* 로그인 상태에 따라 다른 컴포넌트 랜더링 */}
 						{isLogin == null || isLogin === undefined ? (
