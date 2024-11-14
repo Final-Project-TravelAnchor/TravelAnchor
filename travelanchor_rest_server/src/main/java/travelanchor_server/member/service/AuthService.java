@@ -17,7 +17,10 @@ import travelanchor_server.member.entity.MemberRole;
 import travelanchor_server.member.repository.MemberRepository;
 import travelanchor_server.member.repository.MemberRoleRepository;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
+import java.util.Random;
 
 @Service
 public class AuthService {
@@ -28,6 +31,8 @@ public class AuthService {
     private final TokenProvider tokenProvider;
     private final ModelMapper modelMapper;
     private final MemberRoleRepository memberRoleRepository;
+    private Map<String, String> verificationCodeMap = new HashMap<>();
+
 
     @Autowired
     public AuthService(MemberRepository memberRepository, PasswordEncoder passwordEncoder,
@@ -116,4 +121,63 @@ public class AuthService {
 
         return (member != null) ? member.getMemberId() : null;
     }
+
+
+    public boolean findpw(String memberMobileNumber) {
+
+        if (memberMobileNumber == null || memberMobileNumber.trim().isEmpty()) {
+            log.error("[AuthService] 필수항목에 빈문자열이 존재합니다.");
+            throw new DuplicatedMemberEmailException("휴대폰 번호를 입력해주세요.");
+        }
+
+        if (!memberMobileNumber.matches("^010-?\\d{3,4}-?\\d{4}$")) {
+            throw new DuplicatedMemberEmailException("올바른 형식의 휴대폰 번호를 입력해주세요.");
+        }
+
+        Member member = memberRepository.findByMemberMobileNumber(memberMobileNumber);
+
+        if (member == null) {
+            log.info("[AuthService] findpw() Required User Not Found!");
+            return false;
+        }
+
+        String randomCode = String.format("%06d", new Random().nextInt(999999));
+
+        verificationCodeMap.put(memberMobileNumber, randomCode);
+
+
+        log.info("[AuthService] 인증 코드 생성: {}", randomCode);
+
+        return true;
+    }
+
+    public boolean resetpw(String memberMobileNumber, String verificationCode, String newPassword) {
+
+        String VerificationCode = verificationCodeMap.get(memberMobileNumber);
+
+        if (VerificationCode == null) {
+            log.info("[AuthService] 인증 코드가 존재하지 않습니다.");
+            return false;
+        }
+
+        if (!verificationCode.equals(VerificationCode)) {
+            log.info("[AuthService] 인증 코드가 일치하지 않습니다.");
+            return false;
+        }
+
+        Member member = memberRepository.findByMemberMobileNumber(memberMobileNumber);
+        if (member == null) {
+            log.info("[AuthService] User Not Found!");
+            return false;
+        }
+
+        member.setMemberPassword(passwordEncoder.encode(newPassword));
+        memberRepository.save(member);
+
+        verificationCodeMap.remove(memberMobileNumber);
+
+        log.info("[AuthService] 비밀번호 재설정 완료");
+        return true;
+    }
+
 }

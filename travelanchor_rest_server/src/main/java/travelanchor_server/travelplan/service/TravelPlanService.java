@@ -71,4 +71,33 @@ public class TravelPlanService {
 
         return (result > 0) ? "여행 일정 입력 성공" : "여행 일정 입력 실패";
     }
+
+    @Transactional
+    public Object updateTravelPlan(int travelCode, TravelPlanDTO travelPlanDTO) {
+        log.info("[TravelPlanService] updateTravelPlan() Start");
+        log.info("[TravelPlanService] travelCode : "+ travelCode);
+        int result = 0;
+
+        try{
+
+            TravelPlan travelPlan = travelPlanRepository.findById(travelCode).get();
+            log.info("[TravelPlanService] travelPlan : " + travelPlan);
+            travelPlan.setTravelName(travelPlanDTO.getTravelName());
+            travelPlan.setTravelStartDate(travelPlanDTO.getTravelStartDate());
+            travelPlan.setTravelEndDate(travelPlanDTO.getTravelEndDate());
+            travelPlan.setTravelTotalDate(travelPlanDTO.getTravelTotalDate());
+            travelPlan.setTravelDestination(travelPlanDTO.getTravelDestination());
+            travelPlan.setTravelOnoff(travelPlanDTO.getTravelOnoff());
+
+            System.out.println("travelPlan = " + travelPlan);
+
+            travelPlanRepository.save(travelPlan);
+
+            result = 1;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        log.info("[TravelPlanService] updateTravelPlan() End");
+        return (result > 0) ? "여행 일정 수정 성공" : "여행 일정 수정 실패";
+    }
 }
