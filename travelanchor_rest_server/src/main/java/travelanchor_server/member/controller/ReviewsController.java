@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import travelanchor_server.common.ResponseDTO;
 import travelanchor_server.member.dto.MemberDTO;
 import travelanchor_server.member.dto.ReviewDTO;
+import travelanchor_server.member.entity.Member;
 import travelanchor_server.member.service.ReviewService;
 
 @RestController
@@ -22,6 +23,14 @@ public class ReviewsController {
         this.reviewService = reviewService;
     }
 
+    @Operation(summary = "대표후기 모두 조회 요청", description = "대표후기 모두 조회 요청이 진행됩니다.", tags = {"ReportsController"})
+    @GetMapping("/review/{memberCode}")
+    public ResponseEntity<ResponseDTO> findAllMemberReport(@PathVariable int memberCode) {
+
+        return ResponseEntity
+                .ok()
+                .body(new ResponseDTO(HttpStatus.OK, "대표후기 조회 성공", reviewService.findAllMemberReport(memberCode)));
+    }
 
     @Operation(summary = "회원후기 작성 요청", description = "회원후기 작성 요청이 진행됩니다.", tags = {"ReportsController"})
     @PostMapping("/review")
