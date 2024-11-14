@@ -12,8 +12,6 @@ DROP TABLE IF EXISTS tbl_comment CASCADE;
 DROP TABLE IF EXISTS tbl_notice CASCADE;
 DROP TABLE IF EXISTS tbl_travel_reports CASCADE;
 DROP TABLE IF EXISTS tbl_message CASCADE;
-DROP TABLE IF EXISTS tbl_member CASCADE;
-DROP TABLE IF EXISTS tbl_authority CASCADE;
 DROP TABLE IF EXISTS tbl_member_reviews_text CASCADE;
 
 DROP TABLE IF EXISTS tbl_member_reviews_category CASCADE;
@@ -25,7 +23,10 @@ DROP TABLE IF EXISTS tbl_notice_category CASCADE;
 DROP TABLE IF EXISTS tbl_chatroom CASCADE;
 DROP TABLE IF EXISTS tbl_message CASCADE;
 DROP TABLE IF EXISTS tbl_member_role CASCADE;
+DROP TABLE IF EXISTS tbl_member_declare CASCADE;
 
+DROP TABLE IF EXISTS tbl_member CASCADE;
+DROP TABLE IF EXISTS tbl_authority CASCADE;
 
 
 
@@ -60,6 +61,7 @@ CREATE TABLE IF NOT EXISTS tbl_member
     member_password VARCHAR(255) NOT NULL COMMENT '비밀번호',
     member_level INT NOT NULL COMMENT '등급',
     member_certification VARCHAR(1) NOT NULL COMMENT '본인인증',
+    profile_photo VARCHAR(255) NOT NULL COMMENT '프로필사진',
     CONSTRAINT pk_member_code PRIMARY KEY (member_code),
     CONSTRAINT fk_authority_code FOREIGN KEY (authority_code) REFERENCES tbl_authority(authority_code)
 ) ENGINE=InnoDB COMMENT '회원';
@@ -313,17 +315,17 @@ VALUES
     (2, 'User', '일반 사용자 권한');
 
 -- 회원 테이블 더미 데이터
-INSERT INTO tbl_member (member_code, authority_code, member_name, member_nickname, member_mobile_number, member_created_at, member_id, member_password, member_level, member_certification) VALUES
-(1, 1, '홍길동', '길동이', '010-1234-5678', '2024-01-01', 'user1', '$2a$10$IhDb9e29Zr.dCr7nPUA/0e0WShLAy.g6EEMZVBY7HF4U4GbCM/hem', 1, 'Y'),
-(2, 2, '김철수', '철수', '010-9876-5432', '2024-02-15', 'user2', '$2a$10$X0HHRqJiasK1lnV84b83guyl6Fuiy72dHz0gRqMWQbpFUG56CPwu6', 2, 'N'),
-(3, 2, '박영희', '영희', '010-1111-2222', '2024-03-01', 'user3', '$2a$10$RaUrEJIDuNOc73mn.9TNF.t1E/0BiX4NJGuIGNg0oAVlOFset9CPe', 3, 'Y'),
-(4, 2, '이민호', '민호', '010-2222-3333', '2024-03-10', 'user4', '$2a$10$koZtyqOFbMZ/zuHGd1k.R.LAL4fVMfC60MuiVImjCLs7XHNkUu4DK', 1, 'Y'),
-(5, 2, '최수지', '수지', '010-3333-4444', '2024-04-20', 'user5', '$2a$10$312n.LuQ2AAPF9LkNTNOHeM9V5USiBqA7B6yeQX6fzyCoBWYuO68y', 2, 'N'),
-(6, 2, '정준하', '준하', '010-4444-5555', '2024-05-05', 'user6', '$2a$10$aZ5.qhA0dJ0n.PjaV.rOHeO2/H6Ksx1ZJyd5DAKO1kTqYq6hawMfi', 3, 'Y'),
-(7, 2, '강동원', '동원', '010-5555-6666', '2024-06-12', 'user7', '$2a$10$5w7VezVF36an5LwgCQAWxeCZfuIO1YrAGy4mZrU0TZVvPH/zLwj8a', 1, 'N'),
-(8, 2, '한소희', '소희', '010-6666-7777', '2024-07-08', 'user8', '$2a$10$140Sv/sKmV/TkD3MN3yzWe4iljEdAwy/79Bl8TYSFobiYCVc.ksAy', 2, 'Y'),
-(9, 2, '김유나', '유나', '010-7777-8888', '2024-08-16', 'user9', '$2a$10$gQoxt8swFds4eO0Du.lV1ukQLolDiYWabK9uV7AGsmcoRhBzyobYa', 3, 'N'),
-(10, 2, '이강현', '강현', '010-8888-9999', '2024-09-01', 'user10', '$2a$10$2H5vp7906QZQxicmDCTJeuDuxL4ye/0YthOlVStS5N/KQOYLUiun2', 1, 'Y');
+INSERT INTO tbl_member (member_code, authority_code, member_name, member_nickname, member_mobile_number, member_created_at, member_id, member_password, member_level, profile_photo, member_certification) VALUES
+(1, 1, '홍길동', '길동이', '010-1234-5678', '2024-01-01', 'user1', '$2a$10$IhDb9e29Zr.dCr7nPUA/0e0WShLAy.g6EEMZVBY7HF4U4GbCM/hem', 1,'06a0060ae2da4dffb9a8a440ba5d9c5e.PNG','Y'),
+(2, 2, '김철수', '철수', '010-9876-5432', '2024-02-15', 'user2', '$2a$10$X0HHRqJiasK1lnV84b83guyl6Fuiy72dHz0gRqMWQbpFUG56CPwu6', 2, 'fcb3e0c8f94940cf99724d26e6020259.PNG','N'),
+(3, 2, '박영희', '영희', '010-1111-2222', '2024-03-01', 'user3', '$2a$10$RaUrEJIDuNOc73mn.9TNF.t1E/0BiX4NJGuIGNg0oAVlOFset9CPe', 3, '8e2492fd197e42d5855ffbbb5142b4ed.PNG','Y'),
+(4, 2, '이민호', '민호', '010-2222-3333', '2024-03-10', 'user4', '$2a$10$koZtyqOFbMZ/zuHGd1k.R.LAL4fVMfC60MuiVImjCLs7XHNkUu4DK', 1, '58b3fd68f6074de2b33d4430fd29244b.PNG','Y'),
+(5, 2, '최수지', '수지', '010-3333-4444', '2024-04-20', 'user5', '$2a$10$312n.LuQ2AAPF9LkNTNOHeM9V5USiBqA7B6yeQX6fzyCoBWYuO68y', 2, '7580adcf59d04240b7a16f6cf07bd34b.PNG','N'),
+(6, 2, '정준하', '준하', '010-4444-5555', '2024-05-05', 'user6', '$2a$10$aZ5.qhA0dJ0n.PjaV.rOHeO2/H6Ksx1ZJyd5DAKO1kTqYq6hawMfi', 3, '7b91aee3ddec49a69a9b7d2849493f7f.PNG','Y'),
+(7, 2, '강동원', '동원', '010-5555-6666', '2024-06-12', 'user7', '$2a$10$5w7VezVF36an5LwgCQAWxeCZfuIO1YrAGy4mZrU0TZVvPH/zLwj8a', 1, '8a4cd876df574970a565b41e47561080.PNG','N'),
+(8, 2, '한소희', '소희', '010-6666-7777', '2024-07-08', 'user8', '$2a$10$140Sv/sKmV/TkD3MN3yzWe4iljEdAwy/79Bl8TYSFobiYCVc.ksAy', 2, 'c0a177a658b44f749699f91a23c47d8b.PNG','Y'),
+(9, 2, '김유나', '유나', '010-7777-8888', '2024-08-16', 'user9', '$2a$10$gQoxt8swFds4eO0Du.lV1ukQLolDiYWabK9uV7AGsmcoRhBzyobYa', 3, '053626c2d16f4814a5e81b842a115dc7.PNG','N'),
+(10, 2, '이강현', '강현', '010-8888-9999', '2024-09-01', 'user10', '$2a$10$2H5vp7906QZQxicmDCTJeuDuxL4ye/0YthOlVStS5N/KQOYLUiun2', 1, '323a5df17163482d90a74f8198a4e4c6.PNG','Y');
 
 -- 배지 테이블 더미 데이터
 INSERT INTO tbl_badge (badge_code, badge_name, badge_criteria, badge_create_at) VALUES
