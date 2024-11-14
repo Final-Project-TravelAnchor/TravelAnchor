@@ -5,6 +5,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import travelanchor_server.travelplan.dto.TravelPlanDTO;
 import travelanchor_server.travelplan.entity.TravelPlan;
 import travelanchor_server.travelplan.repository.TravelPlanRepository;
 
@@ -39,5 +41,34 @@ public class TravelPlanService {
 
 //        return modelMapper.map(travelReportList, TravelReport.class);
         return travelPlanList.stream().map(travelPlan -> modelMapper.map(travelPlan, TravelPlan.class)).collect(Collectors.toList());
+    }
+
+    public Object findTravelPlanDetail(int travelCode) {
+        log.info("[TravelPlanService] findTravelPlanDetail()");
+
+        // 해당 Code의 여행 일정을 가져옴.
+        TravelPlan travelPlan = travelPlanRepository.findById(travelCode).get();
+
+        return modelMapper.map(travelPlan, TravelPlan.class);
+    }
+
+    @Transactional
+    public Object insertTravelPlan(TravelPlanDTO travelPlanDTO) {
+        log.info("[TravelPlanService] insertTravelPlan() Start");
+        log.info("[TravelPlanService] travelPlanDTO : ", travelPlanDTO);
+        int result = 0;
+
+        try {
+            TravelPlan insertTravelPlan = modelMapper.map(travelPlanDTO, TravelPlan.class);
+
+            travelPlanRepository.save(insertTravelPlan);
+
+            result = 1;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        log.info("[TravelPlanService] insertTravelPlan() End");
+
+        return (result > 0) ? "여행 일정 입력 성공" : "여행 일정 입력 실패";
     }
 }
