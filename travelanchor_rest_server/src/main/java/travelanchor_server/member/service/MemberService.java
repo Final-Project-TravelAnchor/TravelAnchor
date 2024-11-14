@@ -47,6 +47,8 @@ public class MemberService {
             member.setMemberPassword(memberDTO.getMemberPassword());
             member.setProfilePhoto((memberDTO.getProfilePhoto()));
 
+            System.out.println("member = " + member);
+
             memberRepository.save(member);
 
             result = 1;
