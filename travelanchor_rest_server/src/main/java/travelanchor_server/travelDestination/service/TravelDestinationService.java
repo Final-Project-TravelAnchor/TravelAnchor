@@ -10,6 +10,8 @@ import travelanchor_server.travelDestination.dto.TravelDestinationDTO;
 import travelanchor_server.travelDestination.entity.TravelDestination;
 import travelanchor_server.travelDestination.repository.TravelDestinationRepository;
 
+import java.util.List;
+
 @Service
 public class TravelDestinationService {
 
@@ -45,5 +47,18 @@ public class TravelDestinationService {
         log.info("[TravelDestinationService] insertTravelDestination() End");
 
         return (result > 0) ? "여행지 저장 성공" : "여행지 저장 실페";
+    }
+
+    public Object getSavedTravelDestinationList(int memberCode) {
+
+        log.info("[TravelDestinationService] getSavedTravelDestinationList() Start");
+
+        List<TravelDestination> travelDestinationList = travelDestinationRepository.findById(memberCode);
+
+        log.info("[RestaurantService] savedTravelDestinationList {}", travelDestinationList);
+
+        log.info("[TravelDestinationService] getSavedTravelDestinationList() End");
+
+        return travelDestinationList.stream().map(travelDestination -> modelMapper.map(travelDestination, TravelDestinationDTO.class));
     }
 }

@@ -4,10 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import travelanchor_server.common.ResponseDTO;
 import travelanchor_server.travelDestination.dto.TravelDestinationDTO;
 import travelanchor_server.travelDestination.service.TravelDestinationService;
@@ -28,5 +25,12 @@ public class TravelDestinationController {
     public ResponseEntity<ResponseDTO> insertTravelDestination(@RequestBody TravelDestinationDTO travelDestinationDTO) {
 
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "여행지 저장 성공", travelDestinationService.insertTravelDestination(travelDestinationDTO)));
+    }
+
+    @Operation(summary = "회원 여행지 저장 리스트 조회 요청", description = "해당 회원의 저장한 여행지에 대한 리스트 조회가 진행됩니다.", tags = { "TravelDestinationController" })
+    @GetMapping("/travel-destinations/{memberCode}")
+    public ResponseEntity<ResponseDTO> getSavedTravelDestinationList(@PathVariable int memberCode) {
+
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "저장한 여행지 리스트 조회 성공", travelDestinationService.getSavedTravelDestinationList(memberCode)));
     }
 }
