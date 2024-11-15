@@ -1,7 +1,8 @@
 import {
     GET_POPULATIONS,
     GET_POPULATIONS_DETAIL,
-    PUT_POPULATIONS
+    PUT_POPULATIONS,
+    POST_CREATE_POPULATIONS
 } from "../modules/PopulationModule";
 
 // 비동기 API 호출 메서드 분리
@@ -42,6 +43,32 @@ const fetchPutPopulationData = async (requestURL, updatedPopulation) => {
         }).then((response) => response.json());
 
         console.log('[PopulationAPICalls] fetchPutPopulationData RESULT : ', response);
+
+        return response;
+    } catch (error) {
+        console.error('Error fetching population data:', error);
+        throw error;
+    }
+};
+
+const fetchPostPopulationData = async (requestURL, createdPopulation) => {
+
+    console.log('Fetching population url: ', requestURL);
+    console.log('Fetching population data' , createdPopulation);
+
+    try {
+        const response = await fetch(requestURL, {
+            method: 'POST',
+            headers: {
+				Accept: '*/*',
+                'Content-Type': 'application/json',
+				// Authorization:
+				// 	'Bearer ' + window.localStorage.getItem('accessToken')
+			},
+            body: JSON.stringify(createdPopulation)
+        }).then((response) => response.json());
+
+        console.log('[PopulationAPICalls] fetchPostPopulationData RESULT : ', response);
 
         return response;
     } catch (error) {
@@ -115,6 +142,25 @@ export const callUpdatePopulationAPI = (updatedPopulation) => {
             console.error('[PopulationAPICalls] callUpdatePopulationAPI error : ', error);
         }
     };
-
-
 };
+
+export const callCreatePopulationAPI = (createdPopulation) => {
+    console.log('[PopulationAPICalls] callCreatePopulationAPI Start');
+    const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/population/v1/populations`;
+
+    return async (dispatch, getState) => {
+        try {
+            
+            const result = await fetchPostPopulationData(requestURL, createdPopulation);
+
+            if(result.status === 200) {
+                console.log('[PopulationAPICalls] callCreatePopulationAPI Result : ', result);
+                dispatch({ type: POST_CREATE_POPULATIONS, payload: result });
+            }
+
+        } catch (error) {
+            console.error('[PopulationAPICalls] callUpdatePopulationAPI error : ', error);
+        }
+    };
+};
+
