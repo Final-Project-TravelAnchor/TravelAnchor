@@ -8,10 +8,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import travelanchor_server.common.ResponseDTO;
-import travelanchor_server.member.dto.MemberDTO;
-import travelanchor_server.member.repository.MemberRepository;
 import travelanchor_server.restaurant.dto.RestaurantDTO;
 import travelanchor_server.restaurant.service.RestaurantService;
+
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/restaurant/v1")
@@ -38,5 +38,12 @@ public class RestaurantController {
     public ResponseEntity<ResponseDTO> getSavedRestaurantList(@PathVariable int memberCode) {
 
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "저장한 맛집 리스트 조회 성공", restaurantService.getSavedRestaurantList(memberCode)));
+    }
+
+    @Operation(summary = "저장한 맛집 삭제 요청", description = "저장한 맛집에 대한 삭제가 진행됩니다.", tags = { "RestaurantController" })
+    @DeleteMapping("/restaurants/{favoriteCode}")
+    public ResponseEntity<ResponseDTO> deleteSavedRestaurant(@RequestBody RestaurantDTO restaurantDTO, @PathVariable int favoriteCode) throws IOException {
+
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "저장한 맛집 삭제 성공", restaurantService.deleteSavedRestaurant(restaurantDTO, favoriteCode)));
     }
 }
