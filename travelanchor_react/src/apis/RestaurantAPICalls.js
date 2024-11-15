@@ -3,16 +3,13 @@ import './FindRestaurant.css';
 
 const callRestaurantListAPI = () => {
 
-	const APIKey = "AIzaSyBdC2C4NxgvxtnU5i2NY7WiREj1o5zQ4X4";
-	const proxyUrl = "https://cors-anywhere.herokuapp.com/";
-
 	const [selectedCity, setSelectedCity] = useState('seoul');
 	const [selectedSort, setSelectedSort] = useState('name');
 	const [places, setPlaces] = useState([]);
 	const [error, setError] = useState(null);
 
 	const fetchPlaceData = async (placeType) => {
-	const url = `${proxyUrl}https://maps.googleapis.com/maps/api/place/textsearch/json?query=${placeType}%20in%20${selectedCity}&key=${APIKey}`;
+	const url = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${placeType}%20in%20${selectedCity}&key=${proceess.env.REACT_APP_GOOGLE_API}`;
 
 	try {
 		const response = await fetch(url);
@@ -28,6 +25,15 @@ const callRestaurantListAPI = () => {
 			return a.name.localeCompare(b.name); // Sort by name (alphabetical)
 		}
 		});
+
+		const result = await fetch({
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: '*/*'
+            }
+        }).then((response) => response.json());
+
 
 		setPlaces(sortedData);
 		setError(null);
