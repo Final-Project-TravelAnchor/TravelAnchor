@@ -9,7 +9,7 @@ import travelanchor_server.member.dto.MemberDTO;
 import travelanchor_server.member.service.MemberService;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/member/v1")
 public class MemberController {
 
     private final MemberService memberService;

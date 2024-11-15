@@ -11,5 +11,5 @@ public interface ExpenseRepository extends JpaRepository<Expense, Integer> {
     void deleteByExpenseCode(int expenseCode);
 
 
-//    Map<Object, Object> findByExpenseCode(int expenseCode);
+    List<Expense> findAll();
 }

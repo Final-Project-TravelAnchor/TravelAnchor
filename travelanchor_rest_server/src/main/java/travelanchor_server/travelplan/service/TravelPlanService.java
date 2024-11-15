@@ -15,6 +15,13 @@ import travelanchor_server.travelplan.entity.TravelDay;
 import travelanchor_server.travelplan.entity.TravelPlan;
 import travelanchor_server.travelplan.repository.*;
 
+import travelanchor_server.travelplan.dto.ExpenseDTO;
+import travelanchor_server.travelplan.dto.TravelPlanDTO;
+import travelanchor_server.travelplan.entity.Expense;
+import travelanchor_server.travelplan.entity.ExpenseDetail;
+import travelanchor_server.travelplan.entity.TravelPlan;
+
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,6 +33,7 @@ public class TravelPlanService {
     private final TravelPlanRepository travelPlanRepository;
     private final TravelDayRepository travelDayRepository;
     private final ActivityRepository activityRepository;
+
     private final ExpenseRepository expenseRepository;
     private final ExpenseDetailRepository expenseDetailRepository;
     private final ModelMapper modelMapper;
@@ -35,6 +43,7 @@ public class TravelPlanService {
         this.travelPlanRepository = travelPlanRepository;
         this.travelDayRepository = travelDayRepository;
         this.activityRepository = activityRepository;
+
         this.expenseRepository = expenseRepository;
         this.expenseDetailRepository = expenseDetailRepository;
         this.modelMapper = modelMapper;
@@ -161,12 +170,7 @@ public class TravelPlanService {
             travelDayRepository.delete(travelDay);
 
             log.info("[TravelPlanService] Delete Complete : ");
-
-
-            result = 1;
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-
+          
         }
         log.info("[TravelPlanService] deleteTravelDayPlan() End");
         return (result > 0) ? "여행 일자별 일정 삭제 성공" : "여행 일자별 일정 삭제 실패";
@@ -204,4 +208,83 @@ public class TravelPlanService {
         return (result > 0) ? "여행 세부 일정 삭제 성공" : "여행 세부 일정 삭제 실패";
     }
 
-}
+
+
+    /*===============================================================================================================================================================================*/
+
+        public Object findExpenseList() {
+
+        log.info("[TravelPlanService] findExpenseList() Start");
+
+        List<Expense> expenseList = expenseRepository.findAll();
+
+        log.info("[TravelPlanService] findExpensetList() End");
+
+        return expenseList.stream().map(travelPlan -> modelMapper.map(travelPlan, Expense.class)).collect(Collectors.toList());
+
+    }
+
+    public Object findExpenseDetail(int expenseCode) {
+        log.info("[TravelPlanService] findExpenseDetail()");
+
+
+        Expense expense = expenseRepository.findById(expenseCode).get();
+
+        return modelMapper.map(expense, Expense.class);
+    }
+
+    public Object insertExpense(ExpenseDTO expenseDTO) {
+        log.info("[TravelPlanService] expenseDTO : " + expenseDTO);
+        int result = 0;
+
+        try {
+            Expense insertExpense = modelMapper.map(expenseDTO, Expense.class);
+
+            expenseRepository.save(insertExpense);
+
+            result = 1;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        log.info("[ExpenseService] insertExpense() End");
+
+        return (result > 0) ? "활동금액 입력 성공" : "활동금액 입력 실패";
+    }
+
+
+
+    /*===============================================================================================================================================================================*/
+
+
+   public Object findExpenseDeatilList() {
+
+        List<ExpenseDetail> expenseDetailList = expenseDetailRepository.findAll();
+
+        return expenseDetailList.stream().map(travelPlan -> modelMapper.map(travelPlan, ExpenseDetail.class)).collect(Collectors.toList());
+    }
+
+    public Object findExpenseDetailByCode(int expenseDetailCode) {
+
+        ExpenseDetail expenseDetail = expenseDetailRepository.findById(expenseDetailCode).get();
+
+        return modelMapper.map(expenseDetail, ExpenseDetail.class);
+
+    }
+
+    public Object insertExpenseDetail(ExpenseDetailDTO expenseDetailDTO) {
+        int result = 0;
+
+        try {
+            ExpenseDetail insertExpenseDetail = modelMapper.map(expenseDetailDTO, ExpenseDetail.class);
+
+            expenseDetailRepository.save(insertExpenseDetail);
+
+            result = 1;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        log.info("[ExpenseDetailService] insertExpenseDetail() End");
+        log.info("[TravelPlanService] expenseDetailDTO : " + expenseDetailDTO);
+
+        return (result > 0) ? "세부활동금액 입력 성공" : "활동금액 입력 실패";
+    }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import travelanchor_server.common.ResponseDTO;
 import travelanchor_server.member.dto.MemberDTO;
 import travelanchor_server.travelplan.dto.TravelDayDTO;
+import travelanchor_server.travelplan.dto.ExpenseDTO;
 import travelanchor_server.travelplan.dto.TravelPlanDTO;
 import travelanchor_server.travelplan.service.TravelPlanService;
 
@@ -68,11 +69,52 @@ public class TravelPlanController {
         travelPlanService.deleteTravelDayPlan(dayCode, memberDTO)));
     }
 
+
     @Operation(summary = "여행 세부 일정 삭제 요청", description = "해당 여행 세부 일정 삭제가 진행됩니다.", tags = { "TravelPlanController" })
     @DeleteMapping("/travel-plan/act-del/{activityCode}")
     public ResponseEntity<ResponseDTO> deleteTravelActivityPlan(@PathVariable int activityCode, @RequestBody MemberDTO memberDTO) {
         return ResponseEntity.ok().body( new ResponseDTO(HttpStatus.OK, "여행 세부 일정 삭제 성공",
                 travelPlanService.deleteTravelActivityPlan(activityCode, memberDTO)));
+    }
+
+/*===============================================================================================================================================================================*/
+
+
+    @Operation(summary = "활동금액 조회 요청", description = "활동금액 리스트 조회 처리가 진행됩니다.", tags = { "TravelController"})
+    @GetMapping("/travel-plan/expense")
+    public ResponseEntity<ResponseDTO> findExpenseList() {
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK,"활동금액 조회 성공", travelPlanService.findExpenseList()));
+
+    }
+
+    @Operation(summary = "활동금액 상세 조회 요청", description = "활동금액 상세 조회 처리가 진행됩니다.", tags = { "TravelPlanController" })
+    @GetMapping("/travel-plan/expense/{expenseCode}")
+    public ResponseEntity<ResponseDTO> findExpenseDetail(@PathVariable int expenseCode) {
+
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "상세정보 조회 성공", travelPlanService.findExpenseDetail(expenseCode)));
+    }
+
+    @Operation(summary = "활동금액 등록 요청", description = "활동금액 등록이 진행됩니다.", tags = { "TravelPlanController" })
+    @PostMapping("/travel-plan/expense")
+    public ResponseEntity<ResponseDTO> insertExpense(@RequestBody ExpenseDTO expenseDTO) {
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "활동금액 등록 성공", travelPlanService.insertExpense(expenseDTO)));
+
+    }
+
+/*===============================================================================================================================================================================*/
+
+    @Operation(summary = "세부활동금액 조회 요청", description = "세부활동금액 리스트 조회 처리가 진행됩니다.", tags = { "TravelController"})
+    @GetMapping("/travel-plan/expenseDetail")
+    public ResponseEntity<ResponseDTO> findExpenseDetailList() {
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK,"활동금액 조회 성공", travelPlanService.findExpenseDeatilList()));
+
+    }
+
+    @Operation(summary = "세부활동금액 상세 조회 요청", description = "세부활동금액 상세 조회 처리가 진행됩니다.", tags = { "TravelPlanController" })
+    @GetMapping("/travel-plan/expenseDetail/{expenseDetailCode}")
+    public ResponseEntity<ResponseDTO> findExpenseDetailByCode(@PathVariable int expenseDetailCode) {
+
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "상세정보 조회 성공", travelPlanService.findExpenseDetailByCode(expenseDetailCode)));
     }
 
 
