@@ -67,7 +67,7 @@ function Accommodation() {
   const onClickHandlerHotelPrices = async () => {
 		console.log("ref : " , ref);
 
-		const hotelDetailResponse = await callAmadeusHotelPrices("GZICN128", token, ref);
+		const hotelDetailResponse = await callAmadeusHotelPrices("MCLONGHM", token, ref);
     console.log("hotelDetailResponse : " , hotelDetailResponse);
   };
 
@@ -99,14 +99,14 @@ function Accommodation() {
         placeholder="체크아웃 날짜"
       />
       <input
-        type="number"
+        type="text"
         // value={adults}
         ref={ref.adults}
         onChange={(e) => setAdults(e.target.value)}
         placeholder="성인 수"
       />
       <input
-        type="number"
+        type="text"
         // value={roomQuantity}
         ref={ref.roomQuantity}
         onChange={(e) => setRoomQuantity(e.target.value)}
