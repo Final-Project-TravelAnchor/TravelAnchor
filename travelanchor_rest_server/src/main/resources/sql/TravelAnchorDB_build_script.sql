@@ -347,6 +347,11 @@ VALUES
     (1, 'Admin', '관리자 권한'),
     (2, 'User', '일반 사용자 권한');
 
+-- 회원별 권한 더미 데이터
+INSERT INTO tbl_member_role (member_code, authority_code) VALUES (1, 1);
+INSERT INTO tbl_member_role (member_code, authority_code) VALUES (1, 2);
+INSERT INTO tbl_member_role (member_code, authority_code) VALUES (2, 2);
+
 -- 회원 테이블 더미 데이터
 INSERT INTO tbl_member (member_code, authority_code, member_name, member_nickname, member_mobile_number, member_created_at, member_id, member_password, member_level, profile_photo, member_certification) VALUES
 (1, 1, '홍길동', '길동이', '010-1234-5678', '2024-01-01', 'user1', '$2a$10$IhDb9e29Zr.dCr7nPUA/0e0WShLAy.g6EEMZVBY7HF4U4GbCM/hem', 1,'06a0060ae2da4dffb9a8a440ba5d9c5e.PNG','Y'),
