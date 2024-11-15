@@ -6,5 +6,11 @@ import travelanchor_server.travelplan.entity.ExpenseDetail;
 import java.util.List;
 
 public interface ExpenseDetailRepository extends JpaRepository<ExpenseDetail, Integer> {
+
+    List<ExpenseDetail> findByExpenseCodeAndMemberCode(int expenseCode, int memberCode);
+
+    void deleteByExpenseCodeAndMemberCode(int expenseCode, int memberCode);
+
     List<ExpenseDetail> findAll();
+
 }
