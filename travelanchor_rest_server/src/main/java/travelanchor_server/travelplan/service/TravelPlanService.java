@@ -50,6 +50,7 @@ public class TravelPlanService {
         this.modelMapper = modelMapper;
     }
 
+    // 여행 일정
     public Object findTravelPlanList() {
 
         log.info("[TravelReportService] findTravelReportList() Start");
@@ -147,6 +148,9 @@ public class TravelPlanService {
         return (result > 0) ? "여행 일정 삭제 성공" : "여행 일정 삭제 실패";
     }
 
+    /*--------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+    // 일자별 일정
+
     @Transactional
     public Object deleteTravelDayPlan(int dayCode, MemberDTO memberDTO) {
         log.info("[TravelPlanService] deleteTravelDayPlan() Start");
@@ -172,10 +176,15 @@ public class TravelPlanService {
 
             log.info("[TravelPlanService] Delete Complete : ");
           
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
         log.info("[TravelPlanService] deleteTravelDayPlan() End");
         return (result > 0) ? "여행 일자별 일정 삭제 성공" : "여행 일자별 일정 삭제 실패";
     }
+
+    /*--------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+    // 활동정보
 
     @Transactional
     public Object deleteTravelActivityPlan(int activityCode, MemberDTO memberDTO) {
@@ -211,7 +220,8 @@ public class TravelPlanService {
 
 
 
-    /*===============================================================================================================================================================================*/
+    /*--------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+    // 활동금액
 
         public Object findExpenseList() {
 
@@ -254,8 +264,8 @@ public class TravelPlanService {
 
 
 
-    /*===============================================================================================================================================================================*/
-
+    /*--------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+    // 세부활동금액
 
    public Object findExpenseDeatilList() {
 

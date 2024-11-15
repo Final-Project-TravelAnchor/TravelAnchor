@@ -23,6 +23,8 @@ public class TravelPlanController {
 
     private final TravelPlanService travelPlanService;
 
+    // 여행 일정
+
     @Autowired
     public TravelPlanController(TravelPlanService travelPlanService) { this.travelPlanService = travelPlanService; }
 
@@ -63,6 +65,9 @@ public class TravelPlanController {
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "여행일정 삭제 성공", travelPlanService.deleteTravelPlan(travelCode, travelPlanDTO)));
     }
 
+    /*--------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+    // 일자별 일정
+
     @Operation(summary = "여행 일자별 일정 삭제 요청", description = "해당 여행 일자별 일정 삭제가 진행됩니다.", tags = { "TravelPlanController" })
     @DeleteMapping("/travel-plan/day-del/{dayCode}")
     public ResponseEntity<ResponseDTO> deleteTravelDayPlan(@PathVariable int dayCode, @RequestBody MemberDTO memberDTO) {
@@ -70,6 +75,8 @@ public class TravelPlanController {
         travelPlanService.deleteTravelDayPlan(dayCode, memberDTO)));
     }
 
+    /*--------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+    // 활동정보
 
     @Operation(summary = "여행 세부 일정 삭제 요청", description = "해당 여행 세부 일정 삭제가 진행됩니다.", tags = { "TravelPlanController" })
     @DeleteMapping("/travel-plan/act-del/{activityCode}")
@@ -78,8 +85,8 @@ public class TravelPlanController {
                 travelPlanService.deleteTravelActivityPlan(activityCode, memberDTO)));
     }
 
-/*===============================================================================================================================================================================*/
-
+    /*--------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+    //활동금액
 
     @Operation(summary = "활동금액 조회 요청", description = "활동금액 리스트 조회 처리가 진행됩니다.", tags = { "TravelController"})
     @GetMapping("/travel-plan/expense")
@@ -102,7 +109,8 @@ public class TravelPlanController {
 
     }
 
-/*===============================================================================================================================================================================*/
+    /*--------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+    // 세부활동금액
 
     @Operation(summary = "세부활동금액 조회 요청", description = "세부활동금액 리스트 조회 처리가 진행됩니다.", tags = { "TravelController"})
     @GetMapping("/travel-plan/expenseDetail")
