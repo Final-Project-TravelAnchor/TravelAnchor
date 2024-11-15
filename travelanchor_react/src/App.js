@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from './layouts/Layout';
 import Main from './pages/Main';
+import Login from './pages/member/Login';
 import Error from './pages/Error';
 import Population from './components/items/Population';
 import PopulationDetail from './components/items/PopulationDetail';
@@ -35,7 +36,7 @@ export default function App() {
             <Route path="Accommodation" element={ <Accommodation/> }/>
             <Route path="Weather" element={ <Weather/> }/>
             <Route path="Flight" element={ <Flight/> }/>
-
+            <Route path="/login" element={ <Login/> } />
           </Route>
           <Route path='*' element={ <Error/> }/>
         </Routes>
