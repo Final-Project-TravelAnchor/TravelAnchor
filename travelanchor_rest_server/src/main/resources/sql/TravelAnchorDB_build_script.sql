@@ -17,8 +17,8 @@ DROP TABLE IF EXISTS tbl_member_declare CASCADE;
 DROP TABLE IF EXISTS tbl_member CASCADE;
 DROP TABLE IF EXISTS tbl_authority CASCADE;
 DROP TABLE IF EXISTS tbl_member_reviews_text CASCADE;
-DROP TABLE IF EXISTS tbl_travel_destination_save CASCADE;
-DROP TABLE IF EXISTS tbl_restaurant_save CASCADE;
+DROP TABLE IF EXISTS tbl_travel_destination_favorite CASCADE;
+DROP TABLE IF EXISTS tbl_restaurant_favorite CASCADE;
 
 DROP TABLE IF EXISTS tbl_member_reviews_text CASCADE;
 DROP TABLE IF EXISTS tbl_member_reviews_category CASCADE;
@@ -692,7 +692,7 @@ INSERT INTO tbl_member_declare (declare_code, member_code, declare_created_at, d
 (3, 3, '2024-12-09', '약속장소에 늦습니다.');
 
 -- 여행지 저장 테이블 더미 데이터
-INSERT INTO tbl_travel_destination_save (member_code, api_link, destination_name, destination_photos) VALUES
+INSERT INTO tbl_travel_destination_favorite (member_code, api_link, destination_name, destination_photos) VALUES
 (1, 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=Paris&key=AIzaSyBdC2C4NxgvxtnU5i2NY7WiREj1o5zQ4X4&pagetoken', '파리', 'AdDdOWpMvDIjfI2n-1HEQ_fgkzsNiynpwua9c9DDQP5dBxiYnLqKaISWgbL033rIvQuxDAqBpbIcA5RyHMTuijkFj3cNdeksjcDKG6UtavX8ZIDUMXvJ_vQwBMGHUBXCcNrGe86LOhz0Kn0MtIeYqGyeOOQPRfROo_j-j9riiWmM9V1tucpr'),
 (2, 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=Seoul&key=AIzaSyBdC2C4NxgvxtnU5i2NY7WiREj1o5zQ4X4&pagetoken', '서울', 'AdDdOWoEfjIkVZQajmhvqeQBdmZPDNYQuuKW1xIXoWwCTnB-HFSVHXLoFs2ZIyPT1WDR1uX0WkrnzvdLzWKDyJYAV4CUvqpC-eOr7yh9Tw9mqA3xAJcIL-0QodIdev-XeZPLxY0fCqnLD_FeFcD_OUH2VlHy9u35WJujRrRTJxIyNkKWYwlI'),
 (3, 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=tokyo&key=AIzaSyBdC2C4NxgvxtnU5i2NY7WiREj1o5zQ4X4&pagetoken', '도쿄', 'AdDdOWrQKFJUl6N3prsFIQ9MgIrhbcqy5INFy-KbND-KEtC4qTABx6AlgMudVomsb8U2yCS9ONuso4o3EUM9F3Cw_GB2llA_PPLIqMle6Uh8dSgJRDeziei3GU72W7ZCSQaj5fWzixk5URCplrcwRhdKMdGjRz_X--RDIF8qMzc01RvRr0RY'),
@@ -705,7 +705,7 @@ INSERT INTO tbl_travel_destination_save (member_code, api_link, destination_name
 (10, 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=amsterdam&key=AIzaSyBdC2C4NxgvxtnU5i2NY7WiREj1o5zQ4X4&pagetoken', '암스테르담', 'AdDdOWqdbB95qgJ-R3ipw4COAge-vwisOpQQ0QGsrMXI-fYXe6SmdgEotAGsWU3eLvLK2B_Xdh9vY2_ferbv2O-6h_Rx4CUWsEloyNYq5jVknR6x8OuzBZ6tWt1bddlui3C9YCfajdsZeQfzZokqrZ_HcJourVKCIYOyqSMeGmiMfhQdCuVj');
 
 -- 맛집 저장 테이블 더미 데이터
-INSERT INTO tbl_restaurant_save (member_code, api_link, restaurant_name, restaurant_photos, place_type) VALUES
+INSERT INTO tbl_restaurant_favorite (member_code, api_link, restaurant_name, restaurant_photos, place_type) VALUES
 (1, 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=Myeongdong Restaurant The Sic-ddang&key=AIzaSyBdC2C4NxgvxtnU5i2NY7WiREj1o5zQ4X4','Myeongdong Restaurant The Sic-ddang', 'AdDdOWpTxKkyJJ_fOsXTc-1naqkWyjFD1sLuDxbqYmHyXtSvuv8CfHTdpeCKTCbDKXV1k2QHPzfUSMkYE62MuSvPyfJUGimer3PhT7Sxql6a3uNOyPedSfME1w9Vx1z86R9zGBiqbYLNA-EkBHEFOWsbuXfYVpCUF4PAWQYEuUR2h6r8vtA', 'restaurant'),
 (2, 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=The Ninth Gate&key=AIzaSyBdC2C4NxgvxtnU5i2NY7WiREj1o5zQ4X4','The Ninth Gate', 'AdDdOWpkQ0-9rV-JEAAPP9-zbzATA4gNWuMZWBhCvH6mhTjr58z_y4gwKNx30AApN5T-SPRm4dsI_0O1-ANK4xLdpQO4caxmRewpXkwzZzFYI0U4zdsTgMOuJ9ZEFBiBdxFD9VkFN_mNFQDBKdB89_bSeNU7kqLjAOKam6SHkmuhreAo1fl0', 'restaurant'),
 (3, 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=Wangbijib Myeongdong Center store&key=AIzaSyBdC2C4NxgvxtnU5i2NY7WiREj1o5zQ4X4','Wangbijib Myeongdong Center store', 'AdDdOWqBt2GF88lt-cm31kMY-QtfGf-VUM0jVOlyXI_x2CYXU1dOJcv0LayquBqyMUSLafyeO2OtmjNF51w2SrTPLkXc0nfJvFfEzfCzc9hY_8hCQLESMswA6v7uPebt-yMDHkpaYHa4NUYHJy49l2jIKd9wEkG3K9gxJxYju3b7NcX_4owf', 'restaurant'),
