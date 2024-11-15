@@ -16,6 +16,7 @@ import travelanchor_server.travelplan.entity.TravelPlan;
 import travelanchor_server.travelplan.repository.*;
 
 import travelanchor_server.travelplan.dto.ExpenseDTO;
+import travelanchor_server.travelplan.dto.ExpenseDetailDTO;
 import travelanchor_server.travelplan.dto.TravelPlanDTO;
 import travelanchor_server.travelplan.entity.Expense;
 import travelanchor_server.travelplan.entity.ExpenseDetail;
@@ -288,3 +289,4 @@ public class TravelPlanService {
 
         return (result > 0) ? "세부활동금액 입력 성공" : "활동금액 입력 실패";
     }
+}

@@ -14,13 +14,10 @@ DROP TABLE IF EXISTS tbl_travel_reports CASCADE;
 DROP TABLE IF EXISTS tbl_message CASCADE;
 
 DROP TABLE IF EXISTS tbl_member_declare CASCADE;
-DROP TABLE IF EXISTS tbl_member CASCADE;
-DROP TABLE IF EXISTS tbl_authority CASCADE;
 DROP TABLE IF EXISTS tbl_member_reviews_text CASCADE;
 DROP TABLE IF EXISTS tbl_travel_destination_favorite CASCADE;
 DROP TABLE IF EXISTS tbl_restaurant_favorite CASCADE;
 
-DROP TABLE IF EXISTS tbl_member_reviews_text CASCADE;
 DROP TABLE IF EXISTS tbl_member_reviews_category CASCADE;
 
 DROP TABLE IF EXISTS tbl_travel_city CASCADE;
@@ -30,7 +27,6 @@ DROP TABLE IF EXISTS tbl_notice_category CASCADE;
 DROP TABLE IF EXISTS tbl_chatroom CASCADE;
 DROP TABLE IF EXISTS tbl_message CASCADE;
 DROP TABLE IF EXISTS tbl_member_role CASCADE;
-DROP TABLE IF EXISTS tbl_member_declare CASCADE;
 
 DROP TABLE IF EXISTS tbl_member CASCADE;
 DROP TABLE IF EXISTS tbl_authority CASCADE;
@@ -148,7 +144,6 @@ CREATE TABLE IF NOT EXISTS tbl_travel_plans
     travel_total_date VARCHAR(10) NOT NULL COMMENT '총일수',
     travel_destination VARCHAR(10) NOT NULL COMMENT '목적지',
     travel_onoff VARCHAR(1) NOT NULL COMMENT '여행완료여부',
-    travel_isdeleted VARCHAR(1) NOT NULL COMMENT '삭제여부',
     CONSTRAINT pk_travel_code PRIMARY KEY (travel_code),
     CONSTRAINT fk_member_code3 FOREIGN KEY (member_code) REFERENCES tbl_member(member_code)
 ) ENGINE=InnoDB COMMENT '여행일정';
@@ -160,8 +155,8 @@ CREATE TABLE IF NOT EXISTS tbl_travel_day
     travel_code INT NOT NULL COMMENT '여행코드',
     day_number INT NOT NULL COMMENT '여행차수',
     day_date INT NOT NULL COMMENT '해당 일',
-    CONSTRAINT pk_day_code PRIMARY KEY (day_code)
-#     CONSTRAINT fk_travel_code FOREIGN KEY (travel_code) REFERENCES tbl_travel_plans(travel_code)
+    CONSTRAINT pk_day_code PRIMARY KEY (day_code),
+    CONSTRAINT fk_travel_code FOREIGN KEY (travel_code) REFERENCES tbl_travel_plans(travel_code)
 ) ENGINE=InnoDB COMMENT '일정별일과';
 
 -- 활동 정보 테이블
@@ -171,8 +166,8 @@ CREATE TABLE IF NOT EXISTS tbl_activity
     day_code INT NOT NULL COMMENT '일과코드',
     activity_title VARCHAR(10) NOT NULL COMMENT '세부활동제목',
     activity_detail VARCHAR(100) NOT NULL COMMENT '세부활동',
-    CONSTRAINT pk_activity_code PRIMARY KEY (activity_code)
-#     CONSTRAINT fk_day_code FOREIGN KEY (day_code) REFERENCES tbl_travel_day(day_code)
+    CONSTRAINT pk_activity_code PRIMARY KEY (activity_code),
+    CONSTRAINT fk_day_code FOREIGN KEY (day_code) REFERENCES tbl_travel_day(day_code)
 ) ENGINE=InnoDB COMMENT '활동정보';
 
 -- 활동 비용 테이블
@@ -181,8 +176,8 @@ CREATE TABLE IF NOT EXISTS tbl_expense
     expense_code INT AUTO_INCREMENT NOT NULL COMMENT '활동금액코드',
     activity_code INT NOT NULL COMMENT '활동코드',
     expense_total_amount INT NOT NULL COMMENT '활동총비용',
-    CONSTRAINT pk_expense_code PRIMARY KEY (expense_code)
-#     CONSTRAINT fk_activity_code FOREIGN KEY (activity_code) REFERENCES tbl_activity(activity_code)
+    CONSTRAINT pk_expense_code PRIMARY KEY (expense_code),
+    CONSTRAINT fk_activity_code FOREIGN KEY (activity_code) REFERENCES tbl_activity(activity_code)
 ) ENGINE=InnoDB COMMENT '활동정보';
 
 
@@ -193,9 +188,9 @@ CREATE TABLE IF NOT EXISTS tbl_expense_detail
     expense_code INT NOT NULL COMMENT '활동금액코드',
     expense_detail_amount INT NOT NULL COMMENT '세부활동비용',
     member_code INT COMMENT '회원식별코드',
-    CONSTRAINT pk_expense_detail_code PRIMARY KEY (expense_detail_code)
-#     CONSTRAINT fk_expense_code FOREIGN KEY (expense_code) REFERENCES tbl_expense(expense_code),
-#     CONSTRAINT fk_member_code4 FOREIGN KEY (member_code) REFERENCES tbl_member(member_code)
+    CONSTRAINT pk_expense_detail_code PRIMARY KEY (expense_detail_code),
+    CONSTRAINT fk_expense_code FOREIGN KEY (expense_code) REFERENCES tbl_expense(expense_code),
+    CONSTRAINT fk_member_code4 FOREIGN KEY (member_code) REFERENCES tbl_member(member_code)
 ) ENGINE=InnoDB COMMENT '세부활동정보';
 
 -- 국가 테이블
@@ -411,17 +406,17 @@ INSERT INTO tbl_member_reviews (member_review_code, member_code, review_category
 # INSERT INTO tbl_member_reviews_text (review_category_code, review_category_sub_code, review_text) VALUES
 
 -- 여행 일정 테이블 더미 데이터
-INSERT INTO tbl_travel_plans (travel_code, member_code, travel_name, travel_start_date, travel_end_date, travel_total_date, travel_destination, travel_onoff, travel_isdeleted) VALUES
-(1, 1, '유럽 여행', '2024-04-01', '2024-04-14', '14일', '파리', 'N','N'),
-(2, 2, '일본 도쿄 여행', '2024-05-05', '2024-05-10', '6일', '도쿄', 'Y','N'),
-(3, 3, '미국 뉴욕 여행', '2024-06-01', '2024-06-10', '10일', '뉴욕', 'N','N'),
-(4, 4, '호주 시드니 여행', '2024-07-10', '2024-07-17', '8일', '시드니', 'Y','N'),
-(5, 5, '태국 방콕 여행', '2024-08-15', '2024-08-20', '6일',  '방콕', 'N','N'),
-(6, 6, '이탈리아 로마 여행', '2024-09-01', '2024-09-10', '10일', '로마', 'Y','N'),
-(7, 7, '그리스 아테네 여행', '2024-10-05', '2024-10-12', '8일', '아테네', 'N','N'),
-(8, 8, '영국 런던 여행', '2024-11-10', '2024-11-15', '6일', '런던', 'Y','N'),
-(9, 9, '스페인 바르셀로나 여행', '2024-12-01', '2024-12-08', '8일', '바르셀로나', 'N','N'),
-(10, 10, '캐나다 토론토 여행', '2025-01-10', '2025-01-20', '11일', '토론토', 'Y','N');
+INSERT INTO tbl_travel_plans (travel_code, member_code, travel_name, travel_start_date, travel_end_date, travel_total_date, travel_destination, travel_onoff) VALUES
+(1, 1, '유럽 여행', '2024-04-01', '2024-04-14', '14일', '파리', 'N'),
+(2, 2, '일본 도쿄 여행', '2024-05-05', '2024-05-10', '6일', '도쿄', 'Y'),
+(3, 3, '미국 뉴욕 여행', '2024-06-01', '2024-06-10', '10일', '뉴욕', 'N'),
+(4, 4, '호주 시드니 여행', '2024-07-10', '2024-07-17', '8일', '시드니', 'Y'),
+(5, 5, '태국 방콕 여행', '2024-08-15', '2024-08-20', '6일',  '방콕', 'N'),
+(6, 6, '이탈리아 로마 여행', '2024-09-01', '2024-09-10', '10일', '로마', 'Y'),
+(7, 7, '그리스 아테네 여행', '2024-10-05', '2024-10-12', '8일', '아테네', 'N'),
+(8, 8, '영국 런던 여행', '2024-11-10', '2024-11-15', '6일', '런던', 'Y'),
+(9, 9, '스페인 바르셀로나 여행', '2024-12-01', '2024-12-08', '8일', '바르셀로나', 'N'),
+(10, 10, '캐나다 토론토 여행', '2025-01-10', '2025-01-20', '11일', '토론토', 'Y');
 
 INSERT INTO tbl_travel_day (day_code, travel_code, day_number, day_date) VALUES
 (1, 1, 1, 1),

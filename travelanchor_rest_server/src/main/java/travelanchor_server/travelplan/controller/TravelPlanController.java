@@ -11,6 +11,7 @@ import travelanchor_server.common.ResponseDTO;
 import travelanchor_server.member.dto.MemberDTO;
 import travelanchor_server.travelplan.dto.TravelDayDTO;
 import travelanchor_server.travelplan.dto.ExpenseDTO;
+import travelanchor_server.travelplan.dto.ExpenseDetailDTO;
 import travelanchor_server.travelplan.dto.TravelPlanDTO;
 import travelanchor_server.travelplan.service.TravelPlanService;
 
@@ -117,5 +118,10 @@ public class TravelPlanController {
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "상세정보 조회 성공", travelPlanService.findExpenseDetailByCode(expenseDetailCode)));
     }
 
+    @Operation(summary = "세부활동금액 등록 요청", description = "세부활동금액 등록이 진행됩니다.", tags = { "TravelPlanController" })
+    @PostMapping("/travel-plan/expenseDetail")
+    public ResponseEntity<ResponseDTO> insertExpenseDetail(@RequestBody ExpenseDetailDTO expenseDetailDTO) {
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "세부활동금액 등록 성공", travelPlanService.insertExpenseDetail(expenseDetailDTO)));
 
+    }
 }
