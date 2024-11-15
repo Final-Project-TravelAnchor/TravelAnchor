@@ -8,4 +8,6 @@ import java.util.List;
 public interface RestaurantRepository extends JpaRepository<Restaurant, Integer> {
 
     List<Restaurant> findById(int memberCode);
+
+    void deleteByFavoriteCode(int favoriteCode);
 }

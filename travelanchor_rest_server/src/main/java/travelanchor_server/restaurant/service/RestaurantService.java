@@ -12,7 +12,6 @@ import travelanchor_server.restaurant.entity.Restaurant;
 import travelanchor_server.restaurant.repository.RestaurantRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class RestaurantService {
@@ -21,13 +20,11 @@ public class RestaurantService {
 
     private final RestaurantRepository restaurantRepository;
     private final ModelMapper modelMapper;
-    private final MemberRepository memberRepository;
 
     @Autowired
-    public RestaurantService(RestaurantRepository restaurantRepository, ModelMapper modelMapper, MemberRepository memberRepository) {
+    public RestaurantService(RestaurantRepository restaurantRepository, ModelMapper modelMapper) {
         this.restaurantRepository = restaurantRepository;
         this.modelMapper = modelMapper;
-        this.memberRepository = memberRepository;
     }
 
     @Transactional
@@ -54,14 +51,43 @@ public class RestaurantService {
     }
 
     public Object getSavedRestaurantList(int memberCode) {
-        log.info("[RestaurantService] selectSavedRestaurantList() Start");
+
+        log.info("[RestaurantService] getSavedRestaurantList() Start");
 
         List<Restaurant> restaurantList = restaurantRepository.findById(memberCode);
 
         log.info("[RestaurantService] savedRestaurantList {}", restaurantList);
 
-        log.info("[RestaurantService] selectSavedRestaurantList() End");
+        log.info("[RestaurantService] getSavedRestaurantList() End");
 
         return restaurantList.stream().map(restaurant -> modelMapper.map(restaurant, RestaurantDTO.class));
+    }
+
+    @Transactional
+    public Object deleteSavedRestaurant(RestaurantDTO restaurantDTO, int favoriteCode) {
+
+        log.info("[RestaurantService] deleteSavedRestaurant() Start");
+
+        log.info("[RestaurantService] restaurantDTO : ", restaurantDTO);
+
+        int result = 0;
+
+        try {
+            // favoriteCode를 조건으로 레코드 삭제
+            Restaurant deleteSavedRestaurant = modelMapper.map(restaurantDTO, Restaurant.class);
+
+            restaurantRepository.delete(deleteSavedRestaurant);
+
+            restaurantRepository.deleteByFavoriteCode(favoriteCode);
+
+            result = 1;
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        log.info("[RestaurantService] deleteSavedRestaurant() End");
+
+        return (result > 0) ? "저장한 맛집 삭제 성공" : "저장한 맛집 삭제 실패";
     }
 }
