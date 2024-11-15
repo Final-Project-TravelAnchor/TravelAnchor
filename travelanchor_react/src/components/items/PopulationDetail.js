@@ -7,6 +7,7 @@ import { callPopulationDetailAPI } from "../../apis/PopulationAPICalls";
 export default function PopulationDetail() {
 
     const { populationCode } = useParams();
+    console.log("[PopulationDetail] population code: " + populationCode);
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -14,9 +15,11 @@ export default function PopulationDetail() {
     // const populationDetail = population.data;
     // console.log(populationDetail);
 
-    const onClickModifyModeHandler = (populationCode) => {
+    const onClickModifyModeHandler = (populationCode, population) => {
         console.log("[PopulationDetail]onClickModifyModeHandler ", populationCode);
-        navigator(`/items/populationModify/${populationCode}`, { replace: false });
+        console.log("[PopulationDetail]onClickModifyModeHandler ", population);
+        navigate(`/items/populationModify/${populationCode}`, { state: {population}, replace: false });
+        // navigate(`/items/${populationCode}`, { replace: false});
     };
 
     useEffect(() => {
@@ -31,7 +34,7 @@ export default function PopulationDetail() {
 
     return (
         <div>
-            <button onClick={() => onClickModifyModeHandler(populationCode)}>
+            <button onClick={() => onClickModifyModeHandler(populationCode, population)}>
                 수정하기
             </button>
             {
