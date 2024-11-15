@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
 import { callAmadeusToken, callAmadeusFlightAPI } from "../../apis/AmadeusFlightAPICalls";
+import style from './Flight.module.css';
 
 export default function Flight() {
 
@@ -8,13 +9,13 @@ export default function Flight() {
 	const [tripType, setTripType] = useState("one-way"); // 여행 유형 상태
 
 	// Ref 생성
-	const originRef = useRef(null);
-	const destinationRef = useRef(null);
-	const departureDateRef = useRef(null);
-	const returnDateRef = useRef(null);
-	const adultsRef = useRef(null);
-	const childrenRef = useRef(null);
-	const infantsRef = useRef(null);
+	// const originRef = useRef(null);
+	// const destinationRef = useRef(null);
+	// const departureDateRef = useRef(null);
+	// const returnDateRef = useRef(null);
+	// const adultsRef = useRef(null);
+	// const childrenRef = useRef(null);
+	// const infantsRef = useRef(null);
 	const travelClassRef = useRef(null);
 
 	const ref = {
@@ -25,9 +26,9 @@ export default function Flight() {
 		adultsRef: useRef(null),
 		childrenRef: useRef(null),
 		infantsRef: useRef(null),
-		travelClassRef: useRef(null),
+		// travelClassRef: useRef(null),
 		tripType: useRef(null),
-	  };
+	};
 
 	const [ token, setToken ] = useState();
 
@@ -43,18 +44,19 @@ export default function Flight() {
 			return;
 		}
 		
-		console.log("ref : " , ref);
-		console.log("ref : " , ref.originRef.current.value,);
+		// console.log("ref : " , ref);
+		// console.log("ref : " , ref.originRef.current.value,);
 
 		const flightResponse = await callAmadeusFlightAPI(token, ref);
-		console.log(flightResponse);
+		console.log("비행편 : ", flightResponse);
+		setFlight(flightResponse);	// fight 상태에 응답 데이터 저장
 	};
 
     return (
 		<div>
 			<h1>항공권 최저가 검색</h1>
-			<button onClick={onClickHandler}>Token Request</button>
-			{token && <p>Token: {token}</p>}
+			<button onClick={onClickHandler}>토큰받기</button>
+			{/* {token && <p>Token: {token}</p>} */}
 
 			<div>
 				<label>여행 유형</label>
@@ -113,14 +115,12 @@ export default function Flight() {
 			<button onClick={onClickHandlerFlight}>항공권 검색</button>
 
 			{flight && flight.data && (
-				// <div style={styles.cardContainer}>
-				<div>
+				<div className={style.cardContainer}>
 					{flight.data.map((offer, index) => (
-						// <div key={index} style={styles.card}>
-						<div key={index}>
+						<div key={index} className={style.card}>
 							<h3>
 								{offer.itineraries[0].segments[0].operating.carrierCode}
-								<br/>
+								<br />
 								{offer.itineraries[0].segments[0].departure.iataCode} to{" "}
 								{offer.itineraries[0].segments[0].arrival.iataCode}
 							</h3>

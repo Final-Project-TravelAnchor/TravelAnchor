@@ -8,8 +8,8 @@ export const callAmadeusToken = async () => {
 
 	const body = new URLSearchParams({
 		grant_type: 'client_credentials',
-		client_id: `${process.env.REACT_APP_AMADEUS_API_KEY}`,
-		client_secret: `${process.env.REACT_APP_AMADEUS_API_SECRET}`,
+		client_id: process.env.REACT_APP_AMADEUS_API_KEY,
+		client_secret: process.env.REACT_APP_AMADEUS_API_SECRET,
 	}).toString();
 
 	try {
@@ -48,9 +48,8 @@ export const callAmadeusFlightAPI = async (access_token, ref) => {
 		destinationLocationCode: ref.destinationRef.current?.value || '',
 		departureDate: ref.departureDateRef.current?.value || '',
 		adults: ref.adultsRef.current?.value || '1',
-		// children: ref.childrenRef.current?.value || '0',
-		// infants: ref.infantsRef.current?.value || '0',
-		// travelClass: ref.travelClassRef.current?.value || '',
+		children: ref.childrenRef.current?.value || '0',
+		infants: ref.infantsRef.current?.value || '0',
 		nonStop: false,
 		max: 100,
 		currencyCode: 'KRW',
@@ -68,7 +67,7 @@ export const callAmadeusFlightAPI = async (access_token, ref) => {
 	//https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=SYD&destinationLocationCode=BKK&departureDate=2024-11-15&adults=1&returnDate=2024-11-17&nonStop=false&max=250
 
 	try {
-		console.log("test");
+		// console.log("test");
 		const response = await fetch(`${url}?${params}`, {
 			headers: {
 				'Authorization': `Bearer ${access_token}`,
