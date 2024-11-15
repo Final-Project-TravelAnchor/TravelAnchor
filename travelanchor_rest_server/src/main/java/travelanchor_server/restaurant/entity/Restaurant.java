@@ -3,7 +3,7 @@ package travelanchor_server.restaurant.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "tbl_restaurant_save")
+@Table(name = "tbl_restaurant_favorite")
 public class Restaurant {
 
     @Id
