@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import travelanchor_server.travelplan.dto.ExpenseDTO;
+import travelanchor_server.travelplan.dto.ExpenseDetailDTO;
 import travelanchor_server.travelplan.dto.TravelPlanDTO;
 import travelanchor_server.travelplan.entity.Expense;
 import travelanchor_server.travelplan.entity.ExpenseDetail;
@@ -169,5 +170,23 @@ public class TravelPlanService {
 
         return modelMapper.map(expenseDetail, ExpenseDetail.class);
 
+    }
+
+    public Object insertExpenseDetail(ExpenseDetailDTO expenseDetailDTO) {
+        int result = 0;
+
+        try {
+            ExpenseDetail insertExpenseDetail = modelMapper.map(expenseDetailDTO, ExpenseDetail.class);
+
+            expenseDetailRepository.save(insertExpenseDetail);
+
+            result = 1;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        log.info("[ExpenseDetailService] insertExpenseDetail() End");
+        log.info("[TravelPlanService] expenseDetailDTO : " + expenseDetailDTO);
+
+        return (result > 0) ? "활동금액 입력 성공" : "활동금액 입력 실패";
     }
 }

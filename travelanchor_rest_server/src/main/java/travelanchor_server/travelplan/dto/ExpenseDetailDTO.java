@@ -4,16 +4,16 @@ public class ExpenseDetailDTO {
 
     private int expenseDetailCode;
     private int expenseCode;
-    private int detailAmount;
+    private int expenseDetailAmount;
     private int memberCode;
 
     public ExpenseDetailDTO() {
     }
 
-    public ExpenseDetailDTO(int expenseDetailCode, int expenseCode, int detailAmount, int memberCode) {
+    public ExpenseDetailDTO(int expenseDetailCode, int expenseCode, int expenseDetailAmount, int memberCode) {
         this.expenseDetailCode = expenseDetailCode;
         this.expenseCode = expenseCode;
-        this.detailAmount = detailAmount;
+        this.expenseDetailAmount = expenseDetailAmount;
         this.memberCode = memberCode;
     }
 
@@ -33,12 +33,12 @@ public class ExpenseDetailDTO {
         this.expenseCode = expenseCode;
     }
 
-    public int getDetailAmount() {
-        return detailAmount;
+    public int getExpenseDetailAmount() {
+        return expenseDetailAmount;
     }
 
-    public void setDetailAmount(int detailAmount) {
-        this.detailAmount = detailAmount;
+    public void setExpenseDetailAmount(int expenseDetailAmount) {
+        this.expenseDetailAmount = expenseDetailAmount;
     }
 
     public int getMemberCode() {
@@ -54,7 +54,7 @@ public class ExpenseDetailDTO {
         return "ExpenseDetailDTO{" +
                 "expenseDetailCode=" + expenseDetailCode +
                 ", expenseCode=" + expenseCode +
-                ", detailAmount=" + detailAmount +
+                ", expenseDetailAmount=" + expenseDetailAmount +
                 ", memberCode=" + memberCode +
                 '}';
     }
