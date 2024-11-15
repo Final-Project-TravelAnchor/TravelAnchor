@@ -84,7 +84,7 @@ public class SecurityConfig {
                     // API 경로는 USER 또는 ADMIN 역할을 가진 사용자만 접근 가능
                     auth.requestMatchers("/api/**").hasAnyRole("USER", "ADMIN");
                     // 어떤 요청이든 허용 -> Security를 활용한 로그인이 모두 완성되지 않았을 때 사용할 것
-//                    auth.anyRequest().permitAll();
+                    auth.anyRequest().permitAll();
                 })
                 // 4. 세션 방식을 사용하지 않음
                 .sessionManagement(session ->
