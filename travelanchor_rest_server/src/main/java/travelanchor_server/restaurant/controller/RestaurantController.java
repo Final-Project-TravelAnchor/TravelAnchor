@@ -1,8 +1,6 @@
 package travelanchor_server.restaurant.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +15,6 @@ import java.io.IOException;
 @RequestMapping("/restaurant/v1")
 public class RestaurantController {
 
-    private static final Logger log = LoggerFactory.getLogger(RestaurantController.class);
-
     private final RestaurantService restaurantService;
 
     @Autowired
@@ -26,9 +22,9 @@ public class RestaurantController {
         this.restaurantService = restaurantService;
     }
 
-    @Operation(summary = "맛집 저장 요청", description = "해당 맛집 저장이 진행됩니다.", tags = { "RestaurantController" })
+    @Operation(summary = "맛집 저장 요청", description = "맛집 저장이 진행됩니다.", tags = { "RestaurantController" })
     @PostMapping("/restaurants")
-    public ResponseEntity<ResponseDTO> insertPopulation(@RequestBody RestaurantDTO restaurantDTO) {
+    public ResponseEntity<ResponseDTO> insertRestaurant(@RequestBody RestaurantDTO restaurantDTO) {
 
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "맛집 저장 성공", restaurantService.insertRestaurant(restaurantDTO)));
     }
