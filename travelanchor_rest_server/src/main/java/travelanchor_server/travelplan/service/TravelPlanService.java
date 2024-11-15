@@ -128,6 +128,7 @@ public class TravelPlanService {
     }
 
     public Object insertExpense(ExpenseDTO expenseDTO) {
+        log.info("[TravelPlanService] expenseDTO : " + expenseDTO);
         int result = 0;
 
         try {
