@@ -2,7 +2,9 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import HeaderCSS from './Header.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { useState } from 'react';
-
+import { decodeJwt } from '../../utils/tokenUtils';
+import { callLogoutAPI } from '../../apis/MemberAPICalls';
+import LoginModal from './LoginModal';
 
 function Header() {
 	const navigate = useNavigate();
@@ -39,25 +41,25 @@ function Header() {
 
 	// 토큰이 만료되었을때 다시 로그인
 	const onClickMypageHandler = () => {
-		// const token = decodeJwt(window.localStorage.getItem('accessToken'));
-		// console.log('[Header] onClickMypageHandler token : ', token);
+		const token = decodeJwt(window.localStorage.getItem('accessToken'));
+		console.log('[Header] onClickMypageHandler token : ', token);
 
-		// if (token.exp * 1000 < Date.now()) {
-		// 	setLoginModal(true);
-		// 	return;
-		// }
+		if (token.exp * 1000 < Date.now()) {
+			setLoginModal(true);
+			return;
+		}
 
-		// navigate('/mypage', { replace: true });
+		navigate('/mypage', { replace: true });
 	};
 
 	//로그아웃
 	const onClickLogoutHandler = () => {
-		// window.localStorage.removeItem('accessToken');
-		// dispatch(callLogoutAPI());
+		window.localStorage.removeItem('accessToken');
+		dispatch(callLogoutAPI());
 
-		// alert('로그아웃이 되어 메인화면으로 이동합니다.');
-		// navigate('/', { replace: true });
-		// window.location.reload();
+		alert('로그아웃이 되어 메인화면으로 이동합니다.');
+		navigate('/', { replace: true });
+		window.location.reload();
 	};
 
 	function BeforeLogin() {
@@ -91,7 +93,7 @@ function Header() {
 
 	return (
 		<>
-			{/* {loginModal ? <LoginModal setLoginModal={setLoginModal} /> : null} */}
+			{loginModal ? <LoginModal setLoginModal={setLoginModal} /> : null}
 			<div>
 				<button
 					// className={HeaderCSS.LogoBtn}

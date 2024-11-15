@@ -72,17 +72,17 @@ public class SecurityConfig {
                 // 3. HTTP 요청에 대한 접근 권한 설정
                 .authorizeHttpRequests(auth -> {
                     // CORS Preflight 요청 허용
-                    auth.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll();
-                    // root 경로는 인증 필요
-                    auth.requestMatchers("/").authenticated();
-                    // 특정 경로는 무조건 허용
-//                    auth.requestMatchers("/auth/**", "/api/v1/products/**", "/api/v1/reviews/**").permitAll();
-//                    auth.requestMatchers("/population/**").permitAll();
-                    auth.requestMatchers("/**").permitAll();
-                    // Swagger API 문서 허용
-                    auth.requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**").permitAll();
-                    // API 경로는 USER 또는 ADMIN 역할을 가진 사용자만 접근 가능
-                    auth.requestMatchers("/api/**").hasAnyRole("USER", "ADMIN");
+//                    auth.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll();
+//                    // root 경로는 인증 필요
+//                    auth.requestMatchers("/").authenticated();
+//                    // 특정 경로는 무조건 허용
+////                    auth.requestMatchers("/auth/**", "/api/v1/products/**", "/api/v1/reviews/**").permitAll();
+////                    auth.requestMatchers("/population/**").permitAll();
+//                    auth.requestMatchers("/**").permitAll();
+//                    // Swagger API 문서 허용
+//                    auth.requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**").permitAll();
+//                    // API 경로는 USER 또는 ADMIN 역할을 가진 사용자만 접근 가능
+//                    auth.requestMatchers("/api/**").hasAnyRole("USER", "ADMIN");
                     // 어떤 요청이든 허용 -> Security를 활용한 로그인이 모두 완성되지 않았을 때 사용할 것
                     auth.anyRequest().permitAll();
                 })
