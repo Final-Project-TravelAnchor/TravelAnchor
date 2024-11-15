@@ -10,12 +10,13 @@ public class TravelPlanDTO {
     private Date travelEndDate;
     private String travelTotalDate;
     private String travelDestination;
-    private Boolean travelOnoff;
+    private String travelOnoff;
+    private String travelIsdeleted;
 
     public TravelPlanDTO() {
     }
 
-    public TravelPlanDTO(int travelCode, int memberCode, String travelName, Date travelStartDate, Date travelEndDate, String travelTotalDate, String travelDestination, Boolean travelOnoff) {
+    public TravelPlanDTO(int travelCode, int memberCode, String travelName, Date travelStartDate, Date travelEndDate, String travelTotalDate, String travelDestination, String travelOnoff, String travelIsdeleted) {
         this.travelCode = travelCode;
         this.memberCode = memberCode;
         this.travelName = travelName;
@@ -24,6 +25,7 @@ public class TravelPlanDTO {
         this.travelTotalDate = travelTotalDate;
         this.travelDestination = travelDestination;
         this.travelOnoff = travelOnoff;
+        this.travelIsdeleted = travelIsdeleted;
     }
 
     public int getTravelCode() {
@@ -34,11 +36,11 @@ public class TravelPlanDTO {
         this.travelCode = travelCode;
     }
 
-    public int getMembercode() {
+    public int getMemberCode() {
         return memberCode;
     }
 
-    public void setMembercode(int memberCode) {
+    public void setMemberCode(int memberCode) {
         this.memberCode = memberCode;
     }
 
@@ -82,12 +84,20 @@ public class TravelPlanDTO {
         this.travelDestination = travelDestination;
     }
 
-    public Boolean getTravelOnoff() {
+    public String getTravelOnoff() {
         return travelOnoff;
     }
 
-    public void setTravelOnoff(Boolean travelOnoff) {
+    public void setTravelOnoff(String travelOnoff) {
         this.travelOnoff = travelOnoff;
+    }
+
+    public String getTravelIsdeleted() {
+        return travelIsdeleted;
+    }
+
+    public void setTravelIsdeleted(String travelIsdeleted) {
+        this.travelIsdeleted = travelIsdeleted;
     }
 
     @Override
@@ -98,9 +108,10 @@ public class TravelPlanDTO {
                 ", travelName='" + travelName + '\'' +
                 ", travelStartDate=" + travelStartDate +
                 ", travelEndDate=" + travelEndDate +
-                ", travelTotalDate=" + travelTotalDate +
+                ", travelTotalDate='" + travelTotalDate + '\'' +
                 ", travelDestination='" + travelDestination + '\'' +
                 ", travelOnoff=" + travelOnoff +
+                ", travelIsdeleted=" + travelIsdeleted +
                 '}';
     }
 }

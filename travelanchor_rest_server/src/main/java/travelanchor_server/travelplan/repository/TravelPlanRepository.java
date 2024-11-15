@@ -6,5 +6,5 @@ import travelanchor_server.travelplan.entity.TravelPlan;
 import java.util.List;
 
 public interface TravelPlanRepository extends JpaRepository<TravelPlan, Integer> {
-    List<TravelPlan> findAll();
+//    List<TravelPlan> findAll();
 }

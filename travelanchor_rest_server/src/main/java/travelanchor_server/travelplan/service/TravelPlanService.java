@@ -6,9 +6,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import travelanchor_server.member.dto.MemberDTO;
 import travelanchor_server.travelplan.dto.TravelPlanDTO;
+import travelanchor_server.travelplan.entity.Activity;
+import travelanchor_server.travelplan.entity.Expense;
+import travelanchor_server.travelplan.entity.ExpenseDetail;
+import travelanchor_server.travelplan.entity.TravelDay;
 import travelanchor_server.travelplan.entity.TravelPlan;
-import travelanchor_server.travelplan.repository.TravelPlanRepository;
+import travelanchor_server.travelplan.repository.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,11 +24,19 @@ public class TravelPlanService {
     private static final Logger log = LoggerFactory.getLogger(TravelPlanService.class);
 
     private final TravelPlanRepository travelPlanRepository;
+    private final TravelDayRepository travelDayRepository;
+    private final ActivityRepository activityRepository;
+    private final ExpenseRepository expenseRepository;
+    private final ExpenseDetailRepository expenseDetailRepository;
     private final ModelMapper modelMapper;
 
     @Autowired
-    public TravelPlanService(TravelPlanRepository travelPlanRepository, ModelMapper modelMapper) {
+    public TravelPlanService(TravelPlanRepository travelPlanRepository, TravelDayRepository travelDayRepository, ActivityRepository activityRepository, ExpenseRepository expenseRepository, ExpenseDetailRepository expenseDetailRepository, ModelMapper modelMapper) {
         this.travelPlanRepository = travelPlanRepository;
+        this.travelDayRepository = travelDayRepository;
+        this.activityRepository = activityRepository;
+        this.expenseRepository = expenseRepository;
+        this.expenseDetailRepository = expenseDetailRepository;
         this.modelMapper = modelMapper;
     }
 
@@ -100,4 +113,95 @@ public class TravelPlanService {
         log.info("[TravelPlanService] updateTravelPlan() End");
         return (result > 0) ? "여행 일정 수정 성공" : "여행 일정 수정 실패";
     }
+
+    @Transactional
+    public Object deleteTravelPlan(int travelCode, TravelPlanDTO travelPlanDTO) {
+        log.info("[TravelPlanService] deleteTravelPlan() Start");
+        log.info("[TravelPlanService] travelCode : "+ travelCode);
+        int result = 0;
+
+        try{
+            TravelPlan travelPlan = travelPlanRepository.findById(travelCode).get();
+            log.info("[TravelPlanService] travelPlan : " + travelPlan);
+            travelPlan.setTravelIsdeleted(travelPlanDTO.getTravelIsdeleted());
+
+            System.out.println("travelPlan = " + travelPlan);
+
+            travelPlanRepository.save(travelPlan);
+
+            result = 1;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        log.info("[TravelPlanService] updateTravelPlan() End");
+        return (result > 0) ? "여행 일정 삭제 성공" : "여행 일정 삭제 실패";
+    }
+
+    @Transactional
+    public Object deleteTravelDayPlan(int dayCode, MemberDTO memberDTO) {
+        log.info("[TravelPlanService] deleteTravelDayPlan() Start");
+        log.info("[TravelPlanService] dayCode : " + dayCode);
+        log.info("[TravelPlanService] memberDTO : " + memberDTO);
+        int result = 0;
+
+        try {
+            TravelDay travelDay = travelDayRepository.findById(dayCode).get();
+            List<Activity> activity = activityRepository.findByDayCode(travelDay.getDayCode());
+            List<Expense> expense = expenseRepository.findByActivityCode(activity.get(0).getActivityCode());
+            List<ExpenseDetail> expenseDetail = expenseDetailRepository.findByExpenseCodeAndMemberCode(expense.get(0).getExpenseCode(), memberDTO.getMemberCode());
+
+            log.info("[TravelPlanService] travelDay : " + travelDay.getDayCode());
+            log.info("[TravelPlanService] activity : " + activity.get(0));
+            log.info("[TravelPlanService] expense : " + expense.get(0));
+            log.info("[TravelPlanService] expenseDetail : " + expenseDetail.get(0));
+
+            expenseDetailRepository.deleteByExpenseCodeAndMemberCode(expenseDetail.get(0).getExpenseCode(), memberDTO.getMemberCode());
+            expenseRepository.deleteByExpenseCode(expense.get(0).getExpenseCode());
+            activityRepository.deleteByActivityCode(activity.get(0).getActivityCode());
+            travelDayRepository.delete(travelDay);
+
+            log.info("[TravelPlanService] Delete Complete : ");
+
+
+            result = 1;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+
+        }
+        log.info("[TravelPlanService] deleteTravelDayPlan() End");
+        return (result > 0) ? "여행 일자별 일정 삭제 성공" : "여행 일자별 일정 삭제 실패";
+    }
+
+    @Transactional
+    public Object deleteTravelActivityPlan(int activityCode, MemberDTO memberDTO) {
+        log.info("[TravelPlanService] deleteTravelActivityPlan() Start");
+        log.info("[TravelPlanService] activityCode : " + activityCode);
+        log.info("[TravelPlanService] memberDTO : " + memberDTO);
+        int result = 0;
+
+        try {
+            Activity activity = activityRepository.findById(activityCode).get();
+            List<Expense> expense = expenseRepository.findByActivityCode(activity.getActivityCode());
+            List<ExpenseDetail> expenseDetail = expenseDetailRepository.findByExpenseCodeAndMemberCode(expense.get(0).getExpenseCode(), memberDTO.getMemberCode());
+
+            log.info("[TravelPlanService] activity : " + activity.getActivityCode());
+            log.info("[TravelPlanService] expense : " + expense.get(0));
+            log.info("[TravelPlanService] expenseDetail : " + expenseDetail.get(0));
+
+            expenseDetailRepository.deleteByExpenseCodeAndMemberCode(expenseDetail.get(0).getExpenseCode(), memberDTO.getMemberCode());
+            expenseRepository.deleteByExpenseCode(expense.get(0).getExpenseCode());
+            activityRepository.delete(activity);
+
+            log.info("[TravelPlanService] Delete Complete : ");
+
+
+            result = 1;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+
+        }
+        log.info("[TravelPlanService] deleteTravelActivityPlan() End");
+        return (result > 0) ? "여행 세부 일정 삭제 성공" : "여행 세부 일정 삭제 실패";
+    }
+
 }

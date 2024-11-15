@@ -32,12 +32,15 @@ public class TravelPlan {
     private String travelDestination;
 
     @Column(name = "travel_onoff")
-    private Boolean travelOnoff;
+    private String travelOnoff;
+
+    @Column(name ="travel_isdeleted")
+    private String travelIsdeleted;
 
     public TravelPlan() {
     }
 
-    public TravelPlan(int travelCode, int memberCode, String travelName, Date travelStartDate, Date travelEndDate, String travelTotalDate, String travelDestination, Boolean travelOnoff) {
+    public TravelPlan(int travelCode, int memberCode, String travelName, Date travelStartDate, Date travelEndDate, String travelTotalDate, String travelDestination, String travelOnoff, String travelIsdeleted) {
         this.travelCode = travelCode;
         this.memberCode = memberCode;
         this.travelName = travelName;
@@ -46,6 +49,7 @@ public class TravelPlan {
         this.travelTotalDate = travelTotalDate;
         this.travelDestination = travelDestination;
         this.travelOnoff = travelOnoff;
+        this.travelIsdeleted = travelIsdeleted;
     }
 
     public int getTravelCode() {
@@ -56,11 +60,11 @@ public class TravelPlan {
         this.travelCode = travelCode;
     }
 
-    public int getMembercode() {
+    public int getMemberCode() {
         return memberCode;
     }
 
-    public void setMembercode(int memberCode) {
+    public void setMemberCode(int memberCode) {
         this.memberCode = memberCode;
     }
 
@@ -104,12 +108,20 @@ public class TravelPlan {
         this.travelDestination = travelDestination;
     }
 
-    public Boolean getTravelOnoff() {
+    public String getTravelOnoff() {
         return travelOnoff;
     }
 
-    public void setTravelOnoff(Boolean travelOnoff) {
+    public void setTravelOnoff(String travelOnoff) {
         this.travelOnoff = travelOnoff;
+    }
+
+    public String getTravelIsdeleted() {
+        return travelIsdeleted;
+    }
+
+    public void setTravelIsdeleted(String travelIsdeleted) {
+        this.travelIsdeleted = travelIsdeleted;
     }
 
     @Override
@@ -120,9 +132,10 @@ public class TravelPlan {
                 ", travelName='" + travelName + '\'' +
                 ", travelStartDate=" + travelStartDate +
                 ", travelEndDate=" + travelEndDate +
-                ", travelTotalDate=" + travelTotalDate +
+                ", travelTotalDate='" + travelTotalDate + '\'' +
                 ", travelDestination='" + travelDestination + '\'' +
                 ", travelOnoff=" + travelOnoff +
+                ", travelIsdeleted=" + travelIsdeleted +
                 '}';
     }
 }
