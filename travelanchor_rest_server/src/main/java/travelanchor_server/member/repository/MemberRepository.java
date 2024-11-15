@@ -12,4 +12,6 @@ public interface MemberRepository extends JpaRepository<Member, Integer> {
     int maxMemberCode();
 
     Member findByMemberMobileNumber(String memberMobileNumber);
+
+    int findMemberCodeByMemberId(String memberId);
 }

@@ -6,9 +6,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import travelanchor_server.member.repository.MemberRepository;
 import travelanchor_server.restaurant.dto.RestaurantDTO;
 import travelanchor_server.restaurant.entity.Restaurant;
 import travelanchor_server.restaurant.repository.RestaurantRepository;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RestaurantService {
@@ -17,11 +21,13 @@ public class RestaurantService {
 
     private final RestaurantRepository restaurantRepository;
     private final ModelMapper modelMapper;
+    private final MemberRepository memberRepository;
 
     @Autowired
-    public RestaurantService(RestaurantRepository restaurantRepository, ModelMapper modelMapper) {
+    public RestaurantService(RestaurantRepository restaurantRepository, ModelMapper modelMapper, MemberRepository memberRepository) {
         this.restaurantRepository = restaurantRepository;
         this.modelMapper = modelMapper;
+        this.memberRepository = memberRepository;
     }
 
     @Transactional
@@ -45,5 +51,17 @@ public class RestaurantService {
         log.info("[RestaurantService] insertRestaurant() End");
 
         return (result > 0) ? "맛집 저장 성공" : "맛집 저장 실패";
+    }
+
+    public Object getSavedRestaurantList(int memberCode) {
+        log.info("[RestaurantService] selectSavedRestaurantList() Start");
+
+        List<Restaurant> restaurantList = restaurantRepository.findById(memberCode);
+
+        log.info("[RestaurantService] savedRestaurantList {}", restaurantList);
+
+        log.info("[RestaurantService] selectSavedRestaurantList() End");
+
+        return restaurantList.stream().map(restaurant -> modelMapper.map(restaurant, RestaurantDTO.class));
     }
 }
