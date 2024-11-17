@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import travelanchor_server.common.ResponseDTO;
@@ -27,10 +28,15 @@ public class TravelReportController {
     @Operation(summary = "여행 후기 리스트 조회 요청", description = "여행 후기 리스트 조회 처리가 진행됩니다.", tags = { "TravelReportController" })
     @GetMapping("/travel-report")
     public ResponseEntity<ResponseDTO> findTravelReportList(){
-
         log.info("[TravelReportController] findTravelReportList Start");
-
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "조회 성공", travelReportService.findTravelReportList()));
+    }
+
+    @Operation(summary = "여행 후기 부분 조회 요청", description = "여행 후기 부분 조회 처리가 진행됩니다.", tags = { "TravelReportController" })
+    @GetMapping("/travel-report/{reportCode}")
+    public ResponseEntity<ResponseDTO> findTravelReportDetail(@PathVariable int reportCode) {
+        log.info("[TravelReportController] findTravelReportDetail Start");
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "부분 정보 조회 성공", travelReportService.findTravelReportDetail(reportCode)));
     }
 
 }

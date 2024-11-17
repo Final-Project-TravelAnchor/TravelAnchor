@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import travelanchor_server.common.Criteria;
+import travelanchor_server.travelplan.entity.TravelPlan;
 import travelanchor_server.travelreport.dto.TravelReportDTO;
 import travelanchor_server.travelreport.entity.TravelReport;
 import travelanchor_server.travelreport.repository.TravelReportRepository;
@@ -45,5 +46,14 @@ public class TravelReportService {
 
 //        return modelMapper.map(travelReportList, TravelReport.class);
         return travelReportList.stream().map(travelReport -> modelMapper.map(travelReport, TravelReport.class)).collect(Collectors.toList());
+    }
+
+    public Object findTravelReportDetail(int reportCode) {
+        log.info("[TravelReportService] findTravelReportDetail()");
+
+        // 해당 Code의 여행 일정을 가져옴.
+        TravelReport travelReport = travelReportRepository.findById(reportCode).get();
+
+        return modelMapper.map(travelReport, TravelReport.class);
     }
 }
