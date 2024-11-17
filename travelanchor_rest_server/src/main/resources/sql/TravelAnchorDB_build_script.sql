@@ -144,6 +144,7 @@ CREATE TABLE IF NOT EXISTS tbl_travel_plans
     travel_total_date VARCHAR(10) NOT NULL COMMENT '총일수',
     travel_destination VARCHAR(10) NOT NULL COMMENT '목적지',
     travel_onoff VARCHAR(1) NOT NULL COMMENT '여행완료여부',
+    travel_isdeleted VARCHAR(1) NOT NULL COMMENT '삭제여부',
     CONSTRAINT pk_travel_code PRIMARY KEY (travel_code),
     CONSTRAINT fk_member_code3 FOREIGN KEY (member_code) REFERENCES tbl_member(member_code)
 ) ENGINE=InnoDB COMMENT '여행일정';
@@ -406,17 +407,17 @@ INSERT INTO tbl_member_reviews (member_review_code, member_code, review_category
 # INSERT INTO tbl_member_reviews_text (review_category_code, review_category_sub_code, review_text) VALUES
 
 -- 여행 일정 테이블 더미 데이터
-INSERT INTO tbl_travel_plans (travel_code, member_code, travel_name, travel_start_date, travel_end_date, travel_total_date, travel_destination, travel_onoff) VALUES
-(1, 1, '유럽 여행', '2024-04-01', '2024-04-14', '14일', '파리', 'N'),
-(2, 2, '일본 도쿄 여행', '2024-05-05', '2024-05-10', '6일', '도쿄', 'Y'),
-(3, 3, '미국 뉴욕 여행', '2024-06-01', '2024-06-10', '10일', '뉴욕', 'N'),
-(4, 4, '호주 시드니 여행', '2024-07-10', '2024-07-17', '8일', '시드니', 'Y'),
-(5, 5, '태국 방콕 여행', '2024-08-15', '2024-08-20', '6일',  '방콕', 'N'),
-(6, 6, '이탈리아 로마 여행', '2024-09-01', '2024-09-10', '10일', '로마', 'Y'),
-(7, 7, '그리스 아테네 여행', '2024-10-05', '2024-10-12', '8일', '아테네', 'N'),
-(8, 8, '영국 런던 여행', '2024-11-10', '2024-11-15', '6일', '런던', 'Y'),
-(9, 9, '스페인 바르셀로나 여행', '2024-12-01', '2024-12-08', '8일', '바르셀로나', 'N'),
-(10, 10, '캐나다 토론토 여행', '2025-01-10', '2025-01-20', '11일', '토론토', 'Y');
+INSERT INTO tbl_travel_plans (travel_code, member_code, travel_name, travel_start_date, travel_end_date, travel_total_date, travel_destination, travel_onoff, travel_isdeleted) VALUES
+(1, 1, '유럽 여행', '2024-04-01', '2024-04-14', '14일', '파리', 'N','N'),
+(2, 2, '일본 도쿄 여행', '2024-05-05', '2024-05-10', '6일', '도쿄', 'Y','N'),
+(3, 3, '미국 뉴욕 여행', '2024-06-01', '2024-06-10', '10일', '뉴욕', 'N','N'),
+(4, 4, '호주 시드니 여행', '2024-07-10', '2024-07-17', '8일', '시드니', 'Y','N'),
+(5, 5, '태국 방콕 여행', '2024-08-15', '2024-08-20', '6일',  '방콕', 'N','N'),
+(6, 6, '이탈리아 로마 여행', '2024-09-01', '2024-09-10', '10일', '로마', 'Y','N'),
+(7, 7, '그리스 아테네 여행', '2024-10-05', '2024-10-12', '8일', '아테네', 'N','N'),
+(8, 8, '영국 런던 여행', '2024-11-10', '2024-11-15', '6일', '런던', 'Y','N'),
+(9, 9, '스페인 바르셀로나 여행', '2024-12-01', '2024-12-08', '8일', '바르셀로나', 'N','N'),
+(10, 10, '캐나다 토론토 여행', '2025-01-10', '2025-01-20', '11일', '토론토', 'Y','N');
 
 INSERT INTO tbl_travel_day (day_code, travel_code, day_number, day_date) VALUES
 (1, 1, 1, 1),

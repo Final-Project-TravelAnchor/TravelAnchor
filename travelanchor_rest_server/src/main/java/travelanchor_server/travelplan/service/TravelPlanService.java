@@ -53,15 +53,15 @@ public class TravelPlanService {
     // 여행 일정
     public Object findTravelPlanList() {
 
-        log.info("[TravelReportService] findTravelReportList() Start");
+        log.info("[TravelPlanService] findTravelPlanList() Start");
 
         List<TravelPlan> travelPlanList = travelPlanRepository.findAll();
 //        List<TravelReportDTO> travelReportDTOList = travelReportList.stream()
 //                .map(travelReport -> modelMapper.map(travelReport, TravelReportDTO.class))
 //                .collect(Collectors.toList());
-        log.info("[TravelReportService] travelPlanList = " + travelPlanList);
+        log.info("[TravelPlanService] travelPlanList = " + travelPlanList);
 
-        log.info("[TravelReportService] findTravelReportList() End");
+        log.info("[TravelPlanService] findTravelPlanList() End");
 
 //        return modelMapper.map(travelReportList, TravelReport.class);
         return travelPlanList.stream().map(travelPlan -> modelMapper.map(travelPlan, TravelPlan.class)).collect(Collectors.toList());
@@ -151,6 +151,26 @@ public class TravelPlanService {
     /*--------------------------------------------------------------------------------------------------------------------------------------------------------------*/
     // 일자별 일정
 
+    public Object findTravelDayPlanList() {
+
+        log.info("[TravelPlanService] findTravelDayPlanList() Start");
+
+        List<TravelDay> travelDayPlanList = travelDayRepository.findAll();
+
+        log.info("[TravelPlanService] travelDayPlanList = " + travelDayPlanList);
+        log.info("[TravelPlanService] findTravelDayPlanList() End");
+
+        return travelDayPlanList.stream().map(travelDay -> modelMapper.map(travelDay, TravelDay.class)).collect(Collectors.toList());
+    }
+
+    public Object findTravelDayPlanDetail(int dayCode) {
+        log.info("[TravelPlanService] findTravelDayPlanDetail()");
+
+        TravelDay travelDay = travelDayRepository.findById(dayCode).get();
+
+        return modelMapper.map(travelDay, TravelDay.class);
+    }
+
     @Transactional
     public Object deleteTravelDayPlan(int dayCode, MemberDTO memberDTO) {
         log.info("[TravelPlanService] deleteTravelDayPlan() Start");
@@ -175,7 +195,7 @@ public class TravelPlanService {
             travelDayRepository.delete(travelDay);
 
             log.info("[TravelPlanService] Delete Complete : ");
-          
+
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -185,6 +205,25 @@ public class TravelPlanService {
 
     /*--------------------------------------------------------------------------------------------------------------------------------------------------------------*/
     // 활동정보
+
+    public Object findTravelActivityPlanList() {
+        log.info("[TravelPlanService] findTravelActivityPlanList() Start");
+
+        List<Activity> activityList = activityRepository.findAll();
+
+        log.info("[TravelPlanService] activityList = " + activityList);
+        log.info("[TravelPlanService] findTravelActivityPlanList() End");
+
+        return activityList.stream().map(activity -> modelMapper.map(activity, Activity.class)).collect(Collectors.toList());
+    }
+
+    public Object findTravelActivityDetail(int activityCode) {
+        log.info("[TravelPlanService] findTravelActivityPlanDetail()");
+
+        Activity activity = activityRepository.findById(activityCode).get();
+
+        return modelMapper.map(activity, Activity.class);
+    }
 
     @Transactional
     public Object deleteTravelActivityPlan(int activityCode, MemberDTO memberDTO) {
@@ -223,7 +262,7 @@ public class TravelPlanService {
     /*--------------------------------------------------------------------------------------------------------------------------------------------------------------*/
     // 활동금액
 
-        public Object findExpenseList() {
+    public Object findExpenseList() {
 
         log.info("[TravelPlanService] findExpenseList() Start");
 
@@ -267,7 +306,7 @@ public class TravelPlanService {
     /*--------------------------------------------------------------------------------------------------------------------------------------------------------------*/
     // 세부활동금액
 
-   public Object findExpenseDeatilList() {
+    public Object findExpenseDeatilList() {
 
         List<ExpenseDetail> expenseDetailList = expenseDetailRepository.findAll();
 
@@ -299,4 +338,6 @@ public class TravelPlanService {
 
         return (result > 0) ? "세부활동금액 입력 성공" : "활동금액 입력 실패";
     }
+
+
 }

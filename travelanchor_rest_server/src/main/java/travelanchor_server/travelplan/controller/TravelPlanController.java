@@ -68,15 +68,53 @@ public class TravelPlanController {
     /*--------------------------------------------------------------------------------------------------------------------------------------------------------------*/
     // 일자별 일정
 
+    @Operation(summary = "여행 일자별 일정 리스트 조회 요청", description = "여행 일자별 일정 리스트 조회 처리가 진행됩니다.", tags = { "TravelPlanController" })
+    @GetMapping("travel-plan/day")
+    public ResponseEntity<ResponseDTO> findTravelDayPlanList(){
+
+        log.info("[TravelPlanController] findTravelDayPlanList Start");
+
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK,  "조회 성공", travelPlanService.findTravelDayPlanList()));
+    }
+
+    @Operation(summary = "여행 일자별 일정 부분 조회 요청", description = "여행 일자별 일정 부분 조회 처리가 진행됩니다.", tags = { "TravelPlanController" })
+    @GetMapping("/travel-plan/day/{dayCode}")
+    public ResponseEntity<ResponseDTO> findTravelDayPlanDetail(@PathVariable int dayCode) {
+
+        log.info("[TravelPlanController] findTravelDayPlanDetail Start");
+
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "부분 정보 조회 성공", travelPlanService.findTravelDayPlanDetail(dayCode)));
+    }
+
     @Operation(summary = "여행 일자별 일정 삭제 요청", description = "해당 여행 일자별 일정 삭제가 진행됩니다.", tags = { "TravelPlanController" })
     @DeleteMapping("/travel-plan/day-del/{dayCode}")
     public ResponseEntity<ResponseDTO> deleteTravelDayPlan(@PathVariable int dayCode, @RequestBody MemberDTO memberDTO) {
         return ResponseEntity.ok().body( new ResponseDTO(HttpStatus.OK, "여행 일자별 일정 삭제 성공",
-        travelPlanService.deleteTravelDayPlan(dayCode, memberDTO)));
+                travelPlanService.deleteTravelDayPlan(dayCode, memberDTO)));
     }
+
+
 
     /*--------------------------------------------------------------------------------------------------------------------------------------------------------------*/
     // 활동정보
+
+    @Operation(summary = "여행 세부 일정 리스트 조회 요청", description = "여행 세부 일정 리스트 조회 처리가 진행됩니다.", tags = { "TravelPlanController" })
+    @GetMapping("travel-plan/act")
+    public ResponseEntity<ResponseDTO> findTravelActivityPlanList(){
+
+        log.info("[TravelPlanController] findTravelActivityPlanList Start");
+
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK,  "조회 성공", travelPlanService.findTravelActivityPlanList()));
+    }
+
+    @Operation(summary = "여행 세부 일정 부분 조회 요청", description = "여행 세부 일정 부분 조회 처리가 진행됩니다.", tags = { "TravelPlanController" })
+    @GetMapping("/travel-plan/act/{activityCode}")
+    public ResponseEntity<ResponseDTO> findTravelActivityPlanDetail(@PathVariable int activityCode) {
+
+        log.info("[TravelPlanController] findTravelActivityPlanDetail Start");
+
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "부분 정보 조회 성공", travelPlanService.findTravelActivityDetail(activityCode)));
+    }
 
     @Operation(summary = "여행 세부 일정 삭제 요청", description = "해당 여행 세부 일정 삭제가 진행됩니다.", tags = { "TravelPlanController" })
     @DeleteMapping("/travel-plan/act-del/{activityCode}")
