@@ -11,11 +11,12 @@ public class TravelReportDTO {
     private String reportDestination;
     private String reportTheme;
     private Date reportCreatedAt;
+    private String reportIsdeleted;
 
     public TravelReportDTO() {
     }
 
-    public TravelReportDTO(int reportCode, int memberCode, String reportTitle, String reportContent, String reportDestination, String reportTheme, Date reportCreatedAt) {
+    public TravelReportDTO(int reportCode, int memberCode, String reportTitle, String reportContent, String reportDestination, String reportTheme, Date reportCreatedAt, String reportIsdeleted) {
         this.reportCode = reportCode;
         this.memberCode = memberCode;
         this.reportTitle = reportTitle;
@@ -23,6 +24,7 @@ public class TravelReportDTO {
         this.reportDestination = reportDestination;
         this.reportTheme = reportTheme;
         this.reportCreatedAt = reportCreatedAt;
+        this.reportIsdeleted = reportIsdeleted;
     }
 
     public int getReportCode() {
@@ -81,6 +83,14 @@ public class TravelReportDTO {
         this.reportCreatedAt = reportCreatedAt;
     }
 
+    public String getReportIsdeleted() {
+        return reportIsdeleted;
+    }
+
+    public void setReportIsdeleted(String reportIsdeleted) {
+        this.reportIsdeleted = reportIsdeleted;
+    }
+
     @Override
     public String toString() {
         return "TravelReportDTO{" +
@@ -91,6 +101,7 @@ public class TravelReportDTO {
                 ", reportDestination='" + reportDestination + '\'' +
                 ", reportTheme='" + reportTheme + '\'' +
                 ", reportCreatedAt=" + reportCreatedAt +
+                ", reportIsdeleted='" + reportIsdeleted + '\'' +
                 '}';
     }
 }

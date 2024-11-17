@@ -110,4 +110,27 @@ public class TravelReportService {
         log.info("[TravelReportService] updateTravelReport() End");
         return (result > 0) ? "여행 후기 수정 성공" : "여행 후기 수정 실패";
     }
+
+    @Transactional
+    public Object deleteTravelReport(int reportCode, TravelReportDTO travelReportDTO) {
+        log.info("[TravelReportService] deleteTravelReport() Start");
+        log.info("[TravelReportService] reportCode : "+ reportCode);
+        int result = 0;
+
+        try{
+            TravelReport travelReport = travelReportRepository.findById(reportCode).get();
+            log.info("[TravelReportService] travelReport : " + travelReport);
+            travelReport.setReportIsdeleted(travelReportDTO.getReportIsdeleted());
+
+            System.out.println("travelReport = " + travelReport);
+
+            travelReportRepository.save(travelReport);
+
+            result = 1;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        log.info("[TravelReportService] deleteTravelReport() End");
+        return (result > 0) ? "여행 후기 삭제 성공" : "여행 후기 삭제 실패";
+    }
 }

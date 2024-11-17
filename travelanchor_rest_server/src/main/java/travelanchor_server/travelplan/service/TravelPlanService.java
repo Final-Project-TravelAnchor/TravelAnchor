@@ -143,7 +143,7 @@ public class TravelPlanService {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        log.info("[TravelPlanService] updateTravelPlan() End");
+        log.info("[TravelPlanService] deleteTravelPlan() End");
         return (result > 0) ? "여행 일정 삭제 성공" : "여행 일정 삭제 실패";
     }
 

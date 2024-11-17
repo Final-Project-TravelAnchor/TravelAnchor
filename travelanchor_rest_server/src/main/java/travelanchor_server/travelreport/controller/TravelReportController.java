@@ -50,4 +50,10 @@ public class TravelReportController {
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "여행 후기 수정 성공", travelReportService.updateTravelReport(reportCode, travelReportDTO)));
     }
 
+    @Operation(summary = "여행 후기 삭제 요청", description = "해당 여행 후기 삭제가 진행됩니다.", tags = { "TravelReportController" })
+    @PutMapping("/travel-report/del/{reportCode}")
+    public ResponseEntity<ResponseDTO> deleteTravelReport(@PathVariable int reportCode , @RequestBody TravelReportDTO travelReportDTO) {
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "여행 후기 삭제 성공", travelReportService.deleteTravelReport(reportCode, travelReportDTO)));
+    }
+
 }

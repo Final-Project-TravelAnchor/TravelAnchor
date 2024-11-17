@@ -277,6 +277,7 @@ CREATE TABLE IF NOT EXISTS tbl_travel_reports
     report_destination TEXT NOT NULL COMMENT '여행지',
     report_theme TEXT NOT NULL COMMENT '여행테마',
     report_created_at DATE NOT NULL COMMENT '작성일자',
+    report_isdeleted VARCHAR(1) NOT NULL COMMENT '삭제여부',
     CONSTRAINT pk_report_code PRIMARY KEY (report_code),
     CONSTRAINT fk_member_code8 FOREIGN KEY (member_code) REFERENCES tbl_member(member_code)
 ) ENGINE=InnoDB COMMENT '여행후기';
@@ -615,46 +616,46 @@ INSERT INTO tbl_comment (comment_code, notice_code, member_code, comment_content
 (9, 9, 7, 'Policy updates are always good to know.', '2024-09-26'),
 (10, 10, NULL, 'Thanks for the general information.', '2024-10-31');
 
-INSERT INTO tbl_travel_reports (member_code, report_title,report_content, report_destination, report_theme,report_created_at) VALUES
+INSERT INTO tbl_travel_reports (member_code, report_title,report_content, report_destination, report_theme,report_created_at, report_isdeleted) VALUES
 (1,  '환상적인 제주 여행',
 '제주의 푸른 바다와 아름다운 자연을 만끽한 3박 4일 여행기입니다. 다양한 맛집도 소개해드릴게요.',
-'제주도', '자연', '2024-10-01'),
+'제주도', '자연', '2024-10-01', 'N'),
 
 (2, '도쿄의 밤은 낮보다 아름답다',
 '도쿄 여행에서 느낀 감동적인 야경과 먹거리를 소개합니다. 쇼핑과 맛집 탐방이 즐거웠던 여행이었습니다.',
-'도쿄', '도시 탐방', '2024-10-02'),
+'도쿄', '도시 탐방', '2024-10-02', 'N'),
 
 (3, '발리에서의 휴양',
 '발리의 해변에서 즐긴 여유로운 하루. 서핑과 스파로 몸과 마음을 힐링했어요.',
-'발리', '휴양', '2024-10-03'),
+'발리', '휴양', '2024-10-03', 'N'),
 
 (4, '뉴욕 브로드웨이 투어',
 '뉴욕의 브로드웨이 뮤지컬을 관람하며 문화와 예술을 만끽한 여행기입니다.',
-'뉴욕', '문화', '2024-10-04'),
+'뉴욕', '문화', '2024-10-04', 'N'),
 
 (5, '파리에서의 낭만적인 하루',
 '에펠탑과 루브르 박물관을 다녀오고, 노트르담 성당 앞에서 찍은 사진도 공유합니다.',
-'파리', '역사', '2024-10-05'),
+'파리', '역사', '2024-10-05', 'N'),
 
 (6, '로마에서 만난 이탈리아의 매력',
 '콜로세움과 바티칸 투어로 가득 찬 하루, 이탈리아의 매력에 빠졌던 여행이었어요.',
-'로마', '역사', '2024-10-06'),
+'로마', '역사', '2024-10-06', 'N'),
 
 (7, '싱가포르의 마리나 베이 탐방',
 '마리나 베이 샌즈에서 보는 야경이 정말 인상 깊었습니다. 다양한 관광지도 함께 소개할게요.',
-'싱가포르', '도시 탐방', '2024-10-07'),
+'싱가포르', '도시 탐방', '2024-10-07', 'N'),
 
 (8, '호주 골드코스트 서핑 도전기',
 '호주의 해변에서 서핑을 배우며 즐긴 자유로운 여행기입니다.',
-'골드코스트', '액티비티', '2024-10-08'),
+'골드코스트', '액티비티', '2024-10-08', 'N'),
 
 (9, '스위스 알프스 트레킹',
 '스위스 알프스를 트레킹하며 본 경치가 정말 환상적이었어요. 자연과 함께한 시간이 기억에 남습니다.',
-'스위스', '자연', '2024-10-09'),
+'스위스', '자연', '2024-10-09', 'N'),
 
 (10, '태국 방콕의 숨은 명소 탐방',
 '방콕의 잘 알려지지 않은 명소들을 다녀왔습니다. 맛있는 길거리 음식도 함께 소개합니다.',
-'방콕', '음식', '2024-10-10');
+'방콕', '음식', '2024-10-10', 'N');
 
 
 -- 채팅방 테이블 더미 데이터
