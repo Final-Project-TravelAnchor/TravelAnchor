@@ -1,5 +1,6 @@
 package travelanchor_server.travelreport.service;
 
+import io.swagger.v3.oas.annotations.Operation;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,9 +9,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import travelanchor_server.common.Criteria;
-import travelanchor_server.travelplan.entity.TravelPlan;
+import travelanchor_server.common.ResponseDTO;
 import travelanchor_server.travelreport.dto.TravelReportDTO;
 import travelanchor_server.travelreport.entity.TravelReport;
 import travelanchor_server.travelreport.repository.TravelReportRepository;
@@ -55,5 +61,25 @@ public class TravelReportService {
         TravelReport travelReport = travelReportRepository.findById(reportCode).get();
 
         return modelMapper.map(travelReport, TravelReport.class);
+    }
+
+    @Transactional
+    public Object insertTravelReport(TravelReportDTO travelReportDTO) {
+        log.info("[TravelReportService] insertTravelReport() Start");
+        log.info("[TravelReportService] travelReportDTO : " + travelReportDTO);
+        int result = 0;
+
+        try {
+            TravelReport insertTravelReport = modelMapper.map(travelReportDTO, TravelReport.class);
+
+            travelReportRepository.save(insertTravelReport);
+
+            result = 1;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        log.info("[TravelReportService] insertTravelReport() End");
+
+        return (result > 0) ? "여행 후기 입력 성공" : "여행 후기 입력 실패";
     }
 }
