@@ -165,7 +165,7 @@ CREATE TABLE IF NOT EXISTS tbl_activity
 (
     activity_code INT AUTO_INCREMENT NOT NULL COMMENT '활동코드',
     day_code INT NOT NULL COMMENT '일과코드',
-    activity_title VARCHAR(10) NOT NULL COMMENT '세부활동제목',
+    activity_title VARCHAR(20) NOT NULL COMMENT '세부활동제목',
     activity_detail VARCHAR(100) NOT NULL COMMENT '세부활동',
     CONSTRAINT pk_activity_code PRIMARY KEY (activity_code),
     CONSTRAINT fk_day_code FOREIGN KEY (day_code) REFERENCES tbl_travel_day(day_code)
