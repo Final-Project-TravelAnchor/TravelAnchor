@@ -9,7 +9,7 @@ DROP TABLE IF EXISTS tbl_travel_day CASCADE;
 DROP TABLE IF EXISTS tbl_population CASCADE;
 DROP TABLE IF EXISTS tbl_travel_plans CASCADE;
 DROP TABLE IF EXISTS tbl_comment CASCADE;
-DROP TABLE IF EXISTS tbl_notice CASCADE;
+DROP TABLE IF EXISTS tbl_free_board CASCADE;
 DROP TABLE IF EXISTS tbl_travel_reports CASCADE;
 DROP TABLE IF EXISTS tbl_message CASCADE;
 
@@ -23,7 +23,7 @@ DROP TABLE IF EXISTS tbl_member_reviews_category CASCADE;
 DROP TABLE IF EXISTS tbl_travel_city CASCADE;
 DROP TABLE IF EXISTS tbl_travel_country CASCADE;
 
-DROP TABLE IF EXISTS tbl_notice_category CASCADE;
+DROP TABLE IF EXISTS tbl_free_board_category CASCADE;
 DROP TABLE IF EXISTS tbl_chatroom CASCADE;
 DROP TABLE IF EXISTS tbl_message CASCADE;
 DROP TABLE IF EXISTS tbl_member_role CASCADE;
@@ -233,24 +233,25 @@ CREATE TABLE IF NOT EXISTS tbl_population
 ) ENGINE=InnoDB COMMENT '모집공고';
 
 -- 공지사항 카테고리 테이블
-CREATE TABLE IF NOT EXISTS tbl_notice_category
+CREATE TABLE IF NOT EXISTS tbl_free_board_category
 (
-    notice_category_code INT AUTO_INCREMENT NOT NULL COMMENT '공지사항 카테고리 코드',
-    notice_category_name VARCHAR(100) NOT NULL COMMENT '공지사항 카테고리명',
-    CONSTRAINT pk_notice_category_code PRIMARY KEY (notice_category_code)
+    free_board_category_code INT AUTO_INCREMENT NOT NULL COMMENT '공지사항 카테고리 코드',
+    free_board_category_name VARCHAR(100) NOT NULL COMMENT '공지사항 카테고리명',
+    CONSTRAINT pk_free_board_category_code PRIMARY KEY (free_board_category_code)
 ) ENGINE=InnoDB COMMENT '공지사항 카테고리';
 
 -- 공지사항 테이블
-CREATE TABLE IF NOT EXISTS tbl_notice
+CREATE TABLE IF NOT EXISTS tbl_free_board
 (
-    notice_code INT AUTO_INCREMENT NOT NULL COMMENT '공지사항 코드',
-    notice_category_code INT NOT NULL COMMENT '공지사항 카테고리 코드',
-    notice_title VARCHAR(255) NOT NULL COMMENT '공지사항 제목',
-    notice_content TEXT NOT NULL COMMENT '공지사항 내용',
-    notice_created_at DATE NOT NULL COMMENT '작성일자',
+    free_board_code INT AUTO_INCREMENT NOT NULL COMMENT '공지사항 코드',
+    free_board_category_code INT NOT NULL COMMENT '공지사항 카테고리 코드',
+    free_board_title VARCHAR(255) NOT NULL COMMENT '공지사항 제목',
+    free_board_content TEXT NOT NULL COMMENT '공지사항 내용',
+    free_board_created_at DATE NOT NULL COMMENT '작성일자',
     member_code INT COMMENT '작성자 회원식별코드',
-    CONSTRAINT pk_notice_code PRIMARY KEY (notice_code),
-    CONSTRAINT fk_notice_category_code FOREIGN KEY (notice_category_code) REFERENCES tbl_notice_category(notice_category_code),
+    free_board_isdeleted VARCHAR(1) NOT NULL COMMENT '삭제 여부',
+    CONSTRAINT pk_free_board_code PRIMARY KEY (free_board_code),
+    CONSTRAINT fk_free_board_category_code FOREIGN KEY (free_board_category_code) REFERENCES tbl_free_board_category(free_board_category_code),
     CONSTRAINT fk_member_code6 FOREIGN KEY (member_code) REFERENCES tbl_member(member_code)
 ) ENGINE=InnoDB COMMENT '공지사항';
 
@@ -258,12 +259,12 @@ CREATE TABLE IF NOT EXISTS tbl_notice
 CREATE TABLE IF NOT EXISTS tbl_comment
 (
     comment_code INT AUTO_INCREMENT NOT NULL COMMENT '댓글코드',
-    notice_code INT NOT NULL COMMENT '공지사항 코드',
+    free_board_code INT NOT NULL COMMENT '공지사항 코드',
     member_code INT COMMENT '작성자 회원식별코드',
     comment_content TEXT NOT NULL COMMENT '댓글내용',
     comment_created_at DATE NOT NULL COMMENT '작성일자',
     CONSTRAINT pk_comment_code PRIMARY KEY (comment_code),
-    CONSTRAINT fk_notice_code FOREIGN KEY (notice_code) REFERENCES tbl_notice(notice_code),
+    CONSTRAINT fk_free_board_code FOREIGN KEY (free_board_code) REFERENCES tbl_free_board(free_board_code),
     CONSTRAINT fk_member_code7 FOREIGN KEY (member_code) REFERENCES tbl_member(member_code)
 ) ENGINE=InnoDB COMMENT '댓글';
 
@@ -580,7 +581,7 @@ INSERT INTO tbl_population (travel_code, member_code, country_code, population_t
 (9, 7, 9, 'Italy Food Tour', 'Gastronomic trip through Italy', '2024-09-03', 270, 6, 'Y'),
 (10, 2, 10, 'India Spiritual Journey', 'Discover the spirituality of India', '2024-10-10', 320, 12, 'N');
 
-INSERT INTO tbl_notice_category (notice_category_code, notice_category_name) VALUES
+INSERT INTO tbl_free_board_category (free_board_category_code, free_board_category_name) VALUES
 (1, 'General Notice'),
 (2, 'Travel Tips'),
 (3, 'Event Announcements'),
@@ -592,19 +593,19 @@ INSERT INTO tbl_notice_category (notice_category_code, notice_category_name) VAL
 (9, 'Policy Changes'),
 (10, 'Miscellaneous');
 
-INSERT INTO tbl_notice (notice_code, notice_category_code, notice_title, notice_content, notice_created_at, member_code) VALUES
-(1, 1, 'Welcome to the Travel Community', 'A warm welcome to all our new members!', '2024-01-01', 1),
-(2, 2, 'Packing Tips for Your Next Trip', 'Check out our essential packing guide.', '2024-02-10', 2),
-(3, 3, 'Upcoming Travel Fair', 'Join us at the biggest travel fair this summer.', '2024-03-05', NULL),
-(4, 4, 'System Maintenance Notice', 'Scheduled maintenance on April 15th.', '2024-04-01', 3),
-(5, 5, 'Safety Tips While Traveling', 'Important safety tips to remember.', '2024-05-12', 4),
-(6, 6, 'Summer Sale Announcement', 'Exciting summer discounts available now!', '2024-06-20', NULL),
-(7, 7, 'Share Your Travel Stories', 'We are looking for member stories.', '2024-07-05', 5),
-(8, 8, 'Limited-Time Travel Deals', 'Book your trip before the deals expire.', '2024-08-18', 6),
-(9, 9, 'Policy Updates on Bookings', 'Updates to our booking policies.', '2024-09-25', 7),
-(10, 10, 'General Information', 'Find answers to common questions.', '2024-10-30', NULL);
+INSERT INTO tbl_free_board (free_board_code, free_board_category_code, free_board_title, free_board_content, free_board_created_at, member_code, free_board_isdeleted) VALUES
+(1, 1, 'Welcome to the Travel Community', 'A warm welcome to all our new members!', '2024-01-01', 1, 'N'),
+(2, 2, 'Packing Tips for Your Next Trip', 'Check out our essential packing guide.', '2024-02-10', 2, 'N'),
+(3, 3, 'Upcoming Travel Fair', 'Join us at the biggest travel fair this summer.', '2024-03-05', NULL, 'N'),
+(4, 4, 'System Maintenance Notice', 'Scheduled maintenance on April 15th.', '2024-04-01', 3, 'N'),
+(5, 5, 'Safety Tips While Traveling', 'Important safety tips to remember.', '2024-05-12', 4, 'N'),
+(6, 6, 'Summer Sale Announcement', 'Exciting summer discounts available now!', '2024-06-20', NULL, 'N'),
+(7, 7, 'Share Your Travel Stories', 'We are looking for member stories.', '2024-07-05', 5, 'N'),
+(8, 8, 'Limited-Time Travel Deals', 'Book your trip before the deals expire.', '2024-08-18', 6, 'N'),
+(9, 9, 'Policy Updates on Bookings', 'Updates to our booking policies.', '2024-09-25', 7, 'N'),
+(10, 10, 'General Information', 'Find answers to common questions.', '2024-10-30', NULL, 'N');
 
-INSERT INTO tbl_comment (comment_code, notice_code, member_code, comment_content, comment_created_at) VALUES
+INSERT INTO tbl_comment (comment_code, free_board_code, member_code, comment_content, comment_created_at) VALUES
 (1, 1, 1, 'Great announcement! Looking forward to it.', '2024-01-02'),
 (2, 2, 2, 'Thanks for the packing tips, very helpful.', '2024-02-11'),
 (3, 3, NULL, 'Can\'t wait for the travel fair!', '2024-03-06'),
