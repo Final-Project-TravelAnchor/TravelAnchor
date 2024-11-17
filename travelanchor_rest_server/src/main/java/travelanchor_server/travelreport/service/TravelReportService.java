@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import travelanchor_server.common.Criteria;
 import travelanchor_server.common.ResponseDTO;
+import travelanchor_server.travelplan.dto.TravelPlanDTO;
+import travelanchor_server.travelplan.entity.TravelPlan;
 import travelanchor_server.travelreport.dto.TravelReportDTO;
 import travelanchor_server.travelreport.entity.TravelReport;
 import travelanchor_server.travelreport.repository.TravelReportRepository;
@@ -81,5 +83,31 @@ public class TravelReportService {
         log.info("[TravelReportService] insertTravelReport() End");
 
         return (result > 0) ? "여행 후기 입력 성공" : "여행 후기 입력 실패";
+    }
+
+    @Transactional
+    public Object updateTravelReport(int reportCode, TravelReportDTO travelReportDTO) {
+        log.info("[TravelReportService] updateTravelReport() Start");
+        log.info("[TravelReportService] reportCode : "+ reportCode);
+        int result = 0;
+
+        try{
+            TravelReport travelReport = travelReportRepository.findById(reportCode).get();
+            log.info("[TravelReportService] travelReport : " + travelReport);
+            travelReport.setReportTitle(travelReportDTO.getReportTitle());
+            travelReport.setReportContent(travelReportDTO.getReportContent());
+            travelReport.setReportDestination(travelReportDTO.getReportDestination());
+            travelReport.setReportTheme(travelReportDTO.getReportTheme());
+
+            System.out.println("travelReport = " + travelReport);
+
+            travelReportRepository.save(travelReport);
+
+            result = 1;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        log.info("[TravelReportService] updateTravelReport() End");
+        return (result > 0) ? "여행 후기 수정 성공" : "여행 후기 수정 실패";
     }
 }
