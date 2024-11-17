@@ -145,8 +145,8 @@ CREATE TABLE IF NOT EXISTS tbl_travel_plans
     travel_destination VARCHAR(10) NOT NULL COMMENT '목적지',
     travel_onoff VARCHAR(1) NOT NULL COMMENT '여행완료여부',
     travel_isdeleted VARCHAR(1) NOT NULL COMMENT '삭제여부',
-    CONSTRAINT pk_travel_code PRIMARY KEY (travel_code),
-    CONSTRAINT fk_member_code3 FOREIGN KEY (member_code) REFERENCES tbl_member(member_code)
+    CONSTRAINT pk_travel_code PRIMARY KEY (travel_code)
+#     CONSTRAINT fk_member_code3 FOREIGN KEY (member_code) REFERENCES tbl_member(member_code)
 ) ENGINE=InnoDB COMMENT '여행일정';
 
 -- 여행 일정별 일과 테이블
@@ -156,8 +156,8 @@ CREATE TABLE IF NOT EXISTS tbl_travel_day
     travel_code INT NOT NULL COMMENT '여행코드',
     day_number INT NOT NULL COMMENT '여행차수',
     day_date INT NOT NULL COMMENT '해당 일',
-    CONSTRAINT pk_day_code PRIMARY KEY (day_code),
-    CONSTRAINT fk_travel_code FOREIGN KEY (travel_code) REFERENCES tbl_travel_plans(travel_code)
+    CONSTRAINT pk_day_code PRIMARY KEY (day_code)
+#     CONSTRAINT fk_travel_code FOREIGN KEY (travel_code) REFERENCES tbl_travel_plans(travel_code)
 ) ENGINE=InnoDB COMMENT '일정별일과';
 
 -- 활동 정보 테이블
@@ -167,8 +167,8 @@ CREATE TABLE IF NOT EXISTS tbl_activity
     day_code INT NOT NULL COMMENT '일과코드',
     activity_title VARCHAR(20) NOT NULL COMMENT '세부활동제목',
     activity_detail VARCHAR(100) NOT NULL COMMENT '세부활동',
-    CONSTRAINT pk_activity_code PRIMARY KEY (activity_code),
-    CONSTRAINT fk_day_code FOREIGN KEY (day_code) REFERENCES tbl_travel_day(day_code)
+    CONSTRAINT pk_activity_code PRIMARY KEY (activity_code)
+#     CONSTRAINT fk_day_code FOREIGN KEY (day_code) REFERENCES tbl_travel_day(day_code)
 ) ENGINE=InnoDB COMMENT '활동정보';
 
 -- 활동 비용 테이블
@@ -177,8 +177,8 @@ CREATE TABLE IF NOT EXISTS tbl_expense
     expense_code INT AUTO_INCREMENT NOT NULL COMMENT '활동금액코드',
     activity_code INT NOT NULL COMMENT '활동코드',
     expense_total_amount INT NOT NULL COMMENT '활동총비용',
-    CONSTRAINT pk_expense_code PRIMARY KEY (expense_code),
-    CONSTRAINT fk_activity_code FOREIGN KEY (activity_code) REFERENCES tbl_activity(activity_code)
+    CONSTRAINT pk_expense_code PRIMARY KEY (expense_code)
+#     CONSTRAINT fk_activity_code FOREIGN KEY (activity_code) REFERENCES tbl_activity(activity_code)
 ) ENGINE=InnoDB COMMENT '활동정보';
 
 
@@ -189,9 +189,9 @@ CREATE TABLE IF NOT EXISTS tbl_expense_detail
     expense_code INT NOT NULL COMMENT '활동금액코드',
     expense_detail_amount INT NOT NULL COMMENT '세부활동비용',
     member_code INT COMMENT '회원식별코드',
-    CONSTRAINT pk_expense_detail_code PRIMARY KEY (expense_detail_code),
-    CONSTRAINT fk_expense_code FOREIGN KEY (expense_code) REFERENCES tbl_expense(expense_code),
-    CONSTRAINT fk_member_code4 FOREIGN KEY (member_code) REFERENCES tbl_member(member_code)
+    CONSTRAINT pk_expense_detail_code PRIMARY KEY (expense_detail_code)
+#     CONSTRAINT fk_expense_code FOREIGN KEY (expense_code) REFERENCES tbl_expense(expense_code),
+#     CONSTRAINT fk_member_code4 FOREIGN KEY (member_code) REFERENCES tbl_member(member_code)
 ) ENGINE=InnoDB COMMENT '세부활동정보';
 
 -- 국가 테이블

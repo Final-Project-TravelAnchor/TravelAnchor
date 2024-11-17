@@ -190,6 +190,31 @@ public class TravelPlanService {
     }
 
     @Transactional
+    public Object updateTravelDayPlan(int dayCode, TravelDayDTO travelDayDTO) {
+        log.info("[TravelPlanService] updateTravelDayPlan() Start");
+        log.info("[TravelPlanService] dayCode : " + dayCode);
+        int result = 0;
+
+        try {
+            TravelDay travelDay = travelDayRepository.findById(dayCode).get();
+            log.info("[TravelPlanService] : " + travelDay);
+            travelDay.setDayDate(travelDayDTO.getDayDate());
+            travelDay.setDayNumber(travelDayDTO.getDayNumber());
+
+            System.out.println("travelDay = " + travelDay);
+
+            travelDayRepository.save(travelDay);
+
+            result = 1;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        log.info("[TravelPlanService] updateTravelDayPlan() End");
+        return (result > 0) ? "여행 일자별 일정 수정 성공" : "여행 일자별 일정 수정 실패";
+    }
+
+
+    @Transactional
     public Object deleteTravelDayPlan(int dayCode, MemberDTO memberDTO) {
         log.info("[TravelPlanService] deleteTravelDayPlan() Start");
         log.info("[TravelPlanService] dayCode : " + dayCode);
@@ -263,6 +288,30 @@ public class TravelPlanService {
     }
 
     @Transactional
+    public Object updateTravelActivityPlan(int activityCode, ActivityDTO activityDTO) {
+        log.info("[TravelPlanService] updateTravelActivityPlan() Start");
+        log.info("[TravelPlanService] activityCode : " + activityCode);
+        int result = 0;
+
+        try {
+            Activity activity = activityRepository.findById(activityCode).get();
+            log.info("[TravelPlanService] : " + activity);
+            activity.setActivityTitle(activityDTO.getActivityTitle());
+            activity.setActivityDetail(activityDTO.getActivityDetail());
+
+            System.out.println("activity = " + activity);
+
+            activityRepository.save(activity);
+
+            result = 1;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        log.info("[TravelPlanService] updateTravelActivityPlan() End");
+        return (result > 0) ? "여행 활동별 일정 수정 성공" : "여행 활동별 일정 수정 실패";
+    }
+
+    @Transactional
     public Object deleteTravelActivityPlan(int activityCode, MemberDTO memberDTO) {
         log.info("[TravelPlanService] deleteTravelActivityPlan() Start");
         log.info("[TravelPlanService] activityCode : " + activityCode);
@@ -293,7 +342,6 @@ public class TravelPlanService {
         log.info("[TravelPlanService] deleteTravelActivityPlan() End");
         return (result > 0) ? "여행 활동별 일정 삭제 성공" : "여행 활동별 일정 삭제 실패";
     }
-
 
 
     /*--------------------------------------------------------------------------------------------------------------------------------------------------------------*/
