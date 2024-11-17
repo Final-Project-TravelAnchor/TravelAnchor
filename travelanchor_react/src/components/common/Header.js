@@ -54,12 +54,32 @@ function Header() {
 
 	//로그아웃
 	const onClickLogoutHandler = () => {
-		window.localStorage.removeItem('accessToken');
-		dispatch(callLogoutAPI());
+		   // 카카오 로그인 사용자인 경우
+		if (loginMember.data?.memberType === 'KAKAO') {
+            if (window.Kakao && window.Kakao.isInitialized()) {
+                window.Kakao.Auth.logout(() => {
+                    window.localStorage.removeItem('accessToken');
+                    dispatch(callLogoutAPI());
+                    alert('로그아웃이 되어 메인화면으로 이동합니다.');
+                    navigate('/', { replace: true });
+                    window.location.reload();
+                });
+            }
+        } else {
+            // 일반 로그인 사용자인 경우 (기존 로직)
+            window.localStorage.removeItem('accessToken');
+            dispatch(callLogoutAPI());
+            alert('로그아웃이 되어 메인화면으로 이동합니다.');
+            navigate('/', { replace: true });
+            window.location.reload();
+        }
 
-		alert('로그아웃이 되어 메인화면으로 이동합니다.');
-		navigate('/', { replace: true });
-		window.location.reload();
+		// window.localStorage.removeItem('accessToken');
+		// dispatch(callLogoutAPI());
+
+		// alert('로그아웃이 되어 메인화면으로 이동합니다.');
+		// navigate('/', { replace: true });
+		// window.location.reload();
 	};
 
 	function BeforeLogin() {
@@ -74,20 +94,38 @@ function Header() {
 	function AfterLogin() {
 		return (
 			<div>
-				<button
-					className={HeaderCSS.HeaderBtn}
-					onClick={onClickMypageHandler}
-				>
-					마이페이지
-				</button>{' '}
-				|{' '}
-				<button
-					className={HeaderCSS.HeaderBtn}
-					onClick={onClickLogoutHandler}
-				>
-					로그아웃
-				</button>
-			</div>
+			<button
+				className={HeaderCSS.HeaderBtn}
+				onClick={onClickMypageHandler}
+			>
+				{loginMember.data?.memberType === 'KAKAO' 
+					? `${loginMember.data?.memberName}님의 마이페이지` 
+					: '마이페이지'}
+			</button>{' '}
+			|{' '}
+			<button
+				className={HeaderCSS.HeaderBtn}
+				onClick={onClickLogoutHandler}
+			>
+				로그아웃
+			</button>
+		</div>
+
+			// <div>
+			// 	<button
+			// 		className={HeaderCSS.HeaderBtn}
+			// 		onClick={onClickMypageHandler}
+			// 	>
+			// 		마이페이지
+			// 	</button>{' '}
+			// 	|{' '}
+			// 	<button
+			// 		className={HeaderCSS.HeaderBtn}
+			// 		onClick={onClickLogoutHandler}
+			// 	>
+			// 		로그아웃
+			// 	</button>
+			// </div>
 		);
 	}
 
