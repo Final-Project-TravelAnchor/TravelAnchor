@@ -1,6 +1,8 @@
 import { useState, useRef } from "react";
 import { callAmadeusToken, callAmadeusFlightAPI } from "../../apis/AmadeusFlightAPICalls";
 import style from './Flight.module.css';
+import commonCss from '../../components/common/common.module.css';
+
 
 export default function Flight() {
 
@@ -53,7 +55,7 @@ export default function Flight() {
 	};
 
     return (
-		<div>
+		<div class="Contents" className={commonCss.Contents}>
 			<h1>항공권 최저가 검색</h1>
 			<button onClick={onClickHandler}>토큰받기</button>
 			{/* {token && <p>Token: {token}</p>} */}
