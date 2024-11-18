@@ -22,6 +22,11 @@ export default function PopulationDetail() {
         // navigate(`/items/${populationCode}`, { replace: false});
     };
 
+    const onClickInsertChatRoom = () => {
+        console.log("[PopulationDetail] onClickInsertChatRoom");
+        navigate(`/items/chatroom/${populationCode}`);
+    };
+
     useEffect(() => {
         console.log("[PopulationDetail] useEffect");
         dispatch(callPopulationDetailAPI(populationCode));
@@ -47,6 +52,9 @@ export default function PopulationDetail() {
                     </>
                 )
             }
+            <button onClick={onClickInsertChatRoom}>
+                채팅하기
+            </button>
         </div>
     );
 }
