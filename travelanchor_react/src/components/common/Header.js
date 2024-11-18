@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { decodeJwt } from '../../utils/tokenUtils';
 import { callLogoutAPI } from '../../apis/MemberAPICalls';
 import LoginModal from './LoginModal';
+import commonCss from './common.module.css';
 
 function Header() {
 	const navigate = useNavigate();
@@ -54,12 +55,32 @@ function Header() {
 
 	//로그아웃
 	const onClickLogoutHandler = () => {
-		window.localStorage.removeItem('accessToken');
-		dispatch(callLogoutAPI());
+		   // 카카오 로그인 사용자인 경우
+		if (loginMember.data?.memberType === 'KAKAO') {
+            if (window.Kakao && window.Kakao.isInitialized()) {
+                window.Kakao.Auth.logout(() => {
+                    window.localStorage.removeItem('accessToken');
+                    dispatch(callLogoutAPI());
+                    alert('로그아웃이 되어 메인화면으로 이동합니다.');
+                    navigate('/', { replace: true });
+                    window.location.reload();
+                });
+            }
+        } else {
+            // 일반 로그인 사용자인 경우 (기존 로직)
+            window.localStorage.removeItem('accessToken');
+            dispatch(callLogoutAPI());
+            alert('로그아웃이 되어 메인화면으로 이동합니다.');
+            navigate('/', { replace: true });
+            window.location.reload();
+        }
 
-		alert('로그아웃이 되어 메인화면으로 이동합니다.');
-		navigate('/', { replace: true });
-		window.location.reload();
+		// window.localStorage.removeItem('accessToken');
+		// dispatch(callLogoutAPI());
+
+		// alert('로그아웃이 되어 메인화면으로 이동합니다.');
+		// navigate('/', { replace: true });
+		// window.location.reload();
 	};
 
 	function BeforeLogin() {
@@ -74,60 +95,95 @@ function Header() {
 	function AfterLogin() {
 		return (
 			<div>
-				<button
-					className={HeaderCSS.HeaderBtn}
-					onClick={onClickMypageHandler}
-				>
-					마이페이지
-				</button>{' '}
-				|{' '}
-				<button
-					className={HeaderCSS.HeaderBtn}
-					onClick={onClickLogoutHandler}
-				>
-					로그아웃
-				</button>
-			</div>
+			<button
+				className={HeaderCSS.HeaderBtn}
+				onClick={onClickMypageHandler}
+			>
+				{loginMember.data?.memberType === 'KAKAO' 
+					? `${loginMember.data?.memberName}님의 마이페이지` 
+					: '마이페이지'}
+			</button>{' '}
+			|{' '}
+			<button
+				className={HeaderCSS.HeaderBtn}
+				onClick={onClickLogoutHandler}
+			>
+				로그아웃
+			</button>
+		</div>
+
+			// <div>
+			// 	<button
+			// 		className={HeaderCSS.HeaderBtn}
+			// 		onClick={onClickMypageHandler}
+			// 	>
+			// 		마이페이지
+			// 	</button>{' '}
+			// 	|{' '}
+			// 	<button
+			// 		className={HeaderCSS.HeaderBtn}
+			// 		onClick={onClickLogoutHandler}
+			// 	>
+			// 		로그아웃
+			// 	</button>
+			// </div>
 		);
 	}
 
+
 	return (
 		<>
-			{loginModal ? <LoginModal setLoginModal={setLoginModal} /> : null}
-			<div>
-				<button
-					// className={HeaderCSS.LogoBtn}
-					onClick={onClickLogoHandler}
-				>
-					Main
-				</button>
-			</div>
-			<div>
-				<ul class="nav-menu">
-					<li class="nav-item">
-						<a href="#">여행</a>
-						<ul class="dropdown-menu">
-							<li><a href="#">여행지</a></li>
-							<li><NavLink to="Flight">항공권</NavLink></li>
-							<li class="nav-item"><NavLink to="/Accommodation">숙박</NavLink></li>
-						</ul>
-					</li>
-					<li class="nav-item"><a href="#">일정</a></li>
-					<li class="nav-item"><NavLink to="/items/population">메이트</NavLink></li>
-					<li class="nav-item"><NavLink to="/TravelReport">후기</NavLink></li>
-					<li class="nav-item"><a href="#">자유게시판</a></li>
-					<li class="nav-item"><a href="#">공지사항</a></li>
-					<li class="nav-item"><NavLink to="Weather">날씨</NavLink></li>
+			<div class="HeaderWrap" className={HeaderCSS.HeaderWrap}>
 
-					<li>
+
+				{loginModal ? <LoginModal setLoginModal={setLoginModal} /> : null}
+				<div>
+					<a href='' class="logo" className={HeaderCSS.logo}
+						// className={HeaderCSS.LogoBtn}
+						onClick={onClickLogoHandler}
+					>
+						<img src='/images/main/logo.png'/>
+				
+					</a>
+				</div>
+
+				<div>
+					<ul class="navMenu" className={HeaderCSS.navMenu}>
+						<li class="navItem" className={HeaderCSS.navItem}>
+							<a href="#">여행</a>
+							<ul class="dropdownMenu" className={HeaderCSS.dropdownMenu}>
+								<li><a href="#">여행지</a></li>
+								<li><NavLink to="Flight">항공권</NavLink></li>
+								<li class="navItem"><NavLink to="/Accommodation">숙박</NavLink></li>
+							</ul>
+						</li>
+						<li class="navItem" className={HeaderCSS.navItem}><a href="#">일정</a></li>
+						<li class="navItem" className={HeaderCSS.navItem}><NavLink to="/items/population">메이트</NavLink></li>
+						<li class="navItem" className={HeaderCSS.navItem}><NavLink to="/TravelReport">후기</NavLink></li>
+						<li class="navItem" className={HeaderCSS.navItem}><a href="#">자유게시판</a></li>
+						<li class="navItem" className={HeaderCSS.navItem}><a href="#">공지사항</a></li>
+						<li class="navItem" className={HeaderCSS.navItem}><NavLink to="Weather">날씨</NavLink></li>
+
+
+					</ul>
+				</div>
+
+				<div class="headerRight" className={HeaderCSS.headerRight}>
+					<div class="logWrap"> 
 						{/* 로그인 상태에 따라 다른 컴포넌트 랜더링 */}
 						{isLogin == null || isLogin === undefined ? (
 							<BeforeLogin />
 						) : (
 							<AfterLogin />
 						)}
-					</li>
-				</ul>
+					</div>
+
+					<button type='button'>
+						<img src='/images/main/BtnHamberger.png'/>
+					</button>
+
+				</div>
+
 			</div>
 		</>
 	);

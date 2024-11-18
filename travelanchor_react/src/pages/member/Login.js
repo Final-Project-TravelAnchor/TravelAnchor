@@ -25,7 +25,23 @@ function Login() {
     });
 
     useEffect(() => {
-        
+         // 카카오 SDK를 동적으로 로드하고 초기화
+        const loadKakaoSDK = () => {
+            return new Promise((resolve) => {
+                const script = document.createElement('script');
+                script.src = 'https://developers.kakao.com/sdk/js/kakao.js';
+                script.onload = () => {
+                    // SDK 로드 후 초기화
+                    window.Kakao.init(process.env.REACT_APP_KAKAO_JAVASCRIPT_KEY);
+                    console.log('Kakao SDK initialized:', window.Kakao.isInitialized());
+                    resolve();
+                };
+                document.body.appendChild(script);
+            });
+        };
+
+        loadKakaoSDK();
+
         if(loginMember.status === 200){
             console.log("[Login] Login SUCCESS {}", loginMember);
             navigate("/", { replace: true });
@@ -63,32 +79,52 @@ function Login() {
             form: form
         }));
     }
+/* 카카오 로그인 버튼 클릭 시 */
+const onClickKakaoLoginHandler = () => {
+    if (!window.Kakao.isInitialized()) {
+        console.error('Kakao SDK가 초기화되지 않았습니다.');
+        return;
+    }
 
+    window.Kakao.Auth.login({
+        success: function (authObj) {
+            console.log('카카오 로그인 성공', authObj);
+            window.Kakao.API.request({
+                url: '/v2/user/me',
+                success: function (response) {
+                    console.log('카카오 사용자 정보', response);
+                    
+                    // 카카오 로그인 성공 시 리덕스 상태 업데이트
+                    const kakaoUserInfo = {
+                        status: 200,
+                        data: {
+                            memberId: response.id,
+                            memberName: response.properties?.nickname,
+                            memberEmail: response.kakao_account?.email,
+                            memberType: 'KAKAO'
+                        }
+                    };
 
-    const onClickKakaoLoginHandler = async () => {
-        // if (!window.Kakao) {
-        //     await loadKakaoSDK();
-        // }
+                     // accessToken을 localStorage에 저장
+                    window.localStorage.setItem('accessToken', authObj.access_token);
 
-        // window.Kakao.Auth.login({
-        //     success: function(authObj) {
-        //         console.log("카카오 로그인 성공", authObj);
-        //         window.Kakao.API.request({
-        //             url: '/v2/user/me',
-        //             success: function(res) {
-        //                 console.log("사용자 정보", res);
-        //                 // 사용자 정보를 이용한 추가 로직
-        //             },
-        //             fail: function(error) {
-        //                 console.error("사용자 정보 요청 실패", error);
-        //             }
-        //         });
-        //     },
-        //     fail: function(err) {
-        //         console.error("카카오 로그인 실패", err);
-        //     }
-        // });
-    };
+                    // 리덕스에 로그인 상태 저장
+                    dispatch({ type: POST_LOGIN, payload: kakaoUserInfo });
+                    
+                    // 메인 페이지로 이동
+                    navigate("/", { replace: true });
+                    window.location.reload(); // 헤더 상태 업데이트를 위한 새로고침
+                },
+                fail: function (error) {
+                    console.error('카카오 사용자 정보 요청 실패', error);
+                },
+            });
+        },
+        fail: function (err) {
+            console.error('카카오 로그인 실패', err);
+        },
+    });
+};
 
     return (
         <div className={ LoginCSS.backgroundDiv}>

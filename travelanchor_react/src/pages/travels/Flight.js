@@ -1,6 +1,8 @@
 import { useState, useRef } from "react";
 import { callAmadeusToken, callAmadeusFlightAPI, callAmadeusAirlineAPI } from "../../apis/AmadeusFlightAPICalls";
 import style from './Flight.module.css';
+import commonCss from '../../components/common/common.module.css';
+
 
 export default function Flight() {
 

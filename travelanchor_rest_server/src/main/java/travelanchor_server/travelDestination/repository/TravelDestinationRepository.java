@@ -8,4 +8,6 @@ import java.util.List;
 public interface TravelDestinationRepository extends JpaRepository<TravelDestination, Integer> {
 
     List<TravelDestination> findById(int memberCode);
+
+    void deleteByFavoriteCode(int favoriteCode);
 }
