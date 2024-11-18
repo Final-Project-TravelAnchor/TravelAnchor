@@ -3,8 +3,13 @@
 import axios from "axios";
 import React, { useEffect, useState, useRef } from "react";
 import { Stomp } from "@stomp/stompjs";
+import { useParams } from "react-router-dom";
+import { format } from 'date-fns';
 
 export default function ChatRoom(){
+
+  const { populationCode } = useParams();
+  const date = new Date();
 
     const stompClient = useRef(null);
   // 채팅 내용들을 저장할 변수
@@ -16,12 +21,15 @@ export default function ChatRoom(){
     setInputValue(event.target.value);
   };
 
+
+  // console.log("message: " + messages);
+
    // 웹소켓 연결 설정
   const connect = () => {
     const socket = new WebSocket(`ws://${process.env.REACT_APP_RESTAPI_IP}:8080/ws`);
     stompClient.current = Stomp.over(socket);
     stompClient.current.connect({}, () => {
-    stompClient.current.subscribe(`/sub/chatroom/1`, (message) => {
+    stompClient.current.subscribe(`/sub/chatroom/${populationCode}`, (message) => {
     const newMessage = JSON.parse(message.body);
     setMessages((prevMessages) => [...prevMessages, newMessage]);
       });
@@ -33,29 +41,54 @@ export default function ChatRoom(){
       stompClient.current.disconnect();
     }
   };
-  // 기존 채팅 메시지를 서버로부터 가져오는 함수
-  const fetchMessages = () => {
-    return axios.get(`http://${process.env.REACT_APP_RESTAPI_IP}:8080/chat/1`)
-      .then(response => setMessages(response.data))
-      .catch(error => console.error('Failed to fetch messages:', error));
-  };
-   useEffect(() => {
+  useEffect(() => {
     connect();
     fetchMessages();
+
     // 컴포넌트 언마운트 시 웹소켓 연결 해제
     return () => disconnect();
   }, []);
+
+  // 기존 채팅 메시지를 서버로부터 가져오는 함수
+  const fetchMessages = async () => {
+    const result = await fetch(`http://${process.env.REACT_APP_RESTAPI_IP}:8080/chat/${populationCode}`)
+      .then(response => response.json())
+      .catch(error => console.error('Failed to fetch messages:', error));
+
+    // console.log("REsult: " , result);
+
+    setMessages(result.data);
+    
+  };
 
   //메세지 전송
   const sendMessage = () => {
     if (stompClient.current && inputValue) {
       const body = {
-        id : 1,
-        name : "테스트1",
-        message : inputValue
+        id : populationCode,
+        name : "테스트1", // 사용자 코드 또는 고유번호 입력하면 될 듯
+        message : inputValue,
+        // populationCode : populationCode,
+        timestamp : format(date, 'yyyy-MM-dd HH:mm:ss'),
+        // type : "CHAT"
       };
       stompClient.current.send(`/pub/message`, {}, JSON.stringify(body));
       setInputValue('');
+    }
+  };
+
+  let debounceTimer;
+
+  const onKeyPressHandler = (e) => {
+    if (e.key === 'Enter') {
+      // 엔터 키를 눌렀을 때 실행할 동작
+      // console.log('Enter key pressed');
+      // 원하는 전송 동작을 여기서 수행
+      sendMessage(); // 예시로 메시지 전송 함수 호출
+
+      debounceTimer = setTimeout(() => {
+        debounceTimer = null; // 타이머 리셋
+      }, 300);
     }
   };
 
@@ -68,13 +101,14 @@ export default function ChatRoom(){
         type="text"
         value={inputValue}
         onChange={handleInputChange}
+        onKeyDown={onKeyPressHandler}
       />
       {/* 메시지 전송, 메시지 리스트에 추가 */}
       <button onClick={sendMessage}>입력</button>
         </div>
         {/* 메시지 리스트 출력 */}
-        {messages.map((item, index) => (
-          <div key={index} className="list-item">{item.message}</div>
+        {messages.length > 0 && messages.map((item, index) => (
+          <div key={index} className="list-item">{item.messageContent}</div>
         ))}
       </ul>
     </div>
