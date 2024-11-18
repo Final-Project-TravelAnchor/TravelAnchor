@@ -2,7 +2,7 @@
 	width:100%;
 	padding:20px;
 	box-sizing: border-box;
-	position: absolute;
+	/* position: absolute; */
 	bottom:0;
 	border-top: 1px solid FE7F0F;
 	display: "flex";
