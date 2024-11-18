@@ -4,10 +4,11 @@ import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import travelanchor_server.member.dto.MemberDTO;
-import travelanchor_server.travelplan.dto.TravelPlanDTO;
+import travelanchor_server.travelplan.dto.*;
 import travelanchor_server.travelplan.entity.Activity;
 import travelanchor_server.travelplan.entity.Expense;
 import travelanchor_server.travelplan.entity.ExpenseDetail;
@@ -15,8 +16,6 @@ import travelanchor_server.travelplan.entity.TravelDay;
 import travelanchor_server.travelplan.entity.TravelPlan;
 import travelanchor_server.travelplan.repository.*;
 
-import travelanchor_server.travelplan.dto.ExpenseDTO;
-import travelanchor_server.travelplan.dto.ExpenseDetailDTO;
 import travelanchor_server.travelplan.dto.TravelPlanDTO;
 import travelanchor_server.travelplan.entity.Expense;
 import travelanchor_server.travelplan.entity.ExpenseDetail;
@@ -53,15 +52,15 @@ public class TravelPlanService {
     // 여행 일정
     public Object findTravelPlanList() {
 
-        log.info("[TravelReportService] findTravelReportList() Start");
+        log.info("[TravelPlanService] findTravelPlanList() Start");
 
         List<TravelPlan> travelPlanList = travelPlanRepository.findAll();
 //        List<TravelReportDTO> travelReportDTOList = travelReportList.stream()
 //                .map(travelReport -> modelMapper.map(travelReport, TravelReportDTO.class))
 //                .collect(Collectors.toList());
-        log.info("[TravelReportService] travelPlanList = " + travelPlanList);
+        log.info("[TravelPlanService] travelPlanList = " + travelPlanList);
 
-        log.info("[TravelReportService] findTravelReportList() End");
+        log.info("[TravelPlanService] findTravelPlanList() End");
 
 //        return modelMapper.map(travelReportList, TravelReport.class);
         return travelPlanList.stream().map(travelPlan -> modelMapper.map(travelPlan, TravelPlan.class)).collect(Collectors.toList());
@@ -79,7 +78,7 @@ public class TravelPlanService {
     @Transactional
     public Object insertTravelPlan(TravelPlanDTO travelPlanDTO) {
         log.info("[TravelPlanService] insertTravelPlan() Start");
-        log.info("[TravelPlanService] travelPlanDTO : ", travelPlanDTO);
+        log.info("[TravelPlanService] travelPlanDTO : " + travelPlanDTO);
         int result = 0;
 
         try {
@@ -144,12 +143,76 @@ public class TravelPlanService {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        log.info("[TravelPlanService] updateTravelPlan() End");
+        log.info("[TravelPlanService] deleteTravelPlan() End");
         return (result > 0) ? "여행 일정 삭제 성공" : "여행 일정 삭제 실패";
     }
 
     /*--------------------------------------------------------------------------------------------------------------------------------------------------------------*/
     // 일자별 일정
+
+    public Object findTravelDayPlanList() {
+
+        log.info("[TravelPlanService] findTravelDayPlanList() Start");
+
+        List<TravelDay> travelDayPlanList = travelDayRepository.findAll();
+
+        log.info("[TravelPlanService] travelDayPlanList = " + travelDayPlanList);
+        log.info("[TravelPlanService] findTravelDayPlanList() End");
+
+        return travelDayPlanList.stream().map(travelDay -> modelMapper.map(travelDay, TravelDay.class)).collect(Collectors.toList());
+    }
+
+    public Object findTravelDayPlanDetail(int dayCode) {
+        log.info("[TravelPlanService] findTravelDayPlanDetail()");
+
+        TravelDay travelDay = travelDayRepository.findById(dayCode).get();
+
+        return modelMapper.map(travelDay, TravelDay.class);
+    }
+
+    @Transactional
+    public Object insertTravelDayPlan(TravelDayDTO travelDayDTO) {
+        log.info("[TravelPlanService] insertTravelDayPlan() Start");
+        log.info("[TravelPlanService] travelDayDTO : "+ travelDayDTO);
+        int result = 0;
+
+        try {
+            TravelDay insertTravelDayPlan = modelMapper.map(travelDayDTO, TravelDay.class);
+            travelDayRepository.save(insertTravelDayPlan);
+
+            result = 1;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        log.info("[TravelPlanService] insertTravelDayPlan() End");
+
+        return (result > 0) ? "여행 일자별 일정 입력 성공" : "여행 일자별 일정 입력 실패";
+    }
+
+    @Transactional
+    public Object updateTravelDayPlan(int dayCode, TravelDayDTO travelDayDTO) {
+        log.info("[TravelPlanService] updateTravelDayPlan() Start");
+        log.info("[TravelPlanService] dayCode : " + dayCode);
+        int result = 0;
+
+        try {
+            TravelDay travelDay = travelDayRepository.findById(dayCode).get();
+            log.info("[TravelPlanService] : " + travelDay);
+            travelDay.setDayDate(travelDayDTO.getDayDate());
+            travelDay.setDayNumber(travelDayDTO.getDayNumber());
+
+            System.out.println("travelDay = " + travelDay);
+
+            travelDayRepository.save(travelDay);
+
+            result = 1;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        log.info("[TravelPlanService] updateTravelDayPlan() End");
+        return (result > 0) ? "여행 일자별 일정 수정 성공" : "여행 일자별 일정 수정 실패";
+    }
+
 
     @Transactional
     public Object deleteTravelDayPlan(int dayCode, MemberDTO memberDTO) {
@@ -175,7 +238,7 @@ public class TravelPlanService {
             travelDayRepository.delete(travelDay);
 
             log.info("[TravelPlanService] Delete Complete : ");
-          
+
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -185,6 +248,68 @@ public class TravelPlanService {
 
     /*--------------------------------------------------------------------------------------------------------------------------------------------------------------*/
     // 활동정보
+
+    public Object findTravelActivityPlanList() {
+        log.info("[TravelPlanService] findTravelActivityPlanList() Start");
+
+        List<Activity> activityList = activityRepository.findAll();
+
+        log.info("[TravelPlanService] activityList = " + activityList);
+        log.info("[TravelPlanService] findTravelActivityPlanList() End");
+
+        return activityList.stream().map(activity -> modelMapper.map(activity, Activity.class)).collect(Collectors.toList());
+    }
+
+    public Object findTravelActivityDetail(int activityCode) {
+        log.info("[TravelPlanService] findTravelActivityPlanDetail()");
+
+        Activity activity = activityRepository.findById(activityCode).get();
+
+        return modelMapper.map(activity, Activity.class);
+    }
+    
+    @Transactional
+    public Object insertTravelActivityPlan(ActivityDTO activityDTO) {
+        log.info("[TravelPlanService] insertTravelActivityPlan() Start");
+        log.info("[TravelPlanService] ActivityDTO : " + activityDTO);
+        int result = 0;
+
+        try {
+            Activity insertTravelActivityPlan = modelMapper.map(activityDTO, Activity.class);
+            activityRepository.save(insertTravelActivityPlan);
+
+            result = 1;
+        } catch (Exception e){
+            throw new RuntimeException(e);
+        }
+        log.info("[TravelPlanService] insertTravelActivityPlan() End");
+
+        return (result > 0) ? "여행 활동별 일정 입력 성공" : "여행 활동별 일정 입력 실패";
+    }
+
+    @Transactional
+    public Object updateTravelActivityPlan(int activityCode, ActivityDTO activityDTO) {
+        log.info("[TravelPlanService] updateTravelActivityPlan() Start");
+        log.info("[TravelPlanService] activityCode : " + activityCode);
+        int result = 0;
+
+        try {
+            Activity activity = activityRepository.findById(activityCode).get();
+            log.info("[TravelPlanService] : " + activity);
+            activity.setActivityTitle(activityDTO.getActivityTitle());
+            activity.setActivityDetail(activityDTO.getActivityDetail());
+
+            System.out.println("activity = " + activity);
+
+            activityRepository.save(activity);
+
+            result = 1;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        log.info("[TravelPlanService] updateTravelActivityPlan() End");
+        return (result > 0) ? "여행 활동별 일정 수정 성공" : "여행 활동별 일정 수정 실패";
+    }
 
     @Transactional
     public Object deleteTravelActivityPlan(int activityCode, MemberDTO memberDTO) {
@@ -215,15 +340,14 @@ public class TravelPlanService {
 
         }
         log.info("[TravelPlanService] deleteTravelActivityPlan() End");
-        return (result > 0) ? "여행 세부 일정 삭제 성공" : "여행 세부 일정 삭제 실패";
+        return (result > 0) ? "여행 활동별 일정 삭제 성공" : "여행 활동별 일정 삭제 실패";
     }
-
 
 
     /*--------------------------------------------------------------------------------------------------------------------------------------------------------------*/
     // 활동금액
 
-        public Object findExpenseList() {
+    public Object findExpenseList() {
 
         log.info("[TravelPlanService] findExpenseList() Start");
 
@@ -285,7 +409,7 @@ public class TravelPlanService {
     /*--------------------------------------------------------------------------------------------------------------------------------------------------------------*/
     // 세부활동금액
 
-   public Object findExpenseDeatilList() {
+    public Object findExpenseDeatilList() {
 
         List<ExpenseDetail> expenseDetailList = expenseDetailRepository.findAll();
 
@@ -335,4 +459,5 @@ public class TravelPlanService {
         }
         return(result > 0) ? "세부활동금액 수정 성공" : "세부활동금액 수정 실패";
     }
+
 }
