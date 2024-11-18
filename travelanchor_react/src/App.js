@@ -7,6 +7,7 @@ import Population from './components/items/Population';
 import PopulationDetail from './components/items/PopulationDetail';
 import PopulationCreate from './components/items/PopulationCreate';
 import PopulationModify from './components/items/PopulationModify';
+import ChatRoom from './components/items/ChatRoom';
 import TravelReport from './pages/reports/TravelReport';
 import AddReportDate from './pages/reports/AddReportDate';
 import AddReportDestination from './pages/reports/AddReportDestination';
@@ -28,6 +29,7 @@ export default function App() {
               <Route path=":populationCode" element={<PopulationDetail />} />
               <Route path="populationCreate" element={<PopulationCreate />} />
               <Route path="populationModify/:populationCode" element={<PopulationModify />} />
+              <Route path="chatroom/:populationCode" element={<ChatRoom />} />
             </Route>
             <Route path='TravelReport' element={ <TravelReport/> }/>
             <Route path='AddReportDate' element={ <AddReportDate/> }/>
