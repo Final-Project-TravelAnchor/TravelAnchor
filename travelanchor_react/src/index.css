@@ -1,0 +1,13 @@
+@font-face {
+	font-family: "nanumfont";
+	font-style: normal;
+	font-weight: 500;
+	src: url(./assets/fonts/NanumGothicBold.ttf);
+}
+
+html, body {
+	font-family: 'nanumfont';
+	font-weight: 400;
+	color: #222;
+	letter-spacing: -0.04em;
+}
