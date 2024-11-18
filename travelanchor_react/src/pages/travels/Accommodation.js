@@ -3,6 +3,7 @@ import React, { useState, useRef } from "react";
 import AccommodationCss from './Accommodation.module.css';
 import { callAmadeusToken } from "../../apis/AmadeusFlightAPICalls";
 import { callAmadeusHotelPrices, callAmadeusHotelsByCity } from "../../apis/AmadeusHotelsAPICalls";
+import commonCss from '../../components/common/common.module.css';
 
 function Accommodation() {
   const [res, setRes] = useState(null);
@@ -73,7 +74,7 @@ function Accommodation() {
 
 
   return (
-    <div>
+    <div class="Contents" className={commonCss.Contents}>
       <button onClick={onClickHandler}>누르고 시작하세요~</button>
 			{token && <p>Token: {token}</p>}
       <input

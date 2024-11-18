@@ -368,6 +368,7 @@ public class TravelPlanService {
         return modelMapper.map(expense, Expense.class);
     }
 
+    @Transactional
     public Object insertExpense(ExpenseDTO expenseDTO) {
         log.info("[TravelPlanService] expenseDTO : " + expenseDTO);
         int result = 0;
@@ -384,6 +385,23 @@ public class TravelPlanService {
         log.info("[ExpenseService] insertExpense() End");
 
         return (result > 0) ? "활동금액 입력 성공" : "활동금액 입력 실패";
+    }
+
+
+    @Transactional
+    public Object updateExpense(int expenseCode, ExpenseDTO expenseDTO) {
+        int result = 0;
+
+        try{
+
+            Expense expense = expenseRepository.findById(expenseCode).get();
+
+            expense.setExpenseTotalAmount(expenseDTO.getExpenseTotalAmount());
+
+        } catch(Exception e) {
+            throw new RuntimeException(e);
+        }
+        return(result > 0) ? "활동금액 수정 성공" : "활동금액 수정 실패";
     }
 
 
@@ -406,6 +424,7 @@ public class TravelPlanService {
 
     }
 
+    @Transactional
     public Object insertExpenseDetail(ExpenseDetailDTO expenseDetailDTO) {
         int result = 0;
 
@@ -422,6 +441,23 @@ public class TravelPlanService {
         log.info("[TravelPlanService] expenseDetailDTO : " + expenseDetailDTO);
 
         return (result > 0) ? "세부활동금액 입력 성공" : "활동금액 입력 실패";
+    }
+
+    @Transactional
+    public Object updateExpenseDetail(int expenseDetailCode, ExpenseDetailDTO expenseDetailDTO) {
+       int result = 0;
+
+        try{
+
+            ExpenseDetail expenseDetail = expenseDetailRepository.findById(expenseDetailCode).get();
+
+            expenseDetail.setExpenseDetailAmount(expenseDetailDTO.getExpenseDetailAmount());
+            expenseDetail.setMemberCode(expenseDetailDTO.getMemberCode());
+
+        } catch(Exception e) {
+            throw new RuntimeException(e);
+        }
+        return(result > 0) ? "세부활동금액 수정 성공" : "세부활동금액 수정 실패";
     }
 
 }

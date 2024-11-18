@@ -38,7 +38,7 @@ public class RestaurantController {
 
     @Operation(summary = "저장한 맛집 삭제 요청", description = "저장한 맛집에 대한 삭제가 진행됩니다.", tags = { "RestaurantController" })
     @DeleteMapping("/restaurants/{favoriteCode}")
-    public ResponseEntity<ResponseDTO> deleteSavedRestaurant(@RequestBody RestaurantDTO restaurantDTO, @PathVariable int favoriteCode) throws IOException {
+    public ResponseEntity<ResponseDTO> deleteSavedRestaurant(@RequestBody RestaurantDTO restaurantDTO, @PathVariable int favoriteCode) {
 
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "저장한 맛집 삭제 성공", restaurantService.deleteSavedRestaurant(restaurantDTO, favoriteCode)));
     }

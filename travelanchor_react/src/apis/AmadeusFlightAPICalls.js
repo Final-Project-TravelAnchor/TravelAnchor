@@ -88,4 +88,39 @@ export const callAmadeusFlightAPI = async (access_token, ref) => {
 	}
 };
 
+// 항공사 조회
+export const callAmadeusAirlineAPI = async (access_token, { carrierCodeRef }) => {
+    console.log("API 호출 시작 - 항공사 코드:", carrierCodeRef);
+    
+    if (!carrierCodeRef) {
+        console.error("항공사 코드가 없습니다!");
+        return null; // 코드가 없으면 API 호출 중단
+    }
+
+    const url = 'https://test.api.amadeus.com/v1/reference-data/airlines';
+    const params = new URLSearchParams({
+        airlineCodes: carrierCodeRef,
+    });
+
+    try {
+        const response = await fetch(`${url}?${params}`, {
+            headers: {
+                'Authorization': `Bearer ${access_token}`,
+            },
+        });
+
+        if (!response.ok) {
+            console.error(`HTTP Error: ${response.status}`);
+            return null;
+        }
+
+        const data = await response.json();
+        console.log("받은 데이터:", data);
+        return data;
+    } catch (error) {
+        console.error('항공사 조회 실패:', error);
+        throw error;
+    }
+};
+
 
