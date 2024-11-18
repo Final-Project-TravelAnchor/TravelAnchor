@@ -13,4 +13,5 @@ public interface ExpenseDetailRepository extends JpaRepository<ExpenseDetail, In
 
     List<ExpenseDetail> findAll();
 
+    List<ExpenseDetail> findByExpenseCode(int expenseDetailCode);
 }

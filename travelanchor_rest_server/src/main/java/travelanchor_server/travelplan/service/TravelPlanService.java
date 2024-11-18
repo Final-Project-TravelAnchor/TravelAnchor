@@ -440,11 +440,15 @@ public class TravelPlanService {
         return expenseDetailList.stream().map(travelPlan -> modelMapper.map(travelPlan, ExpenseDetail.class)).collect(Collectors.toList());
     }
 
-    public Object findExpenseDetailByCode(int expenseDetailCode) {
+    public Object findExpenseDetailByCode(int expenseCode) {
 
-        ExpenseDetail expenseDetail = expenseDetailRepository.findById(expenseDetailCode).get();
+//        ExpenseDetail expenseDetail = expenseDetailRepository.findById(expenseDetailCode).get();
+        System.out.println("expenseDetailCode = " + expenseCode);
+        List<ExpenseDetail> expenseDetail = expenseDetailRepository.findByExpenseCode(expenseCode);
+        System.out.println("expenseDetail = " + expenseDetail);
 
-        return modelMapper.map(expenseDetail, ExpenseDetail.class);
+//        return modelMapper.map(expenseDetail, ExpenseDetail.class);
+        return expenseDetail.stream().map(expense -> modelMapper.map(expense, ExpenseDetail.class)).collect(Collectors.toList());
 
     }
 
