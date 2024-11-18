@@ -12,7 +12,7 @@
 }
 
 .HeaderWrap .logo img {
-	width:160px;
+	width:130px;
 }
 
 .navMenu{
@@ -21,9 +21,10 @@
 
 .navMenu .navItem a{
 	display: block;
-	font-size: 25px;
+	font-size: 20px;
+	font-family: 'nanumfont';
 	font-weight: bold;
-	padding: 40px 50px;
+	padding: 30px 30px;
 }
 
 .navMenu .navItem {
@@ -34,15 +35,15 @@
 	position: absolute;
 	top:100%;
 	left:0;
-	min-width: 150px;
-	background: #fff;
+	/* min-width: 100px; */
+	background: #ff880018;
 	border-radius: 10px;
 }
 
 .navMenu .navItem .dropdownMenu > li > a {
 	display: block;
-	font-size:20px;
-	padding:20px 0;
+	font-size:18px;
+	padding:10px 0;
 	min-width:160px;
 	text-align: center;
 }
@@ -51,6 +52,31 @@
 	display: flex;
 	align-items: center;
 	gap:10px;
+}
+
+/* 드롭다운 메뉴 */
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 10px 0;
+    /* position: absolute; 부모 바로 아래 배치 */
+    z-index: 100;
+}
+
+/* 드롭다운 메뉴 항목 */
+ul li {
+    padding: 10px 20px;
+    text-align: left;
+}
+
+ul li a {
+    text-decoration: none;
+    color: #333;
+}
+
+ul li a:hover {
+    color: #FF8600; /* 포인트 컬러 */
+    font-weight: bold;
 }
 
 
