@@ -91,12 +91,13 @@ CREATE TABLE IF NOT EXISTS tbl_get_badge
 -- 포인트 리워드 테이블
 CREATE TABLE IF NOT EXISTS tbl_point_reward
 (
-    point_reward_code INT AUTO_INCREMENT NOT NULL COMMENT '점수코드',
+#     point_reward_code INT AUTO_INCREMENT NOT NULL COMMENT '점수코드',
     member_code INT COMMENT '회원식별코드',
-    point_reward_reason VARCHAR(255) NOT NULL COMMENT '점수이유',
-    point_reward_point INT COMMENT '포인트',
-    CONSTRAINT pk_point_reward_code PRIMARY KEY (point_reward_code),
-    CONSTRAINT fk_member_code1 FOREIGN KEY (member_code) REFERENCES tbl_member(member_code)
+#     point_reward_reason VARCHAR(255) NOT NULL COMMENT '점수이유',
+    point_reward_total_count INT COMMENT '평가사람수',
+    point_reward_point INT COMMENT '포인트'
+#     CONSTRAINT pk_point_reward_code PRIMARY KEY (point_reward_code),
+#     CONSTRAINT fk_member_code1 FOREIGN KEY (member_code) REFERENCES tbl_member(member_code)
 ) ENGINE=InnoDB COMMENT '포인트 리워드';
 
 -- 리뷰 카테고리 테이블
@@ -372,9 +373,9 @@ INSERT INTO tbl_get_badge (badge_code, member_code) VALUES
 (2, 2);
 
 -- 포인트 리워드 테이블 더미 데이터
-INSERT INTO tbl_point_reward (point_reward_code, member_code, point_reward_reason, point_reward_point) VALUES
-(1, 1, '가입 기념 포인트', 50),
-(2, 2, '리뷰 작성', 30);
+INSERT INTO tbl_point_reward (member_code, point_reward_total_count, point_reward_point) VALUES
+(1, 2, 8.5),
+(2, 8, 30);
 
 -- 리뷰 카테고리 테이블 더미 데이터
 INSERT INTO tbl_member_reviews_category (review_category_code, review_category_level, review_category_sub_code, member_review) VALUES
