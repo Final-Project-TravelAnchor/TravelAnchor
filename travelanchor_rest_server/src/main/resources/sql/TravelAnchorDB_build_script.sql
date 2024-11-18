@@ -596,26 +596,26 @@ INSERT INTO tbl_free_board_category (free_board_category_code, free_board_catego
 INSERT INTO tbl_free_board (free_board_code, free_board_category_code, free_board_title, free_board_content, free_board_created_at, member_code, free_board_isdeleted) VALUES
 (1, 1, 'Welcome to the Travel Community', 'A warm welcome to all our new members!', '2024-01-01', 1, 'N'),
 (2, 2, 'Packing Tips for Your Next Trip', 'Check out our essential packing guide.', '2024-02-10', 2, 'N'),
-(3, 3, 'Upcoming Travel Fair', 'Join us at the biggest travel fair this summer.', '2024-03-05', NULL, 'N'),
-(4, 4, 'System Maintenance Notice', 'Scheduled maintenance on April 15th.', '2024-04-01', 3, 'N'),
-(5, 5, 'Safety Tips While Traveling', 'Important safety tips to remember.', '2024-05-12', 4, 'N'),
-(6, 6, 'Summer Sale Announcement', 'Exciting summer discounts available now!', '2024-06-20', NULL, 'N'),
-(7, 7, 'Share Your Travel Stories', 'We are looking for member stories.', '2024-07-05', 5, 'N'),
-(8, 8, 'Limited-Time Travel Deals', 'Book your trip before the deals expire.', '2024-08-18', 6, 'N'),
-(9, 9, 'Policy Updates on Bookings', 'Updates to our booking policies.', '2024-09-25', 7, 'N'),
-(10, 10, 'General Information', 'Find answers to common questions.', '2024-10-30', NULL, 'N');
+(3, 3, 'Upcoming Travel Fair', 'Join us at the biggest travel fair this summer.', '2024-03-05', 3, 'N'),
+(4, 4, 'System Maintenance Notice', 'Scheduled maintenance on April 15th.', '2024-04-01', 4, 'N'),
+(5, 5, 'Safety Tips While Traveling', 'Important safety tips to remember.', '2024-05-12', 5, 'N'),
+(6, 6, 'Summer Sale Announcement', 'Exciting summer discounts available now!', '2024-06-20', 6, 'N'),
+(7, 7, 'Share Your Travel Stories', 'We are looking for member stories.', '2024-07-05', 7, 'N'),
+(8, 8, 'Limited-Time Travel Deals', 'Book your trip before the deals expire.', '2024-08-18', 8, 'N'),
+(9, 9, 'Policy Updates on Bookings', 'Updates to our booking policies.', '2024-09-25', 9, 'N'),
+(10, 10, 'General Information', 'Find answers to common questions.', '2024-10-30', 10, 'N');
 
 INSERT INTO tbl_comment (comment_code, free_board_code, member_code, comment_content, comment_created_at) VALUES
 (1, 1, 1, 'Great announcement! Looking forward to it.', '2024-01-02'),
 (2, 2, 2, 'Thanks for the packing tips, very helpful.', '2024-02-11'),
-(3, 3, NULL, 'Can\'t wait for the travel fair!', '2024-03-06'),
-(4, 4, 3, 'Noted about the maintenance. Thanks!', '2024-04-02'),
-(5, 5, 4, 'Good safety tips. Very useful.', '2024-05-13'),
-(6, 6, 5, 'Looking forward to the promotions!', '2024-06-21'),
-(7, 7, NULL, 'I will definitely share my story soon.', '2024-07-06'),
-(8, 8, 6, 'The travel deals are amazing!', '2024-08-19'),
-(9, 9, 7, 'Policy updates are always good to know.', '2024-09-26'),
-(10, 10, NULL, 'Thanks for the general information.', '2024-10-31');
+(3, 3, 3, 'Can\'t wait for the travel fair!', '2024-03-06'),
+(4, 4, 4, 'Noted about the maintenance. Thanks!', '2024-04-02'),
+(5, 5, 5, 'Good safety tips. Very useful.', '2024-05-13'),
+(6, 6, 6, 'Looking forward to the promotions!', '2024-06-21'),
+(7, 7, 7, 'I will definitely share my story soon.', '2024-07-06'),
+(8, 8, 8, 'The travel deals are amazing!', '2024-08-19'),
+(9, 9, 9, 'Policy updates are always good to know.', '2024-09-26'),
+(10, 10, 10, 'Thanks for the general information.', '2024-10-31');
 
 INSERT INTO tbl_travel_reports (member_code, report_title,report_content, report_destination, report_theme,report_created_at, report_isdeleted) VALUES
 (1,  '환상적인 제주 여행',
@@ -677,13 +677,13 @@ INSERT INTO tbl_message (message_code, chatroom_code, member_code, message_conte
 (1, 1, 1, 'Welcome to the General Discussion chat!', '2024-01-05 10:00:00'),
 (2, 1, 2, 'Hi everyone! How are you all doing?', '2024-01-05 10:05:00'),
 (3, 2, 3, 'Anyone up for a trip to Japan next month?', '2024-02-16 09:30:00'),
-(4, 2, NULL, 'Sounds interesting! I might join.', '2024-02-16 09:45:00'),
-(5, 3, 4, 'What\'s your favorite street food?', '2024-03-10 12:15:00'),
-(6, 3, 5, 'I love tacos! Especially the spicy ones.', '2024-03-10 12:20:00'),
-(7, 4, 6, 'Has anyone tried the new VR headset?', '2024-04-20 16:00:00'),
-(8, 5, NULL, 'Looking for tips on landscape photography.', '2024-05-01 14:45:00'),
-(9, 6, 7, 'What\'s your workout routine these days?', '2024-06-18 07:30:00'),
-(10, 7, NULL, 'Just finished a great book on self-growth!', '2024-07-12 18:20:00');
+(4, 2, 4, 'Sounds interesting! I might join.', '2024-02-16 09:45:00'),
+(5, 3, 5, 'What\'s your favorite street food?', '2024-03-10 12:15:00'),
+(6, 3, 6, 'I love tacos! Especially the spicy ones.', '2024-03-10 12:20:00'),
+(7, 4, 7, 'Has anyone tried the new VR headset?', '2024-04-20 16:00:00'),
+(8, 5, 8, 'Looking for tips on landscape photography.', '2024-05-01 14:45:00'),
+(9, 6, 9, 'What\'s your workout routine these days?', '2024-06-18 07:30:00'),
+(10, 7, 10, 'Just finished a great book on self-growth!', '2024-07-12 18:20:00');
 
 INSERT INTO tbl_member_declare (declare_code, member_code, declare_created_at, declare_content) VALUES
 (1, 1, '2024-10-09', '욕을 많이 합니다.'),
