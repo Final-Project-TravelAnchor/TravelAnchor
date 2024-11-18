@@ -449,7 +449,7 @@ INSERT INTO tbl_activity (activity_code, day_code, activity_title, activity_deta
 # (3, 3, '세부활동제목3', '세부적인 활동을 적는 란.3');
 
 INSERT INTO tbl_expense (expense_code, activity_code, expense_total_amount) VALUES
-(1, 1, 1000),
+(1, 1, 2000),
 (2, 2, 2500),
 (3, 3, 1500),
 (4, 4, 3200),
@@ -470,7 +470,9 @@ INSERT INTO tbl_expense_detail (expense_detail_code, expense_code, expense_detai
 (7, 4, 1600, 7),
 (8, 4, 1600, 8),
 (9, 5, 1400, 9),
-(10, 5, 1400, 10);
+(10, 5, 1400, 10),
+(NULL, 1, 0, 4),
+(NULL, 1, 1000, 3);
 
 INSERT INTO tbl_travel_country (country_code, country_name) VALUES
 (1, '대한민국'),
