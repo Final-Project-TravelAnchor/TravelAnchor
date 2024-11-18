@@ -61,4 +61,31 @@ public class TravelDestinationService {
 
         return travelDestinationList.stream().map(travelDestination -> modelMapper.map(travelDestination, TravelDestinationDTO.class));
     }
+
+    public Object deleteSavedTravelDestination(TravelDestinationDTO travelDestinationDTO, int favoriteCode) {
+
+        log.info("[TravelDestinationService] deleteSavedTravelDestination() Start");
+
+        log.info("[TravelDestinationService] travelDestinationDTO : ", travelDestinationDTO);
+
+        int result = 0;
+
+        try {
+            // favoriteCode를 조건으로 레코드 삭제
+            TravelDestination deleteSavedTravelDestination = modelMapper.map(travelDestinationDTO, TravelDestination.class);
+
+            travelDestinationRepository.delete(deleteSavedTravelDestination);
+
+            travelDestinationRepository.deleteByFavoriteCode(favoriteCode);
+
+            result = 1;
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        log.info("[TravelDestinationService] deleteSavedTravelDestination() End");
+
+        return (result > 0) ? "저장한 여행지 삭제 성공" : "저장한 여행지 삭제 실패";
+    }
 }
