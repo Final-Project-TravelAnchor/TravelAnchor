@@ -404,6 +404,30 @@ public class TravelPlanService {
         return(result > 0) ? "활동금액 수정 성공" : "활동금액 수정 실패";
     }
 
+    @Transactional
+    public Object deleteExpense(int expenseCode, MemberDTO memberDTO) {
+
+        int result = 0;
+
+        try{
+            Expense expense = expenseRepository.findById(expenseCode).get();
+            List<ExpenseDetail> expenseDetail = expenseDetailRepository.findByExpenseCodeAndMemberCode(expense.getExpenseCode(),memberDTO.getMemberCode());
+
+            log.info("[TravelPlanService] expense : " + expense.getExpenseCode());
+            log.info("[TravelPlanService] expenseDetail : " + expenseDetail.get(0));
+
+            expenseDetailRepository.deleteByExpenseCodeAndMemberCode(expenseDetail.get(0).getExpenseCode(), memberDTO.getMemberCode());
+            expenseRepository.delete(expense);
+
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+
+
+        } return (result > 0) ? "활동 금액 삭제 성공" : "활동 금액 삭제 실패";
+
+    }
+
 
 
     /*--------------------------------------------------------------------------------------------------------------------------------------------------------------*/
@@ -460,4 +484,24 @@ public class TravelPlanService {
         return(result > 0) ? "세부활동금액 수정 성공" : "세부활동금액 수정 실패";
     }
 
+
+    @Transactional
+    public Object deleteExpenseDetail(int expenseDetailCode, MemberDTO memberDTO) {
+
+        int result = 0;
+
+        try{
+            ExpenseDetail expenseDetail = expenseDetailRepository.findById(expenseDetailCode).get();
+
+            log.info("[TravelPlanService] expenseDetail : " + expenseDetail.getExpenseDetailCode());
+
+            expenseDetailRepository.delete(expenseDetail);
+
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+
+
+        } return (result > 0) ? "세부 활동 금액 삭제 성공" : "세부 활동 금액 삭제 실패";
+    }
 }

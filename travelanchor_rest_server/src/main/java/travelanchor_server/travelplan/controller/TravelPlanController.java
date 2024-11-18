@@ -159,6 +159,13 @@ public class TravelPlanController {
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "여행일정 수정 성공", travelPlanService.updateExpense(expenseCode, expenseDTO)));
     }
 
+    @Operation(summary = "활동 금액 삭제 요청", description = "활동 금액 삭제가 진행됩니다.", tags = { "TravelPlanController" })
+    @DeleteMapping("/travel-plan/expense/{expenseCode}")
+    public ResponseEntity<ResponseDTO> deleteExpense(@PathVariable int expenseCode, @RequestBody MemberDTO memberDTO) {
+        return ResponseEntity.ok().body( new ResponseDTO(HttpStatus.OK, "활동 금액 삭제 성공",
+                travelPlanService.deleteExpense(expenseCode, memberDTO)));
+    }
+
     /*--------------------------------------------------------------------------------------------------------------------------------------------------------------*/
     // 세부활동금액
 
@@ -185,4 +192,12 @@ public class TravelPlanController {
     public ResponseEntity<ResponseDTO> updateExpenseDetail(@PathVariable int expenseDetailCode , @RequestBody ExpenseDetailDTO expenseDetailDTO) {
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "세부활동금액 수정 성공", travelPlanService.updateExpenseDetail(expenseDetailCode, expenseDetailDTO)));
     }
+
+    @Operation(summary = "세부활동 금액 삭제 요청", description = "세부활동 금액 삭제가 진행됩니다.", tags = { "TravelPlanController" })
+    @DeleteMapping("/travel-plan/expenseDetail/{expenseDetailCode}")
+    public ResponseEntity<ResponseDTO> deleteExpenseDeatil(@PathVariable int expenseDetailCode, @RequestBody MemberDTO memberDTO) {
+        return ResponseEntity.ok().body( new ResponseDTO(HttpStatus.OK, "활동 금액 삭제 성공",
+                travelPlanService.deleteExpenseDetail(expenseDetailCode, memberDTO)));
+    }
+
 }
