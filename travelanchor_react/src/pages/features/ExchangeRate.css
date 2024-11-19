@@ -1,26 +1,48 @@
-.exchange-rate-h1 {
-	font-size: 30px;
+.exchange-h1 {
+	font-size: 2rem;
 	color: #ff8600;
 	text-align: center;
 	font-weight: bold;
+	margin-bottom: 20px;
 }
 
-.exchange-rate-grid {
-	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* 카드의 크기와 유연성 설정 */
-	gap: 20px;
+.exchange-h2 {
+	font-size: 20px;
+	text-align: center;
+	font-weight: bold;
+	margin-bottom: 20px;
+}
+
+.exchange-rate-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	background-size: cover;
+	color: #333;
 	padding: 20px;
-	margin: 0 auto;
-	max-width: 800px; /* 전체 컨테이너 폭 제한 */
+}
+
+.exchange-rate-content {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	max-width: 1200px;
+}
+
+.exchange-rate-cards {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+	gap: 10px;
+	flex: 1;
+	
 }
 
 .exchange-rate-card {
-	background: #f9f9f9;
-	border: 1px solid #eee;
-	border-radius: 8px;
-	padding: 15px;
+	background: white;
+	border-radius: 10px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	padding: 20px;
 	text-align: center;
-	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .exchange-rate-card h3 {
@@ -40,5 +62,58 @@
 .exchange-rate-card p {
 	font-size: 18px;
 	font-weight: bold;
-	color: #ff8600; /* 강조 색상 */
+	color: #ff8600;
+}
+
+.exchange-rate-calculator {
+	flex: 1;
+	background: rgba(255, 255, 255, 0.95);
+	border-radius: 10px;
+	padding: 30px;
+	max-width: 400px; /* 폭 좁게 설정 */
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	}
+
+.calculator-inputs {
+	display: flex;
+	flex-direction: column;
+	gap: 20px; /* 입력 필드 사이 간격 */
+	width: 100%;
+}
+
+.calculator-inputs select,
+.calculator-inputs input {
+	font-size: 1.2rem;
+	padding: 10px;
+	border-radius: 5px;
+	border: 1px solid #ddd;
+	width: 100%;
+	box-sizing: border-box;
+	}
+
+.result {
+	font-size: 1.5rem;
+	font-weight: bold;
+	color: #FF8600;
+	margin-top: 2px;
+	margin-bottom: 5px;
+	text-align: center;
+	}
+
+.convert-button {
+	background-color: #FF8600;
+	color: white;
+	font-size: 1.2rem;
+	border: none;
+	padding: 15px;
+	border-radius: 5px;
+	width: 100%;
+	cursor: pointer;
+	transition: background-color 0.3s;
+	}
+
+.convert-button:hover {
+	background-color: #e07000;
 }

@@ -1,5 +1,5 @@
 export const callExchangeRate = async () => {
-	const url = 'https://www.koreaexim.go.kr/site/program/financial/exchangeJSON';
+	// const url = 'https://www.koreaexim.go.kr/site/program/financial/exchangeJSON';
 	const params = new URLSearchParams({
 		authkey: process.env.REACT_APP_EXCHANGE_RATE_KEY,
 		data: "AP01",
