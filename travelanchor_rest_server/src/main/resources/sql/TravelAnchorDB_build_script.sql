@@ -28,6 +28,8 @@ DROP TABLE IF EXISTS tbl_chatroom CASCADE;
 DROP TABLE IF EXISTS tbl_message CASCADE;
 DROP TABLE IF EXISTS tbl_member_role CASCADE;
 
+DROP TABLE IF EXISTS tbl_notice CASCADE;
+
 DROP TABLE IF EXISTS tbl_member CASCADE;
 DROP TABLE IF EXISTS tbl_authority CASCADE;
 
@@ -251,9 +253,9 @@ CREATE TABLE IF NOT EXISTS tbl_free_board
     free_board_created_at DATE NOT NULL COMMENT '작성일자',
     member_code INT COMMENT '작성자 회원식별코드',
     free_board_isdeleted VARCHAR(1) NOT NULL COMMENT '삭제 여부',
-    CONSTRAINT pk_free_board_code PRIMARY KEY (free_board_code),
-    CONSTRAINT fk_free_board_category_code FOREIGN KEY (free_board_category_code) REFERENCES tbl_free_board_category(free_board_category_code),
-    CONSTRAINT fk_member_code6 FOREIGN KEY (member_code) REFERENCES tbl_member(member_code)
+    CONSTRAINT pk_free_board_code PRIMARY KEY (free_board_code)
+#     CONSTRAINT fk_free_board_category_code FOREIGN KEY (free_board_category_code) REFERENCES tbl_free_board_category(free_board_category_code),
+#     CONSTRAINT fk_member_code6 FOREIGN KEY (member_code) REFERENCES tbl_member(member_code)
 ) ENGINE=InnoDB COMMENT '공지사항';
 
 -- 댓글 테이블
@@ -287,9 +289,10 @@ CREATE TABLE IF NOT EXISTS tbl_travel_reports
 -- 채팅방 테이블
 CREATE TABLE IF NOT EXISTS tbl_chatroom
 (
-    chatroom_code INT AUTO_INCREMENT NOT NULL COMMENT '채팅방코드',
-    chatroom_name VARCHAR(255) NOT NULL COMMENT '채팅방명',
-    chatroom_created_at DATE NOT NULL COMMENT '생성일자',
+    chatroom_code BIGINT AUTO_INCREMENT NOT NULL COMMENT '채팅방코드',
+    population_code INT NOT NULL COMMENT '공고코드',
+#     chatroom_name VARCHAR(255) NOT NULL COMMENT '채팅방명',
+#     chatroom_created_at Timestamp NOT NULL COMMENT '생성일자',
     CONSTRAINT pk_chatroom_code PRIMARY KEY (chatroom_code)
 ) ENGINE=InnoDB COMMENT '채팅방';
 
@@ -300,10 +303,10 @@ CREATE TABLE IF NOT EXISTS tbl_message
     chatroom_code INT NOT NULL COMMENT '채팅방코드',
     member_code INT COMMENT '작성자 회원식별코드',
     message_content TEXT NOT NULL COMMENT '메시지 내용',
-    message_sent_at DATETIME NOT NULL COMMENT '전송 시간',
-    CONSTRAINT pk_message_code PRIMARY KEY (message_code),
-    CONSTRAINT fk_chatroom_code FOREIGN KEY (chatroom_code) REFERENCES tbl_chatroom(chatroom_code),
-    CONSTRAINT fk_member_code9 FOREIGN KEY (member_code) REFERENCES tbl_member(member_code)
+    message_sent_at timestamp NOT NULL COMMENT '전송 시간',
+    CONSTRAINT pk_message_code PRIMARY KEY (message_code)
+#     CONSTRAINT fk_chatroom_code FOREIGN KEY (chatroom_code) REFERENCES tbl_chatroom(chatroom_code),
+#     CONSTRAINT fk_member_code9 FOREIGN KEY (member_code) REFERENCES tbl_member(member_code)
 ) ENGINE=InnoDB COMMENT '메시지';
 
 CREATE TABLE IF NOT EXISTS tbl_member_declare
@@ -340,6 +343,18 @@ CREATE TABLE IF NOT EXISTS tbl_restaurant_favorite
     CONSTRAINT pk_favorite_code PRIMARY KEY (favorite_code),
     CONSTRAINT fk_member_code12 FOREIGN KEY (member_code) REFERENCES tbl_member(member_code)
 ) ENGINE=InnoDB COMMENT '맛집 저장';
+
+CREATE TABLE IF NOT EXISTS tbl_notice
+(
+    notice_code int AUTO_INCREMENT NOT NULL COMMENT '공지사항 코드',
+    notice_name VARCHAR(100) NOT NULL COMMENT '공지사항 제목',
+    notice_writer VARCHAR(100) NOT NULL COMMENT '공지사항 작성자',
+    notice_created_at DATE NOT NULL COMMENT '생성일자',
+    notice_views int NOT NULL COMMENT '조회수',
+    notice_contents text NOT NULL COMMENT "공지사항 내용",
+    notice_onoff VARCHAR(1) NOT NULL COMMENT '게시여부',
+    CONSTRAINT pk_notice_code PRIMARY KEY (notice_code)
+) ENGINE=InnoDB COMMENT '공지사항';
 
 -- 권한 테이블 더미 데이터
 INSERT INTO tbl_authority (authority_code, authority_name, authority_desc)
@@ -663,30 +678,26 @@ INSERT INTO tbl_travel_reports (member_code, report_title,report_content, report
 
 
 -- 채팅방 테이블 더미 데이터
-INSERT INTO tbl_chatroom (chatroom_code, chatroom_name, chatroom_created_at) VALUES
-(1, 'General Discussion', '2024-01-05'),
-(2, 'Travel Buddies', '2024-02-15'),
-(3, 'Foodies Chat', '2024-03-10'),
-(4, 'Tech Enthusiasts', '2024-04-20'),
-(5, 'Photography Club', '2024-05-01'),
-(6, 'Fitness Fanatics', '2024-06-18'),
-(7, 'Book Lovers', '2024-07-12'),
-(8, 'Pet Owners Corner', '2024-08-03'),
-(9, 'Outdoor Adventures', '2024-09-22'),
-(10, 'Movie Buffs', '2024-10-11');
+INSERT INTO tbl_chatroom (chatroom_code, population_code) VALUES
+(null, 1),
+(null, 2),
+(null, 3),
+(null, 4),
+(null, 5),
+(null, 6),
+(null, 7),
+(null, 8);
 
 -- 메시지 테이블 더미 데이터
 INSERT INTO tbl_message (message_code, chatroom_code, member_code, message_content, message_sent_at) VALUES
 (1, 1, 1, 'Welcome to the General Discussion chat!', '2024-01-05 10:00:00'),
-(2, 1, 2, 'Hi everyone! How are you all doing?', '2024-01-05 10:05:00'),
-(3, 2, 3, 'Anyone up for a trip to Japan next month?', '2024-02-16 09:30:00'),
-(4, 2, 4, 'Sounds interesting! I might join.', '2024-02-16 09:45:00'),
-(5, 3, 5, 'What\'s your favorite street food?', '2024-03-10 12:15:00'),
-(6, 3, 6, 'I love tacos! Especially the spicy ones.', '2024-03-10 12:20:00'),
-(7, 4, 7, 'Has anyone tried the new VR headset?', '2024-04-20 16:00:00'),
-(8, 5, 8, 'Looking for tips on landscape photography.', '2024-05-01 14:45:00'),
-(9, 6, 9, 'What\'s your workout routine these days?', '2024-06-18 07:30:00'),
-(10, 7, 10, 'Just finished a great book on self-growth!', '2024-07-12 18:20:00');
+(2, 1, 3, 'Hi everyone! How are you all doing?', '2024-01-05 10:05:00'),
+(3, 1, 2, 'Anyone up for a trip to Japan next month?', '2024-02-16 09:30:00'),
+(4, 1, 1, 'Sounds interesting! I might join.', '2024-02-16 09:45:00'),
+(5, 1, 3, 'What\'s your favorite street food?', '2024-03-10 12:15:00'),
+(6, 1, 4, 'I love tacos! Especially the spicy ones.', '2024-03-10 12:20:00'),
+(7, 1, 2, 'Has anyone tried the new VR headset?', '2024-04-20 16:00:00'),
+(8, 1, 1, 'Looking for tips on landscape photography.', '2024-05-01 14:45:00');
 
 INSERT INTO tbl_member_declare (declare_code, member_code, declare_created_at, declare_content) VALUES
 (1, 1, '2024-10-09', '욕을 많이 합니다.'),
@@ -718,3 +729,17 @@ INSERT INTO tbl_restaurant_favorite (member_code, api_link, restaurant_name, res
 (8, 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=The Green Table&key=AIzaSyBdC2C4NxgvxtnU5i2NY7WiREj1o5zQ4X4','The Green Table', 'AdDdOWoZ2kq1Xx5cvIPhey6b6va5nZDTpF7l5mffPszYDe6YT6rITC_lJ608lDutG4oDTVrqp-rhpTPNgHcnUkGdycGz-VXvGk4tvOjwTP2qR_EY4K52Ii2fmCKhpP6hecevA3g-ItmyEaRtcT4mbMEY-oywlYCB6AHeIUUI2zKxj10XN_7l', 'restaurant'),
 (9, 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=MUGUNGHWA&key=AIzaSyBdC2C4NxgvxtnU5i2NY7WiREj1o5zQ4X4','MUGUNGHWA', 'AdDdOWq-2NX9L3BNpek1bW4Si3KSO7dQPowD2U9K2yAzIVTHYqSIkyAVwcmi_js76uQIsAdtOAFalV8Gj5o1UzQY4q5GmcBuKOzT3zlJjiq-gJ_gix644H9tNx3dpnGLPCTeG8LX_qRIm6p04C-3x2c2aXVT-7wPB5NknkESFJYMCM-UWrfu', 'restaurant'),
 (10, 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=Hangong-Gan&key=AIzaSyBdC2C4NxgvxtnU5i2NY7WiREj1o5zQ4X4','Hangong-Gan', 'AdDdOWr-AKExDw6YkOuMq4qVFJLuI2uA8Xax9MdpCVCx-c2udy0d3TJnT6rFSklCdozVqOvvvk7NDQCPRmi3eVshQ_7g3vCHMa4GXLFyFPmOUI0TGefjRfraQBhl-wSqxhyuWpH3LWKa4Bx4WBbz0qg75pT1eSaTO_Nrp4RMNsgmDc8KoWKg', 'restaurant');
+
+INSERT INTO tbl_notice
+(notice_name, notice_writer, notice_created_at, notice_views, notice_contents, notice_onoff)
+VALUES
+    ('공지사항 1', '관리자', '2024-01-01', 150, '공지사항 내용 1입니다.', 'Y'),
+    ('공지사항 2', '운영팀', '2024-02-01', 85, '공지사항 내용 2입니다.', 'N'),
+    ('공지사항 3', '관리자', '2024-03-05', 200, '공지사항 내용 3입니다.', 'Y'),
+    ('공지사항 4', '운영팀', '2024-04-10', 120, '공지사항 내용 4입니다.', 'N'),
+    ('공지사항 5', '관리자', '2024-05-15', 95, '공지사항 내용 5입니다.', 'Y'),
+    ('공지사항 6', '운영팀', '2024-06-20', 140, '공지사항 내용 6입니다.', 'N'),
+    ('공지사항 7', '관리자', '2024-07-25', 175, '공지사항 내용 7입니다.', 'Y'),
+    ('공지사항 8', '운영팀', '2024-08-30', 220, '공지사항 내용 8입니다.', 'N'),
+    ('공지사항 9', '관리자', '2024-09-10', 60, '공지사항 내용 9입니다.', 'Y'),
+    ('공지사항 10', '운영팀', '2024-10-01', 185, '공지사항 내용 10입니다.', 'Y');
