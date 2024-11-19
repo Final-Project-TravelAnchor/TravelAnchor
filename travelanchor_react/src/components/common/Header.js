@@ -173,7 +173,7 @@ function Header() {
 							</ul>
 						)}
 						</li>
-						<li class="navItem" className={HeaderCSS.navItem}><a href="#">일정</a></li>
+						<li class="navItem" className={HeaderCSS.navItem}><NavLink to="/ExpenseList">일정</NavLink></li>
 						<li class="navItem" className={HeaderCSS.navItem}><NavLink to="/items/population">메이트</NavLink></li>
 						<li class="navItem" className={HeaderCSS.navItem}><NavLink to="/TravelReport">후기</NavLink></li>
 						<li class="navItem" className={HeaderCSS.navItem}><a href="#">자유게시판</a></li>

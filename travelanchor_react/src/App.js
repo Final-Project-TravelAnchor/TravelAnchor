@@ -17,6 +17,7 @@ import Weather from './pages/features/Weather';
 import Flight from './pages/travels/Flight';
 import Accommodation from './pages/travels/Accommodation';
 import Translation from './pages/features/Translation';
+import ExpenseList from './pages/plans/ExpenseList';
 import Report from './pages/reports/Report';
 import ExchangeRate from './pages/features/ExchangeRate';
 import Notice from './pages/notice/Notice';
@@ -39,6 +40,7 @@ export default function App() {
               <Route path="populationModify/:populationCode" element={<PopulationModify />} />
               <Route path="chatroom/:populationCode" element={<ChatRoom />} />
             </Route>
+            <Route path='ExpenseList' element={ <ExpenseList/> }/>
             <Route path="notice">
               <Route index element={<Notice />} />
               <Route path=":noticeCode" element={<NoticeDetail />} />
