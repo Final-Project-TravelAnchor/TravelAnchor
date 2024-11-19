@@ -37,6 +37,8 @@ public class TravelReport {
     public TravelReport() {
     }
 
+    public int getReportCode() {return reportCode;}
+
     public void setReportCode(int reportCode) {
         this.reportCode = reportCode;
     }
