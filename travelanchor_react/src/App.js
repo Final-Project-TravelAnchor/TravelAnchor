@@ -18,6 +18,11 @@ import Flight from './pages/travels/Flight';
 import Accommodation from './pages/travels/Accommodation';
 import Translation from './pages/features/Translation';
 import Report from './pages/reports/Report';
+import ExchangeRate from './pages/features/ExchangeRate';
+import Notice from './pages/notice/Notice';
+import NoticeDetail from './pages/notice/NoticeDetail';
+import NoticeModify from './pages/notice/NoticeModify';
+import NoticeCreate from './pages/notice/NoticeCreate';
 
 export default function App() {
   return (
@@ -34,6 +39,12 @@ export default function App() {
               <Route path="populationModify/:populationCode" element={<PopulationModify />} />
               <Route path="chatroom/:populationCode" element={<ChatRoom />} />
             </Route>
+            <Route path="notice">
+              <Route index element={<Notice />} />
+              <Route path=":noticeCode" element={<NoticeDetail />} />
+              <Route path="noticeModify/:noticeCode" element={<NoticeModify />} />
+              <Route path="noticeCreate" element={<NoticeCreate />} />
+            </Route>
             <Route path='TravelReport' element={ <TravelReport/> }/>
             <Route path='AddReportDate' element={ <AddReportDate/> }/>
             <Route path='AddReportDestination' element={ <AddReportDestination/> }/>
@@ -44,6 +55,7 @@ export default function App() {
             <Route path="Weather" element={ <Weather/> }/>
             <Route path="Translation" element={ <Translation/> }/>
             <Route path="Flight" element={ <Flight/> }/>
+            <Route path="ExchangeRate" element={ <ExchangeRate/> }/>
             <Route path="/login" element={ <Login/> } />
           </Route>
           <Route path='*' element={ <Error/> }/>

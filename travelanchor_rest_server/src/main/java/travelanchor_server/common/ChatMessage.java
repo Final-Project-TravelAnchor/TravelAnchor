@@ -1,5 +1,6 @@
 package travelanchor_server.common;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,9 +24,9 @@ public class ChatMessage {
     private int populationCode;
 
     @JsonProperty
-    private Date timestamp;
+    private String timestamp;
 
-    public ChatMessage(Long id, String name, String message, int populationCode, Date timestamp) {
+    public ChatMessage(Long id, String name, String message, int populationCode, String timestamp) {
         this.id = id;
         this.name = name;
         this.message = message;
@@ -65,11 +66,11 @@ public class ChatMessage {
         this.message = message;
     }
 
-    public Date getTimeStamp() {
+    public String getTimeStamp() {
         return timestamp;
     }
 
-    public void setTimeStamp(Date timestamp) {
+    public void setTimeStamp(String timestamp) {
         this.timestamp = timestamp;
     }
 

@@ -5,10 +5,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import travelanchor_server.comment.entity.Comment;
+import travelanchor_server.member.dto.ChatMessageDTO;
 import travelanchor_server.member.entity.Message;
 import travelanchor_server.member.repository.MessageRepository;
-import travelanchor_server.member.repository.PointRepository;
-import travelanchor_server.population.entity.Population;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -33,5 +33,24 @@ public class MessageService {
         List<Message> messages = messageRepository.findByChatroomCode(id);
 
         return messages.stream().map(message -> modelMapper.map(message, Message.class)).collect(Collectors.toList());
+    }
+
+    public Object insertMessages(ChatMessageDTO chat) {
+        log.info("[MessageService] insertMessages() start");
+        log.info("[MessageService] chat : " +  chat);
+        int result = 0;
+        try{
+
+            Message insertMessage = modelMapper.map(chat, Message.class);
+
+            messageRepository.save(insertMessage);
+
+            result = 1;
+        } catch (Exception e) {
+
+            throw new RuntimeException(e);
+        }
+        log.info("[MessageService] insertMessages() end");
+        return (result > 0) ? "메세지 저장 성공" : "메세지 저장 실패";
     }
 }
