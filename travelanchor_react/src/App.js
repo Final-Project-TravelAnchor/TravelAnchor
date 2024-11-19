@@ -16,6 +16,7 @@ import Weather from './pages/features/Weather';
 import Flight from './pages/travels/Flight';
 import Accommodation from './pages/travels/Accommodation';
 import Translation from './pages/features/Translation';
+import ExpenseList from './pages/plans/ExpenseList';
 
 export default function App() {
   return (
@@ -32,6 +33,7 @@ export default function App() {
               <Route path="populationModify/:populationCode" element={<PopulationModify />} />
               <Route path="chatroom/:populationCode" element={<ChatRoom />} />
             </Route>
+            <Route path='ExpenseList' element={ <ExpenseList/> }/>
             <Route path='TravelReport' element={ <TravelReport/> }/>
             <Route path='AddReportDate' element={ <AddReportDate/> }/>
             <Route path='AddReportDestination' element={ <AddReportDestination/> }/>
