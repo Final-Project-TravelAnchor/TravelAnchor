@@ -1,42 +1,26 @@
-package travelanchor_server.member.entity;
+package travelanchor_server.member.dto;
 
-import jakarta.persistence.*;
-import org.hibernate.annotations.Columns;
+import jakarta.persistence.Column;
+import jakarta.persistence.Id;
 
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "tbl_message")
-public class Message {
+public class ChatMessageDTO {
 
-    @Id
-    @Column(name = "message_code")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int messageCode;
-
-    @Column(name = "chatroom_code")
     private int chatroomCode;
-
-    @Column(name = "member_code")
     private int memberCode;
-
-    @Column(name = "message_content")
     private String messageContent;
-
-    @Column(name = "message_sent_at")
     private String messageSentAt;
 
+    public ChatMessageDTO() {}
 
-    public Message(int messageCode, int chatroomCode, int memberCode, String messageContent, String messageSentAt) {
+    public ChatMessageDTO(int messageCode, int chatroomCode, int memberCode, String messageContent, String messageSentAt) {
         this.messageCode = messageCode;
         this.chatroomCode = chatroomCode;
         this.memberCode = memberCode;
         this.messageContent = messageContent;
         this.messageSentAt = messageSentAt;
-    }
-
-    public Message() {
-
     }
 
     public int getMessageCode() {
@@ -81,7 +65,7 @@ public class Message {
 
     @Override
     public String toString() {
-        return "Message{" +
+        return "ChatMessageDTO{" +
                 "messageCode=" + messageCode +
                 ", chatroomCode=" + chatroomCode +
                 ", memberCode=" + memberCode +
