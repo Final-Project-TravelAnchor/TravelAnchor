@@ -1,16 +1,32 @@
-function AddReportDestination() {
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { callTravelReportListAPI } from '../../apis/TravelReportAPICalls';
+
+const TravelReportList = () => {
+    const dispatch = useDispatch();
+    const travelReport = useSelector((state) => state.travelReportReducer);
+
+    useEffect(() => {
+        dispatch(callTravelReportListAPI);
+    }, [dispatch]);
 
     return (
         <div>
-            <h3>목적지를 선택해 주세요</h3>
-            <h3>여행 테마를 선택해 주세요</h3>
-            <div>
+            <h1>후기 리스트</h1>
+            {Array.isArray(travelReport) && travelReport.length > 0 ? (
                 <ul>
-                    
+                {travelReport.map((report) => (
+                    <li key={report.reportCode}>
+                    활동금액세부코드: {report.reportCode}
+                    </li>
+                ))}
                 </ul>
+            ) : (
+                <p>데이터가 없습니다.</p>
+            )}
             </div>
-        </div>
-    );
-}
+        );
+    };
+    
 
-export default AddReportDestination;
+export default TravelReportList;

@@ -11,11 +11,13 @@ import ChatRoom from './components/items/ChatRoom';
 import TravelReport from './pages/reports/TravelReport';
 import AddReportDate from './pages/reports/AddReportDate';
 import AddReportDestination from './pages/reports/AddReportDestination';
-import Report from './apis/MapAPICalls';
+import Map from './apis/MapAPICalls';
+import ShareKakao from './apis/ShareKakao';
 import Weather from './pages/features/Weather';
 import Flight from './pages/travels/Flight';
 import Accommodation from './pages/travels/Accommodation';
 import Translation from './pages/features/Translation';
+import Report from './pages/reports/Report';
 
 export default function App() {
   return (
@@ -36,6 +38,8 @@ export default function App() {
             <Route path='AddReportDate' element={ <AddReportDate/> }/>
             <Route path='AddReportDestination' element={ <AddReportDestination/> }/>
             <Route path='Report' element={ <Report/> }/>
+            <Route path='Map' element={ <Map/> }/>
+            {/* <Route path='ShareKakao' element={ <ShareKakao/> }/> */}
             <Route path="Accommodation" element={ <Accommodation/> }/>
             <Route path="Weather" element={ <Weather/> }/>
             <Route path="Translation" element={ <Translation/> }/>
