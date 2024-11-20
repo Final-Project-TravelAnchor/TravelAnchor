@@ -31,22 +31,13 @@ public class TravelReport {
     @Column(name = "report_created_at")
     private Date reportCreatedAt;
 
+    @Column(name = "report_isdeleted")
+    private String reportIsdeleted;
+
     public TravelReport() {
     }
 
-    public TravelReport(int reportCode, int memberCode, String reportTitle, String reportContent, String reportDestination, String reportTheme, Date reportCreatedAt) {
-        this.reportCode = reportCode;
-        this.memberCode = memberCode;
-        this.reportTitle = reportTitle;
-        this.reportContent = reportContent;
-        this.reportDestination = reportDestination;
-        this.reportTheme = reportTheme;
-        this.reportCreatedAt = reportCreatedAt;
-    }
-
-    public int getReportCode() {
-        return reportCode;
-    }
+    public int getReportCode() {return reportCode;}
 
     public void setReportCode(int reportCode) {
         this.reportCode = reportCode;
@@ -100,6 +91,14 @@ public class TravelReport {
         this.reportCreatedAt = reportCreatedAt;
     }
 
+    public String getReportIsdeleted() {
+        return reportIsdeleted;
+    }
+
+    public void setReportIsdeleted(String reportIsdeleted) {
+        this.reportIsdeleted = reportIsdeleted;
+    }
+
     @Override
     public String toString() {
         return "TravelReportDTO{" +
@@ -110,6 +109,7 @@ public class TravelReport {
                 ", reportDestination='" + reportDestination + '\'' +
                 ", reportTheme='" + reportTheme + '\'' +
                 ", reportCreatedAt=" + reportCreatedAt +
+                ", reportIsdeleted='" + reportIsdeleted + '\'' +
                 '}';
     }
 }

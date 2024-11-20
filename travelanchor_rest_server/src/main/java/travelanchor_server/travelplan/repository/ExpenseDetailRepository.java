@@ -7,10 +7,13 @@ import java.util.List;
 
 public interface ExpenseDetailRepository extends JpaRepository<ExpenseDetail, Integer> {
 
-    List<ExpenseDetail> findByExpenseCodeAndMemberCode(int expenseCode, int memberCode);
+    List<ExpenseDetail> findByExpenseCodeAndMemberCode(int expenseDetailCode, int memberCode);
 
     void deleteByExpenseCodeAndMemberCode(int expenseCode, int memberCode);
 
     List<ExpenseDetail> findAll();
 
+    List<ExpenseDetail> findByExpenseCode(int expenseDetailCode);
+
+    List<ExpenseDetail> findByExpenseDetailCode(int expenseDetailCode);
 }

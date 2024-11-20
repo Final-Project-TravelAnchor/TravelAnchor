@@ -130,6 +130,13 @@ function Header() {
 		);
 	}
 
+	const [isDropdownOpen, setDropdownOpen] = useState(false); // 드롭다운 상태
+
+	// 드롭다운 열림/닫힘 상태 제어
+	const toggleDropdown = () => {
+		setDropdownOpen((prev) => !prev);
+	};
+
 
 	return (
 		<>
@@ -147,6 +154,7 @@ function Header() {
 					</a>
 				</div>
 
+				{/* navbar */}
 				<div>
 					<ul class="navMenu" className={HeaderCSS.navMenu}>
 						<li class="navItem" className={HeaderCSS.navItem}>
@@ -156,14 +164,30 @@ function Header() {
 								<li><NavLink to="Restaurants">맛집</NavLink></li>
 								<li><NavLink to="Flight">항공권</NavLink></li>
 								<li class="navItem"><NavLink to="/Accommodation">숙박</NavLink></li>
+						<li class="navItem" className={HeaderCSS.navItem} onMouseLeave={() => setDropdownOpen(false)}>
+							<a href="#" onClick={toggleDropdown}>여행</a>
+							{isDropdownOpen && (
+							<ul className={HeaderCSS.dropdownMenu}>
+								<li>
+									<a href="#">여행지</a>
+								</li>
+								<li>
+									<NavLink to="/Flight">항공권</NavLink>
+								</li>
+								<li>
+									<NavLink to="/Accommodation">숙박</NavLink>
+								</li>
 							</ul>
+						)}
 						</li>
-						<li class="navItem" className={HeaderCSS.navItem}><a href="#">일정</a></li>
+						<li class="navItem" className={HeaderCSS.navItem}><NavLink to="/ExpenseList">일정</NavLink></li>
 						<li class="navItem" className={HeaderCSS.navItem}><NavLink to="/items/population">메이트</NavLink></li>
 						<li class="navItem" className={HeaderCSS.navItem}><NavLink to="/TravelReport">후기</NavLink></li>
 						<li class="navItem" className={HeaderCSS.navItem}><a href="#">자유게시판</a></li>
-						<li class="navItem" className={HeaderCSS.navItem}><a href="#">공지사항</a></li>
+						<li class="navItem" className={HeaderCSS.navItem}><NavLink to="Notice">공지사항</NavLink></li>
+						<li class="navItem" className={HeaderCSS.navItem}><NavLink to="ExchangeRate">환율</NavLink></li>
 						<li class="navItem" className={HeaderCSS.navItem}><NavLink to="Weather">날씨</NavLink></li>
+						<li class="navItem" className={HeaderCSS.navItem}><NavLink to="Translation">번역</NavLink></li>
 
 
 					</ul>

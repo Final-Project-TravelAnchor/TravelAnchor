@@ -9,7 +9,7 @@ DROP TABLE IF EXISTS tbl_travel_day CASCADE;
 DROP TABLE IF EXISTS tbl_population CASCADE;
 DROP TABLE IF EXISTS tbl_travel_plans CASCADE;
 DROP TABLE IF EXISTS tbl_comment CASCADE;
-DROP TABLE IF EXISTS tbl_notice CASCADE;
+DROP TABLE IF EXISTS tbl_free_board CASCADE;
 DROP TABLE IF EXISTS tbl_travel_reports CASCADE;
 DROP TABLE IF EXISTS tbl_message CASCADE;
 
@@ -23,10 +23,12 @@ DROP TABLE IF EXISTS tbl_member_reviews_category CASCADE;
 DROP TABLE IF EXISTS tbl_travel_city CASCADE;
 DROP TABLE IF EXISTS tbl_travel_country CASCADE;
 
-DROP TABLE IF EXISTS tbl_notice_category CASCADE;
+DROP TABLE IF EXISTS tbl_free_board_category CASCADE;
 DROP TABLE IF EXISTS tbl_chatroom CASCADE;
 DROP TABLE IF EXISTS tbl_message CASCADE;
 DROP TABLE IF EXISTS tbl_member_role CASCADE;
+
+DROP TABLE IF EXISTS tbl_notice CASCADE;
 
 DROP TABLE IF EXISTS tbl_member CASCADE;
 DROP TABLE IF EXISTS tbl_authority CASCADE;
@@ -91,12 +93,13 @@ CREATE TABLE IF NOT EXISTS tbl_get_badge
 -- 포인트 리워드 테이블
 CREATE TABLE IF NOT EXISTS tbl_point_reward
 (
-    point_reward_code INT AUTO_INCREMENT NOT NULL COMMENT '점수코드',
+#     point_reward_code INT AUTO_INCREMENT NOT NULL COMMENT '점수코드',
     member_code INT COMMENT '회원식별코드',
-    point_reward_reason VARCHAR(255) NOT NULL COMMENT '점수이유',
-    point_reward_point INT COMMENT '포인트',
-    CONSTRAINT pk_point_reward_code PRIMARY KEY (point_reward_code),
-    CONSTRAINT fk_member_code1 FOREIGN KEY (member_code) REFERENCES tbl_member(member_code)
+#     point_reward_reason VARCHAR(255) NOT NULL COMMENT '점수이유',
+    point_reward_total_count INT COMMENT '평가사람수',
+    point_reward_point INT COMMENT '포인트'
+#     CONSTRAINT pk_point_reward_code PRIMARY KEY (point_reward_code),
+#     CONSTRAINT fk_member_code1 FOREIGN KEY (member_code) REFERENCES tbl_member(member_code)
 ) ENGINE=InnoDB COMMENT '포인트 리워드';
 
 -- 리뷰 카테고리 테이블
@@ -144,8 +147,9 @@ CREATE TABLE IF NOT EXISTS tbl_travel_plans
     travel_total_date VARCHAR(10) NOT NULL COMMENT '총일수',
     travel_destination VARCHAR(10) NOT NULL COMMENT '목적지',
     travel_onoff VARCHAR(1) NOT NULL COMMENT '여행완료여부',
-    CONSTRAINT pk_travel_code PRIMARY KEY (travel_code),
-    CONSTRAINT fk_member_code3 FOREIGN KEY (member_code) REFERENCES tbl_member(member_code)
+    travel_isdeleted VARCHAR(1) NOT NULL COMMENT '삭제여부',
+    CONSTRAINT pk_travel_code PRIMARY KEY (travel_code)
+#     CONSTRAINT fk_member_code3 FOREIGN KEY (member_code) REFERENCES tbl_member(member_code)
 ) ENGINE=InnoDB COMMENT '여행일정';
 
 -- 여행 일정별 일과 테이블
@@ -155,8 +159,8 @@ CREATE TABLE IF NOT EXISTS tbl_travel_day
     travel_code INT NOT NULL COMMENT '여행코드',
     day_number INT NOT NULL COMMENT '여행차수',
     day_date INT NOT NULL COMMENT '해당 일',
-    CONSTRAINT pk_day_code PRIMARY KEY (day_code),
-    CONSTRAINT fk_travel_code FOREIGN KEY (travel_code) REFERENCES tbl_travel_plans(travel_code)
+    CONSTRAINT pk_day_code PRIMARY KEY (day_code)
+#     CONSTRAINT fk_travel_code FOREIGN KEY (travel_code) REFERENCES tbl_travel_plans(travel_code)
 ) ENGINE=InnoDB COMMENT '일정별일과';
 
 -- 활동 정보 테이블
@@ -164,10 +168,10 @@ CREATE TABLE IF NOT EXISTS tbl_activity
 (
     activity_code INT AUTO_INCREMENT NOT NULL COMMENT '활동코드',
     day_code INT NOT NULL COMMENT '일과코드',
-    activity_title VARCHAR(10) NOT NULL COMMENT '세부활동제목',
+    activity_title VARCHAR(20) NOT NULL COMMENT '세부활동제목',
     activity_detail VARCHAR(100) NOT NULL COMMENT '세부활동',
-    CONSTRAINT pk_activity_code PRIMARY KEY (activity_code),
-    CONSTRAINT fk_day_code FOREIGN KEY (day_code) REFERENCES tbl_travel_day(day_code)
+    CONSTRAINT pk_activity_code PRIMARY KEY (activity_code)
+#     CONSTRAINT fk_day_code FOREIGN KEY (day_code) REFERENCES tbl_travel_day(day_code)
 ) ENGINE=InnoDB COMMENT '활동정보';
 
 -- 활동 비용 테이블
@@ -176,8 +180,8 @@ CREATE TABLE IF NOT EXISTS tbl_expense
     expense_code INT AUTO_INCREMENT NOT NULL COMMENT '활동금액코드',
     activity_code INT NOT NULL COMMENT '활동코드',
     expense_total_amount INT NOT NULL COMMENT '활동총비용',
-    CONSTRAINT pk_expense_code PRIMARY KEY (expense_code),
-    CONSTRAINT fk_activity_code FOREIGN KEY (activity_code) REFERENCES tbl_activity(activity_code)
+    CONSTRAINT pk_expense_code PRIMARY KEY (expense_code)
+#     CONSTRAINT fk_activity_code FOREIGN KEY (activity_code) REFERENCES tbl_activity(activity_code)
 ) ENGINE=InnoDB COMMENT '활동정보';
 
 
@@ -188,9 +192,9 @@ CREATE TABLE IF NOT EXISTS tbl_expense_detail
     expense_code INT NOT NULL COMMENT '활동금액코드',
     expense_detail_amount INT NOT NULL COMMENT '세부활동비용',
     member_code INT COMMENT '회원식별코드',
-    CONSTRAINT pk_expense_detail_code PRIMARY KEY (expense_detail_code),
-    CONSTRAINT fk_expense_code FOREIGN KEY (expense_code) REFERENCES tbl_expense(expense_code),
-    CONSTRAINT fk_member_code4 FOREIGN KEY (member_code) REFERENCES tbl_member(member_code)
+    CONSTRAINT pk_expense_detail_code PRIMARY KEY (expense_detail_code)
+#     CONSTRAINT fk_expense_code FOREIGN KEY (expense_code) REFERENCES tbl_expense(expense_code),
+#     CONSTRAINT fk_member_code4 FOREIGN KEY (member_code) REFERENCES tbl_member(member_code)
 ) ENGINE=InnoDB COMMENT '세부활동정보';
 
 -- 국가 테이블
@@ -232,37 +236,38 @@ CREATE TABLE IF NOT EXISTS tbl_population
 ) ENGINE=InnoDB COMMENT '모집공고';
 
 -- 공지사항 카테고리 테이블
-CREATE TABLE IF NOT EXISTS tbl_notice_category
+CREATE TABLE IF NOT EXISTS tbl_free_board_category
 (
-    notice_category_code INT AUTO_INCREMENT NOT NULL COMMENT '공지사항 카테고리 코드',
-    notice_category_name VARCHAR(100) NOT NULL COMMENT '공지사항 카테고리명',
-    CONSTRAINT pk_notice_category_code PRIMARY KEY (notice_category_code)
+    free_board_category_code INT AUTO_INCREMENT NOT NULL COMMENT '공지사항 카테고리 코드',
+    free_board_category_name VARCHAR(100) NOT NULL COMMENT '공지사항 카테고리명',
+    CONSTRAINT pk_free_board_category_code PRIMARY KEY (free_board_category_code)
 ) ENGINE=InnoDB COMMENT '공지사항 카테고리';
 
 -- 공지사항 테이블
-CREATE TABLE IF NOT EXISTS tbl_notice
+CREATE TABLE IF NOT EXISTS tbl_free_board
 (
-    notice_code INT AUTO_INCREMENT NOT NULL COMMENT '공지사항 코드',
-    notice_category_code INT NOT NULL COMMENT '공지사항 카테고리 코드',
-    notice_title VARCHAR(255) NOT NULL COMMENT '공지사항 제목',
-    notice_content TEXT NOT NULL COMMENT '공지사항 내용',
-    notice_created_at DATE NOT NULL COMMENT '작성일자',
+    free_board_code INT AUTO_INCREMENT NOT NULL COMMENT '공지사항 코드',
+    free_board_category_code INT NOT NULL COMMENT '공지사항 카테고리 코드',
+    free_board_title VARCHAR(255) NOT NULL COMMENT '공지사항 제목',
+    free_board_content TEXT NOT NULL COMMENT '공지사항 내용',
+    free_board_created_at DATE NOT NULL COMMENT '작성일자',
     member_code INT COMMENT '작성자 회원식별코드',
-    CONSTRAINT pk_notice_code PRIMARY KEY (notice_code),
-    CONSTRAINT fk_notice_category_code FOREIGN KEY (notice_category_code) REFERENCES tbl_notice_category(notice_category_code),
-    CONSTRAINT fk_member_code6 FOREIGN KEY (member_code) REFERENCES tbl_member(member_code)
+    free_board_isdeleted VARCHAR(1) NOT NULL COMMENT '삭제 여부',
+    CONSTRAINT pk_free_board_code PRIMARY KEY (free_board_code)
+#     CONSTRAINT fk_free_board_category_code FOREIGN KEY (free_board_category_code) REFERENCES tbl_free_board_category(free_board_category_code),
+#     CONSTRAINT fk_member_code6 FOREIGN KEY (member_code) REFERENCES tbl_member(member_code)
 ) ENGINE=InnoDB COMMENT '공지사항';
 
 -- 댓글 테이블
 CREATE TABLE IF NOT EXISTS tbl_comment
 (
     comment_code INT AUTO_INCREMENT NOT NULL COMMENT '댓글코드',
-    notice_code INT NOT NULL COMMENT '공지사항 코드',
+    free_board_code INT NOT NULL COMMENT '공지사항 코드',
     member_code INT COMMENT '작성자 회원식별코드',
     comment_content TEXT NOT NULL COMMENT '댓글내용',
     comment_created_at DATE NOT NULL COMMENT '작성일자',
     CONSTRAINT pk_comment_code PRIMARY KEY (comment_code),
-    CONSTRAINT fk_notice_code FOREIGN KEY (notice_code) REFERENCES tbl_notice(notice_code),
+    CONSTRAINT fk_free_board_code FOREIGN KEY (free_board_code) REFERENCES tbl_free_board(free_board_code),
     CONSTRAINT fk_member_code7 FOREIGN KEY (member_code) REFERENCES tbl_member(member_code)
 ) ENGINE=InnoDB COMMENT '댓글';
 
@@ -276,6 +281,7 @@ CREATE TABLE IF NOT EXISTS tbl_travel_reports
     report_destination TEXT NOT NULL COMMENT '여행지',
     report_theme TEXT NOT NULL COMMENT '여행테마',
     report_created_at DATE NOT NULL COMMENT '작성일자',
+    report_isdeleted VARCHAR(1) NOT NULL COMMENT '삭제여부',
     CONSTRAINT pk_report_code PRIMARY KEY (report_code),
     CONSTRAINT fk_member_code8 FOREIGN KEY (member_code) REFERENCES tbl_member(member_code)
 ) ENGINE=InnoDB COMMENT '여행후기';
@@ -283,9 +289,10 @@ CREATE TABLE IF NOT EXISTS tbl_travel_reports
 -- 채팅방 테이블
 CREATE TABLE IF NOT EXISTS tbl_chatroom
 (
-    chatroom_code INT AUTO_INCREMENT NOT NULL COMMENT '채팅방코드',
-    chatroom_name VARCHAR(255) NOT NULL COMMENT '채팅방명',
-    chatroom_created_at DATE NOT NULL COMMENT '생성일자',
+    chatroom_code BIGINT AUTO_INCREMENT NOT NULL COMMENT '채팅방코드',
+    population_code INT NOT NULL COMMENT '공고코드',
+#     chatroom_name VARCHAR(255) NOT NULL COMMENT '채팅방명',
+#     chatroom_created_at Timestamp NOT NULL COMMENT '생성일자',
     CONSTRAINT pk_chatroom_code PRIMARY KEY (chatroom_code)
 ) ENGINE=InnoDB COMMENT '채팅방';
 
@@ -296,10 +303,10 @@ CREATE TABLE IF NOT EXISTS tbl_message
     chatroom_code INT NOT NULL COMMENT '채팅방코드',
     member_code INT COMMENT '작성자 회원식별코드',
     message_content TEXT NOT NULL COMMENT '메시지 내용',
-    message_sent_at DATETIME NOT NULL COMMENT '전송 시간',
-    CONSTRAINT pk_message_code PRIMARY KEY (message_code),
-    CONSTRAINT fk_chatroom_code FOREIGN KEY (chatroom_code) REFERENCES tbl_chatroom(chatroom_code),
-    CONSTRAINT fk_member_code9 FOREIGN KEY (member_code) REFERENCES tbl_member(member_code)
+    message_sent_at timestamp NOT NULL COMMENT '전송 시간',
+    CONSTRAINT pk_message_code PRIMARY KEY (message_code)
+#     CONSTRAINT fk_chatroom_code FOREIGN KEY (chatroom_code) REFERENCES tbl_chatroom(chatroom_code),
+#     CONSTRAINT fk_member_code9 FOREIGN KEY (member_code) REFERENCES tbl_member(member_code)
 ) ENGINE=InnoDB COMMENT '메시지';
 
 CREATE TABLE IF NOT EXISTS tbl_member_declare
@@ -337,6 +344,18 @@ CREATE TABLE IF NOT EXISTS tbl_restaurant_favorite
     CONSTRAINT fk_member_code12 FOREIGN KEY (member_code) REFERENCES tbl_member(member_code)
 ) ENGINE=InnoDB COMMENT '맛집 저장';
 
+CREATE TABLE IF NOT EXISTS tbl_notice
+(
+    notice_code int AUTO_INCREMENT NOT NULL COMMENT '공지사항 코드',
+    notice_name VARCHAR(100) NOT NULL COMMENT '공지사항 제목',
+    notice_writer VARCHAR(100) NOT NULL COMMENT '공지사항 작성자',
+    notice_created_at DATE NOT NULL COMMENT '생성일자',
+    notice_views int NOT NULL COMMENT '조회수',
+    notice_contents text NOT NULL COMMENT "공지사항 내용",
+    notice_onoff VARCHAR(1) NOT NULL COMMENT '게시여부',
+    CONSTRAINT pk_notice_code PRIMARY KEY (notice_code)
+) ENGINE=InnoDB COMMENT '공지사항';
+
 -- 권한 테이블 더미 데이터
 INSERT INTO tbl_authority (authority_code, authority_name, authority_desc)
 VALUES
@@ -372,9 +391,9 @@ INSERT INTO tbl_get_badge (badge_code, member_code) VALUES
 (2, 2);
 
 -- 포인트 리워드 테이블 더미 데이터
-INSERT INTO tbl_point_reward (point_reward_code, member_code, point_reward_reason, point_reward_point) VALUES
-(1, 1, '가입 기념 포인트', 50),
-(2, 2, '리뷰 작성', 30);
+INSERT INTO tbl_point_reward (member_code, point_reward_total_count, point_reward_point) VALUES
+(1, 2, 8.5),
+(2, 8, 30);
 
 -- 리뷰 카테고리 테이블 더미 데이터
 INSERT INTO tbl_member_reviews_category (review_category_code, review_category_level, review_category_sub_code, member_review) VALUES
@@ -406,17 +425,17 @@ INSERT INTO tbl_member_reviews (member_review_code, member_code, review_category
 # INSERT INTO tbl_member_reviews_text (review_category_code, review_category_sub_code, review_text) VALUES
 
 -- 여행 일정 테이블 더미 데이터
-INSERT INTO tbl_travel_plans (travel_code, member_code, travel_name, travel_start_date, travel_end_date, travel_total_date, travel_destination, travel_onoff) VALUES
-(1, 1, '유럽 여행', '2024-04-01', '2024-04-14', '14일', '파리', 'N'),
-(2, 2, '일본 도쿄 여행', '2024-05-05', '2024-05-10', '6일', '도쿄', 'Y'),
-(3, 3, '미국 뉴욕 여행', '2024-06-01', '2024-06-10', '10일', '뉴욕', 'N'),
-(4, 4, '호주 시드니 여행', '2024-07-10', '2024-07-17', '8일', '시드니', 'Y'),
-(5, 5, '태국 방콕 여행', '2024-08-15', '2024-08-20', '6일',  '방콕', 'N'),
-(6, 6, '이탈리아 로마 여행', '2024-09-01', '2024-09-10', '10일', '로마', 'Y'),
-(7, 7, '그리스 아테네 여행', '2024-10-05', '2024-10-12', '8일', '아테네', 'N'),
-(8, 8, '영국 런던 여행', '2024-11-10', '2024-11-15', '6일', '런던', 'Y'),
-(9, 9, '스페인 바르셀로나 여행', '2024-12-01', '2024-12-08', '8일', '바르셀로나', 'N'),
-(10, 10, '캐나다 토론토 여행', '2025-01-10', '2025-01-20', '11일', '토론토', 'Y');
+INSERT INTO tbl_travel_plans (travel_code, member_code, travel_name, travel_start_date, travel_end_date, travel_total_date, travel_destination, travel_onoff, travel_isdeleted) VALUES
+(1, 1, '유럽 여행', '2024-04-01', '2024-04-14', '14일', '파리', 'N','N'),
+(2, 2, '일본 도쿄 여행', '2024-05-05', '2024-05-10', '6일', '도쿄', 'Y','N'),
+(3, 3, '미국 뉴욕 여행', '2024-06-01', '2024-06-10', '10일', '뉴욕', 'N','N'),
+(4, 4, '호주 시드니 여행', '2024-07-10', '2024-07-17', '8일', '시드니', 'Y','N'),
+(5, 5, '태국 방콕 여행', '2024-08-15', '2024-08-20', '6일',  '방콕', 'N','N'),
+(6, 6, '이탈리아 로마 여행', '2024-09-01', '2024-09-10', '10일', '로마', 'Y','N'),
+(7, 7, '그리스 아테네 여행', '2024-10-05', '2024-10-12', '8일', '아테네', 'N','N'),
+(8, 8, '영국 런던 여행', '2024-11-10', '2024-11-15', '6일', '런던', 'Y','N'),
+(9, 9, '스페인 바르셀로나 여행', '2024-12-01', '2024-12-08', '8일', '바르셀로나', 'N','N'),
+(10, 10, '캐나다 토론토 여행', '2025-01-10', '2025-01-20', '11일', '토론토', 'Y','N');
 
 INSERT INTO tbl_travel_day (day_code, travel_code, day_number, day_date) VALUES
 (1, 1, 1, 1),
@@ -445,7 +464,7 @@ INSERT INTO tbl_activity (activity_code, day_code, activity_title, activity_deta
 # (3, 3, '세부활동제목3', '세부적인 활동을 적는 란.3');
 
 INSERT INTO tbl_expense (expense_code, activity_code, expense_total_amount) VALUES
-(1, 1, 1000),
+(1, 1, 2000),
 (2, 2, 2500),
 (3, 3, 1500),
 (4, 4, 3200),
@@ -466,7 +485,9 @@ INSERT INTO tbl_expense_detail (expense_detail_code, expense_code, expense_detai
 (7, 4, 1600, 7),
 (8, 4, 1600, 8),
 (9, 5, 1400, 9),
-(10, 5, 1400, 10);
+(10, 5, 1400, 10),
+(NULL, 1, 0, 4),
+(NULL, 1, 1000, 3);
 
 INSERT INTO tbl_travel_country (country_code, country_name) VALUES
 (1, '대한민국'),
@@ -578,7 +599,7 @@ INSERT INTO tbl_population (travel_code, member_code, country_code, population_t
 (9, 7, 9, 'Italy Food Tour', 'Gastronomic trip through Italy', '2024-09-03', 270, 6, 'Y'),
 (10, 2, 10, 'India Spiritual Journey', 'Discover the spirituality of India', '2024-10-10', 320, 12, 'N');
 
-INSERT INTO tbl_notice_category (notice_category_code, notice_category_name) VALUES
+INSERT INTO tbl_free_board_category (free_board_category_code, free_board_category_name) VALUES
 (1, 'General Notice'),
 (2, 'Travel Tips'),
 (3, 'Event Announcements'),
@@ -590,97 +611,93 @@ INSERT INTO tbl_notice_category (notice_category_code, notice_category_name) VAL
 (9, 'Policy Changes'),
 (10, 'Miscellaneous');
 
-INSERT INTO tbl_notice (notice_code, notice_category_code, notice_title, notice_content, notice_created_at, member_code) VALUES
-(1, 1, 'Welcome to the Travel Community', 'A warm welcome to all our new members!', '2024-01-01', 1),
-(2, 2, 'Packing Tips for Your Next Trip', 'Check out our essential packing guide.', '2024-02-10', 2),
-(3, 3, 'Upcoming Travel Fair', 'Join us at the biggest travel fair this summer.', '2024-03-05', NULL),
-(4, 4, 'System Maintenance Notice', 'Scheduled maintenance on April 15th.', '2024-04-01', 3),
-(5, 5, 'Safety Tips While Traveling', 'Important safety tips to remember.', '2024-05-12', 4),
-(6, 6, 'Summer Sale Announcement', 'Exciting summer discounts available now!', '2024-06-20', NULL),
-(7, 7, 'Share Your Travel Stories', 'We are looking for member stories.', '2024-07-05', 5),
-(8, 8, 'Limited-Time Travel Deals', 'Book your trip before the deals expire.', '2024-08-18', 6),
-(9, 9, 'Policy Updates on Bookings', 'Updates to our booking policies.', '2024-09-25', 7),
-(10, 10, 'General Information', 'Find answers to common questions.', '2024-10-30', NULL);
+INSERT INTO tbl_free_board (free_board_code, free_board_category_code, free_board_title, free_board_content, free_board_created_at, member_code, free_board_isdeleted) VALUES
+(1, 1, 'Welcome to the Travel Community', 'A warm welcome to all our new members!', '2024-01-01', 1, 'N'),
+(2, 2, 'Packing Tips for Your Next Trip', 'Check out our essential packing guide.', '2024-02-10', 2, 'N'),
+(3, 3, 'Upcoming Travel Fair', 'Join us at the biggest travel fair this summer.', '2024-03-05', 3, 'N'),
+(4, 4, 'System Maintenance Notice', 'Scheduled maintenance on April 15th.', '2024-04-01', 4, 'N'),
+(5, 5, 'Safety Tips While Traveling', 'Important safety tips to remember.', '2024-05-12', 5, 'N'),
+(6, 6, 'Summer Sale Announcement', 'Exciting summer discounts available now!', '2024-06-20', 6, 'N'),
+(7, 7, 'Share Your Travel Stories', 'We are looking for member stories.', '2024-07-05', 7, 'N'),
+(8, 8, 'Limited-Time Travel Deals', 'Book your trip before the deals expire.', '2024-08-18', 8, 'N'),
+(9, 9, 'Policy Updates on Bookings', 'Updates to our booking policies.', '2024-09-25', 9, 'N'),
+(10, 10, 'General Information', 'Find answers to common questions.', '2024-10-30', 10, 'N');
 
-INSERT INTO tbl_comment (comment_code, notice_code, member_code, comment_content, comment_created_at) VALUES
+INSERT INTO tbl_comment (comment_code, free_board_code, member_code, comment_content, comment_created_at) VALUES
 (1, 1, 1, 'Great announcement! Looking forward to it.', '2024-01-02'),
 (2, 2, 2, 'Thanks for the packing tips, very helpful.', '2024-02-11'),
-(3, 3, NULL, 'Can\'t wait for the travel fair!', '2024-03-06'),
-(4, 4, 3, 'Noted about the maintenance. Thanks!', '2024-04-02'),
-(5, 5, 4, 'Good safety tips. Very useful.', '2024-05-13'),
-(6, 6, 5, 'Looking forward to the promotions!', '2024-06-21'),
-(7, 7, NULL, 'I will definitely share my story soon.', '2024-07-06'),
-(8, 8, 6, 'The travel deals are amazing!', '2024-08-19'),
-(9, 9, 7, 'Policy updates are always good to know.', '2024-09-26'),
-(10, 10, NULL, 'Thanks for the general information.', '2024-10-31');
+(3, 3, 3, 'Can\'t wait for the travel fair!', '2024-03-06'),
+(4, 4, 4, 'Noted about the maintenance. Thanks!', '2024-04-02'),
+(5, 5, 5, 'Good safety tips. Very useful.', '2024-05-13'),
+(6, 6, 6, 'Looking forward to the promotions!', '2024-06-21'),
+(7, 7, 7, 'I will definitely share my story soon.', '2024-07-06'),
+(8, 8, 8, 'The travel deals are amazing!', '2024-08-19'),
+(9, 9, 9, 'Policy updates are always good to know.', '2024-09-26'),
+(10, 10, 10, 'Thanks for the general information.', '2024-10-31');
 
-INSERT INTO tbl_travel_reports (member_code, report_title,report_content, report_destination, report_theme,report_created_at) VALUES
+INSERT INTO tbl_travel_reports (member_code, report_title,report_content, report_destination, report_theme,report_created_at, report_isdeleted) VALUES
 (1,  '환상적인 제주 여행',
 '제주의 푸른 바다와 아름다운 자연을 만끽한 3박 4일 여행기입니다. 다양한 맛집도 소개해드릴게요.',
-'제주도', '자연', '2024-10-01'),
+'제주도', '자연', '2024-10-01', 'N'),
 
 (2, '도쿄의 밤은 낮보다 아름답다',
 '도쿄 여행에서 느낀 감동적인 야경과 먹거리를 소개합니다. 쇼핑과 맛집 탐방이 즐거웠던 여행이었습니다.',
-'도쿄', '도시 탐방', '2024-10-02'),
+'도쿄', '도시 탐방', '2024-10-02', 'N'),
 
 (3, '발리에서의 휴양',
 '발리의 해변에서 즐긴 여유로운 하루. 서핑과 스파로 몸과 마음을 힐링했어요.',
-'발리', '휴양', '2024-10-03'),
+'발리', '휴양', '2024-10-03', 'N'),
 
 (4, '뉴욕 브로드웨이 투어',
 '뉴욕의 브로드웨이 뮤지컬을 관람하며 문화와 예술을 만끽한 여행기입니다.',
-'뉴욕', '문화', '2024-10-04'),
+'뉴욕', '문화', '2024-10-04', 'N'),
 
 (5, '파리에서의 낭만적인 하루',
 '에펠탑과 루브르 박물관을 다녀오고, 노트르담 성당 앞에서 찍은 사진도 공유합니다.',
-'파리', '역사', '2024-10-05'),
+'파리', '역사', '2024-10-05', 'N'),
 
 (6, '로마에서 만난 이탈리아의 매력',
 '콜로세움과 바티칸 투어로 가득 찬 하루, 이탈리아의 매력에 빠졌던 여행이었어요.',
-'로마', '역사', '2024-10-06'),
+'로마', '역사', '2024-10-06', 'N'),
 
 (7, '싱가포르의 마리나 베이 탐방',
 '마리나 베이 샌즈에서 보는 야경이 정말 인상 깊었습니다. 다양한 관광지도 함께 소개할게요.',
-'싱가포르', '도시 탐방', '2024-10-07'),
+'싱가포르', '도시 탐방', '2024-10-07', 'N'),
 
 (8, '호주 골드코스트 서핑 도전기',
 '호주의 해변에서 서핑을 배우며 즐긴 자유로운 여행기입니다.',
-'골드코스트', '액티비티', '2024-10-08'),
+'골드코스트', '액티비티', '2024-10-08', 'N'),
 
 (9, '스위스 알프스 트레킹',
 '스위스 알프스를 트레킹하며 본 경치가 정말 환상적이었어요. 자연과 함께한 시간이 기억에 남습니다.',
-'스위스', '자연', '2024-10-09'),
+'스위스', '자연', '2024-10-09', 'N'),
 
 (10, '태국 방콕의 숨은 명소 탐방',
 '방콕의 잘 알려지지 않은 명소들을 다녀왔습니다. 맛있는 길거리 음식도 함께 소개합니다.',
-'방콕', '음식', '2024-10-10');
+'방콕', '음식', '2024-10-10', 'N');
 
 
 -- 채팅방 테이블 더미 데이터
-INSERT INTO tbl_chatroom (chatroom_code, chatroom_name, chatroom_created_at) VALUES
-(1, 'General Discussion', '2024-01-05'),
-(2, 'Travel Buddies', '2024-02-15'),
-(3, 'Foodies Chat', '2024-03-10'),
-(4, 'Tech Enthusiasts', '2024-04-20'),
-(5, 'Photography Club', '2024-05-01'),
-(6, 'Fitness Fanatics', '2024-06-18'),
-(7, 'Book Lovers', '2024-07-12'),
-(8, 'Pet Owners Corner', '2024-08-03'),
-(9, 'Outdoor Adventures', '2024-09-22'),
-(10, 'Movie Buffs', '2024-10-11');
+INSERT INTO tbl_chatroom (chatroom_code, population_code) VALUES
+(null, 1),
+(null, 2),
+(null, 3),
+(null, 4),
+(null, 5),
+(null, 6),
+(null, 7),
+(null, 8);
 
 -- 메시지 테이블 더미 데이터
 INSERT INTO tbl_message (message_code, chatroom_code, member_code, message_content, message_sent_at) VALUES
 (1, 1, 1, 'Welcome to the General Discussion chat!', '2024-01-05 10:00:00'),
-(2, 1, 2, 'Hi everyone! How are you all doing?', '2024-01-05 10:05:00'),
-(3, 2, 3, 'Anyone up for a trip to Japan next month?', '2024-02-16 09:30:00'),
-(4, 2, NULL, 'Sounds interesting! I might join.', '2024-02-16 09:45:00'),
-(5, 3, 4, 'What\'s your favorite street food?', '2024-03-10 12:15:00'),
-(6, 3, 5, 'I love tacos! Especially the spicy ones.', '2024-03-10 12:20:00'),
-(7, 4, 6, 'Has anyone tried the new VR headset?', '2024-04-20 16:00:00'),
-(8, 5, NULL, 'Looking for tips on landscape photography.', '2024-05-01 14:45:00'),
-(9, 6, 7, 'What\'s your workout routine these days?', '2024-06-18 07:30:00'),
-(10, 7, NULL, 'Just finished a great book on self-growth!', '2024-07-12 18:20:00');
+(2, 1, 3, 'Hi everyone! How are you all doing?', '2024-01-05 10:05:00'),
+(3, 1, 2, 'Anyone up for a trip to Japan next month?', '2024-02-16 09:30:00'),
+(4, 1, 1, 'Sounds interesting! I might join.', '2024-02-16 09:45:00'),
+(5, 1, 3, 'What\'s your favorite street food?', '2024-03-10 12:15:00'),
+(6, 1, 4, 'I love tacos! Especially the spicy ones.', '2024-03-10 12:20:00'),
+(7, 1, 2, 'Has anyone tried the new VR headset?', '2024-04-20 16:00:00'),
+(8, 1, 1, 'Looking for tips on landscape photography.', '2024-05-01 14:45:00');
 
 INSERT INTO tbl_member_declare (declare_code, member_code, declare_created_at, declare_content) VALUES
 (1, 1, '2024-10-09', '욕을 많이 합니다.'),
@@ -712,3 +729,17 @@ INSERT INTO tbl_restaurant_favorite (member_code, api_link, restaurant_name, res
 (8, 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=The Green Table&key=AIzaSyBdC2C4NxgvxtnU5i2NY7WiREj1o5zQ4X4','The Green Table', 'AdDdOWoZ2kq1Xx5cvIPhey6b6va5nZDTpF7l5mffPszYDe6YT6rITC_lJ608lDutG4oDTVrqp-rhpTPNgHcnUkGdycGz-VXvGk4tvOjwTP2qR_EY4K52Ii2fmCKhpP6hecevA3g-ItmyEaRtcT4mbMEY-oywlYCB6AHeIUUI2zKxj10XN_7l', 'restaurant'),
 (9, 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=MUGUNGHWA&key=AIzaSyBdC2C4NxgvxtnU5i2NY7WiREj1o5zQ4X4','MUGUNGHWA', 'AdDdOWq-2NX9L3BNpek1bW4Si3KSO7dQPowD2U9K2yAzIVTHYqSIkyAVwcmi_js76uQIsAdtOAFalV8Gj5o1UzQY4q5GmcBuKOzT3zlJjiq-gJ_gix644H9tNx3dpnGLPCTeG8LX_qRIm6p04C-3x2c2aXVT-7wPB5NknkESFJYMCM-UWrfu', 'restaurant'),
 (10, 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=Hangong-Gan&key=AIzaSyBdC2C4NxgvxtnU5i2NY7WiREj1o5zQ4X4','Hangong-Gan', 'AdDdOWr-AKExDw6YkOuMq4qVFJLuI2uA8Xax9MdpCVCx-c2udy0d3TJnT6rFSklCdozVqOvvvk7NDQCPRmi3eVshQ_7g3vCHMa4GXLFyFPmOUI0TGefjRfraQBhl-wSqxhyuWpH3LWKa4Bx4WBbz0qg75pT1eSaTO_Nrp4RMNsgmDc8KoWKg', 'restaurant');
+
+INSERT INTO tbl_notice
+(notice_name, notice_writer, notice_created_at, notice_views, notice_contents, notice_onoff)
+VALUES
+    ('공지사항 1', '관리자', '2024-01-01', 150, '공지사항 내용 1입니다.', 'Y'),
+    ('공지사항 2', '운영팀', '2024-02-01', 85, '공지사항 내용 2입니다.', 'N'),
+    ('공지사항 3', '관리자', '2024-03-05', 200, '공지사항 내용 3입니다.', 'Y'),
+    ('공지사항 4', '운영팀', '2024-04-10', 120, '공지사항 내용 4입니다.', 'N'),
+    ('공지사항 5', '관리자', '2024-05-15', 95, '공지사항 내용 5입니다.', 'Y'),
+    ('공지사항 6', '운영팀', '2024-06-20', 140, '공지사항 내용 6입니다.', 'N'),
+    ('공지사항 7', '관리자', '2024-07-25', 175, '공지사항 내용 7입니다.', 'Y'),
+    ('공지사항 8', '운영팀', '2024-08-30', 220, '공지사항 내용 8입니다.', 'N'),
+    ('공지사항 9', '관리자', '2024-09-10', 60, '공지사항 내용 9입니다.', 'Y'),
+    ('공지사항 10', '운영팀', '2024-10-01', 185, '공지사항 내용 10입니다.', 'Y');
