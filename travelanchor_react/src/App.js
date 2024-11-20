@@ -16,6 +16,7 @@ import ShareKakao from './apis/ShareKakao';
 import Weather from './pages/features/Weather';
 import Flight from './pages/travels/Flight';
 import Accommodation from './pages/travels/Accommodation';
+import Restaurants from './pages/restaurants/Restaurants';
 import Translation from './pages/features/Translation';
 import ExpenseList from './pages/plans/ExpenseList';
 import Report from './pages/reports/Report';
@@ -59,6 +60,7 @@ export default function App() {
             <Route path="Flight" element={ <Flight/> }/>
             <Route path="ExchangeRate" element={ <ExchangeRate/> }/>
             <Route path="/login" element={ <Login/> } />
+            <Route path="Restaurants" element={ <Restaurants/> }/>
           </Route>
           <Route path='*' element={ <Error/> }/>
         </Routes>

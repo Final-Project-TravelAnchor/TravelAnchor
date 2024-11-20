@@ -157,6 +157,13 @@ function Header() {
 				{/* navbar */}
 				<div>
 					<ul class="navMenu" className={HeaderCSS.navMenu}>
+						<li class="navItem" className={HeaderCSS.navItem}>
+							<a href="#">여행</a>
+							<ul class="dropdownMenu" className={HeaderCSS.dropdownMenu}>
+								<li><a href="#">여행지</a></li>
+								<li><NavLink to="Restaurants">맛집</NavLink></li>
+								<li><NavLink to="Flight">항공권</NavLink></li>
+								<li class="navItem"><NavLink to="/Accommodation">숙박</NavLink></li>
 						<li class="navItem" className={HeaderCSS.navItem} onMouseLeave={() => setDropdownOpen(false)}>
 							<a href="#" onClick={toggleDropdown}>여행</a>
 							{isDropdownOpen && (
