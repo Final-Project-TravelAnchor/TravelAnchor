@@ -31,37 +31,37 @@ export default function NoticeModify() {
         };
 
         await dispatch(callUpdateNoticeAPI(updatedNotice));
-        navigate(`/notice/${notice.noticeCode}`, { replace: false});
+        navigate(`/notice/${notice.noticeCode}`, { replace: false });
     };
 
     // 취소
     const onClickCancelHandler = () => {
         console.log("[NoticeModify] onClickCancelHandler");
-        navigate(`/items/${notice.noticeCode}`, { replace: false});
+        navigate(-1);;
     };
 
     return (
         <>
+            <div className="notice-container">
+                <h1 className="notice-title">공지사항 수정</h1>
             <div>
-                <h1>Notice Modify Page</h1>
+            <label>공지사항 제목 : <input
+                type="text"
+                name="noticeName"
+                placeholder="공지사항 제목"
+                onChange={onChangeHanlder}
+            /></label>
+            <br/>
+            <label>공지사항 설명 : <input
+                type="text"
+                name="noticeContents"
+                placeholder="공지사항 설명"
+                onChange={onChangeHanlder}
+            /></label>
+            <br/>
+                <button onClick={onClickSaveHandler} className="modify-button">수정하기</button>
+                <button onClick={onClickCancelHandler} className="back-button">취소하기</button>
             </div>
-            <div>
-                <label>제목 : <input
-                    placeholder="제목"
-                    name="noticeName"
-                    onChange={ onChangeHanlder }
-                    value={form.noticeName}
-                /></label>
-                <br/>
-                <label>내용 : <input
-                    placeholder="내용"
-                    name="noticeContents"
-                    onChange={ onChangeHanlder }
-                    value={form.noticeContents}
-                /></label>
-                <br/>
-                <button onClick={onClickSaveHandler}>수정하기</button>
-                <button onClick={onClickCancelHandler}>취소하기</button>
             </div>
         </>
     );

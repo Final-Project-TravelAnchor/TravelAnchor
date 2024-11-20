@@ -1,0 +1,73 @@
+/* .noticeDiv {
+	width: 150px;
+	height: 200px;
+	margin: 10px;
+	display: flex;
+	flex-direction: column;
+} */
+
+/* 공지사항 디테일 컨테이너 */
+.notice-detail-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #f4f4f4;
+    min-height: 100vh;
+}
+
+/* 공지사항 디테일 카드 */
+.notice-detail-card {
+    width: 100%;
+    max-width: 800px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* 항목 간격 */
+}
+
+/* 항목 스타일 (제목, 작성자, 작성일 등) */
+.notice-detail-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.notice-detail-item:last-child {
+    border-bottom: none; /* 마지막 항목에는 밑줄 없음 */
+}
+
+/* 항목 이름 (왼쪽 텍스트) */
+.notice-detail-label {
+    font-weight: bold;
+    color: #555;
+}
+
+/* 항목 값 (오른쪽 텍스트) */
+.notice-detail-value {
+    text-align: right;
+    color: #333;
+}
+
+/* 버튼 스타일 */
+.back-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #FF8600;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    align-self: flex-start; /* 왼쪽 정렬 */
+}
+
+.back-button:hover {
+    background-color: #e07500; /* 호버 시 색상 변경 */
+}
