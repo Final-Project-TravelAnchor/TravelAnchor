@@ -16,7 +16,7 @@ app.use(cors({
 // Google Places API 호출 엔드포인트
 app.get("/api/places", async (req, res) => {
   const { type, city } = req.query; // 프론트엔드에서 전달된 type, city
-  const API_KEY = process.env.REACT_APP_GOOGLE_API_KEY; // .env 파일에 저장된 API 키
+  const API_KEY = process.env.GOOGLE_KEY_API; // .env 파일에 저장된 API 키
 
   if (!API_KEY) {
     return res.status(400).json({ error: "API Key is missing." });
