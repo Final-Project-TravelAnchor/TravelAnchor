@@ -1,7 +1,7 @@
 import { GET_MEMBER, POST_LOGIN, POST_REGISTER } from '../modules/MemberModule';
 
 export const callGetMemberAPI = ({ memberId }) => {
-	const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/v1/members/${memberId}`;
+	const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/member/v1/members/${memberId}`;
 
 	return async (dispatch, getState) => {
 
