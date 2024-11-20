@@ -73,13 +73,12 @@ public class FreeBoardService {
     }
 
     @Transactional
-    public Object updateFreeBoard(int freeBoardCode, FreeBoardDTO freeBoardDTO) {
+    public Object updateFreeBoard(FreeBoardDTO freeBoardDTO) {
         log.info("[FreeBoardService] updateFreeBoard() Start");
-        log.info("[FreeBoardService] freeBoardCode : "+ freeBoardCode);
         int result = 0;
 
         try{
-            FreeBoard freeBoard = freeBoardRepository.findById(freeBoardCode).get();
+            FreeBoard freeBoard = freeBoardRepository.findById(freeBoardDTO.getFreeBoardCode()).get();
             log.info("[FreeBoardService] freeBoard : " + freeBoard);
             freeBoard.setFreeBoardTitle(freeBoardDTO.getFreeBoardTitle());
             freeBoard.setFreeBoardContent(freeBoardDTO.getFreeBoardContent());
@@ -97,13 +96,12 @@ public class FreeBoardService {
     }
 
     @Transactional
-    public Object deleteFreeBoard(int freeBoardCode, FreeBoardDTO freeBoardDTO) {
+    public Object deleteFreeBoard(FreeBoardDTO freeBoardDTO) {
         log.info("[FreeBoardService] deleteFreeBoard() Start");
-        log.info("[FreeBoardService] freeBoardCode : "+ freeBoardCode);
         int result = 0;
 
         try{
-            FreeBoard freeBoard = freeBoardRepository.findById(freeBoardCode).get();
+            FreeBoard freeBoard = freeBoardRepository.findById(freeBoardDTO.getFreeBoardCode()).get();
             log.info("[FreeBoardService] freeBoard : " + freeBoard);
             freeBoard.setFreeBoardIsdeleted(freeBoardDTO.getFreeBoardIsdeleted());
 
