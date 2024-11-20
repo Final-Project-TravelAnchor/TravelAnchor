@@ -14,6 +14,7 @@ import Report from './apis/MapAPICalls';
 import Weather from './pages/features/Weather';
 import Flight from './pages/travels/Flight';
 import Accommodation from './pages/travels/Accommodation';
+import Restaurants from './pages/restaurants/Restaurants';
 
 export default function App() {
   return (
@@ -37,6 +38,7 @@ export default function App() {
             <Route path="Weather" element={ <Weather/> }/>
             <Route path="Flight" element={ <Flight/> }/>
             <Route path="/login" element={ <Login/> } />
+            <Route path="Restaurants" element={ <Restaurants/> }/>
           </Route>
           <Route path='*' element={ <Error/> }/>
         </Routes>

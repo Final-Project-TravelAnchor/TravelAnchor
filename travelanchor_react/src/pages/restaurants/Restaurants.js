@@ -1,0 +1,100 @@
+import style from '../../../src/pages/restaurants/Restaurants.module.css';
+import { useCallback, useState, useEffect } from "react";
+// import { useState, useEffect } from "react";
+import { callGetRestaurantAPI } from '../../apis/RestaurantAPICalls';
+import commonCss from '../../components/common/common.module.css';
+
+function Restaurants() {
+    const [city, setCity] = useState("seoul");
+    const [sort, setSort] = useState("name");
+    const [places, setPlaces] = useState([]);
+    const [error, setError] = useState(null);
+
+    const fetchPlaceData = useCallback(
+        async (type) => {
+            try {
+                console.log("Fetching places with params:", { type, city });
+                const response = await callGetRestaurantAPI({ type, city });
+                console.log("API Response:", response);
+                setPlaces(response || []);
+                console.log("results : ", response);
+                setError(null);
+            } catch (err) {
+                console.error("Error fetching places:", err);
+                setError("Failed to fetch places. Please try again.");
+            }
+        },
+        [city] // 'city'를 의존성으로 추가
+    );
+    
+    const onClickHandler = (type) => {
+        fetchPlaceData(type);
+    };
+
+    const sortedPlaces = [...places].sort((a, b) => {
+        if (sort === "rating") {
+            return (b.rating || 0) - (a.rating || 0);
+        } else {
+            return a.name.localeCompare(b.name);
+        }
+    });
+
+    const renderPlaceCards = () => {
+        console.log("Rendering Places:", sortedPlaces); // 렌더링할 장소 확인
+        return sortedPlaces.map((place, index) => (
+            <div key={place.place_id || index} className={style.card}>
+                <img
+                    className={style.cardImg}
+                    src={
+                        place.photos && place.photos.length > 0
+                            ? `https://maps.googleapis.com/maps/api/place/photo?maxwidth=300&photoreference=${place.photos[0].photo_reference}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`
+                            : "https://via.placeholder.com/300x200?text=No+Image"
+                    }
+                    alt={place.name}
+                />
+                <h2 className={style.cardH2}>{place.name}</h2>
+                <p className={style.cardP}>{place.formatted_address}</p>
+                <p className={style.rating}>Rating: {place.rating || "N/A"}</p>
+            </div>
+        ));
+    };
+
+    useEffect(() => {
+        fetchPlaceData("restaurant");
+    }, [city, fetchPlaceData]);
+
+    return (
+        <div className={`Contents ${commonCss.Contents}`}>
+            <h1>맛집 목록</h1>
+            <form>
+                <label htmlFor="city">도시 선택: </label>
+                <select name="city" id="city" onChange={(e) => setCity(e.target.value)} value={city}>
+                    <option value="seoul">서울</option>
+                    <option value="hongkong">홍콩</option>
+                    <option value="osaka">오사카</option>
+                    <option value="taipei">타이페이</option>
+                    <option value="bangkok">방콕</option>
+                    <option value="tokyo">도쿄</option>
+                    <option value="paris">파리</option>
+                    <option value="london">런던</option>
+                </select>
+            </form>
+            <form>
+                <label htmlFor="sort">정렬 기준: </label>
+                <select name="sort" id="sort" onChange={(e) => setSort(e.target.value)} value={sort}>
+                    <option value="name">이름순</option>
+                    <option value="rating">추천순</option>
+                </select>
+            </form>
+            <div>
+                <button onClick={() => onClickHandler("restaurant")}>음식점</button>
+                <button onClick={() => onClickHandler("tavern")}>술집</button>
+                <button onClick={() => onClickHandler("cafe")}>카페</button>
+            </div>
+            {error && <p className="error">{error}</p>}
+            <div className={style.cardContainer}>{renderPlaceCards()}</div>
+        </div>
+    );
+}
+
+export default Restaurants;
