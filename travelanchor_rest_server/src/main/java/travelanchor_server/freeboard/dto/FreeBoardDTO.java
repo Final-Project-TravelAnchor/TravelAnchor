@@ -8,14 +8,14 @@ public class FreeBoardDTO {
     private int freeBoardCategoryCode;
     private String freeBoardTitle;
     private String freeBoardContent;
-    private Date freeBoardCreatedAt;
+    private String freeBoardCreatedAt;
     private Integer memberCode;
     private String freeBoardIsdeleted;
 
     public FreeBoardDTO() {
     }
 
-    public FreeBoardDTO(int freeBoardCode, int freeBoardCategoryCode, String freeBoardTitle, String freeBoardContent, Date freeBoardCreatedAt, Integer memberCode, String freeBoardIsdeleted) {
+    public FreeBoardDTO(int freeBoardCode, int freeBoardCategoryCode, String freeBoardTitle, String freeBoardContent, String freeBoardCreatedAt, Integer memberCode, String freeBoardIsdeleted) {
         this.freeBoardCode = freeBoardCode;
         this.freeBoardCategoryCode = freeBoardCategoryCode;
         this.freeBoardTitle = freeBoardTitle;
@@ -57,11 +57,11 @@ public class FreeBoardDTO {
         this.freeBoardContent = freeBoardContent;
     }
 
-    public Date getFreeBoardCreatedAt() {
+    public String getFreeBoardCreatedAt() {
         return freeBoardCreatedAt;
     }
 
-    public void setFreeBoardCreatedAt(Date freeBoardCreatedAt) {
+    public void setFreeBoardCreatedAt(String freeBoardCreatedAt) {
         this.freeBoardCreatedAt = freeBoardCreatedAt;
     }
 

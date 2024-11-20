@@ -75,6 +75,7 @@ public class FreeBoardService {
     @Transactional
     public Object updateFreeBoard(FreeBoardDTO freeBoardDTO) {
         log.info("[FreeBoardService] updateFreeBoard() Start");
+        log.info("[FreeBoardService] freeBoardDTO : ", freeBoardDTO);
         int result = 0;
 
         try{
