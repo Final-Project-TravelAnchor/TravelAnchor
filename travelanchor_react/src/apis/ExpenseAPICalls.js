@@ -2,7 +2,8 @@ import {
 	GET_EXPENSE_DETAIL,
 	GET_EXPENSE_DETAIL_BY_CODE, 
 	POST_EXPENSE_DETAIL, 
-	PUT_EXPENSE_DETAIL 
+	PUT_EXPENSE_DETAIL,
+  DELETE_EXPENSE_DETAIL 
 } from '../modules/ExpenseDetailModule';
 
 // 비동기 API 
@@ -58,6 +59,22 @@ const fetchPostExpenseDetail = async(requestURL, InsertExpenseDetail) => {
 		  throw error;
 	}
 };
+
+const fetchDELETEExpenseDetail = async(requestURL) => {
+  try {
+    const response = await fetch(requestURL, {
+      method: 'DELETE',
+      headers: {
+        Accept: '*/*',
+        'Content-Type': 'application/json',
+      },
+    });
+    return response.json(); // 응답 데이터가 JSON이면 변환
+  } catch (error) {
+    throw error;
+  }
+};
+
 
 
 
@@ -147,19 +164,29 @@ export const callInsertExpenseDetail =  (InsertExpenseDetail) => {
 	};
   };
 
-// // 세부활동금액 삭제
-// export const deleteExpenseDetail = async (expenseDetailCode, memberDTO) => {
-//   const requestURL = `${BASE_URL}/travel-plan/expenseDetail/${expenseDetailCode}`;
+// 세부활동금액 삭제
+export const callDeleteExpenseDetail = (expenseDetailCode, memberDTO) => {
+  const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/travel-plan/v1/travel-plan/expenseDetail/${expenseDetailCode}`;
+  console.log("[ExpenseAPICalls] callDeleteExpenseDetail: ", requestURL);
 
-//   const response = await fetch(requestURL, {
-//     method: 'DELETE',
-//     headers: {
-//       'Content-Type': 'application/json',
-//       Accept: '*/*',
-//     },
-//     body: JSON.stringify(memberDTO), // 삭제할 때 필요한 데이터(예: 회원 정보)를 본문에 담기
-//   });
+  return async (dispatch, getState) => {
+    try {
+      const response = await fetch(requestURL, {
+        method: 'DELETE',
+        headers: {
+          Accept: '*/*',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(memberDTO), // 본문에 memberDTO 포함
+      });
 
-//   const result = await response.json();
-//   return result;
-// };
+      if (response.ok) {
+        console.log('[ExpenseAPICalls] callDeleteExpenseDetail Result: ', response);
+        dispatch({ type: DELETE_EXPENSE_DETAIL, payload: expenseDetailCode });
+      }
+    } catch (error) {
+      console.error('[ExpenseAPICalls] callDeleteExpenseDetail error', error);
+    }
+  };
+};
+
