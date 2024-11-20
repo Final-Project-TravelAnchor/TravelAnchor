@@ -111,7 +111,7 @@ export const callGetExpenseDetailByCode = (expenseDetailCode) => {
 
 // 세부활동금액 수정
 export const callUpdateExpenseDetail = (UpdateExpenseDetail) => {
-  const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/travel-plan/v1/travel-plan/expenseDetail`;
+  const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/travel-plan/v1/travel-plan/expenseDetail/${UpdateExpenseDetail.expenseDetailCode}`;
 
   return async(dispatch, getState) => {
     try{
