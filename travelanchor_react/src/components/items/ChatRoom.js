@@ -31,7 +31,14 @@ export default function ChatRoom(){
     stompClient.current.connect({}, () => {
     stompClient.current.subscribe(`/sub/chatroom/${populationCode}`, (message) => {
     const newMessage = JSON.parse(message.body);
-    setMessages((prevMessages) => [...prevMessages, newMessage]);
+
+    console.log(newMessage);
+
+    if(newMessage.type === "image") {
+
+    } else {
+      setMessages((prevMessages) => [...prevMessages, newMessage]);
+    }
       });
     });
   };
@@ -70,13 +77,69 @@ export default function ChatRoom(){
         messageContent : inputValue,
         // populationCode : populationCode,
         messageSentAt : format(date, 'yyyy-MM-dd HH:mm:ss').toString(),
-        // type : "CHAT"
+        type : "CHAT",
       };
       stompClient.current.send(`/pub/message`, {}, JSON.stringify(body));
       setInputValue('');
     }
   };
 
+  const [ selectedFile, setSelectedFile ] = useState(null);
+
+  const fileChange = (e) => {
+
+    console.log("file change : ", e.target);
+    setSelectedFile(e.target.files[0]);
+    // console.log("File Change: ", e.target.files);
+    // const file = e.target.files[0];
+    // const formData = new FormData();
+    // formData.append('file', file);
+
+    // const config = {
+    //   headers: {
+    //     'Content-Type':'multipart/form-data'
+    //   }
+    // };
+
+    // axios.post(`http://${process.env.REACT_APP_RESTAPI_IP}:8080/upload/${populationCode}`, formData, config)
+    //  .then(response => {
+    //     console.log("File uploaded successfully: ", response);
+    //   })
+    //  .catch(error => {
+    //     console.error("Error while uploading file: ", error);
+    //   });
+  };
+
+  const fileUpload = async () => {
+    if (!selectedFile) {
+      alert("파일을 선택하세요!");
+      return;
+    }
+  
+    // FormData 객체 생성 및 파일 추가
+    const formData = new FormData();
+    formData.append("image", selectedFile);
+  
+    try {
+      // 서버에 파일 전송
+      const response = await fetch(`http://${process.env.REACT_APP_RESTAPI_IP}:8080/chat/image`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        body: formData,
+      });
+  
+      if (!response.ok) {
+        throw new Error(`파일 업로드 실패: ${response.statusText}`);
+      }
+  
+      const data = await response.json(); // JSON 응답 처리
+      console.log("서버 응답:", data);
+    } catch (error) {
+      console.error("파일 업로드 중 오류 발생:", error.message);
+    }
+  };
   let debounceTimer;
 
   const onKeyPressHandler = (e) => {
@@ -105,6 +168,8 @@ export default function ChatRoom(){
       />
       {/* 메시지 전송, 메시지 리스트에 추가 */}
       <button onClick={sendMessage}>입력</button>
+      <input type="file" accept="image/*" onChange={fileChange} />
+      <button onClick={fileUpload}>업로드</button>
         </div>
         {/* 메시지 리스트 출력 */}
         {messages.length > 0 && messages.map((item, index) => (
