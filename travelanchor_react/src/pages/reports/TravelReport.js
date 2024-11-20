@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { callTravelReportListAPI } from '../../apis/TravelReportAPICalls';
+import { useNavigate } from 'react-router-dom';
 
 const TravelReportList = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const travelReport = useSelector((state) => state.travelReportReducer);
 
     useEffect(() => {
@@ -11,8 +13,14 @@ const TravelReportList = () => {
         dispatch(callTravelReportListAPI());
     }, [dispatch]);
 
+    const onClickCreateTravelReport = () => {
+        console.log('onClickCreateTravelReport called');
+        navigate("/AddReportDate");
+    };
+
     return (
         <div>
+        <button onClick={onClickCreateTravelReport}>후기 만들기</button>
         <h1>여행 후기 리스트</h1>
         {Array.isArray(travelReport) && travelReport.length > 0 ? (
             <ul>

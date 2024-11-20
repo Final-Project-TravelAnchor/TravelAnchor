@@ -1,11 +1,21 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { callTravelReportListAPI } from '../../apis/TravelReportAPICalls';
+import { SET_DATE_PERIOD } from '../../modules/PlanModule';
 
-const TravelReportList = () => {
+function TravelReportList() {
     const dispatch = useDispatch();
-    const travelReport = useSelector((state) => state.travelReportReducer);
+    const travelReport = useSelector((state) => state.planReducer);
+    console.log(travelReport); 
 
+    useEffect(
+        () => {
+            // startDate = result.startDate || null;
+            // endDate = result.endDate || null;
+            // dispatch({type: SET_DATE_PERIOD, payload: result});
+        },
+        []
+    );
     useEffect(() => {
         dispatch(callTravelReportListAPI);
     }, [dispatch]);
