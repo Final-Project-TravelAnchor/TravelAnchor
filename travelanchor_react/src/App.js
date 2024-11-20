@@ -23,6 +23,7 @@ import ExpenseInsert from './pages/plans/ExpenseInsert';
 import ExpenseUpdate from './pages/plans/ExpenseUpdate';
 import Report from './pages/reports/Report';
 import ExchangeRate from './pages/features/ExchangeRate';
+import Register from './pages/member/Register';
 import Notice from './pages/notice/Notice';
 import NoticeDetail from './pages/notice/NoticeDetail';
 import NoticeModify from './pages/notice/NoticeModify';
@@ -79,6 +80,7 @@ export default function App() {
             <Route path="Restaurants" element={ <Restaurants/> }/>
           </Route>
           <Route path='*' element={ <Error/> }/>
+          <Route path="/register" element={ <Register/> } />
         </Routes>
 
       </BrowserRouter>

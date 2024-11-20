@@ -7,7 +7,7 @@ import { callLogoutAPI } from '../../apis/MemberAPICalls';
 import LoginModal from './LoginModal';
 import commonCss from './common.module.css';
 
-function Header() {
+function Header({ hideAuthLinks }) {
 	const navigate = useNavigate();
 
 	// 리덕스를 이용하기 위한 디스패처, 셀렉터 선언
@@ -74,18 +74,11 @@ function Header() {
             navigate('/', { replace: true });
             window.location.reload();
         }
-
-		// window.localStorage.removeItem('accessToken');
-		// dispatch(callLogoutAPI());
-
-		// alert('로그아웃이 되어 메인화면으로 이동합니다.');
-		// navigate('/', { replace: true });
-		// window.location.reload();
 	};
 
 	function BeforeLogin() {
 		return (
-			<div>
+			<div className={HeaderCSS.authLinks}>
 				<NavLink to="/login">로그인</NavLink> |{' '}
 				<NavLink to="/register">회원가입</NavLink>
 			</div>
@@ -111,22 +104,6 @@ function Header() {
 				로그아웃
 			</button>
 		</div>
-
-			// <div>
-			// 	<button
-			// 		className={HeaderCSS.HeaderBtn}
-			// 		onClick={onClickMypageHandler}
-			// 	>
-			// 		마이페이지
-			// 	</button>{' '}
-			// 	|{' '}
-			// 	<button
-			// 		className={HeaderCSS.HeaderBtn}
-			// 		onClick={onClickLogoutHandler}
-			// 	>
-			// 		로그아웃
-			// 	</button>
-			// </div>
 		);
 	}
 
@@ -149,7 +126,6 @@ function Header() {
 						onClick={onClickLogoHandler}
 					>
 						<img src='/images/main/logo.png'/>
-				
 					</a>
 				</div>
 
@@ -197,10 +173,10 @@ function Header() {
 					<div class="logWrap"> 
 						{/* 로그인 상태에 따라 다른 컴포넌트 랜더링 */}
 						{isLogin == null || isLogin === undefined ? (
-							<BeforeLogin />
-						) : (
-							<AfterLogin />
-						)}
+							!hideAuthLinks ? <BeforeLogin /> : null // hideAuthLinks가 true일 때는 렌더링하지 않음
+                    	) : (
+                        <AfterLogin />
+                    	)}
 					</div>
 
 					<button type='button'>
