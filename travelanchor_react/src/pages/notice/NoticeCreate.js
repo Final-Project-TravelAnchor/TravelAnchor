@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { Navigate, replace, useNavigate, useParams } from "react-router-dom";
 import { callCreateNoticeAPI } from "../../apis/NoticeAPICalls";
+import './NoticeCreate.css';
 
 
 export default function NoticeCreate() {
@@ -44,31 +45,57 @@ export default function NoticeCreate() {
 
     const onChangeHandler = (e) => {
         setForm({
-           ...form,
+            ...form,
             [e.target.name]: e.target.value,
         });
     };
 
 
     return (
-        <div>
-            <h1>PopulationCreate page</h1>
-            <label>공지사항 제목 : <input
-                type="text"
-                name="noticeName"
-                placeholder="공지사항 제목"
-                onChange={onChangeHandler}
-            /></label>
-            <br/>
-            <label>공지사항 설명 : <input
-                type="text"
-                name="noticeContents"
-                placeholder="공지사항 설명"
-                onChange={onChangeHandler}
-            /></label>
-            <br/>
-            <button onClick={onClickCreateNoticeHandler}>추가하기</button>
-            <button onClick={onClickCancelNoticeHandler}>취소하기</button>
+        <div className="notice-create-container">
+            <h1 className="create-title">공지사항 생성</h1>
+
+            <div className="form-group">
+                <label htmlFor="noticeName" className="form-label">
+                    공지사항 제목:
+                </label>
+                <input
+                    type="text"
+                    id="noticeName"
+                    name="noticeName"
+                    placeholder="공지사항 제목"
+                    onChange={onChangeHandler}
+                    className="form-input"
+                />
+            </div>
+
+            <div className="form-group">
+                <label htmlFor="noticeContents" className="form-label">
+                    공지사항 설명:
+                </label>
+                <textarea
+                    id="noticeContents"
+                    name="noticeContents"
+                    placeholder="공지사항 설명"
+                    onChange={onChangeHandler}
+                    className="form-textarea"
+                />
+            </div>
+
+            <div className="button-group">
+                <button 
+                    className="create-button" 
+                    onClick={onClickCreateNoticeHandler}
+                >
+                    추가하기
+                </button>
+                <button 
+                    className="cancel-button" 
+                    onClick={onClickCancelNoticeHandler}
+                >
+                    취소하기
+                </button>
+            </div>
         </div>
     );
 }
