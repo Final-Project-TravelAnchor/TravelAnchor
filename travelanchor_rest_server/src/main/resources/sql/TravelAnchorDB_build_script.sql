@@ -486,8 +486,8 @@ INSERT INTO tbl_expense_detail (expense_detail_code, expense_code, expense_detai
 (8, 4, 1600, 8),
 (9, 5, 1400, 9),
 (10, 5, 1400, 10),
-(NULL, 1, 0, 4),
-(NULL, 1, 1000, 3);
+(11, 1, 0, 4),
+(12, 1, 1000, 3);
 
 INSERT INTO tbl_travel_country (country_code, country_name) VALUES
 (1, '대한민국'),
