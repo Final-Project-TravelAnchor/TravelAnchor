@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import travelanchor_server.common.ChatMessage;
 import travelanchor_server.common.ResponseDTO;
+import travelanchor_server.member.dto.ChatMessageDTO;
 import travelanchor_server.member.repository.MessageRepository;
 import travelanchor_server.member.service.MessageService;
 
@@ -41,11 +42,11 @@ public class ChatController {
     }
 
     @MessageMapping("/message")
-    public ResponseEntity<Void> receiveMessage(@RequestBody ChatMessage chat) {
-//        System.out.println("chat = " + chat);
+    public ResponseEntity<ResponseDTO> receiveMessage(@RequestBody ChatMessageDTO chat) {
+        System.out.println("chat = " + chat);
 
-        template.convertAndSend("/sub/chatroom/"+chat.getId(), chat);
-        return ResponseEntity.ok().build();
+        template.convertAndSend("/sub/chatroom/"+chat.getChatroomCode(), chat);
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "메세지 저장 성공", messageService.insertMessages(chat)));
     }
 
 }

@@ -13,6 +13,7 @@ import travelanchor_server.travelreport.dto.TravelReportDTO;
 import travelanchor_server.travelreport.entity.TravelReport;
 import travelanchor_server.travelreport.service.TravelReportService;
 
+//@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/travel-report/v1")
 public class TravelReportController {

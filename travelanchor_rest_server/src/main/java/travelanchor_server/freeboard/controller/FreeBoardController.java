@@ -43,15 +43,15 @@ public class FreeBoardController {
     }
 
     @Operation(summary = "자유게시판 수정 요청", description = "해당 자유게시판 수정이 진행됩니다.", tags = { "FreeBoardController" })
-    @PutMapping("/free-board/{freeBoardCode}")
-    public ResponseEntity<ResponseDTO> updateFreeBoard(@PathVariable int freeBoardCode , @RequestBody FreeBoardDTO freeBoardDTO) {
-        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "자유게시판 수정 성공", freeBoardService.updateFreeBoard(freeBoardCode, freeBoardDTO)));
+    @PutMapping("/free-board")
+    public ResponseEntity<ResponseDTO> updateFreeBoard(@RequestBody FreeBoardDTO freeBoardDTO) {
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "자유게시판 수정 성공", freeBoardService.updateFreeBoard(freeBoardDTO)));
     }
 
     @Operation(summary = "자유게시판 삭제 요청", description = "해당 자유게시판 삭제가 진행됩니다.", tags = { "FreeBoardController" })
-    @PutMapping("/free-board/del/{freeBoardCode}")
-    public ResponseEntity<ResponseDTO> deleteFreeBoard(@PathVariable int freeBoardCode , @RequestBody FreeBoardDTO freeBoardDTO) {
-        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "자유게시판 삭제 성공", freeBoardService.deleteFreeBoard(freeBoardCode, freeBoardDTO)));
+    @PutMapping("/free-board/del")
+    public ResponseEntity<ResponseDTO> deleteFreeBoard(@RequestBody FreeBoardDTO freeBoardDTO) {
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "자유게시판 삭제 성공", freeBoardService.deleteFreeBoard(freeBoardDTO)));
     }
 
 }

@@ -65,11 +65,11 @@ export default function ChatRoom(){
   const sendMessage = () => {
     if (stompClient.current && inputValue) {
       const body = {
-        id : populationCode,
+        chatroomCode : populationCode,
         name : "테스트1", // 사용자 코드 또는 고유번호 입력하면 될 듯
-        message : inputValue,
+        messageContent : inputValue,
         // populationCode : populationCode,
-        timestamp : format(date, 'yyyy-MM-dd HH:mm:ss'),
+        messageSentAt : format(date, 'yyyy-MM-dd HH:mm:ss').toString(),
         // type : "CHAT"
       };
       stompClient.current.send(`/pub/message`, {}, JSON.stringify(body));
