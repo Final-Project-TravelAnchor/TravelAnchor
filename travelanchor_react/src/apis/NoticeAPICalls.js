@@ -6,7 +6,7 @@ import {
 } from "../modules/NoticeModule";
 
 
-const fetchGetNoticeData = async (requestURL) => {
+export const fetchGetData = async (requestURL) => {
     try {
         const response = await fetch(requestURL, {
             method: 'GET',
@@ -24,7 +24,7 @@ const fetchGetNoticeData = async (requestURL) => {
     }
 };
 
-const fetchPutNoticeData = async (requestURL, updatedNotice) => {
+export const fetchPutData = async (requestURL, updatedNotice) => {
 
     console.log('Fetching notice data url: ', requestURL);
     console.log('Fetching notice data' , updatedNotice);
@@ -51,7 +51,7 @@ const fetchPutNoticeData = async (requestURL, updatedNotice) => {
     }
 };
 
-const fetchPostNoticeData = async (requestURL, createdNotice) => {
+export const fetchPostData = async (requestURL, createdNotice) => {
 
     console.log('Fetching notice url: ', requestURL);
     console.log('Fetching notice data' , createdNotice);
@@ -85,7 +85,7 @@ export const callNoticeListAPI = () => {
 
         try {
 
-            const result = await fetchGetNoticeData(requestURL);
+            const result = await fetchGetData(requestURL);
 
             if(result.status === 200) {
                 console.log('[NoticeAPICalls] callNoticeListAPI Result : ', result);
@@ -108,7 +108,7 @@ export const callUpdateNoticeAPI = (updatedNotice) => {
     return async (dispatch, getState) => {
         try {
             
-            const result = await fetchPutNoticeData(requestURL, updatedNotice);
+            const result = await fetchPutData(requestURL, updatedNotice);
 
             if(result.status === 200) {
                 console.log('[NoticeAPICalls] callUpdateNoticeAPI Result : ', result);
@@ -128,7 +128,7 @@ export const callCreateNoticeAPI = (createdNotice) => {
     return async (dispatch, getState) => {
         try {
             
-            const result = await fetchPostNoticeData(requestURL, createdNotice);
+            const result = await fetchPostData(requestURL, createdNotice);
 
             if(result.status === 200) {
                 console.log('[NoticeAPICalls] callCreateNoticeAPI Result : ', result);

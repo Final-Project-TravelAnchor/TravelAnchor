@@ -185,7 +185,7 @@ function Header() {
 						<li class="navItem" className={HeaderCSS.navItem}><NavLink to="/plans/ExpenseList">일정</NavLink></li>
 						<li class="navItem" className={HeaderCSS.navItem}><NavLink to="/items/population">메이트</NavLink></li>
 						<li class="navItem" className={HeaderCSS.navItem}><NavLink to="/TravelReport">후기</NavLink></li>
-						<li class="navItem" className={HeaderCSS.navItem}><a href="#">자유게시판</a></li>
+						<li class="navItem" className={HeaderCSS.navItem}><NavLink to="freeboard">자유게시판</NavLink></li>
 						<li class="navItem" className={HeaderCSS.navItem}><NavLink to="Notice">공지사항</NavLink></li>
 						<li class="navItem" className={HeaderCSS.navItem}><NavLink to="ExchangeRate">환율</NavLink></li>
 						<li class="navItem" className={HeaderCSS.navItem}><NavLink to="Weather">날씨</NavLink></li>

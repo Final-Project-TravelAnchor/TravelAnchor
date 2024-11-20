@@ -23,7 +23,7 @@ public class FreeBoard {
     private String freeBoardContent;
 
     @Column(name = "free_board_created_at")
-    private Date freeBoardCreatedAt;
+    private String freeBoardCreatedAt;
 
     @Column(name = "member_code")
     private Integer memberCode;
@@ -34,7 +34,7 @@ public class FreeBoard {
     public FreeBoard() {
     }
 
-    public FreeBoard(int freeBoardCode, int freeBoardCategoryCode, String freeBoardTitle, String freeBoardContent, Date freeBoardCreatedAt, Integer memberCode, String freeBoardIsdeleted) {
+    public FreeBoard(int freeBoardCode, int freeBoardCategoryCode, String freeBoardTitle, String freeBoardContent, String freeBoardCreatedAt, Integer memberCode, String freeBoardIsdeleted) {
         this.freeBoardCode = freeBoardCode;
         this.freeBoardCategoryCode = freeBoardCategoryCode;
         this.freeBoardTitle = freeBoardTitle;
@@ -76,11 +76,11 @@ public class FreeBoard {
         this.freeBoardContent = freeBoardContent;
     }
 
-    public Date getFreeBoardCreatedAt() {
+    public String getFreeBoardCreatedAt() {
         return freeBoardCreatedAt;
     }
 
-    public void setFreeBoardCreatedAt(Date freeBoardCreatedAt) {
+    public void setFreeBoardCreatedAt(String freeBoardCreatedAt) {
         this.freeBoardCreatedAt = freeBoardCreatedAt;
     }
 

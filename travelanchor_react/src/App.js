@@ -26,6 +26,10 @@ import Notice from './pages/notice/Notice';
 import NoticeDetail from './pages/notice/NoticeDetail';
 import NoticeModify from './pages/notice/NoticeModify';
 import NoticeCreate from './pages/notice/NoticeCreate';
+import FreeBoard from './pages/boards/FreeBoard';
+import FreeBoardDetail from './pages/boards/FreeBoardDetail';
+import FreeBoardModify from './pages/boards/FreeBoardModify';
+import FreeBoardCreate from './pages/boards/FreeBoardCreate';
 
 export default function App() {
   return (
@@ -51,6 +55,12 @@ export default function App() {
               <Route path=":noticeCode" element={<NoticeDetail />} />
               <Route path="noticeModify/:noticeCode" element={<NoticeModify />} />
               <Route path="noticeCreate" element={<NoticeCreate />} />
+            </Route>
+            <Route path="freeboard">
+              <Route index element={<FreeBoard />} />
+              <Route path=":freeboardCode" element={<FreeBoardDetail />} />
+              <Route path="freeboardModify/:freeboardCode" element={<FreeBoardModify />} />
+              <Route path="freeboardCreate" element={<FreeBoardCreate />} />
             </Route>
             <Route path='TravelReport' element={ <TravelReport/> }/>
             <Route path='AddReportDate' element={ <AddReportDate/> }/>
