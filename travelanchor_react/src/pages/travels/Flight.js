@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { callAmadeusToken, callAmadeusFlightAPI, callAmadeusAirlineAPI } from "../../apis/AmadeusFlightAPICalls";
-import './Flight.module.css';
+import './Flight.css';
 import { callCountryAPI, callCityAPI } from '../../apis/AreaAPICalls';
 import { useDispatch, useSelector } from "react-redux";
 // import commonCss from '../../components/common/common.module.css';
@@ -15,6 +15,7 @@ export default function Flight() {
 	const cities = citiesObj.data;
 
 	const [ loading, setLoading ] = useState(true);
+	const [loadingAirline, setLoadingAirline] = useState(false); // 항공사 로딩 상태
 
 	useEffect(() => {
 		setLoading(true);
@@ -53,22 +54,29 @@ export default function Flight() {
 
 	const [ token, setToken ] = useState();
 
-	const onClickHandler = async () => {
-		const tokenResponse = await callAmadeusToken(); 
-		setToken(tokenResponse.access_token);
-		console.log("token : " + tokenResponse.access_token);
-	};
+	// const onClickHandler = async () => {
+	// 	const tokenResponse = await callAmadeusToken(); 
+	// 	setToken(tokenResponse.access_token);
+	// 	console.log("token : " + tokenResponse.access_token);
+	// };
 
 	const onClickHandlerFlight = async () => {
-		if (!token) {
-			console.log('토큰이 없습니다. 먼저 토큰을 받아주세요.');
-			return;
+
+		let newToken = token;
+
+		if(!token) {
+			console.log('토큰이 없습니다. 발급을 시작합니다...');
+			const tokenResponse = await callAmadeusToken();
+			console.log(tokenResponse);
+			newToken = tokenResponse.access_token;
+			setToken(newToken); // 상태 업데이트
+			console.log("새로 발급된 토큰: " + newToken);
 		}
-		
+
 		// console.log("ref : " , ref);
 		// console.log("ref : " , ref.originRef.current.value,);
 
-		const flightResponse = await callAmadeusFlightAPI(token, ref);
+		const flightResponse = await callAmadeusFlightAPI(newToken, ref);
 		console.log("비행편 : ", flightResponse);
 		setFlight(flightResponse);	// fight 상태에 응답 데이터 저장
 
@@ -77,123 +85,147 @@ export default function Flight() {
 			offer => offer.itineraries[0]?.segments[0]?.operating?.carrierCode || "Unknown"
 		))];
 
+		// 로딩 시작
+		setLoadingAirline(true);
+
 		// 항공사 이름 매핑
 		const airlineNames = {};
 		for (const code of airlineCodes) {
 			if (code === "Unknown") continue; // 코드가 없으면 스킵
-			const airlineData = await callAmadeusAirlineAPI(token, { carrierCodeRef: code });
-			airlineNames[code] = airlineData?.data?.[0]?.commonName || "Unknown Airline";
+			const airlineData = await callAmadeusAirlineAPI(newToken, { carrierCodeRef: code });
+			airlineNames[code] = airlineData?.data?.[0]?.commonName || "Airline";
 		}
 
 		// 결과 확인
 		console.log("항공사 이름 매핑 결과:", airlineNames);
 		setAirlineData(airlineNames);
+
+		// 로딩 종료
+		setLoadingAirline(false);
 	};
 
 	return (
 		<div>
-		{/* <div>
-			{
-				cities.map((city) => (
-					<>
-					<h5>{city.cityName}</h5>
-					<h5>{city.cityIataCode}</h5>
-					</>
-				))
+		<h1 className="title">항공권 최저가 검색</h1>
+		<div className="flight-container">
 
-			}
-		</div> */}
-		<div>
-		
-			{
-			// cities.length > 0 && cities.map((city) => (<city key={city.cityCode} city={city}/>))
-			cities.length > 0 && cities.map((city) => (
-				<div>
-					<h5>{city.cityName}</h5>
-					<h5>{city.cityIataCode}</h5>
-				</div>
-			))}
-		</div>
-			<h1>항공권 최저가 검색</h1>
-			<button onClick={onClickHandler}>토큰받기</button>
-			{/* {token && <p>Token: {token}</p>} */}
+		<div className="content">
+		{/* 입력 섹션 */}
+		<div className="form-section">
+			{/* <button className="fetch-token-button" onClick={onClickHandler}>
+			토큰받기
+			</button> */}
 
-			<div>
-				<label>여행 유형</label>
-				<select
-					// value={tripType}
-					ref={ref.tripType}
-					onChange={(e) => setTripType(e.target.value)}
-				>
-					<option value="one-way">편도</option>
-					<option value="round-trip">왕복</option>
-				</select>
-			</div>
-			<div>
-				<label>출발지</label>
-				<input type="text" ref={ref.originRef} placeholder="출발지를 입력하세요" />
-			</div>
-			<div>
-				<label>도착지</label>
-				<input type="text" ref={ref.destinationRef} placeholder="도착지를 입력하세요" />
-			</div>
-			<div>
-				<label>출발일</label>
-				<input type="date" ref={ref.departureDateRef} />
+			<div className="form-group">
+			<label>여행 유형</label>
+			<select ref={ref.tripType} onChange={(e) => setTripType(e.target.value)}>
+				<option value="one-way">편도</option>
+				<option value="round-trip">왕복</option>
+			</select>
 			</div>
 
-			{/* 왕복일 선택 옵션 */}
+			{/* <div className="form-group">
+			<label>출발지</label>
+			<input type="text" ref={ref.originRef} placeholder="출발지를 입력하세요" />
+			</div>
+
+			<div className="form-group">
+			<label>도착지</label>
+			<input type="text" ref={ref.destinationRef} placeholder="도착지를 입력하세요" />
+			</div> */}
+
+			<div className="form-group">
+			<label>출발지</label>
+			<select ref={ref.originRef}>
+				{cities && cities.map(city => (
+				<option key={city.cityCode} value={city.cityIataCode}>{city.cityName}</option>
+				))}
+			</select>
+			</div>
+
+			<div className="form-group">
+			<label>도착지</label>
+			<select ref={ref.destinationRef}>
+				{cities && cities.map(city => (
+				<option key={city.cityCode} value={city.cityIataCode}>{city.cityName}</option>
+				))}
+			</select>
+			</div>
+
+			<div className="form-group">
+			<label>출발일</label>
+			<input type="date" ref={ref.departureDateRef} />
+			</div>
+
 			{tripType === "round-trip" && (
-				<div>
-					<label>귀국일</label>
-					<input type="date" ref={ref.returnDateRef} />
-				</div>
+			<div className="form-group">
+				<label>귀국일</label>
+				<input type="date" ref={ref.returnDateRef} />
+			</div>
 			)}
 
-			<div>
-				<label>성인</label>
-				<input type="number" ref={ref.adultsRef} min="1" defaultValue="1" />
-			</div>
-			<div>
-				<label>아동</label>
-				<input type="number" ref={ref.childrenRef} min="0" defaultValue="0"/>
-			</div>
-			<div>
-				<label>유아</label>
-				<input type="number" ref={ref.infantsRef} min="0" defaultValue="0"/>
-			</div>
-			<div>
-				<label>좌석 등급</label>
-				<select ref={ref.travelClassRef}>
-					<option value="ECONOMY">Economy</option>
-					<option value="PREMIUM_ECONOMY">Premium Economy</option>
-					<option value="BUSINESS">Business</option>
-					<option value="FIRST">First</option>
-				</select>
+			<div className="form-group">
+			<label>성인</label>
+			<input type="number" ref={ref.adultsRef} min="1" defaultValue="1" />
 			</div>
 
-			<button onClick={onClickHandlerFlight}>항공권 검색</button>
+			<div className="form-group">
+			<label>아동</label>
+			<input type="number" ref={ref.childrenRef} min="0" defaultValue="0" />
+			</div>
 
-			{flight && flight.data && (
-			<div className="cardContainer">
+			<div className="form-group">
+			<label>유아</label>
+			<input type="number" ref={ref.infantsRef} min="0" defaultValue="0" />
+			</div>
+
+			<div className="form-group">
+			<label>좌석 등급</label>
+			<select ref={ref.travelClassRef}>
+				<option value="ECONOMY">Economy</option>
+				<option value="PREMIUM_ECONOMY">Premium Economy</option>
+				<option value="BUSINESS">Business</option>
+				<option value="FIRST">First</option>
+			</select>
+			</div>
+
+			<button className="search-button" onClick={onClickHandlerFlight}>
+			항공권 검색
+			</button>
+		</div>
+
+		{/* 출력 섹션 */}
+		<div className="output-section">
+			{loadingAirline && (
+				<div className="loading">
+				<p>항공사 정보를 불러오는 중입니다...</p>
+				</div>
+			)}
+			{!loadingAirline && flight && flight.data && (
+			<div className="card-container">
 				{flight.data.map((offer, index) => {
 				const carrierCode = offer.itineraries[0].segments[0].operating.carrierCode;
-				const airlineName = airlineData[carrierCode] || ""; // 항공사 이름 매핑
+				const airlineName = airlineData[carrierCode] || "";
 
 				return (
-					<div key={index} className="card">
-					<h3>
-						{airlineData[offer.itineraries[0].segments[0].operating.carrierCode] || ""}
-						<br />
-						{offer.itineraries[0].segments[0].departure.iataCode} to{" "}
+					<div key={index} className="flight-card">
+					<h3 className="airline-name">{airlineName}</h3>
+					<p className="route">
+						{offer.itineraries[0].segments[0].departure.iataCode} →{" "}
 						{offer.itineraries[0].segments[0].arrival.iataCode}
-					</h3>
-					<p>{offer.price.grandTotal} {offer.price.currency}</p>
+					</p>
+					<p className="price">
+						{offer.price.grandTotal} {offer.price.currency}
+					</p>
 					</div>
 				);
 				})}
 			</div>
 			)}
 		</div>
+		</div>
+	</div>
+		
+	</div>
 	);
-};
+}
