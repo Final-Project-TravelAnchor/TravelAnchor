@@ -1,6 +1,5 @@
 import style from '../../../src/pages/restaurants/Restaurants.module.css';
 import { useCallback, useState, useEffect } from "react";
-// import { useState, useEffect } from "react";
 import { callGetRestaurantAPI } from '../../apis/RestaurantAPICalls';
 import commonCss from '../../components/common/common.module.css';
 
@@ -47,7 +46,7 @@ function Restaurants() {
                     className={style.cardImg}
                     src={
                         place.photos && place.photos.length > 0
-                            ? `https://maps.googleapis.com/maps/api/place/photo?maxwidth=300&photoreference=${place.photos[0].photo_reference}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`
+                            ? `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${place.photos[0].photo_reference}&key=${process.env.REACT_APP_GOOGLE_KEY}`
                             : "https://via.placeholder.com/300x200?text=No+Image"
                     }
                     alt={place.name}
