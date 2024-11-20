@@ -19,6 +19,7 @@ import Accommodation from './pages/travels/Accommodation';
 import Restaurants from './pages/restaurants/Restaurants';
 import Translation from './pages/features/Translation';
 import ExpenseList from './pages/plans/ExpenseList';
+import ExpenseInsert from './pages/plans/ExpenseInsert';
 import Report from './pages/reports/Report';
 import ExchangeRate from './pages/features/ExchangeRate';
 import Notice from './pages/notice/Notice';
@@ -41,7 +42,10 @@ export default function App() {
               <Route path="populationModify/:populationCode" element={<PopulationModify />} />
               <Route path="chatroom/:populationCode" element={<ChatRoom />} />
             </Route>
-            <Route path='ExpenseList' element={ <ExpenseList/> }/>
+            <Route path="plans">
+              <Route path="ExpenseList" element={<ExpenseList />} />
+              <Route path="ExpenseInsert" element={<ExpenseInsert />} />
+            </Route>
             <Route path="notice">
               <Route index element={<Notice />} />
               <Route path=":noticeCode" element={<NoticeDetail />} />

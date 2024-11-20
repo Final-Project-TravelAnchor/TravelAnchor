@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { callGetExpenseDetail, callGetExpenseDetailByCode } from '../../apis/ExpenseAPICalls';
+import {  useNavigate } from 'react-router-dom';
 
 const ExpenseDetailList = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const expenseDetails = useSelector((state) => state.expenseDetailReducer);
   const [isListVisible, setIsListVisible] = useState(false);
   const [searchCode, setSearchCode] = useState(''); // 검색할 코드
@@ -32,12 +34,19 @@ const ExpenseDetailList = () => {
     }
   };
 
+  const onClickExpenseInsert = () => {
+    navigate("/plans/ExpenseInsert");
+  };
+
+  
+
   return (
     <div>
       <h1>세부활동금액 관리</h1>
 
       {/* 전체 조회 버튼 */}
       <button onClick={handleFetchList}>전체 조회</button>
+      <button onClick={onClickExpenseInsert}>활등금액 등록</button>
 
       {/* 개별 검색 */}
       <div>
