@@ -43,6 +43,8 @@ public class MessageService {
 
             Message insertMessage = modelMapper.map(chat, Message.class);
 
+            insertMessage.setChatroomCode(chat.getChatroomCode());
+
             messageRepository.save(insertMessage);
 
             result = 1;
