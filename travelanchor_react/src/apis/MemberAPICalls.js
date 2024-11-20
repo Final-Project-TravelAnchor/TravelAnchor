@@ -88,3 +88,29 @@ export const callRegisterAPI = ({ form }) => {
 		}
 	};
 };
+
+export const callFindIdAPI = ({ mobileNumber }) => {
+	const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/auth/findid`;
+
+	return async (dispatch, getState) => {
+		const result = await fetch(requestURL, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				Accept: '*/*'
+			},
+			body: JSON.stringify({
+				memberMobileNumber: mobileNumber
+			})
+		}).then((response) => response.json());
+
+		console.log('[MemberAPICalls] callFindIdAPI RESULT : ', result);
+
+		if (result.status === 200) {
+			// 아이디 찾기 성공 시 필요한 처리를 여기에 추가
+			return result.data; // 찾은 아이디 반환
+		} else {
+			throw new Error(result.message); // 에러 발생 시 메시지 반환
+		}
+	};
+};
