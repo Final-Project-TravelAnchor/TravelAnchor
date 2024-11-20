@@ -1,0 +1,31 @@
+.cardContainer {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 20px;
+}
+.card {
+	border: 1px solid #ddd;
+	border-radius: 8px;
+	width: 300px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	padding: 16px;
+	text-align: center;
+	background-color: #fff;
+}
+.cardImg {
+	max-width: 100%;
+	border-radius: 8px;
+	height: 300px;
+	object-fit: cover;
+}
+.cardH2 {
+	font-size: 1.2em;
+	margin: 10px 0;
+}
+.cardP {
+	color: #555;
+}
+.card .rating {
+	font-weight: bold;
+	color: #FF9E67;
+}

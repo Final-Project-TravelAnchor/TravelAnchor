@@ -11,11 +11,16 @@ import ChatRoom from './components/items/ChatRoom';
 import TravelReport from './pages/reports/TravelReport';
 import AddReportDate from './pages/reports/AddReportDate';
 import AddReportDestination from './pages/reports/AddReportDestination';
-import Report from './apis/MapAPICalls';
+import Map from './apis/MapAPICalls';
+import ShareKakao from './apis/ShareKakao';
 import Weather from './pages/features/Weather';
 import Flight from './pages/travels/Flight';
 import Accommodation from './pages/travels/Accommodation';
+import Restaurants from './pages/restaurants/Restaurants';
 import Translation from './pages/features/Translation';
+import ExpenseList from './pages/plans/ExpenseList';
+import ExpenseInsert from './pages/plans/ExpenseInsert';
+import Report from './pages/reports/Report';
 import ExchangeRate from './pages/features/ExchangeRate';
 import Notice from './pages/notice/Notice';
 import NoticeDetail from './pages/notice/NoticeDetail';
@@ -41,6 +46,10 @@ export default function App() {
               <Route path="populationModify/:populationCode" element={<PopulationModify />} />
               <Route path="chatroom/:populationCode" element={<ChatRoom />} />
             </Route>
+            <Route path="plans">
+              <Route path="ExpenseList" element={<ExpenseList />} />
+              <Route path="ExpenseInsert" element={<ExpenseInsert />} />
+            </Route>
             <Route path="notice">
               <Route index element={<Notice />} />
               <Route path=":noticeCode" element={<NoticeDetail />} />
@@ -57,12 +66,15 @@ export default function App() {
             <Route path='AddReportDate' element={ <AddReportDate/> }/>
             <Route path='AddReportDestination' element={ <AddReportDestination/> }/>
             <Route path='Report' element={ <Report/> }/>
+            <Route path='Map' element={ <Map/> }/>
+            {/* <Route path='ShareKakao' element={ <ShareKakao/> }/> */}
             <Route path="Accommodation" element={ <Accommodation/> }/>
             <Route path="Weather" element={ <Weather/> }/>
             <Route path="Translation" element={ <Translation/> }/>
             <Route path="Flight" element={ <Flight/> }/>
             <Route path="ExchangeRate" element={ <ExchangeRate/> }/>
             <Route path="/login" element={ <Login/> } />
+            <Route path="Restaurants" element={ <Restaurants/> }/>
           </Route>
           <Route path='*' element={ <Error/> }/>
         </Routes>
