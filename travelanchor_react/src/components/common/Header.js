@@ -142,7 +142,6 @@ function Header() {
 		<>
 			<div class="HeaderWrap" className={HeaderCSS.HeaderWrap}>
 
-
 				{loginModal ? <LoginModal setLoginModal={setLoginModal} /> : null}
 				<div>
 					<a href='' class="logo" className={HeaderCSS.logo}
@@ -164,6 +163,8 @@ function Header() {
 								<li><NavLink to="Restaurants">맛집</NavLink></li>
 								<li><NavLink to="Flight">항공권</NavLink></li>
 								<li class="navItem"><NavLink to="/Accommodation">숙박</NavLink></li>
+							</ul>
+						</li>
 						<li class="navItem" className={HeaderCSS.navItem} onMouseLeave={() => setDropdownOpen(false)}>
 							<a href="#" onClick={toggleDropdown}>여행</a>
 							{isDropdownOpen && (
@@ -188,8 +189,6 @@ function Header() {
 						<li class="navItem" className={HeaderCSS.navItem}><NavLink to="ExchangeRate">환율</NavLink></li>
 						<li class="navItem" className={HeaderCSS.navItem}><NavLink to="Weather">날씨</NavLink></li>
 						<li class="navItem" className={HeaderCSS.navItem}><NavLink to="Translation">번역</NavLink></li>
-
-
 					</ul>
 				</div>
 
