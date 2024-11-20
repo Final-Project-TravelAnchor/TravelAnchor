@@ -17,6 +17,7 @@ import Flight from './pages/travels/Flight';
 import Accommodation from './pages/travels/Accommodation';
 import Translation from './pages/features/Translation';
 import ExchangeRate from './pages/features/ExchangeRate';
+import Register from './pages/member/Register';
 
 export default function App() {
   return (
@@ -45,6 +46,7 @@ export default function App() {
             <Route path="/login" element={ <Login/> } />
           </Route>
           <Route path='*' element={ <Error/> }/>
+          <Route path="/register" element={ <Register/> } />
         </Routes>
 
       </BrowserRouter>

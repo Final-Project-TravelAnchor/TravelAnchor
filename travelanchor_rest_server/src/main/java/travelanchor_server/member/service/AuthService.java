@@ -86,6 +86,13 @@ public class AuthService {
             throw new DuplicatedMemberEmailException("아이디가 중복됩니다.");
         }
 
+        // 핸드폰 번호 중복 체크
+        if (memberRepository.findByMemberMobileNumber(memberDTO.getMemberMobileNumber()) != null) {
+            log.info("[AuthService] getMemberMobileNumber() : ", memberDTO.getMemberMobileNumber());
+            log.info("[AuthService] 핸드폰 번호가 중복됩니다.");
+            throw new DuplicatedMemberEmailException("이미 사용된 핸드폰 번호입니다.");
+        }
+
         Member registMember = modelMapper.map(memberDTO, Member.class);
 
         registMember.setMemberPassword(passwordEncoder.encode(registMember.getMemberPassword()));
