@@ -38,6 +38,10 @@ const ExpenseDetailList = () => {
     navigate("/plans/ExpenseInsert");
   };
 
+  const onClickExpenseUpdate = (expenseDetailCode) => {
+    navigate(`/plans/ExpenseUpdate/${expenseDetailCode}`);
+  };
+
   
 
   return (
@@ -46,7 +50,7 @@ const ExpenseDetailList = () => {
 
       {/* 전체 조회 버튼 */}
       <button onClick={handleFetchList}>전체 조회</button>
-      <button onClick={onClickExpenseInsert}>활등금액 등록</button>
+      <button onClick={onClickExpenseInsert}>활동금액 등록</button>
 
       {/* 개별 검색 */}
       <div>
@@ -65,6 +69,8 @@ const ExpenseDetailList = () => {
           {expenseDetails.map((detail) => (
             <li key={detail.expenseDetailCode}>
               활동금액세부코드: {detail.expenseDetailCode}, 활동금액코드: {detail.expenseCode}, 세부활동비용: {detail.expenseDetailAmount}, 회원식별코드: {detail.memberCode}
+              <button onClick={() => onClickExpenseUpdate(detail.expenseDetailCode)}>수정</button>
+              <button>삭제</button>
             </li>
           ))}
         </ul>
@@ -79,6 +85,7 @@ const ExpenseDetailList = () => {
           </p>
         </div>
       )}
+      
 
       {/* 데이터 없을 때 메시지 */}
       {!isListVisible && !singleDetail && <p>데이터가 없습니다.</p>}

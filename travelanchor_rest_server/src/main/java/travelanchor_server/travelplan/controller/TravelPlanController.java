@@ -154,7 +154,7 @@ public class TravelPlanController {
     }
 
     @Operation(summary = "활동금액 수정 요청", description = "활동금액 수정이 진행됩니다.", tags = { "TravelPlanController" })
-    @PutMapping("/travel-plan/expense")
+    @PutMapping("/travel-plan/expense{expenseCode}")
     public ResponseEntity<ResponseDTO> updateExpense(@PathVariable int expenseCode , @RequestBody ExpenseDTO expenseDTO) {
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "여행일정 수정 성공", travelPlanService.updateExpense(expenseCode, expenseDTO)));
     }
@@ -188,7 +188,7 @@ public class TravelPlanController {
     }
 
     @Operation(summary = "세부활동금액 수정 요청", description = "세부활동금액 수정이 진행됩니다.", tags = { "TravelPlanController" })
-    @PutMapping("/travel-plan/expenseDetail")
+    @PutMapping("/travel-plan/expenseDetail/{expenseDetailCode}")
     public ResponseEntity<ResponseDTO> updateExpenseDetail(@PathVariable int expenseDetailCode , @RequestBody ExpenseDetailDTO expenseDetailDTO) {
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "세부활동금액 수정 성공", travelPlanService.updateExpenseDetail(expenseDetailCode, expenseDetailDTO)));
     }
