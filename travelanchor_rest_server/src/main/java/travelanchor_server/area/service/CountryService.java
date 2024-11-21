@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import travelanchor_server.area.entity.Country;
 import travelanchor_server.area.repository.CountryRepository;
+import travelanchor_server.population.entity.Population;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,5 +29,13 @@ public class CountryService {
     public Object findCountry() {
         List<Country> countries = countryRepository.findAll();
         return countries.stream().map(Country -> modelMapper.map(Country, Country.class)).collect(Collectors.toList());
+    }
+
+    public Object findCountryCode(int countryCode) {
+        log.info("[CountryService] findCountryCode() Start");
+        Country country = countryRepository.findById(countryCode).get();
+
+        log.info("[CountryService] findCountryCode() End");
+        return modelMapper.map(country, Country.class);
     }
 }

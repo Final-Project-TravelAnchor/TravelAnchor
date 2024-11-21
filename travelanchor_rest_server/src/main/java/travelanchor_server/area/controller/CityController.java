@@ -6,9 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import travelanchor_server.area.service.CityService;
 import travelanchor_server.common.ResponseDTO;
 
@@ -30,6 +28,15 @@ public class CityController {
         log.info("도시컨트롤러: 전체도시조회");
 
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "조회 성공", cityService.findCity()));
+    }
+
+    @Operation(summary = "CountryCode로 도시 조회", description = "CountryCode로 도시 찾기", tags = {"CityController"})
+    @GetMapping("/city/{countryCode}")
+    public ResponseEntity<ResponseDTO> findCountryCode(@PathVariable int countryCode) {
+
+        log.info("도시컨트롤러: 전체도시조회");
+
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "CountryCode로 도시 조회 성공", cityService.findCountryCode(countryCode)));
     }
 
 }
