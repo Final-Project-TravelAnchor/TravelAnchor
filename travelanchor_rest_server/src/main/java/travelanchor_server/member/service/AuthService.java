@@ -86,6 +86,13 @@ public class AuthService {
             throw new DuplicatedMemberEmailException("아이디가 중복됩니다.");
         }
 
+        // 핸드폰 번호 중복 체크
+        if (memberRepository.findByMemberMobileNumber(memberDTO.getMemberMobileNumber()) != null) {
+            log.info("[AuthService] getMemberMobileNumber() : ", memberDTO.getMemberMobileNumber());
+            log.info("[AuthService] 핸드폰 번호가 중복됩니다.");
+            throw new DuplicatedMemberEmailException("이미 사용된 핸드폰 번호입니다.");
+        }
+
         Member registMember = modelMapper.map(memberDTO, Member.class);
 
         registMember.setMemberPassword(passwordEncoder.encode(registMember.getMemberPassword()));
@@ -122,8 +129,7 @@ public class AuthService {
         return (member != null) ? member.getMemberId() : null;
     }
 
-
-    public boolean findpw(String memberMobileNumber) {
+    public String findpw(String memberMobileNumber) {
 
         if (memberMobileNumber == null || memberMobileNumber.trim().isEmpty()) {
             log.error("[AuthService] 필수항목에 빈문자열이 존재합니다.");
@@ -138,17 +144,15 @@ public class AuthService {
 
         if (member == null) {
             log.info("[AuthService] findpw() Required User Not Found!");
-            return false;
+            return null; // 사용자 없음, null 반환
         }
 
+        // 6자리 랜덤 인증 코드 생성
         String randomCode = String.format("%06d", new Random().nextInt(999999));
-
-        verificationCodeMap.put(memberMobileNumber, randomCode);
-
+        verificationCodeMap.put(memberMobileNumber, randomCode); // 인증 코드 저장
 
         log.info("[AuthService] 인증 코드 생성: {}", randomCode);
-
-        return true;
+        return randomCode; // 인증 코드를 반환
     }
 
     public boolean resetpw(String memberMobileNumber, String verificationCode, String newPassword) {
@@ -179,5 +183,4 @@ public class AuthService {
         log.info("[AuthService] 비밀번호 재설정 완료");
         return true;
     }
-
 }

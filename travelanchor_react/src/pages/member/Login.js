@@ -70,8 +70,17 @@ function Login() {
     };
 
     const onClickRegisterHandler = () => { 
-        navigate("/register", { replace: true })
+        navigate("/register", { replace: true });
     }
+
+    const onClickFindIdHandler = () => {
+        navigate("/findid", { replace: true });
+    }
+
+    const onClickFindPwHandler = () => {
+        navigate("/findpw", { replace: true })
+    }
+
 
     /* 로그인 버튼 클릭시 디스패처 실행 및 메인 페이지로 이동 */
     const onClickLoginHandler = () => { 
@@ -148,6 +157,18 @@ const onClickKakaoLoginHandler = () => {
                     onClick={ onClickLoginHandler }
                 >
                     로그인
+                </button>
+                <button
+                    style={{ border: 'none', margin: 0, fontSize: '10px', height: '10px' }}
+                    onClick={onClickFindIdHandler}
+                >
+                    아이디찾기
+                </button>
+                <button
+                    style={{ border: 'none', margin: 0, fontSize: '10px', height: '10px' }}
+                    onClick={onClickFindPwHandler}
+                >
+                    비밀번호찾기
                 </button>
                 <button
                     style={ { border: 'none', margin: 0, fontSize: '10px', height: '10px' } }

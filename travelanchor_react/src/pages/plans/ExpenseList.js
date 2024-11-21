@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { callGetExpenseDetail, callGetExpenseDetailByCode } from '../../apis/ExpenseAPICalls';
+import { callGetExpenseDetail, callGetExpenseDetailByCode, callDeleteExpenseDetail } from '../../apis/ExpenseAPICalls';
 import {  useNavigate } from 'react-router-dom';
 
 const ExpenseDetailList = () => {
@@ -42,6 +42,24 @@ const ExpenseDetailList = () => {
     navigate(`/plans/ExpenseUpdate/${expenseDetailCode}`);
   };
 
+  const onClickExpenseDelete = async (expenseDetailCode) => {
+    if (window.confirm('이 데이터를 정말 삭제하시겠습니까?')) {
+      try {
+        const memberDTO = { memberId: 'yourMemberId' }; // 필요한 데이터
+        await dispatch(callDeleteExpenseDetail(expenseDetailCode, memberDTO));
+        alert('삭제가 완료되었습니다.');
+        dispatch(callGetExpenseDetail()); // 최신 데이터 갱신
+      } catch (error) {
+        console.error('삭제 중 에러 발생:', error);
+        alert('삭제에 실패했습니다.');
+      }
+    }
+  };
+
+  const onClickExpenseSettlement = () => {
+    navigate("/plans/ExpenseSettlement");
+  };
+
   
 
   return (
@@ -70,9 +88,10 @@ const ExpenseDetailList = () => {
             <li key={detail.expenseDetailCode}>
               활동금액세부코드: {detail.expenseDetailCode}, 활동금액코드: {detail.expenseCode}, 세부활동비용: {detail.expenseDetailAmount}, 회원식별코드: {detail.memberCode}
               <button onClick={() => onClickExpenseUpdate(detail.expenseDetailCode)}>수정</button>
-              <button>삭제</button>
+              <button onClick={() => onClickExpenseDelete(detail.expenseDetailCode)}>삭제</button>
             </li>
           ))}
+          <button onClick={onClickExpenseSettlement}>정산바로가기</button>
         </ul>
       )}
 

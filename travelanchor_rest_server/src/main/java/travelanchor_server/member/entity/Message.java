@@ -26,13 +26,17 @@ public class Message {
     @Column(name = "message_sent_at")
     private String messageSentAt;
 
+    @Column(name = "message_type")
+    private String type;
 
-    public Message(int messageCode, int chatroomCode, int memberCode, String messageContent, String messageSentAt) {
+
+    public Message(int messageCode, int chatroomCode, int memberCode, String messageContent, String messageSentAt, String type) {
         this.messageCode = messageCode;
         this.chatroomCode = chatroomCode;
         this.memberCode = memberCode;
         this.messageContent = messageContent;
         this.messageSentAt = messageSentAt;
+        this.type = type;
     }
 
     public Message() {
@@ -79,6 +83,14 @@ public class Message {
         this.messageSentAt = messageSentAt;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     @Override
     public String toString() {
         return "Message{" +
@@ -86,7 +98,8 @@ public class Message {
                 ", chatroomCode=" + chatroomCode +
                 ", memberCode=" + memberCode +
                 ", messageContent='" + messageContent + '\'' +
-                ", messageSentAt=" + messageSentAt +
+                ", messageSentAt='" + messageSentAt + '\'' +
+                ", type='" + type + '\'' +
                 '}';
     }
 }

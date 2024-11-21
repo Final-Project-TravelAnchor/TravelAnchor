@@ -1,7 +1,7 @@
 import { GET_MEMBER, POST_LOGIN, POST_REGISTER } from '../modules/MemberModule';
 
 export const callGetMemberAPI = ({ memberId }) => {
-	const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/v1/members/${memberId}`;
+	const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/member/v1/members/${memberId}`;
 
 	return async (dispatch, getState) => {
 
@@ -67,10 +67,17 @@ export const callRegisterAPI = ({ form }) => {
 				Accept: '*/*'
 			},
 			body: JSON.stringify({
+				memberCode: null,
+				authorityCode: 2,
 				memberId: form.memberId,
 				memberPassword: form.memberPassword,
 				memberName: form.memberName,
-				memberEmail: form.memberEmail
+				memberMobileNumber: form.memberMobileNumber,
+				memberNickName: form.memberNickName,
+				memberCreatedAt: new Date().toISOString(), // 현재 날짜 시간
+				memberLevel: 1,
+				memberCertification: form.memberCertification || 'N',
+				profilePhoto: process.env.REACT_APP_DEFAULT_IMAGE || ''
 			})
 		}).then((response) => response.json());
 
@@ -80,4 +87,81 @@ export const callRegisterAPI = ({ form }) => {
 			dispatch({ type: POST_REGISTER, payload: result });
 		}
 	};
+};
+
+export const callFindIdAPI = ({ mobileNumber }) => {
+	const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/auth/findid`;
+
+	return async (dispatch, getState) => {
+		const result = await fetch(requestURL, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				Accept: '*/*'
+			},
+			body: JSON.stringify({
+				memberMobileNumber: mobileNumber
+			})
+		}).then((response) => response.json());
+
+		console.log('[MemberAPICalls] callFindIdAPI RESULT : ', result);
+
+		if (result.status === 200) {
+			return result.data;
+		} else {
+			throw new Error(result.message);
+		}
+	};
+};
+
+export const callFindPwAPI = ({ mobileNumber }) => {
+    const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/auth/findpw`;
+
+    return async (dispatch, getState) => {
+        const result = await fetch(requestURL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: '*/*'
+            },
+            body: JSON.stringify({
+                memberMobileNumber: mobileNumber
+            })
+        }).then((response) => response.json());
+
+        console.log('[MemberAPICalls] callFindPwAPI RESULT : ', result);
+
+        if (result && result.status === 200) {
+            return result.data; // 인증 코드를 반환
+        } else {
+            throw new Error(result.message || 'Unknown error occurred');
+        }
+    };
+};
+
+export const callResetPwAPI = ({ mobileNumber, verificationCode, newPassword }) => {
+    const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/auth/resetpw`;
+
+    return async (dispatch, getState) => {
+        const result = await fetch(requestURL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: '*/*'
+            },
+            body: JSON.stringify({
+                memberMobileNumber: mobileNumber,
+                verificationCode: verificationCode,
+                memberPassword: newPassword
+            })
+        }).then((response) => response.json());
+
+        console.log('[MemberAPICalls] callResetPwAPI RESULT : ', result);
+
+        if (result && result.status === 200) {
+            return true; // 비밀번호 변경 성공
+        } else {
+            throw new Error(result.message || 'Unknown error occurred');
+        }
+    };
 };

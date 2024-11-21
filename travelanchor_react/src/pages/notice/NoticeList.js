@@ -1,5 +1,6 @@
-import NoticeCSS from "./NoticeList.module.css";
+// import NoticeCSS from "./NoticeList.module.css";
 import { useNavigate } from "react-router-dom";
+// import './NoticeDetail.css';
 
 export default function NoticeList(noticeDetail) {
 
@@ -15,14 +16,14 @@ export default function NoticeList(noticeDetail) {
     return (
         <>
             <div 
-                className={NoticeCSS.noticeDiv}
+                className="notice-item"
                 onClick={() => onClickNoticeHandler(notice)}    
             >
                 <h5>{notice.noticeCode}</h5>
                 <h5>{notice.noticeName}</h5>
                 <h5>{notice.noticeWriter}</h5>
                 <h5>{notice.noticeCreatedAt}</h5>
-                <h5>{notice.notieceViews}</h5>
+                <h5>{notice.noticeViews}</h5>
             </div>
         </>
     );

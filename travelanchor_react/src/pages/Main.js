@@ -1,6 +1,5 @@
 import mainCss from './Main.module.css';
 
-
 export default function Main() {
     return (
         <div class="main" className={mainCss.main}>

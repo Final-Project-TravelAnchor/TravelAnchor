@@ -59,9 +59,9 @@ public class AuthController {
     @Operation(summary = "비밀번호 찾기 요청", description = "회원정보를 통해 비밀번호를 찾습니다.", tags = {"AuthController"})
     @PostMapping("/findpw")
     public ResponseEntity<ResponseDTO> findpw(@RequestBody MemberDTO memberDTO) {
-        boolean findMemberPw = authService.findpw(memberDTO.getMemberMobileNumber());
+        String findMemberPw = authService.findpw(memberDTO.getMemberMobileNumber());
 
-        if (!findMemberPw) {
+        if (findMemberPw == null) {
             return ResponseEntity
                     .status(HttpStatus.NOT_FOUND)
                     .body(new ResponseDTO(HttpStatus.NOT_FOUND, "해당 번호로 등록된 회원이 없습니다.", null));
@@ -69,7 +69,7 @@ public class AuthController {
 
         return ResponseEntity
                 .ok()
-                .body(new ResponseDTO(HttpStatus.OK, "비밀번호 재설정 인증 코드가 전송되었습니다.", null));
+                .body(new ResponseDTO(HttpStatus.OK, "비밀번호 재설정 인증 코드가 전송되었습니다.", findMemberPw));
     }
 
 

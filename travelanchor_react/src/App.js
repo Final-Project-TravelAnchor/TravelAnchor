@@ -22,8 +22,10 @@ import Translation from './pages/features/Translation';
 import ExpenseList from './pages/plans/ExpenseList';
 import ExpenseInsert from './pages/plans/ExpenseInsert';
 import ExpenseUpdate from './pages/plans/ExpenseUpdate';
+import ExpenseSettlement from './pages/plans/ExpenseSettlement';
 import Report from './pages/reports/Report';
 import ExchangeRate from './pages/features/ExchangeRate';
+import Register from './pages/member/Register';
 import Notice from './pages/notice/Notice';
 import NoticeDetail from './pages/notice/NoticeDetail';
 import NoticeModify from './pages/notice/NoticeModify';
@@ -32,6 +34,8 @@ import FreeBoard from './pages/boards/FreeBoard';
 import FreeBoardDetail from './pages/boards/FreeBoardDetail';
 import FreeBoardModify from './pages/boards/FreeBoardModify';
 import FreeBoardCreate from './pages/boards/FreeBoardCreate';
+import FindId from './pages/member/FindId';
+import FindPw from './pages/member/FindPw';
 
 export default function App() {
   return (
@@ -52,6 +56,7 @@ export default function App() {
               <Route path="ExpenseList" element={<ExpenseList />} />
               <Route path="ExpenseInsert" element={<ExpenseInsert />} />
               <Route path="ExpenseUpdate/:expenseDetailCode" element={<ExpenseUpdate />} />
+              <Route path="ExpenseSettlement" element={<ExpenseSettlement />} />
             </Route>
             <Route path="notice">
               <Route index element={<Notice />} />
@@ -79,8 +84,11 @@ export default function App() {
             <Route path="/login" element={ <Login/> } />
             <Route path="Restaurants" element={ <Restaurants/> }/>
             <Route path="Restaurants/:place_id" element={ <RestaurantDetail/> }/>
+            <Route path="/findid" element={ <FindId/> } />
+            <Route path="/findpw" element={ <FindPw/>} />
           </Route>
           <Route path='*' element={ <Error/> }/>
+          <Route path="/register" element={ <Register/> } />
         </Routes>
 
       </BrowserRouter>

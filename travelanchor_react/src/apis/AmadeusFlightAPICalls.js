@@ -51,7 +51,7 @@ export const callAmadeusFlightAPI = async (access_token, ref) => {
 		children: ref.childrenRef.current?.value || '0',
 		infants: ref.infantsRef.current?.value || '0',
 		nonStop: false,
-		max: 100,
+		max: 10,
 		currencyCode: 'KRW',
 	});
 

@@ -12,12 +12,14 @@ public class ChattingConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
+//        System.out.println("registerStompEndpoints = " + registry);
         registry.addEndpoint("/ws") // 연결될 엔드포인트
                 .setAllowedOrigins("*");
     }
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
+//        System.out.println("configureMessageBroker = " + registry);
         registry.enableSimpleBroker("/sub");
 
         registry.setApplicationDestinationPrefixes("/pub");

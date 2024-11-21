@@ -1,10 +1,15 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import { useSelector, useDispatch } from "react-redux";
+import { SET_DATE_PERIOD } from '../../modules/PlanModule';
 
 function AddReportDate() {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    // const { travelReport } = useSelector(state => state.planReducer);
 
     // 시작일과 종료일 상태를 관리
     const [datePeriod, setDatePeriod] = useState([null, null]);
@@ -15,11 +20,27 @@ function AddReportDate() {
         setDatePeriod([null, null]);
     };
 
+    // useEffect(
+    //     () => {
+    //         startDate = travelReport.startDate || null;
+    //         endDate = travelReport.endDate || null;
+    //     },
+    //     [result]
+    // );
+
     // 다음 페이지 이동 핸들러
     const nextPage = () => {
         if (startDate && endDate) {
+            dispatch({
+                type: SET_DATE_PERIOD,
+                payload: {
+                  startDate: startDate.toISOString(),
+                  endDate: endDate.toISOString(),
+                }
+              });
+            console.log("nextPage");
         // 날짜가 모두 선택되었을 때만 이동
-        navigate('/AddReportDestination');
+            navigate('/AddReportDestination');
         } else {
         alert('시작일과 종료일을 모두 선택해주세요.');
         }
