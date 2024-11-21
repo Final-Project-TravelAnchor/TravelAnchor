@@ -37,32 +37,34 @@ export default function NoticeDetail() {
     };
 
     return (
-        <div className="notice-detail-container">
-            <div className="notice-title">공지사항</div>
-            {/* 헤더: 뒤로가기 버튼과 수정하기 버튼 */}
-            <div className="header">
-                <button className="back-button" onClick={onClickBackHandler}>
-                    뒤로가기
-                </button>
-                <button 
-                    className="modify-button" 
-                    onClick={() => onClickModifyModeHandler(notice)}
-                >
-                    수정하기
-                </button>
-            </div>
+        <div className="notice-container">
+            <div className="notice-title">{notice.noticeName}</div>
 
         {/* 공지사항 상세 정보 */}
         {notice ? (
             <div className="notice-detail-content">
-                <h1 className="notice-title">제목 : {notice.noticeName}</h1>
-                <h2 className="notice-info">생성일자 : {notice.noticeCreatedAt}</h2>
+                {/* <h1 className="notice-title">제목 : {notice.noticeName}</h1> */}
+                <h2 className="notice-info">작성일 : {notice.noticeCreatedAt}</h2>
                 <h2 className="notice-info">조회수 : {notice.noticeViews}</h2>
-                <h3 className="notice-content">내용 : {notice.noticeContents}</h3>
+                <div className="notice-content-container">
+                    <h3 className="notice-content">{notice.noticeContents}</h3>
+                </div>
             </div>
         ) : (
             <div className="no-notice">공지사항을 찾을 수 없습니다.</div>
         )}
+
+        <div className="notice-button-right">
+                <button className="notice-back-button" onClick={onClickBackHandler}>
+                    뒤로가기
+                </button>
+                <button 
+                    onClick={() => onClickModifyModeHandler(notice)}
+                    className="notice-modify-button" 
+                >
+                    수정하기
+                </button>
+        </div>
     </div>
     );
 }

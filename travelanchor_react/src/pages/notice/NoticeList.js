@@ -23,7 +23,7 @@ export default function NoticeList(noticeDetail) {
                 <h5>{notice.noticeName}</h5>
                 <h5>{notice.noticeWriter}</h5>
                 <h5>{notice.noticeCreatedAt}</h5>
-                <h5>{notice.notieceViews}</h5>
+                <h5>{notice.noticeViews}</h5>
             </div>
         </>
     );

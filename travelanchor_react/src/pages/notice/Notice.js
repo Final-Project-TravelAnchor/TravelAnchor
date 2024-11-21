@@ -46,9 +46,9 @@ export default function Notice() {
             <div className="notice-container">
                 <div className='notice-title'>공지사항</div>
             {/* 상단 헤더 */}
-            <div className="header">
+            <div className="notice-header">
                 <button 
-                    className="notice-create-button" 
+                    className="notice-first-create-button" 
                     onClick={onClickCreateNoticeHandler}
                 >
                     공지사항 생성
