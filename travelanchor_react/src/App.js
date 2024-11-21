@@ -17,6 +17,7 @@ import Weather from './pages/features/Weather';
 import Flight from './pages/travels/Flight';
 import Accommodation from './pages/travels/Accommodation';
 import Restaurants from './pages/restaurants/Restaurants';
+import RestaurantDetail from './pages/restaurants/RestaurantDetail';
 import Translation from './pages/features/Translation';
 import ExpenseList from './pages/plans/ExpenseList';
 import ExpenseInsert from './pages/plans/ExpenseInsert';
@@ -82,6 +83,7 @@ export default function App() {
             <Route path="ExchangeRate" element={ <ExchangeRate/> }/>
             <Route path="/login" element={ <Login/> } />
             <Route path="Restaurants" element={ <Restaurants/> }/>
+            <Route path="Restaurants/:place_id" element={ <RestaurantDetail/> }/>
             <Route path="/findid" element={ <FindId/> } />
             <Route path="/findpw" element={ <FindPw/>} />
           </Route>
