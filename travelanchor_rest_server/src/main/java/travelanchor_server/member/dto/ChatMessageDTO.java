@@ -13,14 +13,17 @@ public class ChatMessageDTO {
     private String messageContent;
     private String messageSentAt;
 
+    private String type;
+
     public ChatMessageDTO() {}
 
-    public ChatMessageDTO(int messageCode, int chatroomCode, int memberCode, String messageContent, String messageSentAt) {
+    public ChatMessageDTO(int messageCode, int chatroomCode, int memberCode, String messageContent, String messageSentAt, String type) {
         this.messageCode = messageCode;
         this.chatroomCode = chatroomCode;
         this.memberCode = memberCode;
         this.messageContent = messageContent;
         this.messageSentAt = messageSentAt;
+        this.type = type;
     }
 
     public int getMessageCode() {
@@ -63,6 +66,14 @@ public class ChatMessageDTO {
         this.messageSentAt = messageSentAt;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     @Override
     public String toString() {
         return "ChatMessageDTO{" +
@@ -70,7 +81,8 @@ public class ChatMessageDTO {
                 ", chatroomCode=" + chatroomCode +
                 ", memberCode=" + memberCode +
                 ", messageContent='" + messageContent + '\'' +
-                ", messageSentAt=" + messageSentAt +
+                ", messageSentAt='" + messageSentAt + '\'' +
+                ", type='" + type + '\'' +
                 '}';
     }
 }
