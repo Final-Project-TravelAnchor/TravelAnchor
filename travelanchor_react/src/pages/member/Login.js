@@ -70,11 +70,15 @@ function Login() {
     };
 
     const onClickRegisterHandler = () => { 
-        navigate("/register", { replace: true })
+        navigate("/register", { replace: true });
     }
 
     const onClickFindIdHandler = () => {
         navigate("/findid", { replace: true });
+    }
+
+    const onClickFindPwHandler = () => {
+        navigate("/findpw", { replace: true })
     }
 
 
@@ -158,7 +162,13 @@ const onClickKakaoLoginHandler = () => {
                     style={{ border: 'none', margin: 0, fontSize: '10px', height: '10px' }}
                     onClick={onClickFindIdHandler}
                 >
-                    아이디 찾기
+                    아이디찾기
+                </button>
+                <button
+                    style={{ border: 'none', margin: 0, fontSize: '10px', height: '10px' }}
+                    onClick={onClickFindPwHandler}
+                >
+                    비밀번호찾기
                 </button>
                 <button
                     style={ { border: 'none', margin: 0, fontSize: '10px', height: '10px' } }
