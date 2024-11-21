@@ -52,50 +52,47 @@ export default function NoticeCreate() {
 
 
     return (
-        <div className="notice-create-container">
-            <h1 className="create-title">공지사항 생성</h1>
-
-            <div className="form-group">
-                <label htmlFor="noticeName" className="form-label">
-                    공지사항 제목:
-                </label>
+        <>
+            <div className="notice-container">
+                <h1 className="notice-title">공지사항 생성</h1>
+            <div>
+                <div className="notice-create-container">
+                <div className="notice-create-title">제목</div>
                 <input
+                    className="notice-create-title-input"
                     type="text"
-                    id="noticeName"
                     name="noticeName"
                     placeholder="공지사항 제목"
                     onChange={onChangeHandler}
-                    className="form-input"
-                />
-            </div>
-
-            <div className="form-group">
-                <label htmlFor="noticeContents" className="form-label">
-                    공지사항 설명:
-                </label>
-                <textarea
-                    id="noticeContents"
+                /></div>
+                <br/>
+                <div className="notice-create-container">
+                    <div className="notice-create-title">내용</div>
+                <input
+                    className="notice-create-content-input"
+                    type="text"
                     name="noticeContents"
                     placeholder="공지사항 설명"
                     onChange={onChangeHandler}
-                    className="form-textarea"
                 />
-            </div>
-
-            <div className="button-group">
-                <button 
-                    className="create-button" 
-                    onClick={onClickCreateNoticeHandler}
-                >
-                    추가하기
-                </button>
-                <button 
-                    className="cancel-button" 
-                    onClick={onClickCancelNoticeHandler}
-                >
-                    취소하기
-                </button>
+                </div>
+                <br/>
+                <div className="notice-button-right">
+                    <button 
+                        onClick={onClickCancelNoticeHandler}
+                        className="notice-cancel-button" 
+                        >
+                        취소하기
+                    </button>
+                    <button 
+                        onClick={onClickCreateNoticeHandler}
+                        className="notice-create-button"
+                        >
+                        추가하기
+                    </button>
+                </div>
             </div>
         </div>
+        </>
     );
 }
