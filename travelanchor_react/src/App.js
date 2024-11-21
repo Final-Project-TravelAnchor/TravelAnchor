@@ -21,6 +21,7 @@ import Translation from './pages/features/Translation';
 import ExpenseList from './pages/plans/ExpenseList';
 import ExpenseInsert from './pages/plans/ExpenseInsert';
 import ExpenseUpdate from './pages/plans/ExpenseUpdate';
+import ExpenseSettlement from './pages/plans/ExpenseSettlement';
 import Report from './pages/reports/Report';
 import ExchangeRate from './pages/features/ExchangeRate';
 import Register from './pages/member/Register';
@@ -53,6 +54,7 @@ export default function App() {
               <Route path="ExpenseList" element={<ExpenseList />} />
               <Route path="ExpenseInsert" element={<ExpenseInsert />} />
               <Route path="ExpenseUpdate/:expenseDetailCode" element={<ExpenseUpdate />} />
+              <Route path="ExpenseSettlement" element={<ExpenseSettlement />} />
             </Route>
             <Route path="notice">
               <Route index element={<Notice />} />
