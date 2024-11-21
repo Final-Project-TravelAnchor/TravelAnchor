@@ -56,6 +56,10 @@ const ExpenseDetailList = () => {
     }
   };
 
+  const onClickExpenseSettlement = () => {
+    navigate("/plans/ExpenseSettlement");
+  };
+
   
 
   return (
@@ -87,6 +91,7 @@ const ExpenseDetailList = () => {
               <button onClick={() => onClickExpenseDelete(detail.expenseDetailCode)}>삭제</button>
             </li>
           ))}
+          <button onClick={onClickExpenseSettlement}>정산바로가기</button>
         </ul>
       )}
 
