@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import travelanchor_server.area.service.CountryService;
@@ -31,5 +32,13 @@ public class CountryController {
 
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "조회 성공", countryService.findCountry()));
     }
+
+    @Operation(summary = "CountryCode로 국가 조회", description = "CountryCode로 국가 찾기", tags = {"CountryController"})
+    @GetMapping("/country/{countryCode}")
+    public ResponseEntity<ResponseDTO> findCountryCode(@PathVariable int countryCode) {
+
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "CountryCode로 국가 조회 성공", countryService.findCountryCode(countryCode)));
+    }
+
 
 }

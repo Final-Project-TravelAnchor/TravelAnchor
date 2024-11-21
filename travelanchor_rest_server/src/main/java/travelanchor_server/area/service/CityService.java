@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import travelanchor_server.area.controller.CityController;
 import travelanchor_server.area.entity.City;
 import travelanchor_server.area.repository.CityRepository;
+import travelanchor_server.population.entity.Population;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -29,5 +30,16 @@ public class CityService {
     public Object findCity() {
         List<City> cities = cityRepository.findAll();
         return cities.stream().map(City -> modelMapper.map(City, City.class)).collect(Collectors.toList());
+    }
+
+    public Object findCountryCode(int countryCode) {
+        log.info("[CityServiceService] findCountryCode() Start");
+
+        List<City> citiesList = cityRepository.findByCountryCode(countryCode);
+
+
+        log.info("[CityServiceService] findCountryCode() End");
+        return citiesList.stream().map(city -> modelMapper.map(city, City.class)).collect(Collectors.toList());
+
     }
 }

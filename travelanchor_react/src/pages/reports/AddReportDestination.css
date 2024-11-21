@@ -1,0 +1,45 @@
+/* 공통 스타일 */
+.container {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+}
+
+/* 국가 선택 섹션 */
+.country-list, .city-list, .theme-list {
+    list-style: none;
+    padding: 0;
+}
+
+.country-item, .city-item, .theme-item {
+    padding: 10px;
+    cursor: pointer;
+    border: 1px solid orange;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+/* 활성화된 아이템 스타일 */
+.country-item.active, .theme-item.active {
+    background: orange;
+    color: white;
+}
+
+.city-item.active {
+    background: lightblue;
+    color: black;
+}
+
+/* 기본 색상 */
+.country-item, .city-item, .theme-item {
+    background: white;
+    color: black;
+}
+
+.city-item {
+    border: 1px solid lightblue;
+}
+
+.theme-item {
+    border: 1px solid orange;
+}

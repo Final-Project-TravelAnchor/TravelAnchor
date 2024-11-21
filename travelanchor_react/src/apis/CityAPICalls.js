@@ -124,7 +124,7 @@ export const callCityByCountryCodeAPI = (countryCode) => {
 
 			if(result.status === 200) {
 				console.log('[AreaAPICalls] callCityByCountryCodeAPI Result:', result);
-				dispatch({type:GET_CITY_CODE, payload: result.data});
+				dispatch({type:GET_CITY_CODE, payload: result});
 			}
 
 		} catch (error) {
