@@ -1,0 +1,81 @@
+/* 전체 컨테이너 스타일 */
+.notice-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 120px;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+}
+
+/* 헤더 섹션 */
+.header {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    max-width: 800px;
+    margin-bottom: 20px;
+}
+
+.notice-create-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #FF8600;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.notice-create-button:hover {
+    background-color: #e07500;
+}
+
+/* 공지사항 목록 */
+.notice-list-container {
+    width: 100%;
+    max-width: 800px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.notice-list-header {
+    display: grid;
+    grid-template-columns: 1fr 3fr 2fr 2fr 1fr;
+    gap: 10px;
+    background-color: #FF8600;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px;
+}
+
+.notice-item {
+    display: grid;
+    grid-template-columns: 1fr 3fr 2fr 2fr 1fr;
+    gap: 10px;
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.notice-item:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* 제목 호버 스타일 */
+.notice-title {
+    color: #333;
+    cursor: pointer;
+}
+
+/* 공지사항이 없을 때 */
+.no-notice {
+    text-align: center;
+    padding: 20px;
+    color: #999;
+    font-style: italic;
+}

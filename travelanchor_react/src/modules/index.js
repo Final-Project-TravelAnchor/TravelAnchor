@@ -6,6 +6,7 @@ import travelReportReducer from './TravelReportModule';
 import noticeReducer from './NoticeModule';
 import freeboardReducer from './FreeBoardModule';
 import areaReducer from './AreaModule';
+import planReducer from './PlanModule';
 
 const rootReducer = combineReducers({
 	memberReducer,
@@ -14,7 +15,8 @@ const rootReducer = combineReducers({
 	expenseDetailReducer,
 	travelReportReducer,
 	noticeReducer,
-	areaReducer
+	areaReducer,
+	planReducer,
 });
 
 export default rootReducer;
