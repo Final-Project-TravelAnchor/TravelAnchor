@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import FindIdCSS from './FindId.module.css'; // 스타일 파일
-import { callFindIdAPI } from '../../apis/MemberAPICalls'; // API 호출 import
+import FindIdCSS from './FindId.module.css';
+import { callFindIdAPI } from '../../apis/MemberAPICalls';
 
 function FindId() {
 

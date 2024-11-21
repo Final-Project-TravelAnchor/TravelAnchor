@@ -33,6 +33,7 @@ import FreeBoardDetail from './pages/boards/FreeBoardDetail';
 import FreeBoardModify from './pages/boards/FreeBoardModify';
 import FreeBoardCreate from './pages/boards/FreeBoardCreate';
 import FindId from './pages/member/FindId';
+import FindPw from './pages/member/FindPw';
 
 export default function App() {
   return (
@@ -80,6 +81,7 @@ export default function App() {
             <Route path="/login" element={ <Login/> } />
             <Route path="Restaurants" element={ <Restaurants/> }/>
             <Route path="/findid" element={ <FindId/> } />
+            <Route path="/findpw" element={ <FindPw/>} />
           </Route>
           <Route path='*' element={ <Error/> }/>
           <Route path="/register" element={ <Register/> } />

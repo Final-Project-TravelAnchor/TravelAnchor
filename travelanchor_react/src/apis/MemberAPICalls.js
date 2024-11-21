@@ -107,10 +107,61 @@ export const callFindIdAPI = ({ mobileNumber }) => {
 		console.log('[MemberAPICalls] callFindIdAPI RESULT : ', result);
 
 		if (result.status === 200) {
-			// 아이디 찾기 성공 시 필요한 처리를 여기에 추가
-			return result.data; // 찾은 아이디 반환
+			return result.data;
 		} else {
-			throw new Error(result.message); // 에러 발생 시 메시지 반환
+			throw new Error(result.message);
 		}
 	};
+};
+
+export const callFindPwAPI = ({ mobileNumber }) => {
+    const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/auth/findpw`;
+
+    return async (dispatch, getState) => {
+        const result = await fetch(requestURL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: '*/*'
+            },
+            body: JSON.stringify({
+                memberMobileNumber: mobileNumber
+            })
+        }).then((response) => response.json());
+
+        console.log('[MemberAPICalls] callFindPwAPI RESULT : ', result);
+
+        if (result && result.status === 200) {
+            return result.data; // 인증 코드를 반환
+        } else {
+            throw new Error(result.message || 'Unknown error occurred');
+        }
+    };
+};
+
+export const callResetPwAPI = ({ mobileNumber, verificationCode, newPassword }) => {
+    const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/auth/resetpw`;
+
+    return async (dispatch, getState) => {
+        const result = await fetch(requestURL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: '*/*'
+            },
+            body: JSON.stringify({
+                memberMobileNumber: mobileNumber,
+                verificationCode: verificationCode,
+                memberPassword: newPassword
+            })
+        }).then((response) => response.json());
+
+        console.log('[MemberAPICalls] callResetPwAPI RESULT : ', result);
+
+        if (result && result.status === 200) {
+            return true; // 비밀번호 변경 성공
+        } else {
+            throw new Error(result.message || 'Unknown error occurred');
+        }
+    };
 };
