@@ -1,6 +1,5 @@
 package travelanchor_server.population.service;
 
-import org.hibernate.internal.build.AllowSysOut;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -82,6 +81,29 @@ public class NoticeService {
         }
         log.info("[NoticeService] updateNotice() End");
         return (result > 0) ? "공지사항 수정 성공" : "공지사항 수정 실패";
+    }
+
+    @Transactional
+    public Object updateNoticeViews(int noticeCode) {
+        log.info("[NoticeService] updateNoticeViews() Start");
+        int result = 0;
+
+        try{
+
+            Notice notice = noticeRepository.findById(noticeCode).get();
+            System.out.println("notice = " + notice);
+
+            notice.setNoticeViews(notice.getNoticeViews() + 1);
+
+            noticeRepository.save(notice);
+
+            result = 1;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        log.info("[NoticeService] updateNoticeViews() End");
+        return (result > 0) ? "공지사항 조회수 증가 성공" : "공지사항 조회수 증가 실패";
     }
 }
 

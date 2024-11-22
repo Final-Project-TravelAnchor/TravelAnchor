@@ -3,6 +3,8 @@ import { useEffect } from "react";
 import { replace, useNavigate, useParams } from "react-router-dom";
 import { callPopulationDetailAPI } from "../../apis/PopulationAPICalls";
 import './PopulationDetail.css';
+import { isLogin } from "../../utils/tokenUtils";
+
 
 
 export default function PopulationDetail() {
@@ -24,6 +26,13 @@ export default function PopulationDetail() {
     };
 
     const onClickInsertChatRoom = () => {
+
+        // isLogin이 false이면 로그인 창으로 이동
+        if(!isLogin()) {
+			navigate("/login", { replace: false });
+            return;
+        }
+
         console.log("[PopulationDetail] onClickInsertChatRoom");
         navigate(`/items/chatroom/${populationCode}`);
     };

@@ -1,7 +1,5 @@
 package travelanchor_server.travelreport.dto;
 
-import java.util.Date;
-
 public class TravelReportDTO {
 
     private int reportCode;
@@ -9,20 +7,18 @@ public class TravelReportDTO {
     private String reportTitle;
     private String reportContent;
     private String reportDestination;
-    private String reportTheme;
-    private Date reportCreatedAt;
+    private String reportCreatedAt;
     private String reportIsdeleted;
 
     public TravelReportDTO() {
     }
 
-    public TravelReportDTO(int reportCode, int memberCode, String reportTitle, String reportContent, String reportDestination, String reportTheme, Date reportCreatedAt, String reportIsdeleted) {
+    public TravelReportDTO(int reportCode, int memberCode, String reportTitle, String reportContent, String reportDestination, String reportCreatedAt, String reportIsdeleted) {
         this.reportCode = reportCode;
         this.memberCode = memberCode;
         this.reportTitle = reportTitle;
         this.reportContent = reportContent;
         this.reportDestination = reportDestination;
-        this.reportTheme = reportTheme;
         this.reportCreatedAt = reportCreatedAt;
         this.reportIsdeleted = reportIsdeleted;
     }
@@ -67,19 +63,11 @@ public class TravelReportDTO {
         this.reportDestination = reportDestination;
     }
 
-    public String getReportTheme() {
-        return reportTheme;
-    }
-
-    public void setReportTheme(String reportTheme) {
-        this.reportTheme = reportTheme;
-    }
-
-    public Date getReportCreatedAt() {
+    public String getReportCreatedAt() {
         return reportCreatedAt;
     }
 
-    public void setReportCreatedAt(Date reportCreatedAt) {
+    public void setReportCreatedAt(String reportCreatedAt) {
         this.reportCreatedAt = reportCreatedAt;
     }
 
@@ -99,7 +87,6 @@ public class TravelReportDTO {
                 ", reportTitle='" + reportTitle + '\'' +
                 ", reportContent='" + reportContent + '\'' +
                 ", reportDestination='" + reportDestination + '\'' +
-                ", reportTheme='" + reportTheme + '\'' +
                 ", reportCreatedAt=" + reportCreatedAt +
                 ", reportIsdeleted='" + reportIsdeleted + '\'' +
                 '}';

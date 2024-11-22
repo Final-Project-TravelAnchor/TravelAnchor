@@ -5,6 +5,8 @@ import PopulationList from '../items/PopulationList';
 import { replace, useNavigate } from 'react-router-dom';
 import './Population.css';
 
+import { isLogin } from '../../utils/tokenUtils';
+
 
 export default function Population() {
 
@@ -25,6 +27,12 @@ export default function Population() {
     // console.log("[Population] populations : ", populations);
 
     const onClickCreatePopulationHandler = () => {
+
+        if(!isLogin()) {
+			navigate("/login", { replace: false });
+            return;
+        }
+
         console.log("[Population] onClickCreatePopulationHandler");
         // navigate("/items/populationCreate", { replace: false});
         navigate("/items/populationCreate");

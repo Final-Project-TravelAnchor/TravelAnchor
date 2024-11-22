@@ -37,6 +37,15 @@ public class NoticeController {
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "조회 성공", noticeService.findNoticeList()));
     }
 
+    @Operation(summary = "공지사항 조회수 증가 요청", description = "공지사항 조회수 증가 처리가 진행됩니다.", tags = { "NoticeController" })
+    @GetMapping("/updateNoticeView/{noticeCode}")
+    public ResponseEntity<ResponseDTO> updateNoticeViews(@PathVariable int noticeCode){
+
+        log.info("[NoticeController] updateNoticeViews Start");
+
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "공지사항 조회수 증가 성공", noticeService.updateNoticeViews(noticeCode)));
+    }
+
 //    @Operation(summary = "여행메이트 상세 조회 요청", description = "여행메이트 상세 조회 처리가 진행됩니다.", tags = { "PopulationController" })
 //    @GetMapping("/populations/{populationCode}")
 //    public ResponseEntity<ResponseDTO> findPopulationDetail(@PathVariable int populationCode) {

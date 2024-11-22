@@ -97,7 +97,6 @@ public class TravelReportService {
             travelReport.setReportTitle(travelReportDTO.getReportTitle());
             travelReport.setReportContent(travelReportDTO.getReportContent());
             travelReport.setReportDestination(travelReportDTO.getReportDestination());
-            travelReport.setReportTheme(travelReportDTO.getReportTheme());
 
             System.out.println("travelReport = " + travelReport);
 

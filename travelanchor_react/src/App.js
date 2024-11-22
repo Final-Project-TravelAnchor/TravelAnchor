@@ -3,6 +3,7 @@ import Layout from './layouts/Layout';
 import Main from './pages/Main';
 import Login from './pages/member/Login';
 import Error from './pages/Error';
+import MyPage from './pages/member/MyPage';
 import Population from './components/items/Population';
 import PopulationDetail from './components/items/PopulationDetail';
 import PopulationCreate from './components/items/PopulationCreate';
@@ -11,6 +12,7 @@ import ChatRoom from './components/items/ChatRoom';
 import TravelReport from './pages/reports/TravelReport';
 import AddReportDate from './pages/reports/AddReportDate';
 import AddReportDestination from './pages/reports/AddReportDestination';
+import ReportCreate from './pages/reports/ReportCreate';
 import Map from './apis/MapAPICalls';
 import ShareKakao from './apis/ShareKakao';
 import Weather from './pages/features/Weather';
@@ -36,6 +38,7 @@ import FreeBoardModify from './pages/boards/FreeBoardModify';
 import FreeBoardCreate from './pages/boards/FreeBoardCreate';
 import FindId from './pages/member/FindId';
 import FindPw from './pages/member/FindPw';
+import TravelDestinations from './pages/travels/TravelDestinations';
 
 export default function App() {
   return (
@@ -73,9 +76,11 @@ export default function App() {
             <Route path='TravelReport' element={ <TravelReport/> }/>
             <Route path='AddReportDate' element={ <AddReportDate/> }/>
             <Route path='AddReportDestination' element={ <AddReportDestination/> }/>
+            <Route path='ReportCreate' element={ <ReportCreate/> }/>
             <Route path='Report' element={ <Report/> }/>
             <Route path='Map' element={ <Map/> }/>
             {/* <Route path='ShareKakao' element={ <ShareKakao/> }/> */}
+            <Route path="MyPage/:memberId" element={ <MyPage/> }/>  
             <Route path="Accommodation" element={ <Accommodation/> }/>
             <Route path="Weather" element={ <Weather/> }/>
             <Route path="Translation" element={ <Translation/> }/>
@@ -86,6 +91,7 @@ export default function App() {
             <Route path="Restaurants/:place_id" element={ <RestaurantDetail/> }/>
             <Route path="/findid" element={ <FindId/> } />
             <Route path="/findpw" element={ <FindPw/>} />
+            <Route path="TravelDestinations" element={ <TravelDestinations/> }/>
           </Route>
           <Route path='*' element={ <Error/> }/>
           <Route path="/register" element={ <Register/> } />

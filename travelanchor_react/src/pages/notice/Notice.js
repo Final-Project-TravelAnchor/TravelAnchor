@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { replace, useNavigate } from 'react-router-dom';
 import NoticeList from './NoticeList';
 import './Notice.css';
+import { isLogin } from '../../utils/tokenUtils';
 
 export default function Notice() {
 
@@ -25,6 +26,12 @@ export default function Notice() {
     // console.log("[Population] populations : ", populations);
 
     const onClickCreateNoticeHandler = () => {
+
+        if(!isLogin()) {
+			navigate("/login", { replace: false });
+            return;
+        }
+
         console.log("[Notice] onClickCreateNoticeHandler");
         navigate("/notice/noticeCreate");
     };
