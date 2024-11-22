@@ -17,6 +17,8 @@ function Header({ hideAuthLinks }) {
 	const [search, setSearch] = useState('');
 
 	const [loginModal, setLoginModal] = useState(false);
+	const [isDropdownOpen, setDropdownOpen] = useState(false); // 드롭다운 상태
+	const [isHamburgerOpen, setHamburgerOpen] = useState(false);
 
 	const onSearchChangeHandler = (e) => {
 		setSearch(e.target.value);
@@ -107,11 +109,15 @@ function Header({ hideAuthLinks }) {
 		);
 	}
 
-	const [isDropdownOpen, setDropdownOpen] = useState(false); // 드롭다운 상태
+	
 
 	// 드롭다운 열림/닫힘 상태 제어
 	const toggleDropdown = () => {
 		setDropdownOpen((prev) => !prev);
+	};
+
+	const toggleHamburgerDropdown = () => {
+		setHamburgerOpen((prev) => !prev);
 	};
 
 
@@ -179,9 +185,24 @@ function Header({ hideAuthLinks }) {
                     	)}
 					</div>
 
-					<button type='button'>
-						<img src='/images/main/BtnHamberger.png'/>
-					</button>
+					{/* 햄버거 버튼 */}
+					<div>
+						<button
+							type="button"
+							className={HeaderCSS.hamburgerBtn}
+							onClick={toggleHamburgerDropdown}
+						>
+							<img src="/images/main/BtnHamberger.png" alt="hamburger" />
+						</button>
+						{isHamburgerOpen && (
+							<ul className={HeaderCSS.hamburgerDropdown}>
+								<li>나의 여행 일정</li>
+								<li>나의 저장 장소</li>
+								<li>나의 후기</li>
+								<li>나의 매너 점수</li>
+							</ul>
+						)}
+					</div>
 
 				</div>
 

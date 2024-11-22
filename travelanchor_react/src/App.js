@@ -3,6 +3,7 @@ import Layout from './layouts/Layout';
 import Main from './pages/Main';
 import Login from './pages/member/Login';
 import Error from './pages/Error';
+import Mypage from './pages/MyPage';
 import Population from './components/items/Population';
 import PopulationDetail from './components/items/PopulationDetail';
 import PopulationCreate from './components/items/PopulationCreate';
@@ -85,6 +86,7 @@ export default function App() {
             <Route path="/findid" element={ <FindId/> } />
             <Route path="/findpw" element={ <FindPw/>} />
           </Route>
+          {/* <Route path="MyPage" element={ <MyPage/> }/> */}
           <Route path='*' element={ <Error/> }/>
           <Route path="/register" element={ <Register/> } />
         </Routes>

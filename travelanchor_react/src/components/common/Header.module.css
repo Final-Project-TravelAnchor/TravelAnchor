@@ -79,4 +79,34 @@ ul li a:hover {
     font-weight: bold;
 }
 
+.hamburgerBtn {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.hamburgerDropdown {
+    position: fixed; /* 화면 전체에 고정 */
+    top: 100px; /* 헤더 바로 아래로 위치 */
+    right: 0;
+    height: calc(100vh - 100px); /* 화면 높이에서 헤더 높이만큼 뺀 값 */
+    width: 300px; /* 드롭다운 너비 */
+    background-color: rgba(255, 255, 255, 0.95); /* 약간 투명한 흰색 배경 */
+    border-left: 1px solid #ddd; /* 왼쪽 경계선 */
+    list-style: none;
+    padding: 20px;
+    z-index: 1000; /* 드롭다운이 다른 요소들 위에 표시되게 */
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1); /* 약간의 그림자 */
+    overflow-y: auto; /* 내용이 넘칠 경우 스크롤 표시 */
+}
+
+.hamburgerDropdown li {
+    margin: 20px 0; /* 항목 간 간격 */
+    font-size: 1.2rem; /* 글씨 크기 */
+    cursor: pointer;
+}
+
+.hamburgerDropdown li:hover {
+    color: #007BFF; /* 호버 시 강조색 */
+}
 
