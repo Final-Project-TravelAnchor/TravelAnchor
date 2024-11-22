@@ -1,20 +1,39 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { callCountryAPI, callCityByCountryCodeAPI, callCityAPI, callCountryByCountryCodeAPI } from '../../apis/AreaAPICalls';
 import "./AddReportDestination.css";
+import {SET_SELECTED_CITY} from '../../modules/CityModule';
 
 function AddReportDestination () {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const countryList = useSelector((state) => state.areaReducer); // 국가 리스트
     const cityList = useSelector((state) => state.cityReducer); // 도시 리스트
+    const selectedCityCode = useSelector((state) => state.selectedCityReducer); // 도시 리스트
     console.log("countryList : ", countryList); // 국가 리스트 콘솔 출력
     console.log("cityList : ", cityList); // 국가 리스트 콘솔 출력
 
-    const [loading, setLoading] = useState(true);
-    const themes = ["휴양", "관광", "쇼핑", "맛집", "배낭여행", "액티비티", "세계여행"];
     const [selectedCountry, setSelectedCountry] = useState(1); // 국가 코드로 초기값 설정
     const [selectedCity, setSelectedCity] = useState("");
-    const [selectedTheme, setSelectedTheme] = useState("휴양");
+
+    // 다음 페이지 이동 핸들러
+    const nextPage = () => {
+        if (setSelectedCity) {
+            dispatch({
+                type: SET_SELECTED_CITY,
+                payload: {
+                selectedCity: selectedCity
+                }
+            });
+            console.log("nextPage");
+        // 도시가 선택되었을 때만 이동
+            navigate('/ReportCreate');
+        } else {
+        alert('여행한 도시를 선택해주세요..');
+        }
+    };
+    
 
     useEffect(() => {
         // setLoading(true);
@@ -59,7 +78,7 @@ function AddReportDestination () {
             {/* 도시 리스트 */}
             <div>
                 <h3>도시</h3>
-                <ul className="city-list">
+                <ul className="city-list"> 
                 {cityList.length > 0 ? (
                     cityList.map((city) => (
                         <li
@@ -76,26 +95,12 @@ function AddReportDestination () {
                 </ul>
             </div>
 
-            {/* 테마 리스트 */}
-            {/* <div>
-                <h3>여행 테마</h3>
-                <ul>
-                    {themes.map((theme) => (
-                        <li
-                            key={theme}
-                            onClick={() => setSelectedTheme(theme)}
-                            style={{
-                                cursor: "pointer",
-                                background: selectedTheme === theme ? "orange" : "white",
-                                color: selectedTheme === theme ? "white" : "black",
-                                padding: "10px",
-                            }}
-                        >
-                            {theme}
-                        </li>
-                    ))}
-                </ul>
-            </div> */}
+            {/* 다음 페이지 이동 버튼 */}
+            <div>
+            <button onClick={nextPage}>
+            &gt; {/* ">" 표시 */}
+            </button>
+            </div>
         </div>
     );
 }
