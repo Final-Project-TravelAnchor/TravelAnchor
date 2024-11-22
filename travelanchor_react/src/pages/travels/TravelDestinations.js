@@ -11,21 +11,21 @@ function TravelDestinations() {
 	const fetchTravelDestinationData = useCallback(async () => {
 		try {
 			const cityNames = [
-				"seoul",
+				"seoul korea",
 				"hongkong",
-				"tokyo",
-				"taipei",
-				"osaka",
-				"bangkok",
-				"hanoi",
-				"phuket",
-				"dubai",
-				"bali",
-				"london",
-				"roma",
-				"paris",
+				"tokyo japan",
+				"taipei taiwan",
+				"osaka japan",
+				"bangkok thailand",
+				"hanoi vietnam",
+				"phuket thailand",
+				"dubai arab emirates",
+				"bali indonesia",
+				"london uk",
+				"roma italy",
+				"paris france",
 				"newyork city",
-				"barcelona",
+				"barcelona spain",
 			];
 
 			const response = await callGetTravelDestinationAPI({
