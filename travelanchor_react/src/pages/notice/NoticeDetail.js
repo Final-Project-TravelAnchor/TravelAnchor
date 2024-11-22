@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { replace, useNavigate, useParams } from "react-router-dom";
-import { callPopulationDetailAPI } from "../../apis/PopulationAPICalls";
+import { callUpdateNoticeViewsAPI } from "../../apis/NoticeAPICalls";
 import { useLocation } from "react-router-dom";
 import "./NoticeDetail.css";
 
@@ -29,6 +29,9 @@ export default function NoticeDetail() {
 
     useEffect(() => {
         console.log("[NoticeDetail] notice useEffect");
+
+        dispatch(callUpdateNoticeViewsAPI(notice.noticeCode));
+
         // dispatch(callPopulationDetailAPI(populationCode));
     }, []);
 

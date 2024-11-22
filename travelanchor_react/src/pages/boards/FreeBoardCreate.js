@@ -2,6 +2,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { Navigate, replace, useNavigate, useParams } from "react-router-dom";
 import { callCreateFreeBoardAPI } from "../../apis/FreeBoardAPICalls";
+import { callGetMemberAPI } from "../../apis/MemberAPICalls";
+import { decodeJwt } from "../../utils/tokenUtils";
 
 
 export default function PopulationCreate() {
@@ -9,8 +11,19 @@ export default function PopulationCreate() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    const userInfo = useSelector(state => state.memberReducer);
+    const userMembercode = userInfo.data;
+
     const today = new Date().toISOString().split('T')[0];
     // console.log(today);
+
+    useEffect(() => {
+
+        let tokenSub = decodeJwt(window.localStorage.getItem("accessToken"));
+
+        dispatch(callGetMemberAPI({memberId: tokenSub.sub}));
+    },[]);
+    
 
     const [ form, setForm ] = useState({
         freeBoardCode: null,
@@ -18,7 +31,7 @@ export default function PopulationCreate() {
         freeBoardTitle: "Title", 
         freeBoardContent: "Content",
         freeBoardCreatedAt: today,
-        memberCode: 1,
+        memberCode: userMembercode.memberCode,
         freeBoardIsdeleted: "N",
     })
 

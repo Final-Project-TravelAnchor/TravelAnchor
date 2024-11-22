@@ -62,8 +62,8 @@ const fetchPostPopulationData = async (requestURL, createdPopulation) => {
             headers: {
 				Accept: '*/*',
                 'Content-Type': 'application/json',
-				// Authorization:
-				// 	'Bearer ' + window.localStorage.getItem('accessToken')
+				Authorization:
+					'Bearer ' + window.localStorage.getItem('accessToken')
 			},
             body: JSON.stringify(createdPopulation)
         }).then((response) => response.json());

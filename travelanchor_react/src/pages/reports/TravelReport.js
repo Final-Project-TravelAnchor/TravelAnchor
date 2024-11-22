@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { callTravelReportListAPI } from '../../apis/TravelReportAPICalls';
 import { useNavigate } from 'react-router-dom';
+import { isLogin } from '../../utils/tokenUtils';
 
 const TravelReportList = () => {
     const dispatch = useDispatch();
@@ -14,13 +15,19 @@ const TravelReportList = () => {
     }, [dispatch]);
 
     const onClickCreateTravelReport = () => {
+
+        if(!isLogin()) {
+			navigate("/login", { replace: false });
+            return;
+        }
+
         console.log('onClickCreateTravelReport called');
         navigate("/AddReportDate");
     };
 
     return (
         <div>
-        <button onClick={onClickCreateTravelReport}>후기 만들기</button>
+        <button onClick={onClickCreateTravelReport}>후기 생성</button>
         <h1>여행 후기 리스트</h1>
         {Array.isArray(travelReport) && travelReport.length > 0 ? (
             <ul>
