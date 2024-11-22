@@ -3,20 +3,27 @@ import { useEffect } from "react";
 import { replace, useNavigate, useParams } from "react-router-dom";
 import { callPopulationDetailAPI } from "../../apis/PopulationAPICalls";
 import './PopulationDetail.css';
-import { isLogin } from "../../utils/tokenUtils";
+import { isLogin, findSub } from "../../utils/tokenUtils";
+import { decodeJwt } from "../../utils/tokenUtils";
+import { callGetMemberAPI } from "../../apis/MemberAPICalls";
 
 
 
 export default function PopulationDetail() {
 
     const { populationCode } = useParams();
-    console.log("[PopulationDetail] population code: " + populationCode);
+    // console.log("[PopulationDetail] population code: " + populationCode);
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const population = useSelector(state => state.populationReducer)
-    // const populationDetail = population.data;
+    const populationDetail = population.data;
     // console.log(populationDetail);
+
+    const userInfo = useSelector(state => state.memberReducer);
+    // console.log("userInfo : ", userInfo);
+    const userMembercode = userInfo.data;
+    // console.log("userMembercode : ", userMembercode);
 
     const onClickModifyModeHandler = (populationCode, population) => {
         console.log("[PopulationDetail]onClickModifyModeHandler ", populationCode);
@@ -33,17 +40,26 @@ export default function PopulationDetail() {
             return;
         }
 
-        console.log("[PopulationDetail] onClickInsertChatRoom");
+        // console.log("[PopulationDetail] onClickInsertChatRoom");
         navigate(`/items/chatroom/${populationCode}`);
     };
 
     useEffect(() => {
-        console.log("[PopulationDetail] useEffect");
+        // console.log("[PopulationDetail] useEffect");
         dispatch(callPopulationDetailAPI(populationCode));
     }, []);
 
     useEffect(() => {
-        console.log("[PopulationDetail] population useEffect");
+        // console.log("[PopulationDetail] population useEffect");
+
+        const tokenSub = findSub();
+
+        // console.log(tokenSub);
+
+        if(tokenSub) {
+            dispatch(callGetMemberAPI({memberId: tokenSub}));
+        }
+
         // dispatch(callPopulationDetailAPI(populationCode));
     }, [population]);
 
@@ -80,12 +96,21 @@ export default function PopulationDetail() {
             </div>
         )}
         <div className="mate-detail-button-container">
-            <button
-                onClick={() => onClickModifyModeHandler(populationCode, population)}
-                className="mate-detail-modify-button"
-            >
-                수정하기
-            </button>
+            {
+                userMembercode && userMembercode.memberCode === populationDetail.memberCode ?
+                (
+                    <button
+                        onClick={() => onClickModifyModeHandler(populationCode, population)}
+                        className="mate-detail-modify-button"
+                    >
+                        수정하기
+                    </button>
+                )
+                :
+                (
+                    null
+                )
+            }
             <button onClick={onClickBackPopulationHandler}
                     className="mate-detail-back-button">뒤로가기</button>
         </div>

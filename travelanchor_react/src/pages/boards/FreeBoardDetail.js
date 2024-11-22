@@ -5,18 +5,20 @@ import { useLocation } from "react-router-dom";
 import FreeBoard from "./FreeBoard";
 import { decodeJwt } from "../../utils/tokenUtils";
 import { callGetMemberAPI } from "../../apis/MemberAPICalls";
-
+import { findSub } from "../../utils/tokenUtils";
 
 export default function FreeBoardDetail() {
 
     const location = useLocation();
     const freeboard = location.state;
 
+    // console.log("freeboard: " , freeboard);
+
     const userInfo = useSelector(state => state.memberReducer);
     const userMembercode = userInfo.data;
 
-    console.log(freeboard.memberCode);
-    console.log(userMembercode.memberCode);
+    // console.log(freeboard.memberCode);
+    // console.log(userMembercode);
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -33,9 +35,13 @@ export default function FreeBoardDetail() {
     useEffect(() => {
         console.log("[FreeBoardDetail] freeboard useEffect");
 
-        let tokenSub = decodeJwt(window.localStorage.getItem("accessToken"));
+        const tokenSub = findSub();
 
-        dispatch(callGetMemberAPI({memberId: tokenSub.sub}));
+        // console.log(tokenSub);
+
+        if(tokenSub) {
+            dispatch(callGetMemberAPI({memberId: tokenSub}));
+        }
 
         // dispatch(callPopulationDetailAPI(populationCode));
     }, []);
@@ -44,7 +50,7 @@ export default function FreeBoardDetail() {
         <>
             <div>
                 {
-                    freeboard.memberCode === userMembercode.memberCode ?
+                    userMembercode && userMembercode.memberCode === freeboard.memberCode ?
                     (
                         <button onClick={() => onClickModifyModeHandler(freeboard)}>
                             수정하기
