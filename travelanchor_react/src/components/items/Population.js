@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PopulationList from '../items/PopulationList';
 import { replace, useNavigate } from 'react-router-dom';
+import './Population.css';
 
 
 export default function Population() {
@@ -34,13 +35,24 @@ export default function Population() {
     } else {
     return (
         <>
-            <div>
-                <button onClick={onClickCreatePopulationHandler}>모집공고 생성</button>
-            </div>
-            <div>
-                {
-                    populations.length > 0 && populations.map((population) => (<PopulationList key={ population.populationCode } population={ population } />)) 
-                }
+            <div className="mate-container">
+                <h1 className="mate-title">여행메이트 찾기</h1>
+                <div className="mate-actions">
+                    <button onClick={onClickCreatePopulationHandler} className="mate-create-button">
+                        모집공고 생성
+                    </button>
+                </div>
+                <div className="population-grid">
+                    {populations.length > 0 ? (
+                        populations.map((population) => (
+                            <div key={population.populationCode} className="population-card">
+                                <PopulationList population={population} />
+                            </div>
+                        ))
+                    ) : (
+                        <div className="no-population">모집공고가 없습니다.</div>
+                    )}
+                </div>
             </div>
         </>
     );

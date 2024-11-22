@@ -236,7 +236,7 @@
 		{/* 왼쪽 이미지 섹션 */}
 		<div className="chat-left">
 			<img
-			src={`http://${process.env.REACT_APP_RESTAPI_IP}:8080/orange-1117645_1280.jpg`}
+			src={`http://${process.env.REACT_APP_RESTAPI_IP}:8080/hot-air-balloon.jpg`}
 			alt="left"
 			className="left-image"
 			/>

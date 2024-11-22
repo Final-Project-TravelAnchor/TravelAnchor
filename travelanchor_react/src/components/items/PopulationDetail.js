@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { replace, useNavigate, useParams } from "react-router-dom";
 import { callPopulationDetailAPI } from "../../apis/PopulationAPICalls";
+import './PopulationDetail.css';
 
 
 export default function PopulationDetail() {
@@ -37,24 +38,50 @@ export default function PopulationDetail() {
         // dispatch(callPopulationDetailAPI(populationCode));
     }, [population]);
 
+    const onClickBackPopulationHandler = () => {
+        console.log("[PopulationDetail] onClickBackPopulationHandler");
+        navigate(`/items/population`);
+    };
+
     return (
-        <div>
-            <button onClick={() => onClickModifyModeHandler(populationCode, population)}>
+        <div className="detail-mate-container">
+            <h1 className="detail-title">여행메이트 찾기</h1>
+
+    <div className="detail-container">
+        {population && (
+            <div className="detail-content">
+                <h2 className="mate-detail-title">
+                    {population.populationTitle}
+                </h2>
+                <h2 className="detail-item">
+                    <span className="detail-label">생성일자:</span> {population.populationCreatedAt}
+                </h2>
+                <h2 className="detail-item">
+                    <span className="detail-label">조회수:</span> {population.populationViews}
+                </h2>
+                <h2 className="detail-item">
+                    <span className="detail-label">모집인원:</span> {population.populationPeople}
+                </h2>
+                <h2 className="detail-item">
+                    <span className="detail-label">내용:</span> {population.populationDescription}
+                </h2>
+                <button onClick={onClickInsertChatRoom} className="detail-chat-button">
+            채팅하기
+        </button>
+            </div>
+        )}
+        <div className="mate-detail-button-container">
+            <button
+                onClick={() => onClickModifyModeHandler(populationCode, population)}
+                className="mate-detail-modify-button"
+            >
                 수정하기
             </button>
-            {
-                population && 
-                (
-                    <>
-                        <h1>제목 : {population.populationTitle}</h1>
-                        <h2>생성일자 : {population.populationCreatedAt}</h2>
-                        <h2>조회수 : {population.populationViews}</h2>
-                    </>
-                )
-            }
-            <button onClick={onClickInsertChatRoom}>
-                채팅하기
-            </button>
+            <button onClick={onClickBackPopulationHandler}
+                    className="mate-detail-back-button">뒤로가기</button>
         </div>
+        
+    </div>
+    </div>
     );
 }
