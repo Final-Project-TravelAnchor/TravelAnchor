@@ -100,6 +100,26 @@ export const callNoticeListAPI = () => {
     };
 };
 
+export const callUpdateNoticeViewsAPI = (noticeCode) => {
+    console.log('[NoticeAPICalls] callUpdateNoticeViewsAPI');
+    const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/notice/v1/updateNoticeView/${noticeCode}`;
+
+    return async (dispatch, getState) => {
+        try {
+            
+            const result = await fetchGetData(requestURL);
+
+            if(result.status === 200) {
+                console.log('[NoticeAPICalls] callUpdateNoticeAPI Result : ', result);
+                dispatch({ type: PUT_NOTICE, payload: result });
+            }
+
+        } catch (error) {
+            console.error('[NoticeAPICalls] callUpdateNoticeAPI error : ', error);
+        }
+    };
+};
+
 export const callUpdateNoticeAPI = (updatedNotice) => {
     console.log('[NoticeAPICalls] callUpdateNoticeAPI', updatedNotice);
     const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/notice/v1/notices`;
