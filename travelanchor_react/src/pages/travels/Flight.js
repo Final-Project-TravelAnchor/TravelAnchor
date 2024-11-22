@@ -20,16 +20,26 @@ export default function Flight() {
 	const [ loading, setLoading ] = useState(true);
 	const [loadingAirline, setLoadingAirline] = useState(false); // 항공사 로딩 상태
 
+	// useEffect(() => {
+	// 	setLoading(true);
+	// 	dispatch(callCityAPI());
+	// 	setLoading(false);
+	// 	},
+	// 	[]
+	// );
+
 	useEffect(() => {
-		setLoading(true);
-		dispatch(callCityAPI());
-		setLoading(false);
-		},
-		[]
-	);
+		const fetchCities = async () => {
+			setLoading(true);
+			await dispatch(callCityAPI());
+			setLoading(false);
+		};
+	
+		fetchCities();
+	}, [dispatch]);
 
 	// const [res, setRes] = useState(null); // 토큰 상태
-	const [flight, setFlight] = useState(null); // 비행기 상태
+	const [flight, setFlight] = useState([]); // 비행기 상태
 	const [tripType, setTripType] = useState("one-way"); // 여행 유형 상태
 	const [airlineData, setAirlineData] = useState({});
 
@@ -140,18 +150,31 @@ export default function Flight() {
 			<div className="form-group">
 			<label>출발지</label>
 			<select ref={ref.originRef}>
-				{cities.length > 0 && cities.map(city => (
-				<option key={city.cityCode} value={city.cityIataCode}>{city.cityName}</option>
-				))}
+				{cities?.length > 0 ? (
+					cities.map(city => (
+						<option key={city.cityCode} value={city.cityIataCode}>{city.cityName}</option>
+					))
+				) : (
+					<option>도시 데이터를 불러오는 중...</option>
+				)}
 			</select>
 			</div>
 
 			<div className="form-group">
 			<label>도착지</label>
-			<select ref={ref.destinationRef}>
+			{/* <select ref={ref.destinationRef}>
 				{cities.length > 0 && cities.map(city => (
 				<option key={city.cityCode} value={city.cityIataCode}>{city.cityName}</option>
 				))}
+			</select> */}
+			<select ref={ref.destinationRef}>
+				{cities?.length > 0 ? (
+					cities.map(city => (
+						<option key={city.cityCode} value={city.cityIataCode}>{city.cityName}</option>
+					))
+				) : (
+					<option>도시 데이터를 불러오는 중...</option>
+				)}
 			</select>
 			</div>
 
@@ -201,7 +224,7 @@ export default function Flight() {
 		<div className="output-section">
 			{loadingAirline && (
 				<div className="loading">
-				<p>항공사 정보를 불러오는 중입니다...</p>
+				<p>항공권 정보를 불러오는 중</p>
 				</div>
 			)}
 			{!loadingAirline && flight && flight.data && (
