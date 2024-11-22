@@ -122,7 +122,7 @@ const onClickKakaoLoginHandler = () => {
                     
                     // 메인 페이지로 이동
                     navigate("/", { replace: true });
-                    window.location.reload(); // 헤더 상태 업데이트를 위한 새로고침
+                    // window.location.reload(); // 헤더 상태 업데이트를 위한 새로고침
                 },
                 fail: function (error) {
                     console.error('카카오 사용자 정보 요청 실패', error);

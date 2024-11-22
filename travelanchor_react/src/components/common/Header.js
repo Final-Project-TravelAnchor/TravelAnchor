@@ -12,11 +12,15 @@ function Header({ hideAuthLinks }) {
 
 	// 리덕스를 이용하기 위한 디스패처, 셀렉터 선언
 	const dispatch = useDispatch();
-	const loginMember = useSelector((state) => state.memberReducer); // 저장소에서 가져온 loginMember 정보
-	const isLogin = window.localStorage.getItem('accessToken'); // Local Storage 에 token 정보 확인
+   	const loginMember = useSelector((state) => state.memberReducer); // 저장소에서 가져온 loginMember 정보
+   	const isLogin = loginMember.data ? true : false; // Redux 상태에 따라 로그인 여부 확인
+   
+	
 	const [search, setSearch] = useState('');
-
 	const [loginModal, setLoginModal] = useState(false);
+	
+	const [isDropdownOpen, setDropdownOpen] = useState(false); // 드롭다운 상태
+	const [isHamburgerOpen, setHamburgerOpen] = useState(false);
 
 	const onSearchChangeHandler = (e) => {
 		setSearch(e.target.value);
@@ -42,7 +46,7 @@ function Header({ hideAuthLinks }) {
 
 	// 토큰이 만료되었을때 다시 로그인
 	const onClickMypageHandler = () => {
-		const token = decodeJwt(window.localStorage.getItem('accessToken'));
+		const token = JSON.parse(atob(window.localStorage.getItem('accessToken').split('.')[1])); // 토큰 디코딩
 		console.log('[Header] onClickMypageHandler token : ', token);
 
 		if (token.exp * 1000 < Date.now()) {
@@ -50,68 +54,82 @@ function Header({ hideAuthLinks }) {
 			return;
 		}
 
-		navigate('/mypage', { replace: true });
+		window.location.href = `/mypage/${token.sub}`;
 	};
 
 	//로그아웃
 	const onClickLogoutHandler = () => {
-		   // 카카오 로그인 사용자인 경우
-		if (loginMember.data?.memberType === 'KAKAO') {
-            if (window.Kakao && window.Kakao.isInitialized()) {
-                window.Kakao.Auth.logout(() => {
-                    window.localStorage.removeItem('accessToken');
-                    dispatch(callLogoutAPI());
-                    alert('로그아웃이 되어 메인화면으로 이동합니다.');
-                    navigate('/', { replace: true });
-                    window.location.reload();
-                });
-            }
-        } else {
-            // 일반 로그인 사용자인 경우 (기존 로직)
-            window.localStorage.removeItem('accessToken');
-            dispatch(callLogoutAPI());
-            alert('로그아웃이 되어 메인화면으로 이동합니다.');
-            navigate('/', { replace: true });
-            window.location.reload();
-        }
-	};
+		window.localStorage.removeItem('accessToken');
+		dispatch(callLogoutAPI());
+  
+		alert('로그아웃이 되어 메인화면으로 이동합니다.');
+		navigate('/', { replace: true });
+		window.location.reload();
+	 };
+  
+	 // 카카오 로그아웃 핸들러 추가
+	 const onClickKakaoLogoutHandler = () => {
+		if (!window.Kakao.isInitialized()) {
+		   console.error('Kakao SDK가 초기화되지 않았습니다.');
+		   return;
+		}
+  
+		window.Kakao.Auth.logout(() => {
+		   console.log('카카오 로그아웃 성공');
+		   window.localStorage.removeItem('kakaoAccessToken'); // 카카오 토큰 제거
+		   dispatch(callLogoutAPI()); // Redux 상태 초기화
+		   alert('카카오 로그아웃이 완료되었습니다.');
+		   navigate('/', { replace: true }); // 메인 페이지로 이동
+		   window.location.reload();
+	  });
+  };
 
-	function BeforeLogin() {
-		return (
-			<div className={HeaderCSS.authLinks}>
-				<NavLink to="/login">로그인</NavLink> |{' '}
-				<NavLink to="/register">회원가입</NavLink>
-			</div>
-		);
-	}
+  function BeforeLogin() {
+	return (
+	   <div>
+		  <NavLink to="/login">로그인</NavLink> |{' '}
+		  <NavLink to="/register">회원가입</NavLink>
+	   </div>
+	);
+ }
 
-	function AfterLogin() {
-		return (
-			<div>
-			<button
-				className={HeaderCSS.HeaderBtn}
-				onClick={onClickMypageHandler}
-			>
-				{loginMember.data?.memberType === 'KAKAO' 
-					? `${loginMember.data?.memberName}님의 마이페이지` 
-					: '마이페이지'}
-			</button>{' '}
-			|{' '}
-			<button
-				className={HeaderCSS.HeaderBtn}
-				onClick={onClickLogoutHandler}
-			>
-				로그아웃
-			</button>
-		</div>
-		);
-	}
+ function AfterLogin() {
+	return (
+	   <div>
+		  <button 
+			 className={HeaderCSS.HeaderBtn}
+			 onClick={onClickMypageHandler}
+		  ><NavLink to="/MyPage/:memberId">
+			 {loginMember.data?.memberType === 'KAKAO' 
+				? `${loginMember.data?.memberName}님의 마이페이지` 
+				: '마이페이지'}</NavLink>
+		  </button>{' '}
+		  |{' '}
+		  <button
+			 className={HeaderCSS.HeaderBtn}
+			 onClick={onClickLogoutHandler}
+		  >
+			 로그아웃
+		  </button>
+		  <button
+			  className={HeaderCSS.HeaderBtn}
+			  onClick={onClickKakaoLogoutHandler} // 카카오 로그아웃
+		  >
+			  카카오 로그아웃
+		  </button>
+	   </div>
+	);
+ }
 
-	const [isDropdownOpen, setDropdownOpen] = useState(false); // 드롭다운 상태
+	
 
 	// 드롭다운 열림/닫힘 상태 제어
 	const toggleDropdown = () => {
 		setDropdownOpen((prev) => !prev);
+	};
+
+	const toggleHamburgerDropdown = () => {
+		setHamburgerOpen((prev) => !prev);
 	};
 
 
@@ -172,18 +190,38 @@ function Header({ hideAuthLinks }) {
 				</div>
 
 				<div class="headerRight" className={HeaderCSS.headerRight}>
-					<div class="logWrap"> 
-						{/* 로그인 상태에 따라 다른 컴포넌트 랜더링 */}
-						{isLogin == null || isLogin === undefined ? (
-							!hideAuthLinks ? <BeforeLogin /> : null // hideAuthLinks가 true일 때는 렌더링하지 않음
-                    	) : (
+               <div class="logWrap"> 
+                  {/* {isLogin == null || isLogin === undefined ? (
+                     !hideAuthLinks ? <BeforeLogin /> : null // hideAuthLinks가 true일 때는 렌더링하지 않음
+                    ) : (
                         <AfterLogin />
-                    	)}
-					</div>
+                       )} */}
+                  {!isLogin ? (
+                     !hideAuthLinks ? <BeforeLogin /> : null // hideAuthLinks가 true일 때는 렌더링하지 않음
+                    ) : (
+                        <AfterLogin />
+                    )}
+               </div>
 
-					<button type='button'>
-						<img src='/images/main/BtnHamberger.png'/>
-					</button>
+					{/* 햄버거 버튼 */}
+					<div  >
+						<button
+							type="button"
+							className={HeaderCSS.hamburgerBtn}
+							onClick={() => setHamburgerOpen(!isHamburgerOpen)}
+		
+						>
+							<img src="/images/main/BtnHamberger.png" alt="hamburger" />
+						</button>
+						{isHamburgerOpen && (
+							<ul className={HeaderCSS.hamburgerDropdown}  onMouseLeave={() => setHamburgerOpen(false)}>
+								<li>나의 여행 일정</li>
+								<li>나의 저장 장소</li>
+								<li>나의 후기</li>
+								<li>나의 매너 점수</li>
+							</ul>
+						)}
+					</div>
 
 				</div>
 
