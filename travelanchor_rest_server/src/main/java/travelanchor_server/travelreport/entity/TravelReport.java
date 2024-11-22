@@ -2,8 +2,6 @@ package travelanchor_server.travelreport.entity;
 
 import jakarta.persistence.*;
 
-import java.util.Date;
-
 @Entity
 @Table(name = "tbl_travel_reports")
 public class TravelReport {
@@ -25,11 +23,8 @@ public class TravelReport {
     @Column(name = "report_destination")
     private String reportDestination;
 
-    @Column(name = "report_theme")
-    private String reportTheme;
-
     @Column(name = "report_created_at")
-    private Date reportCreatedAt;
+    private String reportCreatedAt;
 
     @Column(name = "report_isdeleted")
     private String reportIsdeleted;
@@ -75,19 +70,11 @@ public class TravelReport {
         this.reportDestination = reportDestination;
     }
 
-    public String getReportTheme() {
-        return reportTheme;
-    }
-
-    public void setReportTheme(String reportTheme) {
-        this.reportTheme = reportTheme;
-    }
-
-    public Date getReportCreatedAt() {
+    public String getReportCreatedAt() {
         return reportCreatedAt;
     }
 
-    public void setReportCreatedAt(Date reportCreatedAt) {
+    public void setReportCreatedAt(String reportCreatedAt) {
         this.reportCreatedAt = reportCreatedAt;
     }
 
@@ -107,7 +94,6 @@ public class TravelReport {
                 ", reportTitle='" + reportTitle + '\'' +
                 ", reportContent='" + reportContent + '\'' +
                 ", reportDestination='" + reportDestination + '\'' +
-                ", reportTheme='" + reportTheme + '\'' +
                 ", reportCreatedAt=" + reportCreatedAt +
                 ", reportIsdeleted='" + reportIsdeleted + '\'' +
                 '}';
