@@ -2,6 +2,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { callUpdatePopulationAPI } from "../../apis/PopulationAPICalls";
 import { useDispatch } from "react-redux";
+import './PopulationModify.css';
 
 
 export default function PopulationModify() {
@@ -28,7 +29,7 @@ export default function PopulationModify() {
             ...population,
             populationTitle: form.populationTitle,
             populationDescription: form.populationDescription,
-            populationOnoff: 'Y',
+            populationOnoff: form.populationOnoff,
             populationCreatedAt: '2024-03-09',
         };
 
@@ -43,39 +44,56 @@ export default function PopulationModify() {
     };
 
     return (
-        <>
-            <div>
-                <h1>Population Modify Page</h1>
-            </div>
-            <div>
-                <label>제목 : <input
+        <div className="mate-modify-container">
+        <h1 className="mate-modify-title">여행메이트 찾기 수정</h1>
+        <div className="mate-modify-form">
+            <label className="mate-modify-label">
+                제목
+            </label>
+                <input
+                    className="mate-modify-title-input"
                     placeholder="제목"
                     name="populationTitle"
-                    onChange={ onChangeHanlder }
+                    onChange={onChangeHanlder}
                     value={form.populationTitle}
-                /></label>
-                <br/>
-                <label>설명 : <input
+                /><br/>
+            <label className="mate-modify-label">
+                설명
+            </label>
+                <input
+                    className="mate-modify-content-input"
                     placeholder="설명"
                     name="populationDescription"
-                    onChange={ onChangeHanlder }
+                    onChange={onChangeHanlder}
                     value={form.populationDescription}
-                /></label>
-                <br/>
-                <label>여행 상태:
-                    <select
-                        name="populationOnoff"
-                        onChange={onChangeHanlder}
-                        value={form.populationOnoff}
-                    >
-                        <option value="진행중">여행진행</option>
-                        <option value="종료">여행종료</option>
-                    </select>
-                </label>
-                <br/>
-                <button onClick={onClickSaveHandler}>수정하기</button>
-                <button onClick={onClickCancelHandler}>취소하기</button>
+                /><br/>
+            <label className="mate-modify-label">
+                여행 상태
+            </label>
+                <select
+                    className="mate-modify-select"
+                    name="populationOnoff"
+                    onChange={onChangeHanlder}
+                    value={form.populationOnoff}
+                >
+                    <option value="Y">여행진행</option>
+                    <option value="N">여행종료</option>
+                </select>
+            <div className="mate-modify-button-container">
+                <button
+                    className="mate-modify-save-button"
+                    onClick={onClickSaveHandler}
+                >
+                    수정하기
+                </button>
+                <button
+                    className="mate-modify-cancel-button"
+                    onClick={onClickCancelHandler}
+                >
+                    취소하기
+                </button>
             </div>
-        </>
+        </div>
+    </div>
     );
 }

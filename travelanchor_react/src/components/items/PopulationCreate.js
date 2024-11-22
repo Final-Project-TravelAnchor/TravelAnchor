@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { Navigate, replace, useNavigate, useParams } from "react-router-dom";
 import { callCreatePopulationAPI } from "../../apis/PopulationAPICalls";
+import './PopulationCreate.css';
 
 
 export default function PopulationCreate() {
@@ -42,38 +43,57 @@ export default function PopulationCreate() {
 
     const onChangeHandler = (e) => {
         setForm({
-           ...form,
+            ...form,
             [e.target.name]: e.target.value,
         });
     };
 
+    const onClickCancelPopulationHandler = () => {
+        console.log("[PopulationCreate] onClickCancelPopulationHandler");
+        navigate(`/items/population`);
+    };
+
 
     return (
-        <div>
-            <h1>PopulationCreate page</h1>
-            <label>공고 제목 : <input
-                type="text"
-                name="populationTitle"
-                placeholder="공고 제목"
-                onChange={onChangeHandler}
-            /></label>
-            <br/>
-            <label>공고 설명 : <input
-                type="text"
-                name="populationDescription"
-                placeholder="공고 설명"
-                onChange={onChangeHandler}
-            /></label>
-            <br/>
-            <label>공고 모집인원 : <input
-                type="text"
-                name="populationPeople"
-                placeholder="공고 모집인원"
-                onChange={onChangeHandler}
-            /></label>
-            <br/>
-            <button onClick={onClickCreatePopulationHandler}>추가하기</button>
-            <button>취소하기</button>
+        <div className="mate-create-container">
+            <h1 className="mate-create-title">여행메이트 모집공고 작성</h1>
+            <div className="mate-create-form">
+
+                <label className="mate-create-label">제목</label>
+                    <input
+                    className="mate-create-title-input"
+                    type="text"
+                    name="populationTitle"
+                    placeholder="제목을 입력하세요"
+                    onChange={onChangeHandler}
+                    />
+                <br/>
+                <label className="mate-create-label">내용</label>
+                    <input
+                    className="mate-create-content-input"
+                    type="text"
+                    name="populationDescription"
+                    placeholder="내용을 입력하세요"
+                    onChange={onChangeHandler}
+                    />
+                <br/>
+                <label className="mate-create-label">모집인원
+                </label>
+                    <input
+                    className="mate-create-people-input"
+                    type="text"
+                    name="populationPeople"
+                    placeholder="공고 모집인원"
+                    onChange={onChangeHandler}
+                    />
+                <br/>
+                <div className="mate-create-button-container">
+                    <button onClick={onClickCreatePopulationHandler}
+                    className="mate-create-save-button">추가하기</button>
+                    <button onClick={onClickCancelPopulationHandler}
+                    className="mate-create-cancel-button">취소하기</button>
+                </div>
+            </div>
         </div>
     );
 }

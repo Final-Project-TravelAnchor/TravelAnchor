@@ -2,30 +2,31 @@
     display: flex;
     width: 80%;
     max-width: 1200px; /* 최대 너비 제한 */
-    height: 80vh; /* 높이 제한 */
-    align-items: center;
-    overflow: hidden;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
-	margin-left: 100px;
+    height: 70vh; /* 높이 제한 */
+    margin: auto; /* 자동 여백으로 수평 및 수직 중앙 정렬 */
+    padding: 30px;
     border-radius: 10px;
-    background: white; /* 채팅 창 배경색 */
+    gap: 20px; /* 왼쪽과 오른쪽 간격 */
+    overflow: hidden;
 }
 
 .chat-left {
     flex: 1;
-    display: flex; /* Flex로 내부 중앙 정렬 */
+    display: fixed; /* Flex로 내부 중앙 정렬 */
+    width: 100%;
+    height: 100%;
     justify-content: center;
     align-items: center;
     background: #f4f4f4;
-    border-radius: 10px 0 0 10px;
+    border-radius: 10px;
 }
 
 .left-image {
     width: 100%;
     max-width: 400px; /* 최대 너비 제한 */
-    height: auto;
+    height: 100%;
     object-fit: cover;
-    border-radius: 10px 0 0 10px;
+    border-radius: 10px;
 }
 
 .chat-right {
@@ -35,31 +36,32 @@
     width: 100%;
     height: 100%;
     background: #fff;
-    border-radius: 0 10px 10px 0;
+    border: 1px solid #ff8600;
+    border-radius: 10px;
 }
 
 .messages-section {
+    margin: 5px;
     flex: 1;
     padding: 10px;
     overflow-y: auto;
-    border-bottom: 1px solid #ddd;
-}
-
-.message {
-    padding: 8px;
-    margin-bottom: 10px;
-    background: #f9f9f9;
-    border-radius: 10px;
+    /* border-bottom: 1px solid #ddd; */
 }
 
 .text-message {
     color: #333;
+    padding: 10px;
+    margin-bottom: 5px;
+    background: #f9f9f9;
+    border-radius: 5px;
+    font-size: 18px;
 }
 
 .image-message .message-image {
     max-width: 50%;
     height: auto;
     border-radius: 10px;
+    margin-bottom: 5px;
 }
 
 .no-message {
@@ -83,6 +85,12 @@
     border-radius: 5px;
 }
 
+.input-field:focus {
+    outline: none;
+    border-color: #FF8600;
+    box-shadow: 0 0 5px rgba(255, 134, 0, 0.5);
+}
+
 .send-button {
     padding: 10px 20px;
     background: #ff8600;
@@ -92,8 +100,7 @@
     cursor: pointer;
 }
 
-.send-button:hover,
-.image-plus-button:hover {
+.send-button:hover {
     background: #e07500;
 }
 
@@ -124,4 +131,9 @@
     border: none;
     color: #FF8600;
     padding-right: 10px;
+    margin-left: 10px;
+}
+
+.image-plus-button:hover {
+    color: #ffa135;
 }
