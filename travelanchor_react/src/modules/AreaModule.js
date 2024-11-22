@@ -3,18 +3,18 @@ import { createActions, handleActions } from "redux-actions";
 const initialState = [];
 
 export const GET_COUNTRY = "area/GET_COUNTRY";
-export const GET_CITY = "area/GET_CITY";
+export const GET_COUNTRY_CODE = "area/GET_COUNTRY_CODE";
 
 const actions = createActions({
 	[GET_COUNTRY]: () => {},
-	[GET_CITY]: () => {}
+	[GET_COUNTRY_CODE]: () => {},
 });
 
 const areaReducer = handleActions({
 	[GET_COUNTRY]: (state, { payload }) => {
 		return payload;
 	},
-	[GET_CITY]: (state, { payload }) => {
+	[GET_COUNTRY_CODE]: (state, { payload }) => {
 		return payload;
 	}
 }, initialState);

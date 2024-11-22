@@ -6,6 +6,7 @@ import travelReportReducer from './TravelReportModule';
 import noticeReducer from './NoticeModule';
 import freeboardReducer from './FreeBoardModule';
 import areaReducer from './AreaModule';
+import cityReducer from './CityModule';
 import planReducer from './PlanModule';
 
 const rootReducer = combineReducers({
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
 	travelReportReducer,
 	noticeReducer,
 	areaReducer,
+	cityReducer,
 	planReducer,
 });
 

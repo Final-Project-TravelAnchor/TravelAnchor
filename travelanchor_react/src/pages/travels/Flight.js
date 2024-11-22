@@ -11,8 +11,11 @@ export default function Flight() {
 
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
-	const citiesObj = useSelector(state => state.areaReducer);
+	const citiesObj = useSelector(state => state.cityReducer);
+	// console.log("citiesObj : ", citiesObj);
 	const cities = citiesObj.data;
+
+	// console.log("cities : ", cities);
 
 	const [ loading, setLoading ] = useState(true);
 	const [loadingAirline, setLoadingAirline] = useState(false); // 항공사 로딩 상태
@@ -137,7 +140,7 @@ export default function Flight() {
 			<div className="form-group">
 			<label>출발지</label>
 			<select ref={ref.originRef}>
-				{cities && cities.map(city => (
+				{cities.length > 0 && cities.map(city => (
 				<option key={city.cityCode} value={city.cityIataCode}>{city.cityName}</option>
 				))}
 			</select>
@@ -146,7 +149,7 @@ export default function Flight() {
 			<div className="form-group">
 			<label>도착지</label>
 			<select ref={ref.destinationRef}>
-				{cities && cities.map(city => (
+				{cities.length > 0 && cities.map(city => (
 				<option key={city.cityCode} value={city.cityIataCode}>{city.cityName}</option>
 				))}
 			</select>

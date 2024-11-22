@@ -1,9 +1,13 @@
 import style from '../../../src/pages/restaurants/Restaurants.module.css';
 import { useCallback, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { callGetRestaurantAPI } from '../../apis/RestaurantAPICalls';
 import commonCss from '../../components/common/common.module.css';
 
 function Restaurants() {
+
+    const navigate = useNavigate();
+
     const [city, setCity] = useState("seoul");
     const [sort, setSort] = useState("name");
     const [places, setPlaces] = useState([]);
@@ -41,7 +45,12 @@ function Restaurants() {
     const renderPlaceCards = () => {
         console.log("Rendering Places:", sortedPlaces); // 렌더링할 장소 확인
         return sortedPlaces.map((place, index) => (
-            <div key={place.place_id || index} className={style.card}>
+            <div 
+                key={place.place_id || index} 
+                className={style.card}
+                onClick={() => (navigate(`/Restaurants/${place.place_id}`), {state: {place}})} // 맛집 세부 조회 페이지로 이동
+                style={{ cursor: "pointer" }} 
+            >
                 <img
                     className={style.cardImg}
                     src={

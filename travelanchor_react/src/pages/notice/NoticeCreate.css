@@ -1,73 +1,75 @@
- /* 전체 컨테이너 스타일 */
-.notice-create-container {
+/* 전체 컨테이너 스타일 notice-container로 통일*/
+/* .notice-create-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin-top: 120px;
     min-height: 100vh;
     font-family: Arial, sans-serif;
-}
+} */
 
-/* 제목 스타일 */
-.create-title {
+/* 제목 스타일 .notice-title로 통일 */
+/* .notice-create-title {
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 20px;
     color: #333;
+} */
+
+.notice-create-container {
+    min-width: 800px;
+    padding: 30px;
+    border-radius: 10px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid #FF8600;
 }
 
 /* 폼 그룹 */
-.form-group {
+/* .notice-form-group {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     width: 100%;
     max-width: 600px;
     margin-bottom: 20px;
-}
-
-/* 폼 라벨 */
-.form-label {
-    font-size: 16px;
-    font-weight: bold;
-    margin-bottom: 5px;
-    color: #555;
-}
+} */
 
 /* 입력 필드 */
-.form-input,
-.form-textarea {
+/* .notice-form-input,
+.notice-form-textarea {
     width: 100%;
     padding: 10px;
-    font-size: 14px;
+    font-size: 18px;
     border: 1px solid #ddd;
     border-radius: 5px;
     box-sizing: border-box;
+} */
+
+.notice-create-title-input {
+	margin-top: 5px;
+	width: 100%;
+	min-height: 20px;
+	background-color: #f6f6f6;
+	font-size: 18px;
 }
 
-.form-input:focus,
-.form-textarea:focus {
+.notice-create-content-input {
+	margin-top: 5px;
+	width: 100%;
+	min-height: 100px;
+    background-color: #f6f6f6;
+	font-size: 18px;
+}
+
+.notice-create-title-input:focus,
+.notice-create-content-input:focus {
     outline: none;
     border-color: #FF8600;
     box-shadow: 0 0 5px rgba(255, 134, 0, 0.5);
 }
 
-/* 텍스트 영역 */
-.form-textarea {
-    height: 100px;
-    resize: none;
-}
-
-/* 버튼 그룹 */
-.button-group {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    max-width: 600px;
-}
-
 /* 추가하기 버튼 */
-.create-button {
+.notice-create-button {
     padding: 10px 20px;
     font-size: 16px;
     background-color: #FF8600;
@@ -75,16 +77,16 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     margin-right: 10px;
-    flex: 1;
 }
 
-.create-button:hover {
+.notice-create-button:hover {
     background-color: #e07500;
 }
 
 /* 취소하기 버튼 */
-.cancel-button {
+.notice-cancel-button {
     padding: 10px 20px;
     font-size: 16px;
     background-color: #ddd;
@@ -92,9 +94,22 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    flex: 1;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.cancel-button:hover {
+.notice-cancel-button:hover {
     background-color: #ccc;
+}
+
+/* .notice-button-right {
+    width: 100%;
+    max-width: 800px;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+} */
+
+.notice-create-title {
+    font-size: 18px;
+	font-weight: bold;
 }
