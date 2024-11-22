@@ -35,9 +35,8 @@ export const fetchPutData = async (requestURL, updatedNotice) => {
             headers: {
 				Accept: '*/*',
                 'Content-Type': 'application/json',
-                // 'Authorization':
-				// Authorization:
-				// 	'Bearer ' + window.localStorage.getItem('accessToken')
+				Authorization:
+					'Bearer ' + window.localStorage.getItem('accessToken')
 			},
             body: JSON.stringify(updatedNotice)
         }).then((response) => response.json());
@@ -62,8 +61,8 @@ export const fetchPostData = async (requestURL, createdNotice) => {
             headers: {
 				Accept: '*/*',
                 'Content-Type': 'application/json',
-				// Authorization:
-				// 	'Bearer ' + window.localStorage.getItem('accessToken')
+				Authorization:
+					'Bearer ' + window.localStorage.getItem('accessToken')
 			},
             body: JSON.stringify(createdNotice)
         }).then((response) => response.json());

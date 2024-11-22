@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { replace, useNavigate } from 'react-router-dom';
 import FreeBoardList from './FreeBoardList';
+import { isLogin } from '../../utils/tokenUtils';
 
 export default function FreeBoard() {
 
@@ -24,6 +25,11 @@ export default function FreeBoard() {
     // console.log("[Population] populations : ", populations);
 
     const onClickCreateFreeBoardHandler = () => {
+
+        if(!isLogin()) {
+			navigate("/login", { replace: false });
+            return;
+        }
         console.log("[FreeBoard] onClickCreateFreeBoardHandler");
         navigate("/freeboard/freeboardCreate");
     };

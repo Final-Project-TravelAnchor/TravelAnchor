@@ -6,3 +6,23 @@ export function decodeJwt(token) {
 
     return jwtDecode(token);
 };
+
+export function isLogin() {
+        const token = decodeJwt(window.localStorage.getItem("accessToken"));
+        console.log("[isLogin] token : ", token);
+        
+        if(token === undefined || token === null) {
+            alert("로그인이 필요한 서비스입니다.");
+            return false;
+            // result = false;
+            // navigate(`/login`);
+        }
+
+        if(token.exp * 1000 < Date.now()) {
+            alert("세션이 만료됐습니다. 로그인 창으로 이동합니다.");
+            return false;
+            // result = false;
+        }
+
+        return true;
+}
