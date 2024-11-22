@@ -1,9 +1,9 @@
-import { GET_MEMBER, POST_LOGIN, POST_REGISTER } from '../modules/MemberModule';
+import { GET_MEMBER, PUT_MEMBER, POST_LOGIN, POST_REGISTER } from '../modules/MemberModule';
 
 export const callGetMemberAPI = ({ memberId }) => {
 	const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/member/v1/members/${memberId}`;
 
-	return async (dispatch, getState) => {
+	return async (dispatch) => {
 
 		const result = await fetch(requestURL, {
 			method: 'GET',
@@ -15,9 +15,37 @@ export const callGetMemberAPI = ({ memberId }) => {
 			}
 		}).then((response) => response.json());
 
-		console.log('[MemberAPICalls] callGetMemberAPI RESULT : ', result);
+		console.log('[MemberAPICalls] callGetMemberAPI RESULT 회원정보 : ', result);
 
-		dispatch({ type: GET_MEMBER, payload: result });
+		if (result.status === 200) {
+            dispatch({ type: GET_MEMBER, payload: result.data }); // data 저장
+        } else {
+            console.error('Error fetching member:', result.message);
+        }
+	};
+};
+
+export const callUpdateMemberAPI = ({ memberId }) => {
+	const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/member/v1/members/${memberId}`;
+
+	return async (dispatch) => {
+
+		const result = await fetch(requestURL, {
+			method: 'PUT',
+			headers: {
+				'Content-Type': 'application/json',
+				Accept: '*/*',
+				Authorization:
+					'Bearer ' + window.localStorage.getItem('accessToken')
+			}
+		}).then((response) => response.json());
+		
+
+		if( result.status === 200) {
+			dispatch({ type: PUT_MEMBER, payload: result});
+		}else {
+			console.error('Error fetching memeber:', result.message);
+		}
 	};
 };
 

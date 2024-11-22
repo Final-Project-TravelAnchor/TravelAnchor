@@ -3,7 +3,7 @@ import Layout from './layouts/Layout';
 import Main from './pages/Main';
 import Login from './pages/member/Login';
 import Error from './pages/Error';
-import Mypage from './pages/MyPage';
+import MyPage from './pages/member/MyPage';
 import Population from './components/items/Population';
 import PopulationDetail from './components/items/PopulationDetail';
 import PopulationCreate from './components/items/PopulationCreate';
@@ -77,6 +77,7 @@ export default function App() {
             <Route path='Report' element={ <Report/> }/>
             <Route path='Map' element={ <Map/> }/>
             {/* <Route path='ShareKakao' element={ <ShareKakao/> }/> */}
+            <Route path="MyPage/:memberId" element={ <MyPage/> }/>  
             <Route path="Accommodation" element={ <Accommodation/> }/>
             <Route path="Weather" element={ <Weather/> }/>
             <Route path="Translation" element={ <Translation/> }/>
@@ -88,7 +89,6 @@ export default function App() {
             <Route path="/findid" element={ <FindId/> } />
             <Route path="/findpw" element={ <FindPw/>} />
           </Route>
-          {/* <Route path="MyPage" element={ <MyPage/> }/> */}
           <Route path='*' element={ <Error/> }/>
           <Route path="/register" element={ <Register/> } />
         </Routes>
