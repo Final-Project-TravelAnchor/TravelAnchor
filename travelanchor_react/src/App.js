@@ -37,6 +37,7 @@ import FreeBoardCreate from './pages/boards/FreeBoardCreate';
 import FindId from './pages/member/FindId';
 import FindPw from './pages/member/FindPw';
 import TravelDestinations from './pages/travels/TravelDestinations';
+import TravelDestinationDetail from './pages/travels/TravelDestinationDetail';
 
 export default function App() {
   return (
@@ -88,6 +89,7 @@ export default function App() {
             <Route path="/findid" element={ <FindId/> } />
             <Route path="/findpw" element={ <FindPw/>} />
             <Route path="TravelDestinations" element={ <TravelDestinations/> }/>
+            <Route path="TravelDestinations/:place_id" element={ <TravelDestinationDetail/> }/>
           </Route>
           <Route path='*' element={ <Error/> }/>
           <Route path="/register" element={ <Register/> } />

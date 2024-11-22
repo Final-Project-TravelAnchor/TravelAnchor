@@ -19,9 +19,10 @@ export const callRestaurantDetailAPI = async ({ place_id }) => {
 		});
 		return response.data || [];
 	} catch (err) {
-		console.error("Error fetching places:", err.message);
+		console.error("Error fetching place details:", err.message);
 		throw err;
 	}
+};
 
 	// 	const places = response.data;
 
@@ -71,7 +72,7 @@ export const callRestaurantDetailAPI = async ({ place_id }) => {
 	// 		"Failed to fetch restaurant details. Please try again later."
 	// 	);
 	// }
-};
+// };
 
 // import axios from "axios";
 

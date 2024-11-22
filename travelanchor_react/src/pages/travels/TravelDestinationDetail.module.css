@@ -1,0 +1,86 @@
+.container {
+	margin: 20px;
+	padding: 20px;
+	font-family: Arial, sans-serif;
+}
+
+h1 {
+	font-size: 2.5rem;
+	margin-bottom: 10px;
+}
+
+h2 {
+	font-size: 2rem;
+	margin-top: 30px;
+}
+
+/* Photo Carousel */
+.carouselContainer {
+	position: relative;
+	width: 100%;
+	overflow: hidden;
+}
+
+.carouselImages {
+	display: flex;
+	transition: transform 0.3s ease-in-out;
+}
+
+.carouselImagesImg {
+	width: 100%;
+	height: auto;
+	margin-right: 10px;
+}
+
+.arrowButton {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	background-color: rgba(0, 0, 0, 0.5);
+	color: white;
+	border: none;
+	font-size: 2rem;
+	padding: 10px;
+	cursor: pointer;
+	z-index: 1;
+}
+
+.arrowButtonLeft {
+	left: 10px;
+}
+
+.arrowButtonRight {
+	right: 10px;
+}
+
+/* Landmarks Section */
+.landmarksContainer {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+	gap: 20px;
+	margin-top: 20px;
+}
+
+.landmarkCard {
+	border: 1px solid #ddd;
+	padding: 15px;
+	border-radius: 10px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.landmarkCardH3 {
+	font-size: 1.5rem;
+	margin-bottom: 10px;
+}
+
+.landmarkCardP {
+	font-size: 1rem;
+	color: #555;
+}
+
+.landmarkCardImg {
+	width: 100%;
+	height: auto;
+	border-radius: 8px;
+	margin-bottom: 50px;
+}

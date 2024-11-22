@@ -18,7 +18,7 @@ const RestaurantDetail = () => {
             setPlaces(response || []); 
             console.log("results : ", response);
         } catch (err) {
-            setError("레스토랑 정보를 가져오는데 실패했습니다.");
+            setError("장소 정보를 가져오는데 실패했습니다.");
             console.error("Error fetching restaurant details:", err);
         } finally {
             setLoading(false);
@@ -35,14 +35,14 @@ const RestaurantDetail = () => {
         if (places) {
             localStorage.setItem("savedRestaurant", JSON.stringify(places));
             setIsSaved(true);  // 버튼을 "저장됨"으로 바꿈
-            alert("레스토랑 정보가 저장되었습니다!");
+            alert("식당이 저장되었습니다!");
         } else {
-            alert("저장할 레스토랑 정보가 없습니다.");
+            alert("저장할 식당 정보가 없습니다.");
         }
     };
 
     const handleBackToList = () => {
-        navigate("/api/places");
+        navigate("/Restaurants");
     };
 
     if (loading) return <div>Loading...</div>;
