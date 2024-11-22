@@ -46,7 +46,7 @@ app.get("/api/places", async (req, res) => {
 	}
 });
 
-// details 호출
+// 식당 details 호출
 app.get("/api/places/details", async (req, res) => {
 	const { place_id } = req.query; // place_id를 쿼리에서 가져옴
 	const API_KEY = process.env.REACT_APP_GOOGLE_KEY;
@@ -63,6 +63,47 @@ app.get("/api/places/details", async (req, res) => {
 		const response = await axios.get(url);
 
 		res.json(response.data.result);
+	} catch (error) {
+		if (error.response) {
+			console.error("Google API error:", error.response.data);
+			res.status(error.response.status).json({
+				error: error.response.data,
+			});
+		} else {
+			console.error("Google API error:", error.message);
+			res.status(500).json({ error: error.message });
+		}
+	}
+});
+
+// 여행지 추천 google API 호출
+app.get("/api/TravelDestinations", async (req, res) => {
+	const { cities } = req.query;
+
+	if (!cities) {
+		return res.status(400).json({ error: "Cities parameter is required." });
+	}
+
+	const parsedCities = JSON.parse(cities); 
+	const API_KEY = process.env.REACT_APP_GOOGLE_KEY;
+
+	if (!API_KEY) {
+		return res.status(400).json({ error: "API Key is missing." });
+	}
+
+	try {
+		const requests = parsedCities.map((city) => {
+			const url = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${encodeURIComponent(city)}&language=ko&key=${API_KEY}`;
+			return axios.get(url);
+		});
+
+		const responses = await Promise.all(requests);
+
+		const places = responses
+			.map((response) => response.data.results)
+			.flat();
+
+		res.json(places);
 	} catch (error) {
 		if (error.response) {
 			console.error("Google API error:", error.response.data);
