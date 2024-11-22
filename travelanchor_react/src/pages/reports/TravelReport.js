@@ -26,7 +26,7 @@ const TravelReportList = () => {
             <ul>
             {travelReport.map((report) => (
                 <li key={report.reportCode}>
-                후기 : {report.reportTitle}, 여행지 : {report.reportDestination}, 테마 : {report.reportTheme}, 내용 : {report.reportContent}, 작성일 : {report.reportCreatedAt}
+                후기 : {report.reportTitle}, 여행지 : {report.reportDestination}, 내용 : {report.reportContent}, 작성일 : {report.reportCreatedAt}
                 </li>
             ))}
             </ul>

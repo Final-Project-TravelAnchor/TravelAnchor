@@ -11,6 +11,7 @@ import ChatRoom from './components/items/ChatRoom';
 import TravelReport from './pages/reports/TravelReport';
 import AddReportDate from './pages/reports/AddReportDate';
 import AddReportDestination from './pages/reports/AddReportDestination';
+import ReportCreate from './pages/reports/ReportCreate';
 import Map from './apis/MapAPICalls';
 import ShareKakao from './apis/ShareKakao';
 import Weather from './pages/features/Weather';
@@ -73,6 +74,7 @@ export default function App() {
             <Route path='TravelReport' element={ <TravelReport/> }/>
             <Route path='AddReportDate' element={ <AddReportDate/> }/>
             <Route path='AddReportDestination' element={ <AddReportDestination/> }/>
+            <Route path='ReportCreate' element={ <ReportCreate/> }/>
             <Route path='Report' element={ <Report/> }/>
             <Route path='Map' element={ <Map/> }/>
             {/* <Route path='ShareKakao' element={ <ShareKakao/> }/> */}

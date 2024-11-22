@@ -39,7 +39,7 @@ export default function PopulationCreate() {
 
     const onChangeHandler = (e) => {
         setForm({
-           ...form,
+            ...form,
             [e.target.name]: e.target.value,
         });
     };
