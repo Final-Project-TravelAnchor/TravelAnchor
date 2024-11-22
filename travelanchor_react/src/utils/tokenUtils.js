@@ -26,3 +26,21 @@ export function isLogin() {
 
         return true;
 }
+
+export function findSub() {
+    const token = decodeJwt(window.localStorage.getItem("accessToken"));
+    console.log("[findSub] token : ", token);
+
+    if(token === undefined || token === null) {
+        return false;
+        // result = false;
+        // navigate(`/login`);
+    }
+
+    if(token.exp * 1000 < Date.now()) {
+        return false;
+        // result = false;
+    }
+
+    return token.sub;
+}
