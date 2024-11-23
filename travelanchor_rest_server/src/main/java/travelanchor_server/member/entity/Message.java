@@ -20,6 +20,9 @@ public class Message {
     @Column(name = "member_code")
     private int memberCode;
 
+    @Column(name = "member_name")
+    private String memberName;
+
     @Column(name = "message_content")
     private String messageContent;
 
@@ -29,11 +32,11 @@ public class Message {
     @Column(name = "message_type")
     private String type;
 
-
-    public Message(int messageCode, int chatroomCode, int memberCode, String messageContent, String messageSentAt, String type) {
+    public Message(int messageCode, int chatroomCode, int memberCode, String memberName, String messageContent, String messageSentAt, String type) {
         this.messageCode = messageCode;
         this.chatroomCode = chatroomCode;
         this.memberCode = memberCode;
+        this.memberName = memberName;
         this.messageContent = messageContent;
         this.messageSentAt = messageSentAt;
         this.type = type;
@@ -41,6 +44,14 @@ public class Message {
 
     public Message() {
 
+    }
+
+    public String getMemberName() {
+        return memberName;
+    }
+
+    public void setMemberName(String memberName) {
+        this.memberName = memberName;
     }
 
     public int getMessageCode() {
@@ -97,6 +108,7 @@ public class Message {
                 "messageCode=" + messageCode +
                 ", chatroomCode=" + chatroomCode +
                 ", memberCode=" + memberCode +
+                ", memberName=" + memberName +
                 ", messageContent='" + messageContent + '\'' +
                 ", messageSentAt='" + messageSentAt + '\'' +
                 ", type='" + type + '\'' +

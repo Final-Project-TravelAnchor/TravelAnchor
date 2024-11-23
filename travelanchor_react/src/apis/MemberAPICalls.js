@@ -18,7 +18,7 @@ export const callGetMemberAPI = ({ memberId }) => {
 		console.log('[MemberAPICalls] callGetMemberAPI RESULT 회원정보 : ', result);
 
 		if (result.status === 200) {
-            dispatch({ type: GET_MEMBER, payload: result.data }); // data 저장
+            dispatch({ type: GET_MEMBER, payload: result }); // data 저장
         } else {
             console.error('Error fetching member:', result.message);
         }

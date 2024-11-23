@@ -9,7 +9,7 @@ import {
 
 export const callFreeBoardListAPI = () => {
     const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/free-board/v1/free-board`;
-    console.log("[FreeBoardAPICalls] callFreeBoardListAPI : ", requestURL);
+    // console.log("[FreeBoardAPICalls] callFreeBoardListAPI : ", requestURL);
 
     return async (dispatch, getState) => {
 

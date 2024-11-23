@@ -1,66 +1,61 @@
 import { callNoticeListAPI } from '../../apis/NoticeAPICalls';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { replace, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import NoticeList from './NoticeList';
 import './Notice.css';
-import { isLogin } from '../../utils/tokenUtils';
+import { isLogin, findAuth } from '../../utils/tokenUtils';
 
 export default function Notice() {
-
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const notices = useSelector(state => state.noticeReducer);
-    const [ loading, setLoading ] = useState(true);
-
-    // console.log(notices);
+    const notices = useSelector(state => state.noticeReducer || []);
+    const [loading, setLoading] = useState(true);
+    const [auth, setAuth] = useState(null);
 
     useEffect(() => {
+        const fetchNotices = async () => {
             setLoading(true);
-            dispatch(callNoticeListAPI());
+            await dispatch(callNoticeListAPI());
             setLoading(false);
-        },
-        []
-    );
+        };
 
-    // console.log("[Population] populations : ", populations);
+        fetchNotices();
+    }, [dispatch]);
+
+    useEffect(() => {
+        const authValue = findAuth();
+        setAuth(authValue);
+        console.log("auth : ", authValue);
+    }, []);
 
     const onClickCreateNoticeHandler = () => {
-
-        if(!isLogin()) {
-			navigate("/login", { replace: false });
+        if (!isLogin()) {
+            navigate("/login", { replace: false });
             return;
         }
-
         console.log("[Notice] onClickCreateNoticeHandler");
         navigate("/notice/noticeCreate");
     };
 
-    if(loading) {
+    if (loading) {
         return <div>Loading...</div>;
-    } else {
+    }
+
     return (
-        // <>
-        //     <div>
-        //         <button onClick={onClickCreateNoticeHandler}>공지사항 생성</button>
-        //     </div>
-        //     <div>
-        //         {
-        //             notices.length > 0 && notices.map((notice) => (<NoticeList key={ notice.noticeCode} population={ notice } />)) 
-        //         }
-        //     </div>
-        // </>
-            <div className="notice-container">
-                <div className='notice-title'>공지사항</div>
-            {/* 상단 헤더 */}
-            <div className="notice-header">
-                <button 
-                    className="notice-first-create-button" 
-                    onClick={onClickCreateNoticeHandler}
-                >
-                    공지사항 생성
-                </button>
-            </div>
+        <div className="notice-container">
+            <div className="notice-title">공지사항</div>
+
+            {auth === 'Admin' && (
+                <div className="notice-header">
+                    <button 
+                        className="notice-first-create-button" 
+                        onClick={onClickCreateNoticeHandler}
+                    >
+                        공지사항 생성
+                    </button>
+                </div>
+            )}
 
             {/* 공지사항 목록 */}
             <div className="notice-list-container">
@@ -73,12 +68,17 @@ export default function Notice() {
                 </div>
 
                 <div>
-                    {
-                        notices.length > 0 && notices.map((notice) => (<NoticeList key={ notice.noticeCode} population={ notice } />)) 
+                    {notices?.length > 0 
+                        ? notices.map((notice) => (
+                            <NoticeList 
+                                key={notice.noticeCode} 
+                                population={notice} 
+                            />
+                          ))
+                        : <div>공지사항이 없습니다.</div>
                     }
                 </div>
-
             </div>
         </div>
     );
-}}
+}
