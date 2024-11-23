@@ -75,8 +75,10 @@ public class ChatController {
 //        return null;
 
 //        String uploadDir = "uploads/";
-        String uploadDir = "src/main/resources/static/";
-//        String uploadDir = "build/resources/main/static/";
+        // 되는 거
+//        String uploadDir = "src/main/resources/static/";
+        // 테스트 중
+        String uploadDir = "build/resources/main/static/";
 //        String uploadDir = "src/main/resources/static/";
         String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
         Path uploadPath = Paths.get(uploadDir);
