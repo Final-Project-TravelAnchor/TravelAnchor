@@ -7,6 +7,18 @@ export function decodeJwt(token) {
     return jwtDecode(token);
 };
 
+export function findAuth() {
+    const decodeToken = decodeJwt(window.localStorage.getItem("accessToken"));
+    console.log("[auth] decodeToken : ", decodeToken);
+
+    if(decodeToken === undefined || decodeToken === null || decodeToken.exp * 1000 < Date.now()) {
+        console.log("로그인 필요");
+        return null;
+    }
+
+    return decodeToken.auth[0];
+}
+
 export function isLogin() {
         const token = decodeJwt(window.localStorage.getItem("accessToken"));
         console.log("[isLogin] token : ", token);
