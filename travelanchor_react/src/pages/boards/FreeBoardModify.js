@@ -1,58 +1,71 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { callUpdateFreeBoardAPI } from "../../apis/FreeBoardAPICalls";
 import { useDispatch } from "react-redux";
-
 
 export default function FreeBoardModify() {
     const location = useLocation();
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    // console.log(location.state);
-    const { freeboard } = location.state || {};
-    console.log("[FreeBoardModify] freeboard: " + freeboard);
 
-    const [ form, setForm ] = useState({});
+    const freeboard = location.state || {}; 
+    const [form, setForm] = useState({}); 
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null); 
 
-    const onChangeHanlder = (e) => {
+    useEffect(() => {
+        if (freeboard) {
+            setForm({
+                freeBoardTitle: freeboard.freeBoardTitle || "",
+                freeBoardContent: freeboard.freeBoardContent || "",
+            });
+        }
+    }, [freeboard]);
+
+    const onChangeHandler = (e) => {
         setForm({
             ...form,
-            [e.target.name]: e.target.value
+            [e.target.name]: e.target.value,
         });
-        // console.log(e.target.name + " : " + e.target.value);
     };
 
-    // 저장
-    const onClickSaveHandler = async (e) => {
+    const onClickSaveHandler = async () => {
+        if (!form.freeBoardTitle.trim() || !form.freeBoardContent.trim()) {
+            alert("제목과 설명을 모두 입력해주세요.");
+            return;
+        }
+
         const updatedFreeBoard = {
             ...freeboard,
-            freeBoardCode: 1,
-            freeBoardCategoryCode: 1,
-            freeBoardTitle: form.freeboardTitle,
-            freeBoardContent: form.freeboardContent,
-            freeBoardCreatedAt: "2023-12-31",
-            // freeBoardCreatedAt: "2023-12-31T15:00:00.000+00:00",
-            memberCode: 1,
+            freeBoardCode: freeboard.freeBoardCode,
+            freeBoardCategoryCode: freeboard.freeBoardCategoryCode,
+            freeBoardTitle: form.freeBoardTitle,
+            freeBoardContent: form.freeBoardContent,
+            freeBoardCreatedAt: freeboard.freeBoardCreatedAt,
+            memberCode: freeboard.memberCode,
             freeBoardIsdeleted: 'N',
-            // freeBoardCode: 1,
-            // freeBoardCategoryCode: 1,
-            // freeBoardTitle: "to the Travel Community",
-            // freeBoardContent: "",
-            // freeBoardCreatedAt: "2023-12-31T15:00:00.000+00:00",
-            // memberCode: 1,
-            // freeBoardIsdeleted: "N"
         };
 
-        console.log("updatedFreeboard : ", updatedFreeBoard);
+        try {
+            setLoading(true); 
+            setError(null); 
+            console.log("updatedFreeboard : ", updatedFreeBoard);
 
-        dispatch(callUpdateFreeBoardAPI(updatedFreeBoard));
-        navigate(`/freeboard`, { replace: false});
+            await dispatch(callUpdateFreeBoardAPI(updatedFreeBoard));
+            alert("게시글이 성공적으로 수정되었습니다.");
+            navigate(`/freeboard`, { replace: true }); 
+        } catch (err) {
+            console.error("Error updating freeboard: ", err);
+            setError("게시글 수정 중 오류가 발생했습니다. 다시 시도해주세요.");
+        } finally {
+            setLoading(false); 
+        }
     };
 
-    // 취소
     const onClickCancelHandler = () => {
-        console.log("[FreeBoardModify] onClickCancelHandler");
-        navigate(`/freeboard/${freeboard.freeboardCode}`, { replace: false});
+        if (window.confirm("수정을 취소하시겠습니까? 변경사항은 저장되지 않습니다.")) {
+            navigate(`/freeboard/${freeboard.freeBoardCode}`, { replace: true });
+        }
     };
 
     return (
@@ -61,22 +74,34 @@ export default function FreeBoardModify() {
                 <h1>FreeBoard Modify Page</h1>
             </div>
             <div>
-                <label>제목 : <input
-                    placeholder="제목"
-                    name="freeboardTitle"
-                    onChange={ onChangeHanlder }
-                    value={form.freeboardTitle}
-                /></label>
-                <br/>
-                <label>설명 : <input
-                    placeholder="설명"
-                    name="freeboardContent"
-                    onChange={ onChangeHanlder }
-                    value={form.freeboardContent}
-                /></label>
-                <br/>
-                <button onClick={onClickSaveHandler}>수정하기</button>
-                <button onClick={onClickCancelHandler}>취소하기</button>
+                {loading && <p>수정 중입니다... 잠시만 기다려주세요.</p>}
+                {error && <p style={{ color: "red" }}>{error}</p>}
+                <label>
+                    제목:{" "}
+                    <input
+                        placeholder="제목"
+                        name="freeBoardTitle"
+                        onChange={onChangeHandler}
+                        value={form.freeBoardTitle}
+                    />
+                </label>
+                <br />
+                <label>
+                    설명:{" "}
+                    <input
+                        placeholder="설명"
+                        name="freeBoardContent"
+                        onChange={onChangeHandler}
+                        value={form.freeBoardContent}
+                    />
+                </label>
+                <br />
+                <button onClick={onClickSaveHandler} disabled={loading}>
+                    {loading ? "저장 중..." : "수정하기"}
+                </button>
+                <button onClick={onClickCancelHandler} disabled={loading}>
+                    취소하기
+                </button>
             </div>
         </>
     );
