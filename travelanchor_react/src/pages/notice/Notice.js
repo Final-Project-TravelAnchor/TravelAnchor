@@ -4,7 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { replace, useNavigate } from 'react-router-dom';
 import NoticeList from './NoticeList';
 import './Notice.css';
-import { isLogin } from '../../utils/tokenUtils';
+import { isLogin, findSub } from '../../utils/tokenUtils';
+import { callGetMemberAPI } from "../../apis/MemberAPICalls";
 
 export default function Notice() {
 
@@ -12,6 +13,11 @@ export default function Notice() {
     const dispatch = useDispatch();
     const notices = useSelector(state => state.noticeReducer);
     const [ loading, setLoading ] = useState(true);
+
+    const userInfo = useSelector(state => state.memberReducer);
+    const userMembercode = userInfo.data;
+
+    console.log("userMemberCode: " , userMembercode);
 
     // console.log(notices);
 
@@ -22,6 +28,19 @@ export default function Notice() {
         },
         []
     );
+
+    useEffect(() => {
+        console.log("[Notice] Notice useEffect");
+
+        const tokenSub = findSub();
+
+        // console.log(tokenSub);
+
+        if(tokenSub) {
+            dispatch(callGetMemberAPI({memberId: tokenSub}));
+        }
+
+    }, []);
 
     // console.log("[Population] populations : ", populations);
 
@@ -53,14 +72,22 @@ export default function Notice() {
             <div className="notice-container">
                 <div className='notice-title'>공지사항</div>
             {/* 상단 헤더 */}
-            <div className="notice-header">
-                <button 
-                    className="notice-first-create-button" 
-                    onClick={onClickCreateNoticeHandler}
-                >
-                    공지사항 생성
-                </button>
-            </div>
+            {   userMembercode ? 
+                (
+                    <div className="notice-header">
+                        <button 
+                            className="notice-first-create-button" 
+                            onClick={onClickCreateNoticeHandler}
+                        >
+                            공지사항 생성
+                        </button>
+                    </div>
+                )
+                :
+                (
+                    null
+                )
+            }
 
             {/* 공지사항 목록 */}
             <div className="notice-list-container">

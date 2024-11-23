@@ -135,6 +135,12 @@ const onClickKakaoLoginHandler = () => {
     });
 };
 
+	const onKeyPressHandler = (e) => {
+		if (e.key === 'Enter') {
+		onClickLoginHandler(); 
+        }
+	};
+
     return (
         <div className={ LoginCSS.backgroundDiv}>
             <div className={ LoginCSS.loginDiv }>
@@ -152,6 +158,7 @@ const onClickKakaoLoginHandler = () => {
                     placeholder="패스워드" 
                     autoComplete='off'
                     onChange={ onChangeHandler }
+                    onKeyDown={onKeyPressHandler }
                 />
                 <button
                     onClick={ onClickLoginHandler }
