@@ -105,18 +105,26 @@ function Header({ hideAuthLinks }) {
 				: '마이페이지'}</NavLink>
 		  </button>{' '}
 		  |{' '}
-		  <button
-			 className={HeaderCSS.HeaderBtn}
-			 onClick={onClickLogoutHandler}
-		  >
-			 로그아웃
-		  </button>
-		  <button
-			  className={HeaderCSS.HeaderBtn}
-			  onClick={onClickKakaoLogoutHandler} // 카카오 로그아웃
-		  >
-			  카카오 로그아웃
-		  </button>
+			{
+				loginMember.data?.memberType === 'KAKAO' ?
+				(
+					<button
+						className={HeaderCSS.HeaderBtn}
+						onClick={onClickKakaoLogoutHandler} // 카카오 로그아웃
+					>
+						카카오 로그아웃
+					</button>
+				)
+				:
+				(
+					<button
+						className={HeaderCSS.HeaderBtn}
+						onClick={onClickLogoutHandler}
+					>
+						로그아웃
+					</button>
+				)
+			}
 	   </div>
 	);
  }
