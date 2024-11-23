@@ -14,7 +14,6 @@ function Header({ hideAuthLinks }) {
 	const dispatch = useDispatch();
    	const loginMember = useSelector((state) => state.memberReducer); // 저장소에서 가져온 loginMember 정보
    	const isLogin = loginMember.data ? true : false; // Redux 상태에 따라 로그인 여부 확인
-	
 	const [search, setSearch] = useState('');
 	const [loginModal, setLoginModal] = useState(false);
 	

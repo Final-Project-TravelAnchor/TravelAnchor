@@ -301,6 +301,7 @@ CREATE TABLE IF NOT EXISTS tbl_message
     message_code INT AUTO_INCREMENT NOT NULL COMMENT '메시지코드',
     chatroom_code INT NOT NULL COMMENT '채팅방코드',
     member_code INT COMMENT '작성자 회원식별코드',
+    member_name TEXT NOT NULL COMMENT '작성자 이름',
     message_content TEXT NOT NULL COMMENT '메시지 내용',
     message_sent_at timestamp NOT NULL COMMENT '전송 시간',
     message_type text NOT NULL COMMENT '전송 타입',
@@ -689,15 +690,15 @@ INSERT INTO tbl_chatroom (chatroom_code, population_code) VALUES
 (null, 8);
 
 -- 메시지 테이블 더미 데이터
-INSERT INTO tbl_message (message_code, chatroom_code, member_code, message_content, message_sent_at, message_type) VALUES
-(1, 1, 1, 'Welcome to the General Discussion chat!', '2024-01-05 10:00:00', 'CHAT'),
-(2, 1, 3, 'Hi everyone! How are you all doing?', '2024-01-05 10:05:00', 'CHAT'),
-(3, 1, 2, 'Anyone up for a trip to Japan next month?', '2024-02-16 09:30:00', 'CHAT'),
-(4, 1, 1, 'Sounds interesting! I might join.', '2024-02-16 09:45:00', 'CHAT'),
-(5, 1, 3, 'What\'s your favorite street food?', '2024-03-10 12:15:00', 'CHAT'),
-(6, 1, 4, 'I love tacos! Especially the spicy ones.', '2024-03-10 12:20:00', 'CHAT'),
-(7, 1, 2, 'Has anyone tried the new VR headset?', '2024-04-20 16:00:00', 'CHAT'),
-(8, 1, 1, 'Looking for tips on landscape photography.', '2024-05-01 14:45:00', 'CHAT');
+INSERT INTO tbl_message (message_code, chatroom_code, member_code, member_name, message_content, message_sent_at, message_type) VALUES
+(1, 1, 1, '홍길동', 'Welcome to the General Discussion chat!', '2024-01-05 10:00:00', 'CHAT'),
+(2, 1, 3, '박영희', 'Hi everyone! How are you all doing?', '2024-01-05 10:05:00', 'CHAT'),
+(3, 1, 2, '김철수', 'Anyone up for a trip to Japan next month?', '2024-02-16 09:30:00', 'CHAT'),
+(4, 1, 1, '홍길동', 'Sounds interesting! I might join.', '2024-02-16 09:45:00', 'CHAT'),
+(5, 1, 3, '박영희', 'What\'s your favorite street food?', '2024-03-10 12:15:00', 'CHAT'),
+(6, 1, 4, '이민호', 'I love tacos! Especially the spicy ones.', '2024-03-10 12:20:00', 'CHAT'),
+(7, 1, 2, '김철수', 'Has anyone tried the new VR headset?', '2024-04-20 16:00:00', 'CHAT'),
+(8, 1, 1, '홍길동', 'Looking for tips on landscape photography.', '2024-05-01 14:45:00', 'CHAT');
 
 INSERT INTO tbl_member_declare (declare_code, member_code, declare_created_at, declare_content) VALUES
 (1, 1, '2024-10-09', '욕을 많이 합니다.'),

@@ -1,121 +1,96 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { replace, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { callPopulationDetailAPI } from "../../apis/PopulationAPICalls";
 import './PopulationDetail.css';
 import { isLogin, findSub } from "../../utils/tokenUtils";
-import { decodeJwt } from "../../utils/tokenUtils";
 import { callGetMemberAPI } from "../../apis/MemberAPICalls";
-
-
 
 export default function PopulationDetail() {
 
     const { populationCode } = useParams();
-    // console.log("[PopulationDetail] population code: " + populationCode);
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const population = useSelector(state => state.populationReducer)
-    const populationDetail = population.data;
-    // console.log(populationDetail);
+    const populationDetail = useSelector((state) => state.populationReducer);
+    const memberInfo = useSelector((state) => state.memberReducer);
 
-    const userInfo = useSelector(state => state.memberReducer);
-    // console.log("userInfo : ", userInfo);
-    const userMembercode = userInfo.data;
-    // console.log("userMembercode : ", userMembercode);
+    const fetchPopulationAndMember = async () => {
+        // 모집글 상세 API 호출
+        dispatch(callPopulationDetailAPI(populationCode));
 
-    const onClickModifyModeHandler = (populationCode, population) => {
-        console.log("[PopulationDetail]onClickModifyModeHandler ", populationCode);
-        console.log("[PopulationDetail]onClickModifyModeHandler ", population);
-        navigate(`/items/populationModify/${populationCode}`, { state: {population}, replace: false });
-        // navigate(`/items/${populationCode}`, { replace: false});
+        // 사용자 정보 가져오기
+        const tokenSub = findSub();
+        if (tokenSub) {
+            try {
+                await dispatch(callGetMemberAPI({ memberId: tokenSub }));
+            } catch (error) {
+                console.error("Failed to fetch member data:", error);
+            }
+        }
+    };
+
+    useEffect(() => {
+        fetchPopulationAndMember();
+    }, [populationCode, dispatch]);
+
+    const onClickModifyModeHandler = () => {
+        navigate(`/items/populationModify/${populationCode}`, { state: { populationDetail }, replace: false });
     };
 
     const onClickInsertChatRoom = () => {
-
-        // isLogin이 false이면 로그인 창으로 이동
-        if(!isLogin()) {
-			navigate("/login", { replace: false });
+        if (!isLogin()) {
+            navigate("/login", { replace: false });
             return;
         }
-
-        // console.log("[PopulationDetail] onClickInsertChatRoom");
-        navigate(`/items/chatroom/${populationCode}`);
+        navigate(`/items/chatroom/${populationCode}`, { state : memberInfo });
     };
 
-    useEffect(() => {
-        // console.log("[PopulationDetail] useEffect");
-        dispatch(callPopulationDetailAPI(populationCode));
-    }, []);
-
-    useEffect(() => {
-        // console.log("[PopulationDetail] population useEffect");
-
-        const tokenSub = findSub();
-
-        // console.log(tokenSub);
-
-        if(tokenSub) {
-            dispatch(callGetMemberAPI({memberId: tokenSub}));
-        }
-
-        // dispatch(callPopulationDetailAPI(populationCode));
-    }, [population]);
-
     const onClickBackPopulationHandler = () => {
-        console.log("[PopulationDetail] onClickBackPopulationHandler");
         navigate(`/items/population`);
     };
 
     return (
         <div className="detail-mate-container">
             <h1 className="detail-title">여행메이트 찾기</h1>
-
-    <div className="detail-container">
-        {population && (
-            <div className="detail-content">
-                <h2 className="mate-detail-title">
-                    {population.populationTitle}
-                </h2>
-                <h2 className="detail-item">
-                    <span className="detail-label">생성일자:</span> {population.populationCreatedAt}
-                </h2>
-                <h2 className="detail-item">
-                    <span className="detail-label">조회수:</span> {population.populationViews}
-                </h2>
-                <h2 className="detail-item">
-                    <span className="detail-label">모집인원:</span> {population.populationPeople}
-                </h2>
-                <h2 className="detail-item">
-                    <span className="detail-label">내용:</span> {population.populationDescription}
-                </h2>
-                <button onClick={onClickInsertChatRoom} className="detail-chat-button">
-            채팅하기
-        </button>
-            </div>
-        )}
-        <div className="mate-detail-button-container">
-            {
-                userMembercode && userMembercode.memberCode === populationDetail.memberCode ?
-                (
+            <div className="detail-container">
+                {populationDetail && (
+                    <div className="detail-content">
+                        <h2 className="mate-detail-title">{populationDetail.populationTitle}</h2>
+                        <h2 className="detail-item">
+                            <span className="detail-label">생성일자:</span> {populationDetail.populationCreatedAt}
+                        </h2>
+                        <h2 className="detail-item">
+                            <span className="detail-label">조회수:</span> {populationDetail.populationViews}
+                        </h2>
+                        <h2 className="detail-item">
+                            <span className="detail-label">모집인원:</span> {populationDetail.populationPeople}
+                        </h2>
+                        <h2 className="detail-item">
+                            <span className="detail-label">내용:</span> {populationDetail.populationDescription}
+                        </h2>
+                        <button onClick={onClickInsertChatRoom} className="detail-chat-button">
+                            채팅하기
+                        </button>
+                    </div>
+                )}
+                <div className="mate-detail-button-container">
+                    {memberInfo?.memberCode === populationDetail?.memberCode && (
+                        <button
+                            onClick={onClickModifyModeHandler}
+                            className="mate-detail-modify-button"
+                        >
+                            수정하기
+                        </button>
+                    )}
                     <button
-                        onClick={() => onClickModifyModeHandler(populationCode, population)}
-                        className="mate-detail-modify-button"
+                        onClick={onClickBackPopulationHandler}
+                        className="mate-detail-back-button"
                     >
-                        수정하기
+                        뒤로가기
                     </button>
-                )
-                :
-                (
-                    null
-                )
-            }
-            <button onClick={onClickBackPopulationHandler}
-                    className="mate-detail-back-button">뒤로가기</button>
+                </div>
+            </div>
         </div>
-        
-    </div>
-    </div>
     );
 }

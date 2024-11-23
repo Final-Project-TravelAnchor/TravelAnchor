@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function FreeBoardList( freeboardDetail ) {
 
-    console.log("[FreeBoardList] freeboardDetail", freeboardDetail);
+    // console.log("[FreeBoardList] freeboardDetail", freeboardDetail);
 
     const freeboard = freeboardDetail.population;
 
