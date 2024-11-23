@@ -214,12 +214,12 @@ function Header({ hideAuthLinks }) {
 							<img src="/images/main/BtnHamberger.png" alt="hamburger" />
 						</button>
 						{isHamburgerOpen && (
-							<ul className={HeaderCSS.hamburgerDropdown}  onMouseLeave={() => setHamburgerOpen(false)}>
-								<li>나의 여행 일정</li>
-								<li>나의 저장 장소</li>
-								<li>나의 후기</li>
-								<li>나의 매너 점수</li>
-							</ul>
+							<div className={HeaderCSS.hamburgerDropdown}  onMouseLeave={() => setHamburgerOpen(false)}>
+								<button>나의 여행 일정</button>
+								<button>나의 저장 장소</button>
+								<button>나의 후기</button>
+								<button>나의 매너 점수</button>
+							</div>
 						)}
 					</div>
 

@@ -34,14 +34,14 @@ public class MemberService {
     }
 
     @Transactional
-    public Object updateMemberInfo(int memberId, MemberDTO memberDTO) {
+    public Object updateMemberInfo(String memberId, MemberDTO memberDTO) {
         log.info("[MemberService] updateMyMemberInfo() start");
         log.info("[MemberService] memberId: " +  memberId);
         int result = 0;
 
         try {
 
-            Member member = memberRepository.findById(memberId).get();
+            Member member = memberRepository.findByMemberId(memberId);
             log.info("[MemberService] member: " + member);
             member.setMemberNickName(memberDTO.getMemberNickName());
             member.setMemberPassword(memberDTO.getMemberPassword());

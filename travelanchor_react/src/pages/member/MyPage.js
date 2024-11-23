@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { callGetMemberAPI } from '../../apis/MemberAPICalls';
 import mypageCss from './MyPage.module.css'
 
 const MyPage = () => {
     const { memberId } = useParams(); // 경로에서 memberId 가져오기
     const dispatch = useDispatch();
+    const navigate = useNavigate(); 
     const member = useSelector(state => state.memberReducer);
 
     useEffect(() => {
@@ -18,6 +19,10 @@ const MyPage = () => {
     if (!member) {
         return <p>회원 정보를 불러오는 중입니다...</p>;
     }
+
+    const handleUpdateClick = () => {
+        navigate(`/MyPageUpdate/${memberId}`); // memberId를 경로에 포함
+    };
 
     return (
         <div className={mypageCss.container}>
@@ -39,7 +44,7 @@ const MyPage = () => {
                 <p>번호:{member.memberMobileNumber}</p>
                 <p>회원등급:{member.memberLevel}</p>
                 <p>가입날짜:{member.memberCreatedAt}</p>
-                <button>정보수정하기</button>
+                <button onClick={handleUpdateClick}>정보수정하기</button>
             </section>
 
            
