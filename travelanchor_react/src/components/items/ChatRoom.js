@@ -2,22 +2,21 @@ import React, { useEffect, useState, useRef } from "react";
 import { Stomp } from "@stomp/stompjs";
 import { useParams } from "react-router-dom";
 import { format } from "date-fns";
-import "./ChatRoom.css";
 import { useLocation } from "react-router-dom";
+import ProfilePopup from "./ProfilePopup";  // ProfilePopup 임포트
 
 export default function ChatRoom() {
   const { populationCode } = useParams();
   const memberInfo = useLocation().state.data;
-
-  // console.log("memberCode: " , memberCode);
-  
-  const date = new Date();
-  const stompClient = useRef(null);
-  const messagesEndRef = useRef(null);
-
   const [messages, setMessages] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [inputImageValue, setInputImageValue] = useState(null);
+  const [showProfilePopup, setShowProfilePopup] = useState(false);
+  const [selectedMember, setSelectedMember] = useState(null);
+
+  const date = new Date();
+  const stompClient = useRef(null);
+  const messagesEndRef = useRef(null);
 
   // 입력 필드 변경 핸들러
   const handleInputChange = (event) => {
@@ -54,9 +53,6 @@ export default function ChatRoom() {
     try {
       const response = await fetch(`http://${process.env.REACT_APP_RESTAPI_IP}:8080/chat/${populationCode}`);
       const result = await response.json();
-      
-      console.log("result : ", result);
-
       setMessages(result.data || []);
     } catch (error) {
       console.error("Failed to fetch messages:", error);
@@ -135,6 +131,18 @@ export default function ChatRoom() {
     return () => disconnect(); // 컴포넌트 언마운트 시 웹소켓 연결 해제
   }, []);
 
+  // 프로필 보기 팝업 열기
+  const handleProfileClick = (member) => {
+    setSelectedMember(member);
+    setShowProfilePopup(true);
+  };
+
+  // 프로필 팝업 닫기
+  const handleCloseProfilePopup = () => {
+    setShowProfilePopup(false);
+    setSelectedMember(null);
+  };
+
   return (
     <div className="chat-container">
       {/* 왼쪽 이미지 섹션 */}
@@ -145,10 +153,8 @@ export default function ChatRoom() {
           className="left-image"
         />
       </div>
-
-      {/* 오른쪽 채팅창 섹션 */}
+      {/* 채팅창 내용 */}
       <div className="chat-right">
-        {/* 메시지 출력 섹션 */}
         <div className="messages-section">
           {messages.length > 0 ? (
             messages.map((item, index) => (
@@ -157,15 +163,28 @@ export default function ChatRoom() {
                 className={`message ${item.type === "IMAGE" ? "image-message" : "text-message"}`}
               >
                 {item.type === "IMAGE" ? (
-                  <img
-                    src={`http://${process.env.REACT_APP_RESTAPI_IP}:8080/${item.messageContent}`}
-                    alt="Chat Image"
-                    className="message-image"
-                    loading="lazy"
-                  />
+                  <div>
+                    <span
+                      style={{ fontWeight: 'bold', cursor: 'pointer' }}
+                      onClick={() => handleProfileClick(item)} // 이름 클릭 시 프로필 팝업 띄우기
+                    >
+                      {item.memberName}
+                    </span>
+                    <img
+                      src={`http://${process.env.REACT_APP_RESTAPI_IP}:8080/${item.messageContent}`}
+                      alt="Chat Image"
+                      className="message-image"
+                      loading="lazy"
+                    />
+                  </div>
                 ) : (
                   <div>
-                    <span>{item.memberName}</span>
+                    <span
+                      style={{ fontWeight: 'bold', cursor: 'pointer' }}
+                      onClick={() => handleProfileClick(item)} // 이름 클릭 시 프로필 팝업 띄우기
+                    >
+                      {item.memberName}
+                    </span>
                     <br/>
                     <span>{item.messageContent}</span>
                   </div>
@@ -205,6 +224,11 @@ export default function ChatRoom() {
           </button>
         </div>
       </div>
+
+      {/* 프로필 팝업 표시 */}
+      {showProfilePopup && selectedMember && (
+        <ProfilePopup member={selectedMember} onClose={handleCloseProfilePopup} />
+      )}
     </div>
   );
 }
