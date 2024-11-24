@@ -4,7 +4,7 @@ import Main from './pages/Main';
 import Login from './pages/member/Login';
 import Error from './pages/Error';
 import MyPage from './pages/member/MyPage';
-import MyPageUpdate from './pages/member/MyPageUpdate';
+// import MyPageUpdate from './pages/member/MyPageUpdate';
 import Population from './components/items/Population';
 import PopulationDetail from './components/items/PopulationDetail';
 import PopulationCreate from './components/items/PopulationCreate';
@@ -84,7 +84,7 @@ export default function App() {
             {/* <Route path='ShareKakao' element={ <ShareKakao/> }/> */}
            
             <Route path="MyPage/:memberId" element={ <MyPage/> }/>  
-            <Route path="MyPageUpdate/:memberId" element={ <MyPageUpdate/> }/>  
+            {/* <Route path="MyPageUpdate/:memberId" element={ <MyPageUpdate/> }/>   */}
            
             <Route path="Accommodation" element={ <Accommodation/> }/>
             <Route path="Weather" element={ <Weather/> }/>
