@@ -17,6 +17,9 @@ public class MemberDTO implements UserDetails {
     private LocalDate memberCreatedAt;
     private String memberId;
     private String memberPassword;
+    private LocalDate memberBirthDate;
+    private String memberGender;
+    private String memberAddress;
     private int memberLevel;
     private String memberCertification;
     private String profilePhoto;
@@ -24,7 +27,7 @@ public class MemberDTO implements UserDetails {
     public MemberDTO() {
     }
 
-    public MemberDTO(int memberCode, int authorityCode, String memberName, String memberNickName, String memberMobileNumber, LocalDate memberCreatedAt, String memberId, String memberPassword, int memberLevel, String memberCertification, String profilePhoto, Collection<GrantedAuthority> authorities) {
+    public MemberDTO(int memberCode, int authorityCode, String memberName, String memberNickName, String memberMobileNumber, LocalDate memberCreatedAt, String memberId, String memberPassword, LocalDate memberBirthDate, String memberGender, String memberAddress, int memberLevel, String memberCertification, String profilePhoto, Collection<GrantedAuthority> authorities) {
         this.memberCode = memberCode;
         this.authorityCode = authorityCode;
         this.memberName = memberName;
@@ -33,6 +36,9 @@ public class MemberDTO implements UserDetails {
         this.memberCreatedAt = memberCreatedAt;
         this.memberId = memberId;
         this.memberPassword = memberPassword;
+        this.memberBirthDate = memberBirthDate;
+        this.memberGender = memberGender;
+        this.memberAddress = memberAddress;
         this.memberLevel = memberLevel;
         this.memberCertification = memberCertification;
         this.profilePhoto = profilePhoto;
@@ -103,6 +109,30 @@ public class MemberDTO implements UserDetails {
         this.memberPassword = memberPassword;
     }
 
+    public LocalDate getMemberBirthDate() {
+        return memberBirthDate;
+    }
+
+    public void setMemberBirthDate(LocalDate memberBirthDate) {
+        this.memberBirthDate = memberBirthDate;
+    }
+
+    public String getMemberGender() {
+        return memberGender;
+    }
+
+    public void setMemberGender(String memberGender) {
+        this.memberGender = memberGender;
+    }
+
+    public String getMemberAddress() {
+        return memberAddress;
+    }
+
+    public void setMemberAddress(String memberAddress) {
+        this.memberAddress = memberAddress;
+    }
+
     public int getMemberLevel() {
         return memberLevel;
     }
@@ -138,6 +168,9 @@ public class MemberDTO implements UserDetails {
                 ", memberCreatedAt=" + memberCreatedAt +
                 ", memberId='" + memberId + '\'' +
                 ", memberPassword='" + memberPassword + '\'' +
+                ", memberBirthDate=" + memberBirthDate +
+                ", memberGender='" + memberGender + '\'' +
+                ", memberAddress='" + memberAddress + '\'' +
                 ", memberLevel=" + memberLevel +
                 ", memberCertification='" + memberCertification + '\'' +
                 ", profilePhoto='" + profilePhoto + '\'' +

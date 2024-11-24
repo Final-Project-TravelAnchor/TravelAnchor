@@ -102,7 +102,10 @@ export const callRegisterAPI = ({ form }) => {
 				memberName: form.memberName,
 				memberMobileNumber: form.memberMobileNumber,
 				memberNickName: form.memberNickName,
-				memberCreatedAt: new Date().toISOString(), // 현재 날짜 시간
+				memberBirthDate: form.memberBirthDate,
+				memberGender: form.memberGender,
+				memberAddress: form.memberAddress,
+				memberCreatedAt: new Date().toISOString(),
 				memberLevel: 1,
 				memberCertification: form.memberCertification || 'N',
 				profilePhoto: process.env.REACT_APP_DEFAULT_IMAGE || ''
