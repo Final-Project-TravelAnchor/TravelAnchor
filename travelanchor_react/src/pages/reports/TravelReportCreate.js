@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Navigate, replace, useNavigate, useParams } from "react-router-dom";
 import { callCreateTravelReportAPI } from "../../apis/TravelReportAPICalls";
 import { cityReducer, selectedCityReducer } from "../../modules/CityModule";
+import planReducer from '../../modules/PlanModule';
 
 
 export default function ReportCreate() {
@@ -12,7 +13,12 @@ export default function ReportCreate() {
     const navigate = useNavigate();
     const selectedCity = useSelector((state) => state.selectedCityReducer);
     const selectedCityName = selectedCity.selectedCity.toString();
-    console.log(selectedCityName);
+    // console.log(selectedCityName);
+    const selectedDate = useSelector((state) => state.planReducer);
+    const startDate = selectedDate.startDate.split("T")[0];
+    const endDate = selectedDate.endDate.split("T")[0];
+    // console.log(startDate);
+    // console.log(endDate);
 
     const today = new Date().toISOString().split('T')[0];
     // console.log(today);
@@ -22,6 +28,8 @@ export default function ReportCreate() {
         memberCode: 1,  // 본인 코드 가져와야 함
         reportTitle: "Title", 
         reportContent: "Content",
+        reportStartDate: startDate,
+        reportEndDate: endDate,
         reportDestination: selectedCityName,
         reportCreatedAt: today,
         reportIsdeleted: "N"
@@ -52,6 +60,8 @@ export default function ReportCreate() {
     return (
         <div>
             <h1>{selectedCityName}의 여행이 어땠는지 남겨주세요</h1>
+            <h3>시작일 : {startDate}
+                종료일 : {endDate}</h3>
             <label>제목 : <input
                 type="text"
                 name="reportTitle"

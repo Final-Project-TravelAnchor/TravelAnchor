@@ -15,6 +15,7 @@ export default function TravelReportDetail() {
         navigate(`/travelReportModify/${travelReport.reportCode}`, { state: travelReport, replace: false });
     };
 
+    // 삭제
     const onClickDeleteHandler = async () => {
         if (window.confirm("정말 삭제하시겠습니까?")) {
             const deletedTravelReport = {
@@ -33,6 +34,7 @@ export default function TravelReportDetail() {
         }
     };
 
+    // 뒤로가기
     const onClickBackHandler = () => {
         navigate(-1); // 이전 페이지로 이동
     };
@@ -45,6 +47,7 @@ export default function TravelReportDetail() {
                     <h2>제목 : {travelReport.reportTitle}</h2>
                     <h3>내용 : {travelReport.reportContent}</h3>
                     <h3>작성일 : {travelReport.reportCreatedAt}</h3>
+                    <h3>여행일 : {travelReport.reportStartDate} ~ {travelReport.reportEndDate}</h3>
                 </div>
             ) : (
                 <div>후기를 찾을 수 없습니다.</div>
