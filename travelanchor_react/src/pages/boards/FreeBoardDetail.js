@@ -6,6 +6,7 @@ import FreeBoard from "./FreeBoard";
 import { decodeJwt } from "../../utils/tokenUtils";
 import { callGetMemberAPI } from "../../apis/MemberAPICalls";
 import { findSub } from "../../utils/tokenUtils";
+import './FreeBoardDetail.css';
 
 export default function FreeBoardDetail() {
 
@@ -47,7 +48,7 @@ export default function FreeBoardDetail() {
     }, []);
 
     return (
-        <>
+        <div className="free-board-detail-container">
             <div>
                 {
                     userMembercode && userMembercode.memberCode === freeboard.memberCode ?
@@ -66,11 +67,11 @@ export default function FreeBoardDetail() {
                 {
                     freeboard ? 
                     (
-                        <>
-                            <h1>제목 : {freeboard.freeBoardTitle}</h1>
-                            <h2>생성일자 : {freeboard.freeBoardCreatedAt}</h2>
+                        <div className="free-board-detail-content">
+                            <h1>{freeboard.freeBoardTitle}</h1>
+                            <h3>생성일자 : {freeboard.freeBoardCreatedAt}</h3>
                             <h3>내용 : {freeboard.freeBoardContent}</h3>
-                        </>
+                        </div>
                     )
                     :
                     (
@@ -78,6 +79,6 @@ export default function FreeBoardDetail() {
                     )
                 }
             </div>
-        </>
+        </div>
     );
 }

@@ -25,10 +25,15 @@ export const callGetMemberAPI = ({ memberId }) => {
 	};
 };
 
-export const callUpdateMemberAPI = ({ memberId }) => {
+export const callUpdateMemberAPI = ({ memberId, updatedData }) => {
 	const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/member/v1/members/${memberId}`;
 
 	return async (dispatch) => {
+
+		const filteredData = {
+            memberNickName: updatedData.memberNickName,
+        };
+
 
 		const result = await fetch(requestURL, {
 			method: 'PUT',
@@ -37,7 +42,8 @@ export const callUpdateMemberAPI = ({ memberId }) => {
 				Accept: '*/*',
 				Authorization:
 					'Bearer ' + window.localStorage.getItem('accessToken')
-			}
+			},
+			body: JSON.stringify(filteredData)
 		}).then((response) => response.json());
 		
 
