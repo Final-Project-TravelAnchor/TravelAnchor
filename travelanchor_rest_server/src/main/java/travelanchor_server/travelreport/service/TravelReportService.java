@@ -111,13 +111,12 @@ public class TravelReportService {
     }
 
     @Transactional
-    public Object deleteTravelReport(int reportCode, TravelReportDTO travelReportDTO) {
+    public Object deleteTravelReport(TravelReportDTO travelReportDTO) {
         log.info("[TravelReportService] deleteTravelReport() Start");
-        log.info("[TravelReportService] reportCode : "+ reportCode);
         int result = 0;
 
         try{
-            TravelReport travelReport = travelReportRepository.findById(reportCode).get();
+            TravelReport travelReport = travelReportRepository.findById(travelReportDTO.getReportCode()).get();
             log.info("[TravelReportService] travelReport : " + travelReport);
             travelReport.setReportIsdeleted(travelReportDTO.getReportIsdeleted());
 
