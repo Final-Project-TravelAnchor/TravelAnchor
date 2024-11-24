@@ -96,7 +96,9 @@ public class TravelReportService {
             log.info("[TravelReportService] travelReport : " + travelReport);
             travelReport.setReportTitle(travelReportDTO.getReportTitle());
             travelReport.setReportContent(travelReportDTO.getReportContent());
-//            travelReport.setReportDestination(travelReportDTO.getReportDestination());
+            travelReport.setReportStartDate(travelReportDTO.getReportStartDate());
+            travelReport.setReportEndDate(travelReportDTO.getReportEndDate());
+            travelReport.setReportDestination(travelReportDTO.getReportDestination());
 
             System.out.println("travelReport = " + travelReport);
 

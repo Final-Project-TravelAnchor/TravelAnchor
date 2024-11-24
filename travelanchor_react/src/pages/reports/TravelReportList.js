@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom";
 export default function TravelReportList({ travelReport }) {
     const navigate = useNavigate();
 
-    // reportIsdeleted가 "N"인지 확인
+    // isDeleted 값이 N인 게시글만 보여짐
     if (travelReport?.reportIsdeleted !== "N") {
-        return null; // "N"이 아닌 데이터는 렌더링하지 않음
+        return null; 
     }
 
     const onClickTravelReportHandler = (travelReport) => {
