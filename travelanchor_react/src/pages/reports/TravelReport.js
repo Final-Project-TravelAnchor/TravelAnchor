@@ -81,7 +81,7 @@ export default function TravelReport () {
                                 key={travelReport.reportCode} 
                                 travelReport={travelReport} 
                             />
-                          ))
+                        ))
                         : <div>후기가 없습니다.</div>
                     }
                 </div>
