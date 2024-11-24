@@ -16,13 +16,13 @@ export default function FreeBoardList( freeboardDetail ) {
 
     return (
         <div 
-            // className={FreeBoardCSS.freeboardDiv}
+            className="free-board-item"
             onClick={() => onClickFreeBoardHandler(freeboard)}    
         >
+            <h5>{freeboard.freeBoardCode}</h5>
             <h5>{freeboard.freeBoardTitle}</h5>
             <h5>{freeboard.freeBoardContent}</h5>
             <h5>{freeboard.freeBoardCreatedAt}</h5>
-            <br/>
         </div>
     );
 
