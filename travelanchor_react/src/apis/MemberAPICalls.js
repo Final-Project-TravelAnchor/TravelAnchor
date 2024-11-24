@@ -18,7 +18,7 @@ export const callGetMemberAPI = ({ memberId }) => {
 		console.log('[MemberAPICalls] callGetMemberAPI RESULT 회원정보 : ', result);
 
 		if (result.status === 200) {
-            dispatch({ type: GET_MEMBER, payload: result }); // data 저장
+            dispatch({ type: GET_MEMBER, payload: result.data }); // data 저장
         } else {
             console.error('Error fetching member:', result.message);
         }
@@ -26,33 +26,27 @@ export const callGetMemberAPI = ({ memberId }) => {
 };
 
 export const callUpdateMemberAPI = ({ memberId, updatedData }) => {
-	const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/member/v1/members/${memberId}`;
+    const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/member/v1/members/${memberId}`;
 
-	return async (dispatch) => {
+    return async (dispatch) => {
+        try {
+            const result = await fetch(requestURL, {
+                method: 'PUT',
+                headers: {
+                    Authorization: 'Bearer ' + window.localStorage.getItem('accessToken'),
+                },
+                body: updatedData, // FormData 전송
+            }).then((response) => response.json());
 
-		const filteredData = {
-            memberNickName: updatedData.memberNickName,
-        };
-
-
-		const result = await fetch(requestURL, {
-			method: 'PUT',
-			headers: {
-				'Content-Type': 'application/json',
-				Accept: '*/*',
-				Authorization:
-					'Bearer ' + window.localStorage.getItem('accessToken')
-			},
-			body: JSON.stringify(filteredData)
-		}).then((response) => response.json());
-		
-
-		if( result.status === 200) {
-			dispatch({ type: PUT_MEMBER, payload: result});
-		}else {
-			console.error('Error fetching memeber:', result.message);
-		}
-	};
+            if (result.status === 200) {
+                dispatch({ type: PUT_MEMBER, payload: result });
+            } else {
+                console.error('Error fetching member:', result.message);
+            }
+        } catch (error) {
+            console.error('API 호출 중 오류:', error);
+        }
+    };
 };
 
 export const callLoginAPI = ({ form }) => {

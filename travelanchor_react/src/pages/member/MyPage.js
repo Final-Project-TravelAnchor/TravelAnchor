@@ -5,6 +5,7 @@ import { callGetMemberAPI } from '../../apis/MemberAPICalls';
 import mypageCss from './MyPage.module.css'
 
 const MyPage = () => {
+    
     const { memberId } = useParams(); // 경로에서 memberId 가져오기
     const dispatch = useDispatch();
     const navigate = useNavigate(); 
@@ -33,12 +34,16 @@ const MyPage = () => {
 
             {/* 프로필 섹션 */}
             <section className={mypageCss.profileSection}>
-                <div className={mypageCss.profilePicture}>
-                    {/* <img
-                        src={member.profilePhoto ? `http://${process.env.REACT_APP_RESTAPI_IP}:8080/images/${member.profilePhoto}` : '/default-avatar.png'}
-                        alt="프로필 사진"
-                    /> */}
-                </div>
+            <div className={mypageCss.profilePicture}>
+            <img 
+                src={
+                    member.profilePhoto 
+                        ? `http://http://localhost:3000//${member.profilePhoto}` 
+                        : '/images/main/default-avatar.png'
+                } 
+                alt="프로필 사진" 
+            />
+            </div>
                 <h2>{member.memberNickName}님!</h2>
                 <p>이름:{member.memberName}</p>
                 <p>번호:{member.memberMobileNumber}</p>

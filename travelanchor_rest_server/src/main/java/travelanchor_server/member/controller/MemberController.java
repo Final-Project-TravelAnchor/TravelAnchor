@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import travelanchor_server.common.ResponseDTO;
 import travelanchor_server.member.dto.MemberDTO;
 import travelanchor_server.member.service.MemberService;
@@ -26,8 +27,10 @@ public class MemberController {
 
     @Operation(summary = "회원정보 수정 요청", description = "해당 회원정보 수정이 진행됩니다.", tags = {"MemberController "})
     @PutMapping("/members/{memberId}")
-    public ResponseEntity<ResponseDTO> updateMemberInfo(@PathVariable String memberId, @RequestBody MemberDTO memberDTO) {
-        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK,"회원정보 수정 성공",memberService.updateMemberInfo(memberId, memberDTO)));
+    public ResponseEntity<ResponseDTO> updateMemberInfo(@PathVariable String memberId,
+                                                        @RequestPart(value = "memberDTO") MemberDTO memberDTO,
+                                                        @RequestPart(value = "profilePhoto", required = false) MultipartFile profilePhoto) {
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK,"회원정보 수정 성공",memberService.updateMemberInfo(memberId, memberDTO, profilePhoto)));
     }
 
 }
