@@ -86,17 +86,17 @@ public class TravelReportService {
     }
 
     @Transactional
-    public Object updateTravelReport(int reportCode, TravelReportDTO travelReportDTO) {
+    public Object updateTravelReport(TravelReportDTO travelReportDTO) {
         log.info("[TravelReportService] updateTravelReport() Start");
-        log.info("[TravelReportService] reportCode : "+ reportCode);
+        log.info("[TravelReportService] travelReportDTO : "+ travelReportDTO);
         int result = 0;
 
         try{
-            TravelReport travelReport = travelReportRepository.findById(reportCode).get();
+            TravelReport travelReport = travelReportRepository.findById(travelReportDTO.getReportCode()).get();
             log.info("[TravelReportService] travelReport : " + travelReport);
             travelReport.setReportTitle(travelReportDTO.getReportTitle());
             travelReport.setReportContent(travelReportDTO.getReportContent());
-            travelReport.setReportDestination(travelReportDTO.getReportDestination());
+//            travelReport.setReportDestination(travelReportDTO.getReportDestination());
 
             System.out.println("travelReport = " + travelReport);
 

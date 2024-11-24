@@ -33,13 +33,13 @@ export default function ReportCreate() {
         // form 값으로 API 요청
         await dispatch(callCreateTravelReportAPI(form));
 
-        navigate("/TravelReport");
+        navigate("/travelReport");
 
     };
 
     const onClickCancelTravelReportHandler = () => {
         console.log("[ReportCreate] onClickCancelTravelReportHandler");
-        navigate("/TravelReport");
+        navigate("/travelReport");
     };
 
     const onChangeHandler = (e) => {
