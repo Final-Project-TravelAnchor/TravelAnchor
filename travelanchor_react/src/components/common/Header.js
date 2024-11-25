@@ -16,7 +16,7 @@ function Header({ hideAuthLinks }) {
    	const isLogin = loginMember.data ? true : false; // Redux 상태에 따라 로그인 여부 확인
 	const [search, setSearch] = useState('');
 	const [loginModal, setLoginModal] = useState(false);
-	
+	const member = useSelector(state => state.memberReducer);
 	const [isDropdownOpen, setDropdownOpen] = useState(false); // 드롭다운 상태
 	const [isHamburgerOpen, setHamburgerOpen] = useState(false);
 
@@ -129,6 +129,18 @@ function Header({ hideAuthLinks }) {
 	);
  }
 
+ const plansClick = () => {
+	navigate(`/plans/`); 
+};
+
+const favoriteClick = () => {
+	navigate(`/Restaurants`); 
+};
+
+const reportClick = () => {
+	navigate(`/TravelReport`); 
+};
+
 	
 
 	// 드롭다운 열림/닫힘 상태 제어
@@ -217,16 +229,30 @@ function Header({ hideAuthLinks }) {
 							type="button"
 							className={HeaderCSS.hamburgerBtn}
 							onClick={() => setHamburgerOpen(!isHamburgerOpen)}
-		
+
 						>
 							<img src="/images/main/BtnHamberger.png" alt="hamburger" />
 						</button>
 						{isHamburgerOpen && (
 							<div className={HeaderCSS.hamburgerDropdown}  onMouseLeave={() => setHamburgerOpen(false)}>
-								<button>나의 여행 일정</button>
-								<button>나의 저장 장소</button>
-								<button>나의 후기</button>
-								<button>나의 매너 점수</button>
+								<div className={HeaderCSS.profileSection}>
+									<img 
+                                	src={
+										member.profilePhoto 
+										? `http://localhost:8080/uploadedImages/${member.profilePhoto}` 
+										: '/images/main/default-avatar.png'
+                                	} 
+                                	alt="프로필 사진"
+                                	className={HeaderCSS.profilePhoto}
+                            		/>
+									<h2>안녕하세요!
+										<br/>
+										{member.memberNickName}님</h2>
+								
+									<button onClick={plansClick}>나의 여행 일정</button>
+									<button onClick={favoriteClick}>나의 저장 장소</button>
+									<button onClick={reportClick}>나의 후기</button>
+								</div>
 							</div>
 						)}
 					</div>

@@ -2,7 +2,7 @@ import { createActions, handleActions } from 'redux-actions';
 
 /* 초기값 */
 const initialState = {
-	member:null,
+
 };
 
 /* 액션 */
@@ -10,12 +10,15 @@ export const GET_MEMBER = 'member/GET_MEMBER';
 export const PUT_MEMBER = 'member/PUT_MEMBER';
 export const POST_LOGIN = 'member/POST_LOGIN';
 export const POST_REGISTER = 'member/POST_REGISTER';
+export const GET_POINT = 'member/GET_POINT';
+
 
 const actions = createActions({
 	[GET_MEMBER]: () => {},
 	[PUT_MEMBER]: () => {},
 	[POST_LOGIN]: () => {},
-	[POST_REGISTER]: () => {}
+	[POST_REGISTER]: () => {},
+	[GET_POINT]: () => {},
 });
 
 /* 리듀서 */
@@ -32,7 +35,10 @@ const memberReducer = handleActions(
 		},
 		[POST_REGISTER]: (state, { payload }) => {
 			return payload;
-		}
+		},
+		[GET_POINT]: (state, { payload }) => {
+            return payload; // 회원 점수 업데이트
+        },
 	},
 	initialState
 );
