@@ -35,6 +35,15 @@ public class Member {
     @Column(name = "member_password")
     private String memberPassword;
 
+    @Column(name = "member_birth_date")
+    private LocalDate memberBirthDate;
+
+    @Column(name = "member_gender")
+    private String memberGender;
+
+    @Column(name = "member_address")
+    private String memberAddress;
+
     @Column(name = "member_level")
     private int memberLevel;
 
@@ -51,7 +60,7 @@ public class Member {
     public Member() {
     }
 
-    public Member(int memberCode, int authorityCode, String memberName, String memberNickName, String memberMobileNumber, LocalDate memberCreatedAt, String memberId, String memberPassword, int memberLevel, String memberCertification, String profilePhoto, List<MemberRole> memberRole) {
+    public Member(int memberCode, int authorityCode, String memberName, String memberNickName, String memberMobileNumber, LocalDate memberCreatedAt, String memberId, String memberPassword, LocalDate memberBirthDate, String memberGender, String memberAddress, int memberLevel, String memberCertification, String profilePhoto, List<MemberRole> memberRole) {
         this.memberCode = memberCode;
         this.authorityCode = authorityCode;
         this.memberName = memberName;
@@ -60,6 +69,9 @@ public class Member {
         this.memberCreatedAt = memberCreatedAt;
         this.memberId = memberId;
         this.memberPassword = memberPassword;
+        this.memberBirthDate = memberBirthDate;
+        this.memberGender = memberGender;
+        this.memberAddress = memberAddress;
         this.memberLevel = memberLevel;
         this.memberCertification = memberCertification;
         this.profilePhoto = profilePhoto;
@@ -130,6 +142,30 @@ public class Member {
         this.memberPassword = memberPassword;
     }
 
+    public LocalDate getMemberBirthDate() {
+        return memberBirthDate;
+    }
+
+    public void setMemberBirthDate(LocalDate memberBirthDate) {
+        this.memberBirthDate = memberBirthDate;
+    }
+
+    public String getMemberGender() {
+        return memberGender;
+    }
+
+    public void setMemberGender(String memberGender) {
+        this.memberGender = memberGender;
+    }
+
+    public String getMemberAddress() {
+        return memberAddress;
+    }
+
+    public void setMemberAddress(String memberAddress) {
+        this.memberAddress = memberAddress;
+    }
+
     public int getMemberLevel() {
         return memberLevel;
     }
@@ -173,6 +209,9 @@ public class Member {
                 ", memberCreatedAt=" + memberCreatedAt +
                 ", memberId='" + memberId + '\'' +
                 ", memberPassword='" + memberPassword + '\'' +
+                ", memberBirthDate=" + memberBirthDate +
+                ", memberGender='" + memberGender + '\'' +
+                ", memberAddress='" + memberAddress + '\'' +
                 ", memberLevel=" + memberLevel +
                 ", memberCertification='" + memberCertification + '\'' +
                 ", profilePhoto='" + profilePhoto + '\'' +

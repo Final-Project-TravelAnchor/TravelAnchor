@@ -85,7 +85,6 @@ export default function App() {
            
             <Route path="MyPage/:memberId" element={ <MyPage/> }/>  
             <Route path="MyPageUpdate/:memberId" element={ <MyPageUpdate/> }/>  
-           
             <Route path="Accommodation" element={ <Accommodation/> }/>
             <Route path="Weather" element={ <Weather/> }/>
             <Route path="Translation" element={ <Translation/> }/>
