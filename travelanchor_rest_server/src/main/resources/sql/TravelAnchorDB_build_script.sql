@@ -70,8 +70,8 @@ CREATE TABLE IF NOT EXISTS tbl_member
     member_level INT NOT NULL COMMENT '등급',
     member_certification VARCHAR(1) NOT NULL COMMENT '본인인증',
     profile_photo VARCHAR(255) NOT NULL COMMENT '프로필사진',
-    CONSTRAINT pk_member_code PRIMARY KEY (member_code),
-    CONSTRAINT fk_authority_code FOREIGN KEY (authority_code) REFERENCES tbl_authority(authority_code)
+    CONSTRAINT pk_member_code PRIMARY KEY (member_code)
+#     CONSTRAINT fk_authority_code FOREIGN KEY (authority_code) REFERENCES tbl_authority(authority_code)
 ) ENGINE=InnoDB COMMENT '회원';
 
 -- 배지 테이블
@@ -88,9 +88,9 @@ CREATE TABLE IF NOT EXISTS tbl_badge
 CREATE TABLE IF NOT EXISTS tbl_get_badge
 (
     badge_code INT NOT NULL COMMENT '배지코드',
-    member_code INT NOT NULL COMMENT '회원식별코드',
-    CONSTRAINT fk_badge_code FOREIGN KEY (badge_code) REFERENCES tbl_badge(badge_code),
-    CONSTRAINT fk_member_code FOREIGN KEY (member_code) REFERENCES tbl_member(member_code)
+    member_code INT NOT NULL COMMENT '회원식별코드'
+#     CONSTRAINT fk_badge_code FOREIGN KEY (badge_code) REFERENCES tbl_badge(badge_code),
+#     CONSTRAINT fk_member_code FOREIGN KEY (member_code) REFERENCES tbl_member(member_code)
 ) ENGINE=InnoDB COMMENT '획득배지';
 
 -- 포인트 리워드 테이블
@@ -125,9 +125,9 @@ CREATE TABLE IF NOT EXISTS tbl_member_reviews
     member_rating_code int NOT NULL COMMENT '평가회원코드',
     member_review VARCHAR(100) NOT NULL COMMENT '리뷰내용',
     member_review_isvisible VARCHAR(1) NOT NULL COMMENT '화면표시여부',
-    CONSTRAINT pk_member_review_code PRIMARY KEY (member_review_code),
-    CONSTRAINT fk_review_category_code FOREIGN KEY (review_category_code) REFERENCES tbl_member_reviews_category(review_category_code),
-    CONSTRAINT fk_member_code2 FOREIGN KEY (member_code) REFERENCES tbl_member(member_code)
+    CONSTRAINT pk_member_review_code PRIMARY KEY (member_review_code)
+#     CONSTRAINT fk_review_category_code FOREIGN KEY (review_category_code) REFERENCES tbl_member_reviews_category(review_category_code),
+#     CONSTRAINT fk_member_code2 FOREIGN KEY (member_code) REFERENCES tbl_member(member_code)
 ) ENGINE=InnoDB COMMENT '회원후기';
 
 # -- 리뷰 내용 테이블
@@ -215,8 +215,8 @@ CREATE TABLE  IF NOT EXISTS tbl_travel_city
     country_code INT NOT NULL COMMENT '국가코드',
     city_name VARCHAR(20) NOT NULL COMMENT '도시',
     city_iata_code VARCHAR(3)  NOT NULL COMMENT '코드',
-    CONSTRAINT pk_city_code PRIMARY KEY (city_code),
-    CONSTRAINT fk_country_code2 FOREIGN KEY (country_code) REFERENCES tbl_travel_country(country_code)
+    CONSTRAINT pk_city_code PRIMARY KEY (city_code)
+#     CONSTRAINT fk_country_code2 FOREIGN KEY (country_code) REFERENCES tbl_travel_country(country_code)
 ) ENGINE=InnoDB COMMENT '도시';
 
 -- 모집 공고 테이블
@@ -232,10 +232,10 @@ CREATE TABLE IF NOT EXISTS tbl_population
     population_views INT NOT NULL COMMENT '조회수',
     population_people INT NOT NULL COMMENT '모집인원수',
     population_onoff VARCHAR(1) NOT NULL COMMENT '모집여부',
-    CONSTRAINT pk_population_code PRIMARY KEY (population_code),
-    CONSTRAINT fk_travel_code1 FOREIGN KEY (travel_code) REFERENCES tbl_travel_plans(travel_code),
-    CONSTRAINT fk_member_code5 FOREIGN KEY (member_code) REFERENCES tbl_member(member_code),
-    CONSTRAINT fk_country_code1 FOREIGN KEY (country_code) REFERENCES tbl_travel_country(country_code)
+    CONSTRAINT pk_population_code PRIMARY KEY (population_code)
+#     CONSTRAINT fk_travel_code1 FOREIGN KEY (travel_code) REFERENCES tbl_travel_plans(travel_code),
+#     CONSTRAINT fk_member_code5 FOREIGN KEY (member_code) REFERENCES tbl_member(member_code),
+#     CONSTRAINT fk_country_code1 FOREIGN KEY (country_code) REFERENCES tbl_travel_country(country_code)
 ) ENGINE=InnoDB COMMENT '모집공고';
 
 -- 공지사항 카테고리 테이블
@@ -269,9 +269,9 @@ CREATE TABLE IF NOT EXISTS tbl_comment
     member_code INT COMMENT '작성자 회원식별코드',
     comment_content TEXT NOT NULL COMMENT '댓글내용',
     comment_created_at DATE NOT NULL COMMENT '작성일자',
-    CONSTRAINT pk_comment_code PRIMARY KEY (comment_code),
-    CONSTRAINT fk_free_board_code FOREIGN KEY (free_board_code) REFERENCES tbl_free_board(free_board_code),
-    CONSTRAINT fk_member_code7 FOREIGN KEY (member_code) REFERENCES tbl_member(member_code)
+    CONSTRAINT pk_comment_code PRIMARY KEY (comment_code)
+#     CONSTRAINT fk_free_board_code FOREIGN KEY (free_board_code) REFERENCES tbl_free_board(free_board_code),
+#     CONSTRAINT fk_member_code7 FOREIGN KEY (member_code) REFERENCES tbl_member(member_code)
 ) ENGINE=InnoDB COMMENT '댓글';
 
 -- 여행 후기 테이블
@@ -286,8 +286,9 @@ CREATE TABLE IF NOT EXISTS tbl_travel_reports
     report_destination TEXT NOT NULL COMMENT '여행지',
     report_created_at DATE NOT NULL COMMENT '작성일자',
     report_isdeleted VARCHAR(1) NOT NULL COMMENT '삭제여부',
-    CONSTRAINT pk_report_code PRIMARY KEY (report_code),
-    CONSTRAINT fk_member_code8 FOREIGN KEY (member_code) REFERENCES tbl_member(member_code)
+    report_image_url TEXT NOT NULL COMMENT '이미지 URL',
+    CONSTRAINT pk_report_code PRIMARY KEY (report_code)
+#     CONSTRAINT fk_member_code8 FOREIGN KEY (member_code) REFERENCES tbl_member(member_code)
 ) ENGINE=InnoDB COMMENT '여행후기';
 
 -- 채팅방 테이블
@@ -321,8 +322,8 @@ CREATE TABLE IF NOT EXISTS tbl_member_declare
     member_code INT COMMENT '회원식별코드',
     declare_created_at DATE NOT NULL COMMENT '생성일자',
     declare_content TEXT NOT NULL COMMENT '신고내용',
-    CONSTRAINT pk_declare_code PRIMARY KEY (declare_code),
-    CONSTRAINT fk_member_code10 FOREIGN KEY (member_code) REFERENCES tbl_member(member_code)
+    CONSTRAINT pk_declare_code PRIMARY KEY (declare_code)
+#     CONSTRAINT fk_member_code10 FOREIGN KEY (member_code) REFERENCES tbl_member(member_code)
 ) ENGINE=InnoDB COMMENT '회원신고';
 
 -- 여행지 저장 테이블
@@ -333,8 +334,8 @@ CREATE TABLE IF NOT EXISTS tbl_travel_destination_favorite
     api_link VARCHAR(300) NOT NULL COMMENT 'API 링크',
     destination_name VARCHAR(50) NOT NULL COMMENT '여행지 이름',
     destination_photos VARCHAR(300) NOT NULL COMMENT '여행지 사진',
-    CONSTRAINT pk_favorite_code PRIMARY KEY (favorite_code),
-    CONSTRAINT fk_member_code11 FOREIGN KEY (member_code) REFERENCES tbl_member(member_code)
+    CONSTRAINT pk_favorite_code PRIMARY KEY (favorite_code)
+#     CONSTRAINT fk_member_code11 FOREIGN KEY (member_code) REFERENCES tbl_member(member_code)
 ) ENGINE=InnoDB COMMENT '여행지 저장';
 
 -- 맛집 저장 테이블
@@ -346,8 +347,8 @@ CREATE TABLE IF NOT EXISTS tbl_restaurant_favorite
     restaurant_name VARCHAR(50) NOT NULL COMMENT '맛집 이름',
     restaurant_photos VARCHAR(300) NOT NULL COMMENT '맛집 사진',
     place_type VARCHAR(50) NOT NULL COMMENT '장소 타입',
-    CONSTRAINT pk_favorite_code PRIMARY KEY (favorite_code),
-    CONSTRAINT fk_member_code12 FOREIGN KEY (member_code) REFERENCES tbl_member(member_code)
+    CONSTRAINT pk_favorite_code PRIMARY KEY (favorite_code)
+#     CONSTRAINT fk_member_code12 FOREIGN KEY (member_code) REFERENCES tbl_member(member_code)
 ) ENGINE=InnoDB COMMENT '맛집 저장';
 
 CREATE TABLE IF NOT EXISTS tbl_notice
@@ -642,46 +643,45 @@ INSERT INTO tbl_comment (comment_code, free_board_code, member_code, comment_con
 (9, 9, 9, 'Policy updates are always good to know.', '2024-09-26'),
 (10, 10, 10, 'Thanks for the general information.', '2024-10-31');
 
-INSERT INTO tbl_travel_reports (member_code, report_title,report_content, report_start_date, report_end_date, report_destination, report_created_at, report_isdeleted) VALUES
-(1,  '환상적인 제주 여행',
-'제주의 푸른 바다와 아름다운 자연을 만끽한 3박 4일 여행기입니다. 다양한 맛집도 소개해드릴게요.','2024-04-01', '2024-04-14',
-'제주도', '2024-10-01', 'N'),
+INSERT INTO tbl_travel_reports (member_code, report_title, report_content, report_start_date, report_end_date, report_destination, report_created_at, report_isdeleted, report_image_url) VALUES
+(1,  '환상적인 제주 여행', '제주의 푸른 바다와 아름다운 자연을 만끽한 3박 4일 여행기입니다. 다양한 맛집도 소개해드릴게요.','2024-04-01', '2024-04-14',
+'제주도', '2024-10-01', 'N', 'BackGroundImage.jpg'),
 
 (2, '도쿄의 밤은 낮보다 아름답다',
 '도쿄 여행에서 느낀 감동적인 야경과 먹거리를 소개합니다. 쇼핑과 맛집 탐방이 즐거웠던 여행이었습니다.','2024-04-01', '2024-04-14',
-'도쿄', '2024-10-02', 'N'),
+'도쿄', '2024-10-02', 'N', 'BackGroundImage.jpg'),
 
 (3, '발리에서의 휴양',
 '발리의 해변에서 즐긴 여유로운 하루. 서핑과 스파로 몸과 마음을 힐링했어요.','2024-04-01', '2024-04-14',
-'발리', '2024-10-03', 'N'),
+'발리', '2024-10-03', 'N', 'BackGroundImage.jpg'),
 
 (4, '뉴욕 브로드웨이 투어',
 '뉴욕의 브로드웨이 뮤지컬을 관람하며 문화와 예술을 만끽한 여행기입니다.','2024-04-01', '2024-04-14',
-'뉴욕', '2024-10-04', 'N'),
+'뉴욕', '2024-10-04', 'N', 'BackGroundImage.jpg'),
 
 (5, '파리에서의 낭만적인 하루',
 '에펠탑과 루브르 박물관을 다녀오고, 노트르담 성당 앞에서 찍은 사진도 공유합니다.','2024-04-01', '2024-04-14',
-'파리', '2024-10-05', 'N'),
+'파리', '2024-10-05', 'N', 'BackGroundImage.jpg'),
 
 (6, '로마에서 만난 이탈리아의 매력',
 '콜로세움과 바티칸 투어로 가득 찬 하루, 이탈리아의 매력에 빠졌던 여행이었어요.','2024-04-01', '2024-04-14',
-'로마', '2024-10-06', 'N'),
+'로마', '2024-10-06', 'N', 'BackGroundImage.jpg'),
 
 (7, '싱가포르의 마리나 베이 탐방',
 '마리나 베이 샌즈에서 보는 야경이 정말 인상 깊었습니다. 다양한 관광지도 함께 소개할게요.','2024-04-01', '2024-04-14',
-'싱가포르', '2024-10-07', 'N'),
+'싱가포르', '2024-10-07', 'N', 'BackGroundImage.jpg'),
 
 (8, '호주 골드코스트 서핑 도전기',
 '호주의 해변에서 서핑을 배우며 즐긴 자유로운 여행기입니다.','2024-04-01', '2024-04-14',
-'골드코스트', '2024-10-08', 'N'),
+'골드코스트', '2024-10-08', 'N', 'BackGroundImage.jpg'),
 
 (9, '스위스 알프스 트레킹',
 '스위스 알프스를 트레킹하며 본 경치가 정말 환상적이었어요. 자연과 함께한 시간이 기억에 남습니다.','2024-04-01', '2024-04-14',
-'스위스', '2024-10-09', 'N'),
+'스위스', '2024-10-09', 'N', 'BackGroundImage.jpg'),
 
 (10, '태국 방콕의 숨은 명소 탐방',
 '방콕의 잘 알려지지 않은 명소들을 다녀왔습니다. 맛있는 길거리 음식도 함께 소개합니다.','2024-04-01', '2024-04-14',
-'방콕', '2024-10-10', 'N');
+'방콕', '2024-10-10', 'N', 'BackGroundImage.jpg');
 
 
 -- 채팅방 테이블 더미 데이터
