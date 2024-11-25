@@ -124,9 +124,9 @@ export const callTravelReportDetailAPI = (reportCode) => {
 
 };
 
-export const callUpdateTravelReportAPI = (reportCode, updatedTravelReport) => {
+export const callUpdateTravelReportAPI = (updatedTravelReport) => {
     console.log('[TravelReportAPICalls] callUpdateTravelReport', updatedTravelReport);
-    const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/travel-report/v1/travel-report/${reportCode}`;
+    const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/travel-report/v1/travel-report`;
     console.log("[TravelReportAPICalls] callUpdateTravelReportAPI : ", requestURL);
 
     return async (dispatch, getState) => {
@@ -165,9 +165,9 @@ export const callCreateTravelReportAPI = (createdTravelReport) => {
     };
 };
 
-export const callDeleteTravelReportAPI = (reportCode, deletedTravelReport) => {
+export const callDeleteTravelReportAPI = (deletedTravelReport) => {
     console.log('[TravelReportAPICalls] callDeleteTravelReport', deletedTravelReport);
-    const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/travel-report/v1/travel-report/${reportCode}`;
+    const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/travel-report/v1/travel-report/del`;
     console.log("[TravelReportAPICalls] callDeleteTravelReportAPI : ", requestURL);
 
     return async (dispatch, getState) => {

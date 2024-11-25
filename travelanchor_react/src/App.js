@@ -11,9 +11,13 @@ import PopulationCreate from './components/items/PopulationCreate';
 import PopulationModify from './components/items/PopulationModify';
 import ChatRoom from './components/items/ChatRoom';
 import TravelReport from './pages/reports/TravelReport';
+import TravelReportList from './pages/reports/TravelReportList';
+import TravelReportDetail from './pages/reports/TravelReportDetail';
+import TravelReportCreate from './pages/reports/TravelReportCreate';
+import TravelReportCreateForm from './pages/reports/TravelReportCreateForm';
+import TravelReportModify from './pages/reports/TravelReportModify';
 import AddReportDate from './pages/reports/AddReportDate';
 import AddReportDestination from './pages/reports/AddReportDestination';
-import ReportCreate from './pages/reports/ReportCreate';
 import Map from './apis/MapAPICalls';
 import ShareKakao from './apis/ShareKakao';
 import Weather from './pages/features/Weather';
@@ -75,10 +79,14 @@ export default function App() {
               <Route path="freeboardModify/:freeboardCode" element={<FreeBoardModify />} />
               <Route path="freeboardCreate" element={<FreeBoardCreate />} />
             </Route>
-            <Route path='TravelReport' element={ <TravelReport/> }/>
+            <Route path='travelReport' element={ <TravelReport/> }/>
             <Route path='AddReportDate' element={ <AddReportDate/> }/>
             <Route path='AddReportDestination' element={ <AddReportDestination/> }/>
-            <Route path='ReportCreate' element={ <ReportCreate/> }/>
+            <Route path='travelReportList' element={ <TravelReportList/> }/>
+            <Route path='travelReport/:reportCode' element={ <TravelReportDetail/> }/>
+            <Route path='travelReportCreate' element={ <TravelReportCreate/> }/>
+            <Route path='travelReportCreateForm' element={ <TravelReportCreateForm/> }/>
+            <Route path='travelReportModify/:reportCode' element={ <TravelReportModify/> }/>
             <Route path='Report' element={ <Report/> }/>
             <Route path='Map' element={ <Map/> }/>
             {/* <Route path='ShareKakao' element={ <ShareKakao/> }/> */}

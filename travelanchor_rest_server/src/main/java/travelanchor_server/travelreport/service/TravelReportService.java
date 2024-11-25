@@ -86,16 +86,18 @@ public class TravelReportService {
     }
 
     @Transactional
-    public Object updateTravelReport(int reportCode, TravelReportDTO travelReportDTO) {
+    public Object updateTravelReport(TravelReportDTO travelReportDTO) {
         log.info("[TravelReportService] updateTravelReport() Start");
-        log.info("[TravelReportService] reportCode : "+ reportCode);
+        log.info("[TravelReportService] travelReportDTO : "+ travelReportDTO);
         int result = 0;
 
         try{
-            TravelReport travelReport = travelReportRepository.findById(reportCode).get();
+            TravelReport travelReport = travelReportRepository.findById(travelReportDTO.getReportCode()).get();
             log.info("[TravelReportService] travelReport : " + travelReport);
             travelReport.setReportTitle(travelReportDTO.getReportTitle());
             travelReport.setReportContent(travelReportDTO.getReportContent());
+            travelReport.setReportStartDate(travelReportDTO.getReportStartDate());
+            travelReport.setReportEndDate(travelReportDTO.getReportEndDate());
             travelReport.setReportDestination(travelReportDTO.getReportDestination());
 
             System.out.println("travelReport = " + travelReport);
@@ -111,13 +113,12 @@ public class TravelReportService {
     }
 
     @Transactional
-    public Object deleteTravelReport(int reportCode, TravelReportDTO travelReportDTO) {
+    public Object deleteTravelReport(TravelReportDTO travelReportDTO) {
         log.info("[TravelReportService] deleteTravelReport() Start");
-        log.info("[TravelReportService] reportCode : "+ reportCode);
         int result = 0;
 
         try{
-            TravelReport travelReport = travelReportRepository.findById(reportCode).get();
+            TravelReport travelReport = travelReportRepository.findById(travelReportDTO.getReportCode()).get();
             log.info("[TravelReportService] travelReport : " + travelReport);
             travelReport.setReportIsdeleted(travelReportDTO.getReportIsdeleted());
 

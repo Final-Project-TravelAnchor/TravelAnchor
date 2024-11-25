@@ -20,6 +20,12 @@ public class TravelReport {
     @Column(name = "report_content")
     private String reportContent;
 
+    @Column(name = "report_start_date")
+    private String reportStartDate;
+
+    @Column(name = "report_end_date")
+    private String reportEndDate;
+
     @Column(name = "report_destination")
     private String reportDestination;
 
@@ -32,7 +38,21 @@ public class TravelReport {
     public TravelReport() {
     }
 
-    public int getReportCode() {return reportCode;}
+    public TravelReport(int reportCode, int memberCode, String reportTitle, String reportContent, String reportStartDate, String reportEndDate, String reportDestination, String reportCreatedAt, String reportIsdeleted) {
+        this.reportCode = reportCode;
+        this.memberCode = memberCode;
+        this.reportTitle = reportTitle;
+        this.reportContent = reportContent;
+        this.reportStartDate = reportStartDate;
+        this.reportEndDate = reportEndDate;
+        this.reportDestination = reportDestination;
+        this.reportCreatedAt = reportCreatedAt;
+        this.reportIsdeleted = reportIsdeleted;
+    }
+
+    public int getReportCode() {
+        return reportCode;
+    }
 
     public void setReportCode(int reportCode) {
         this.reportCode = reportCode;
@@ -60,6 +80,22 @@ public class TravelReport {
 
     public void setReportContent(String reportContent) {
         this.reportContent = reportContent;
+    }
+
+    public String getReportStartDate() {
+        return reportStartDate;
+    }
+
+    public void setReportStartDate(String reportStartDate) {
+        this.reportStartDate = reportStartDate;
+    }
+
+    public String getReportEndDate() {
+        return reportEndDate;
+    }
+
+    public void setReportEndDate(String reportEndDate) {
+        this.reportEndDate = reportEndDate;
     }
 
     public String getReportDestination() {
@@ -93,8 +129,10 @@ public class TravelReport {
                 ", memberCode=" + memberCode +
                 ", reportTitle='" + reportTitle + '\'' +
                 ", reportContent='" + reportContent + '\'' +
+                ", reportStartDate='" + reportStartDate + '\'' +
+                ", reportEndDate='" + reportEndDate + '\'' +
                 ", reportDestination='" + reportDestination + '\'' +
-                ", reportCreatedAt=" + reportCreatedAt +
+                ", reportCreatedAt='" + reportCreatedAt + '\'' +
                 ", reportIsdeleted='" + reportIsdeleted + '\'' +
                 '}';
     }
