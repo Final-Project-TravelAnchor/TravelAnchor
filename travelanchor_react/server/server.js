@@ -93,9 +93,7 @@ app.get("/api/TravelDestinations", async (req, res) => {
 
 	try {
 		const requests = parsedCities.map((city) => {
-			const url = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${encodeURIComponent(
-				city
-			)}&language=ko&key=${API_KEY}`;
+			const url = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${encodeURIComponent(city)}&language=ko&key=${API_KEY}`;
 			return axios.get(url);
 		});
 
