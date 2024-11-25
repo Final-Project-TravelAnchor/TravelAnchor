@@ -186,7 +186,8 @@ function Header({ hideAuthLinks }) {
 							</ul>
 						)}
 						</li>
-						<li class="navItem" className={HeaderCSS.navItem}><NavLink to="/plans/ExpenseList">일정</NavLink></li>
+						<li class="navItem" className={HeaderCSS.navItem}><NavLink to="/plans/TravelPlan">일정</NavLink></li>
+						<li class="navItem" className={HeaderCSS.navItem}><NavLink to="/plans/ExpenseList">비용</NavLink></li>
 						<li class="navItem" className={HeaderCSS.navItem}><NavLink to="/items/population">메이트</NavLink></li>
 						<li class="navItem" className={HeaderCSS.navItem}><NavLink to="/travelReport">후기</NavLink></li>
 						<li class="navItem" className={HeaderCSS.navItem}><NavLink to="freeboard">자유게시판</NavLink></li>

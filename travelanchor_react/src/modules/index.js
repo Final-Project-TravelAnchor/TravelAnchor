@@ -8,6 +8,7 @@ import freeboardReducer from './FreeBoardModule';
 import areaReducer from './AreaModule';
 import { cityReducer, selectedCityReducer } from './CityModule';
 import planReducer from './PlanModule';
+import travelPlanReducer from './TravelPlanModule';
 
 const rootReducer = combineReducers({
 	memberReducer,
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
 	cityReducer,
 	selectedCityReducer,
 	planReducer,
+	travelPlanReducer,
 });
 
 export default rootReducer;

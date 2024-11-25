@@ -96,14 +96,14 @@ public class TravelPlanService {
     }
 
     @Transactional
-    public Object updateTravelPlan(int travelCode, TravelPlanDTO travelPlanDTO) {
+    public Object updateTravelPlan(TravelPlanDTO travelPlanDTO) {
         log.info("[TravelPlanService] updateTravelPlan() Start");
-        log.info("[TravelPlanService] travelCode : "+ travelCode);
+        log.info("[TravelPlanService] travelPlanDTO : "+ travelPlanDTO);
         int result = 0;
 
         try{
 
-            TravelPlan travelPlan = travelPlanRepository.findById(travelCode).get();
+            TravelPlan travelPlan = travelPlanRepository.findById(travelPlanDTO.getTravelCode()).get();
             log.info("[TravelPlanService] travelPlan : " + travelPlan);
             travelPlan.setTravelName(travelPlanDTO.getTravelName());
             travelPlan.setTravelStartDate(travelPlanDTO.getTravelStartDate());
@@ -125,13 +125,13 @@ public class TravelPlanService {
     }
 
     @Transactional
-    public Object deleteTravelPlan(int travelCode, TravelPlanDTO travelPlanDTO) {
+    public Object deleteTravelPlan(TravelPlanDTO travelPlanDTO) {
         log.info("[TravelPlanService] deleteTravelPlan() Start");
-        log.info("[TravelPlanService] travelCode : "+ travelCode);
+        log.info("[TravelPlanService] TravelPlanDTO : "+ travelPlanDTO);
         int result = 0;
 
         try{
-            TravelPlan travelPlan = travelPlanRepository.findById(travelCode).get();
+            TravelPlan travelPlan = travelPlanRepository.findById(travelPlanDTO.getTravelCode()).get();
             log.info("[TravelPlanService] travelPlan : " + travelPlan);
             travelPlan.setTravelIsdeleted(travelPlanDTO.getTravelIsdeleted());
 

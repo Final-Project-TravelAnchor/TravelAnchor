@@ -46,16 +46,16 @@ public class TravelPlanController {
     }
 
     @Operation(summary = "여행 일정 수정 요청", description = "해당 여행 일정 수정이 진행됩니다.", tags = { "TravelPlanController" })
-    @PutMapping("/travel-plan/{travelCode}")
-    public ResponseEntity<ResponseDTO> updateTravelPlan(@PathVariable int travelCode , @RequestBody TravelPlanDTO travelPlanDTO) {
-        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "여행 일정 수정 성공", travelPlanService.updateTravelPlan(travelCode, travelPlanDTO)));
+    @PutMapping("/travel-plan")
+    public ResponseEntity<ResponseDTO> updateTravelPlan(@RequestBody TravelPlanDTO travelPlanDTO) {
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "여행 일정 수정 성공", travelPlanService.updateTravelPlan(travelPlanDTO)));
     }
 
     // 삭제라고 하지만 travelIsdeleted 가 Y 또는 N으로 수정되는 거임 ~.~
     @Operation(summary = "여행 일정 삭제 요청", description = "해당 여행 일정 삭제가 진행됩니다.", tags = { "TravelPlanController" })
-    @PutMapping("/travel-plan/del/{travelCode}")
-    public ResponseEntity<ResponseDTO> deleteTravelPlan(@PathVariable int travelCode , @RequestBody TravelPlanDTO travelPlanDTO) {
-        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "여행 일정 삭제 성공", travelPlanService.deleteTravelPlan(travelCode, travelPlanDTO)));
+    @PutMapping("/travel-plan/del")
+    public ResponseEntity<ResponseDTO> deleteTravelPlan(@RequestBody TravelPlanDTO travelPlanDTO) {
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "여행 일정 삭제 성공", travelPlanService.deleteTravelPlan(travelPlanDTO)));
     }
 
     /*--------------------------------------------------------------------------------------------------------------------------------------------------------------*/
