@@ -41,6 +41,14 @@ import FindId from './pages/member/FindId';
 import FindPw from './pages/member/FindPw';
 import TravelDestinations from './pages/travels/TravelDestinations';
 import TravelDestinationDetail from './pages/travels/TravelDestinationDetail';
+import TravelPlan from './pages/plans/TravelPlan';
+import TravelPlanDetail from './pages/plans/TravelPlanDetail';
+import AddPlanDate from './pages/plans/AddPlanDate';
+import AddPlanDestination from './pages/plans/AddPlanDestination';
+import TravelPlanCreate from './pages/plans/TravelPlanCreate';
+// import UpdatePlanDate from './pages/plans/UpdatePlanDate';
+// import UpdatePlanDestination from './pages/plans/UpdatePlanDestination';
+import TravelPlanUpdate from './pages/plans/TravelPlanUpdate';
 
 export default function App() {
   return (
@@ -58,6 +66,15 @@ export default function App() {
               <Route path="chatroom/:populationCode" element={<ChatRoom />} />
             </Route>
             <Route path="plans">
+              <Route path="TravelPlan" element={<TravelPlan />} />
+              <Route path=":travelCode" element={<TravelPlanDetail />} />
+              <Route path="AddPlanDate" element={<AddPlanDate />} />
+              <Route path="AddPlanDestination" element={<AddPlanDestination />} />
+              <Route path="TravelPlanCreate" element={<TravelPlanCreate />} />
+              {/* <Route path="UpdatePlanDate" element={<UpdatePlanDate />} />
+              <Route path="UpdatePlanDestination" element={<UpdatePlanDestination />} /> */}
+              <Route path="TravelPlanUpdate/:travelCode" element={<TravelPlanUpdate />} />
+
               <Route path="ExpenseList" element={<ExpenseList />} />
               <Route path="ExpenseInsert" element={<ExpenseInsert />} />
               <Route path="ExpenseUpdate/:expenseDetailCode" element={<ExpenseUpdate />} />
@@ -82,10 +99,10 @@ export default function App() {
             <Route path='Report' element={ <Report/> }/>
             <Route path='Map' element={ <Map/> }/>
             {/* <Route path='ShareKakao' element={ <ShareKakao/> }/> */}
-           
+
             <Route path="MyPage/:memberId" element={ <MyPage/> }/>  
             <Route path="MyPageUpdate/:memberId" element={ <MyPageUpdate/> }/>  
-           
+
             <Route path="Accommodation" element={ <Accommodation/> }/>
             <Route path="Weather" element={ <Weather/> }/>
             <Route path="Translation" element={ <Translation/> }/>
