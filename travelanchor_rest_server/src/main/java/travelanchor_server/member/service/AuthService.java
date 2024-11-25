@@ -75,7 +75,15 @@ public class AuthService {
         log.info("[AuthService] signup() Start.");
         log.info("[AuthService] memberDTO {}", memberDTO);
 
-        if(Objects.equals(memberDTO.getMemberName(), "") || Objects.equals(memberDTO.getMemberNickName(), "") || Objects.equals(memberDTO.getMemberMobileNumber(), "")) {
+        if (Objects.equals(memberDTO.getMemberName(), "") ||
+                Objects.equals(memberDTO.getMemberNickName(), "") ||
+                Objects.equals(memberDTO.getMemberMobileNumber(), "") ||
+                Objects.equals(memberDTO.getMemberId(), "") ||
+                Objects.equals(memberDTO.getMemberPassword(), "") ||
+                memberDTO.getMemberBirthDate() == null || // 생년월일 체크 (LocalDate가 null일 경우)
+                Objects.equals(memberDTO.getMemberGender(), "") ||
+                Objects.equals(memberDTO.getMemberAddress(), "")) {
+
             log.error("[AuthService] 필수항목에 빈문자열이 존재합니다.");
             throw new DuplicatedMemberEmailException("필수항목에 빈문자열이 존재합니다.");
         }
@@ -86,18 +94,22 @@ public class AuthService {
             throw new DuplicatedMemberEmailException("아이디가 중복됩니다.");
         }
 
-        // 핸드폰 번호 중복 체크
         if (memberRepository.findByMemberMobileNumber(memberDTO.getMemberMobileNumber()) != null) {
             log.info("[AuthService] getMemberMobileNumber() : ", memberDTO.getMemberMobileNumber());
             log.info("[AuthService] 핸드폰 번호가 중복됩니다.");
-            throw new DuplicatedMemberEmailException("이미 사용된 핸드폰 번호입니다.");
+            throw new DuplicatedMemberEmailException("이미 등록한 핸드폰 번호입니다.");
+        }
+
+        if (memberRepository.findByMemberNickName(memberDTO.getMemberNickName()) != null) {
+            log.info("[AuthService] getMemberNickName() : ", memberDTO.getMemberNickName());
+            log.info("[AuthService] 닉네임이 중복됩니다.");
+            throw new DuplicatedMemberEmailException("이미 사용된 닉네임입니다.");
         }
 
         Member registMember = modelMapper.map(memberDTO, Member.class);
 
         registMember.setMemberPassword(passwordEncoder.encode(registMember.getMemberPassword()));
         Member result1 = memberRepository.save(registMember);
-
 
         int maxMemberCode = memberRepository.maxMemberCode();	// JPQL을 사용해 회원번호 max값 추출
 

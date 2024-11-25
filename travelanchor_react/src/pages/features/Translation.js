@@ -74,7 +74,7 @@ export default function Translation() {
 
             {translation && (
                 <div className="translation-result">
-                    <h2 className="translation-result-title">번역된 텍스트</h2>
+                    {/* <h2 className="translation-result-title">번역된 텍스트</h2> */}
                     <h4 className="translation-result-text">{translation}</h4>
                 </div>
             )}

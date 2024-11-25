@@ -1,7 +1,9 @@
 import { createActions, handleActions } from 'redux-actions';
 
 /* 초기값 */
-const initialState = {};
+const initialState = {
+	member:null,
+};
 
 /* 액션 */
 export const GET_MEMBER = 'member/GET_MEMBER';

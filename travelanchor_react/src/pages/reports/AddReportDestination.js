@@ -10,7 +10,6 @@ function AddReportDestination () {
     const navigate = useNavigate();
     const countryList = useSelector((state) => state.areaReducer); // 국가 리스트
     const cityList = useSelector((state) => state.cityReducer); // 도시 리스트
-    const selectedCityCode = useSelector((state) => state.selectedCityReducer); // 도시 리스트
     console.log("countryList : ", countryList); // 국가 리스트 콘솔 출력
     console.log("cityList : ", cityList); // 국가 리스트 콘솔 출력
 
@@ -28,7 +27,7 @@ function AddReportDestination () {
             });
             console.log("nextPage");
         // 도시가 선택되었을 때만 이동
-            navigate('/ReportCreate');
+            navigate('/TravelReportCreate');
         } else {
         alert('여행한 도시를 선택해주세요..');
         }

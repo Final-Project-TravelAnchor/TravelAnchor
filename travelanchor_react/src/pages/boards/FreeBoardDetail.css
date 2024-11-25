@@ -1,0 +1,26 @@
+.free-board-detail-container {
+	display: flex;
+	flex-direction: column;
+    align-items: center;
+    margin-top: 120px;
+	margin-bottom: 50px;
+    min-height: 100vh;
+}
+
+.free-board-detail-title {
+	color: #333;
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.free-board-detail-content h1{
+	font-size: 30px;
+	font-weight: bold;
+	color: #FF8600;
+}
+
+.free-board-detail-content h3{
+	font-size: 18px;
+	color: #333
+}

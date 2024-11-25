@@ -6,6 +6,8 @@ public class TravelReportDTO {
     private int memberCode;
     private String reportTitle;
     private String reportContent;
+    private String reportStartDate;
+    private String reportEndDate;
     private String reportDestination;
     private String reportCreatedAt;
     private String reportIsdeleted;
@@ -13,11 +15,13 @@ public class TravelReportDTO {
     public TravelReportDTO() {
     }
 
-    public TravelReportDTO(int reportCode, int memberCode, String reportTitle, String reportContent, String reportDestination, String reportCreatedAt, String reportIsdeleted) {
+    public TravelReportDTO(int reportCode, int memberCode, String reportTitle, String reportContent, String reportStartDate, String reportEndDate, String reportDestination, String reportCreatedAt, String reportIsdeleted) {
         this.reportCode = reportCode;
         this.memberCode = memberCode;
         this.reportTitle = reportTitle;
         this.reportContent = reportContent;
+        this.reportStartDate = reportStartDate;
+        this.reportEndDate = reportEndDate;
         this.reportDestination = reportDestination;
         this.reportCreatedAt = reportCreatedAt;
         this.reportIsdeleted = reportIsdeleted;
@@ -55,6 +59,22 @@ public class TravelReportDTO {
         this.reportContent = reportContent;
     }
 
+    public String getReportStartDate() {
+        return reportStartDate;
+    }
+
+    public void setReportStartDate(String reportStartDate) {
+        this.reportStartDate = reportStartDate;
+    }
+
+    public String getReportEndDate() {
+        return reportEndDate;
+    }
+
+    public void setReportEndDate(String reportEndDate) {
+        this.reportEndDate = reportEndDate;
+    }
+
     public String getReportDestination() {
         return reportDestination;
     }
@@ -86,8 +106,10 @@ public class TravelReportDTO {
                 ", memberCode=" + memberCode +
                 ", reportTitle='" + reportTitle + '\'' +
                 ", reportContent='" + reportContent + '\'' +
+                ", reportStartDate='" + reportStartDate + '\'' +
+                ", reportEndDate='" + reportEndDate + '\'' +
                 ", reportDestination='" + reportDestination + '\'' +
-                ", reportCreatedAt=" + reportCreatedAt +
+                ", reportCreatedAt='" + reportCreatedAt + '\'' +
                 ", reportIsdeleted='" + reportIsdeleted + '\'' +
                 '}';
     }

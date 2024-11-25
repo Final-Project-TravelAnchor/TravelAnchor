@@ -64,6 +64,9 @@ CREATE TABLE IF NOT EXISTS tbl_member
     member_created_at DATE NOT NULL COMMENT '생성일자',
     member_id VARCHAR(255) UNIQUE NOT NULL COMMENT '아이디',
     member_password VARCHAR(255) NOT NULL COMMENT '비밀번호',
+    member_birth_date DATE NOT NULL COMMENT '생년월일',
+    member_gender VARCHAR(2) NOT NULL COMMENT '성별',
+    member_address VARCHAR(255) NOT NULL COMMENT '주소',
     member_level INT NOT NULL COMMENT '등급',
     member_certification VARCHAR(1) NOT NULL COMMENT '본인인증',
     profile_photo VARCHAR(255) NOT NULL COMMENT '프로필사진',
@@ -278,6 +281,8 @@ CREATE TABLE IF NOT EXISTS tbl_travel_reports
     member_code INT COMMENT '회원식별코드',
     report_title TEXT NOT NULL COMMENT '후기제목',
     report_content TEXT NOT NULL COMMENT '후기내용',
+    report_start_date TEXT NOT NULL COMMENT '여행시작',
+    report_end_date TEXT NOT NULL COMMENT '여행종료',
     report_destination TEXT NOT NULL COMMENT '여행지',
     report_created_at DATE NOT NULL COMMENT '작성일자',
     report_isdeleted VARCHAR(1) NOT NULL COMMENT '삭제여부',
@@ -369,17 +374,18 @@ INSERT INTO tbl_member_role (member_code, authority_code) VALUES (1, 2);
 INSERT INTO tbl_member_role (member_code, authority_code) VALUES (2, 2);
 
 -- 회원 테이블 더미 데이터
-INSERT INTO tbl_member (member_code, authority_code, member_name, member_nickname, member_mobile_number, member_created_at, member_id, member_password, member_level, profile_photo, member_certification) VALUES
-(1, 1, '홍길동', '길동이', '010-1234-5678', '2024-01-01', 'user1', '$2a$10$IhDb9e29Zr.dCr7nPUA/0e0WShLAy.g6EEMZVBY7HF4U4GbCM/hem', 1,'06a0060ae2da4dffb9a8a440ba5d9c5e.PNG','Y'),
-(2, 2, '김철수', '철수', '010-9876-5432', '2024-02-15', 'user2', '$2a$10$X0HHRqJiasK1lnV84b83guyl6Fuiy72dHz0gRqMWQbpFUG56CPwu6', 2, 'fcb3e0c8f94940cf99724d26e6020259.PNG','N'),
-(3, 2, '박영희', '영희', '010-1111-2222', '2024-03-01', 'user3', '$2a$10$RaUrEJIDuNOc73mn.9TNF.t1E/0BiX4NJGuIGNg0oAVlOFset9CPe', 2, '8e2492fd197e42d5855ffbbb5142b4ed.PNG','Y'),
-(4, 2, '이민호', '민호', '010-2222-3333', '2024-03-10', 'user4', '$2a$10$koZtyqOFbMZ/zuHGd1k.R.LAL4fVMfC60MuiVImjCLs7XHNkUu4DK', 1, '58b3fd68f6074de2b33d4430fd29244b.PNG','Y'),
-(5, 2, '최수지', '수지', '010-3333-4444', '2024-04-20', 'user5', '$2a$10$312n.LuQ2AAPF9LkNTNOHeM9V5USiBqA7B6yeQX6fzyCoBWYuO68y', 2, '7580adcf59d04240b7a16f6cf07bd34b.PNG','N'),
-(6, 2, '정준하', '준하', '010-4444-5555', '2024-05-05', 'user6', '$2a$10$aZ5.qhA0dJ0n.PjaV.rOHeO2/H6Ksx1ZJyd5DAKO1kTqYq6hawMfi', 2, '7b91aee3ddec49a69a9b7d2849493f7f.PNG','Y'),
-(7, 2, '강동원', '동원', '010-5555-6666', '2024-06-12', 'user7', '$2a$10$5w7VezVF36an5LwgCQAWxeCZfuIO1YrAGy4mZrU0TZVvPH/zLwj8a', 1, '8a4cd876df574970a565b41e47561080.PNG','N'),
-(8, 2, '한소희', '소희', '010-6666-7777', '2024-07-08', 'user8', '$2a$10$140Sv/sKmV/TkD3MN3yzWe4iljEdAwy/79Bl8TYSFobiYCVc.ksAy', 2, 'c0a177a658b44f749699f91a23c47d8b.PNG','Y'),
-(9, 2, '김유나', '유나', '010-7777-8888', '2024-08-16', 'user9', '$2a$10$gQoxt8swFds4eO0Du.lV1ukQLolDiYWabK9uV7AGsmcoRhBzyobYa', 2, '053626c2d16f4814a5e81b842a115dc7.PNG','N'),
-(10, 2, '이강현', '강현', '010-8888-9999', '2024-09-01', 'user10', '$2a$10$2H5vp7906QZQxicmDCTJeuDuxL4ye/0YthOlVStS5N/KQOYLUiun2', 1, '323a5df17163482d90a74f8198a4e4c6.PNG','Y');
+INSERT INTO tbl_member (member_code, authority_code, member_name, member_nickname, member_mobile_number, member_created_at, member_id, member_password, member_birth_date, member_gender, member_address, member_level, profile_photo, member_certification) VALUES
+(1, 1, '홍길동', '길동이', '010-1234-5678', '2024-01-01', 'user1', '$2a$10$IhDb9e29Zr.dCr7nPUA/0e0WShLAy.g6EEMZVBY7HF4U4GbCM/hem', '1990-05-15', '남', '서울특별시 강남구 역삼로 12길 25, 502호', 1, '06a0060ae2da4dffb9a8a440ba5d9c5e.PNG', 'Y'),
+(2, 2, '김철수', '철수', '010-9876-5432', '2024-02-15', 'user2', '$2a$10$X0HHRqJiasK1lnV84b83guyl6Fuiy72dHz0gRqMWQbpFUG56CPwu6', '1988-08-22', '남', '경기도 수원시 영통구 광교로 230, 3층', 2, 'fcb3e0c8f94940cf99724d26e6020259.PNG', 'N'),
+(3, 2, '박영희', '영희', '010-1111-2222', '2024-03-01', 'user3', '$2a$10$RaUrEJIDuNOc73mn.9TNF.t1E/0BiX4NJGuIGNg0oAVlOFset9CPe', '1995-04-10', '여', '서울특별시 마포구 합정동 366-16, 301호', 2, '8e2492fd197e42d5855ffbbb5142b4ed.PNG', 'Y'),
+(4, 2, '이민호', '민호', '010-2222-3333', '2024-03-10', 'user4', '$2a$10$koZtyqOFbMZ/zuHGd1k.R.LAL4fVMfC60MuiVImjCLs7XHNkUu4DK', '1992-07-17', '남', '서울특별시 송파구 잠실로 25, 잠실빌딩 10층', 1, '58b3fd68f6074de2b33d4430fd29244b.PNG', 'Y'),
+(5, 2, '최수지', '수지', '010-3333-4444', '2024-04-20', 'user5', '$2a$10$312n.LuQ2AAPF9LkNTNOHeM9V5USiBqA7B6yeQX6fzyCoBWYuO68y', '1993-02-28', '여', '경상북도 포항시 남구 동빈로 1길 17, 101호', 2, '7580adcf59d04240b7a16f6cf07bd34b.PNG', 'N'),
+(6, 2, '정준하', '준하', '010-4444-5555', '2024-05-05', 'user6', '$2a$10$aZ5.qhA0dJ0n.PjaV.rOHeO2/H6Ksx1ZJyd5DAKO1kTqYq6hawMfi', '1987-12-11', '남', '대전광역시 유성구 봉명동 125, 유성빌딩 2층', 2, '7b91aee3ddec49a69a9b7d2849493f7f.PNG', 'Y'),
+(7, 2, '강동원', '동원', '010-5555-6666', '2024-06-12', 'user7', '$2a$10$5w7VezVF36an5LwgCQAWxeCZfuIO1YrAGy4mZrU0TZVvPH/zLwj8a', '1991-01-25', '남', '부산광역시 해운대구 좌동로 33, 7층', 1, '8a4cd876df574970a565b41e47561080.PNG', 'N'),
+(8, 2, '한소희', '소희', '010-6666-7777', '2024-07-08', 'user8', '$2a$10$140Sv/sKmV/TkD3MN3yzWe4iljEdAwy/79Bl8TYSFobiYCVc.ksAy', '1997-09-10', '여', '울산광역시 남구 삼산로 205, 4층', 2, 'c0a177a658b44f749699f91a23c47d8b.PNG', 'Y'),
+(9, 2, '김유나', '유나', '010-7777-8888', '2024-08-16', 'user9', '$2a$10$gQoxt8swFds4eO0Du.lV1ukQLolDiYWabK9uV7AGsmcoRhBzyobYa', '1996-11-01', '여', '서울특별시 강북구 도봉로 189, 3층', 2, '053626c2d16f4814a5e81b842a115dc7.PNG', 'N'),
+(10, 2, '이강현', '강현', '010-8888-9999', '2024-09-01', 'user10', '$2a$10$2H5vp7906QZQxicmDCTJeuDuxL4ye/0YthOlVStS5N/KQOYLUiun2', '1994-03-17', '남', '경기도 성남시 분당구 수내로 73, 5층', 1, '323a5df17163482d90a74f8198a4e4c6.PNG', 'Y');
+
 
 -- 배지 테이블 더미 데이터
 INSERT INTO tbl_badge (badge_code, badge_name, badge_criteria, badge_create_at) VALUES
@@ -636,45 +642,45 @@ INSERT INTO tbl_comment (comment_code, free_board_code, member_code, comment_con
 (9, 9, 9, 'Policy updates are always good to know.', '2024-09-26'),
 (10, 10, 10, 'Thanks for the general information.', '2024-10-31');
 
-INSERT INTO tbl_travel_reports (member_code, report_title,report_content, report_destination, report_created_at, report_isdeleted) VALUES
+INSERT INTO tbl_travel_reports (member_code, report_title,report_content, report_start_date, report_end_date, report_destination, report_created_at, report_isdeleted) VALUES
 (1,  '환상적인 제주 여행',
-'제주의 푸른 바다와 아름다운 자연을 만끽한 3박 4일 여행기입니다. 다양한 맛집도 소개해드릴게요.',
+'제주의 푸른 바다와 아름다운 자연을 만끽한 3박 4일 여행기입니다. 다양한 맛집도 소개해드릴게요.','2024-04-01', '2024-04-14',
 '제주도', '2024-10-01', 'N'),
 
 (2, '도쿄의 밤은 낮보다 아름답다',
-'도쿄 여행에서 느낀 감동적인 야경과 먹거리를 소개합니다. 쇼핑과 맛집 탐방이 즐거웠던 여행이었습니다.',
+'도쿄 여행에서 느낀 감동적인 야경과 먹거리를 소개합니다. 쇼핑과 맛집 탐방이 즐거웠던 여행이었습니다.','2024-04-01', '2024-04-14',
 '도쿄', '2024-10-02', 'N'),
 
 (3, '발리에서의 휴양',
-'발리의 해변에서 즐긴 여유로운 하루. 서핑과 스파로 몸과 마음을 힐링했어요.',
+'발리의 해변에서 즐긴 여유로운 하루. 서핑과 스파로 몸과 마음을 힐링했어요.','2024-04-01', '2024-04-14',
 '발리', '2024-10-03', 'N'),
 
 (4, '뉴욕 브로드웨이 투어',
-'뉴욕의 브로드웨이 뮤지컬을 관람하며 문화와 예술을 만끽한 여행기입니다.',
+'뉴욕의 브로드웨이 뮤지컬을 관람하며 문화와 예술을 만끽한 여행기입니다.','2024-04-01', '2024-04-14',
 '뉴욕', '2024-10-04', 'N'),
 
 (5, '파리에서의 낭만적인 하루',
-'에펠탑과 루브르 박물관을 다녀오고, 노트르담 성당 앞에서 찍은 사진도 공유합니다.',
+'에펠탑과 루브르 박물관을 다녀오고, 노트르담 성당 앞에서 찍은 사진도 공유합니다.','2024-04-01', '2024-04-14',
 '파리', '2024-10-05', 'N'),
 
 (6, '로마에서 만난 이탈리아의 매력',
-'콜로세움과 바티칸 투어로 가득 찬 하루, 이탈리아의 매력에 빠졌던 여행이었어요.',
+'콜로세움과 바티칸 투어로 가득 찬 하루, 이탈리아의 매력에 빠졌던 여행이었어요.','2024-04-01', '2024-04-14',
 '로마', '2024-10-06', 'N'),
 
 (7, '싱가포르의 마리나 베이 탐방',
-'마리나 베이 샌즈에서 보는 야경이 정말 인상 깊었습니다. 다양한 관광지도 함께 소개할게요.',
+'마리나 베이 샌즈에서 보는 야경이 정말 인상 깊었습니다. 다양한 관광지도 함께 소개할게요.','2024-04-01', '2024-04-14',
 '싱가포르', '2024-10-07', 'N'),
 
 (8, '호주 골드코스트 서핑 도전기',
-'호주의 해변에서 서핑을 배우며 즐긴 자유로운 여행기입니다.',
+'호주의 해변에서 서핑을 배우며 즐긴 자유로운 여행기입니다.','2024-04-01', '2024-04-14',
 '골드코스트', '2024-10-08', 'N'),
 
 (9, '스위스 알프스 트레킹',
-'스위스 알프스를 트레킹하며 본 경치가 정말 환상적이었어요. 자연과 함께한 시간이 기억에 남습니다.',
+'스위스 알프스를 트레킹하며 본 경치가 정말 환상적이었어요. 자연과 함께한 시간이 기억에 남습니다.','2024-04-01', '2024-04-14',
 '스위스', '2024-10-09', 'N'),
 
 (10, '태국 방콕의 숨은 명소 탐방',
-'방콕의 잘 알려지지 않은 명소들을 다녀왔습니다. 맛있는 길거리 음식도 함께 소개합니다.',
+'방콕의 잘 알려지지 않은 명소들을 다녀왔습니다. 맛있는 길거리 음식도 함께 소개합니다.','2024-04-01', '2024-04-14',
 '방콕', '2024-10-10', 'N');
 
 

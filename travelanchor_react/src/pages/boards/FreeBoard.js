@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { replace, useNavigate } from 'react-router-dom';
 import FreeBoardList from './FreeBoardList';
 import { isLogin } from '../../utils/tokenUtils';
+import './FreeBoard.css';
 
 export default function FreeBoard() {
 
@@ -38,16 +39,20 @@ export default function FreeBoard() {
         return <div>Loading...</div>;
     } else {
     return (
-        <>
-            <div>
-                <button onClick={onClickCreateFreeBoardHandler}>게시판 생성</button>
+        <div className='free-board-container'>
+            <h1 className='free-board-title'>자유 게시판</h1>
+            <div className='free-board-button-right'>
+                <button 
+                className='free-board-create-button'
+                onClick={onClickCreateFreeBoardHandler}>게시물 생성</button>
             </div>
-            <div>
+            
+            <div className='free-board-list-container'>
                 {
                     freeboards.length > 0 && freeboards.map((freeboard) => (<FreeBoardList key={ freeboard.freeBoardCode } population={ freeboard } />)) 
                 }
             </div>
-        </>
+        </div>
     );
     }
 

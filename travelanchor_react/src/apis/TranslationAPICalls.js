@@ -2,7 +2,7 @@ export const callTranslation = async (text, sourceLanguage, targetLanguage) => {
 	const url = 'https://translation.googleapis.com/language/translate/v2';
 
 	const params = new URLSearchParams({
-		key: process.env.REACT_APP_GOOGLE_API_KEY,
+		key: process.env.REACT_APP_GOOGLE_API_KEY_T,
 	});
 
 	const body = {
