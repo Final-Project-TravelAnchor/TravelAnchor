@@ -20,14 +20,14 @@ export default function PopulationDetail() {
         dispatch(callPopulationDetailAPI(populationCode));
 
         // 사용자 정보 가져오기
-        const tokenSub = findSub();
-        if (tokenSub) {
-            try {
-                await dispatch(callGetMemberAPI({ memberId: tokenSub }));
-            } catch (error) {
-                console.error("Failed to fetch member data:", error);
-            }
-        }
+        // const tokenSub = findSub();
+        // if (tokenSub) {
+        //     try {
+        //         await dispatch(callGetMemberAPI({ memberId: tokenSub }));
+        //     } catch (error) {
+        //         console.error("Failed to fetch member data:", error);
+        //     }
+        // }
     };
 
     useEffect(() => {
