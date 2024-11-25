@@ -36,13 +36,13 @@ export default function FreeBoardDetail() {
     useEffect(() => {
         console.log("[FreeBoardDetail] freeboard useEffect");
 
-        const tokenSub = findSub();
+        // const tokenSub = findSub();
 
-        // console.log(tokenSub);
+        // // console.log(tokenSub);
 
-        if(tokenSub) {
-            dispatch(callGetMemberAPI({memberId: tokenSub}));
-        }
+        // if(tokenSub) {
+        //     dispatch(callGetMemberAPI({memberId: tokenSub}));
+        // }
 
         // dispatch(callPopulationDetailAPI(populationCode));
     }, []);
