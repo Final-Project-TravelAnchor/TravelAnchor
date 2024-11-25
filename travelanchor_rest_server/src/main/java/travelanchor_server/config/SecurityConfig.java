@@ -53,7 +53,7 @@ public class SecurityConfig {
     public WebSecurityCustomizer webSecurityCustomizer() {
         return web -> web.ignoring()
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations())
-                .requestMatchers("/css/**", "/js/**", "/images/**", "/lib/**", "/productimgs/**");
+                .requestMatchers("/css/**", "/js/**", "/images/**", "/lib/**", "/productimgs/**", "/travelimgs/**");
     }
 
 
@@ -103,7 +103,7 @@ public class SecurityConfig {
         CorsConfiguration configuration = new CorsConfiguration();
 
         configuration.setAllowedOrigins(Arrays.asList(
-                "http://localhost:3000", "http://192.168.0.75:3000", "http://192.168.0.75:8080"
+                "http://localhost:3000", "http://192.168.0.75:3000", "http://193.168.0.75:8080", "http://localhost:8080"
         ));
 
         configuration.setAllowedMethods(Arrays.asList("GET", "PUT", "POST", "DELETE"));
