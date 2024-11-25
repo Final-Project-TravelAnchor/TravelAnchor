@@ -14,6 +14,7 @@ import TravelReport from './pages/reports/TravelReport';
 import TravelReportList from './pages/reports/TravelReportList';
 import TravelReportDetail from './pages/reports/TravelReportDetail';
 import TravelReportCreate from './pages/reports/TravelReportCreate';
+import TravelReportCreateForm from './pages/reports/TravelReportCreateForm';
 import TravelReportModify from './pages/reports/TravelReportModify';
 import AddReportDate from './pages/reports/AddReportDate';
 import AddReportDestination from './pages/reports/AddReportDestination';
@@ -84,6 +85,7 @@ export default function App() {
             <Route path='travelReportList' element={ <TravelReportList/> }/>
             <Route path='travelReport/:reportCode' element={ <TravelReportDetail/> }/>
             <Route path='travelReportCreate' element={ <TravelReportCreate/> }/>
+            <Route path='travelReportCreateForm' element={ <TravelReportCreateForm/> }/>
             <Route path='travelReportModify/:reportCode' element={ <TravelReportModify/> }/>
             <Route path='Report' element={ <Report/> }/>
             <Route path='Map' element={ <Map/> }/>

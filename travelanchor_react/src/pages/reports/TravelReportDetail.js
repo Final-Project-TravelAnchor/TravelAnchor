@@ -48,6 +48,7 @@ export default function TravelReportDetail() {
                     <h3>내용 : {travelReport.reportContent}</h3>
                     <h3>작성일 : {travelReport.reportCreatedAt}</h3>
                     <h3>여행일 : {travelReport.reportStartDate} ~ {travelReport.reportEndDate}</h3>
+                    <h3>여행지 : {travelReport.reportDestination}</h3>
                 </div>
             ) : (
                 <div>후기를 찾을 수 없습니다.</div>

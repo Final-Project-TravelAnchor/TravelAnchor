@@ -2,7 +2,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import DatePicker from 'react-datepicker';
 import { callUpdateTravelReportAPI } from "../../apis/TravelReportAPICalls";
-import { callCityByCountryCodeAPI } from '../../apis/AreaAPICalls';
+import { callCityByCountryCodeAPI, callCountryAPI } from '../../apis/AreaAPICalls';
 import { useDispatch, useSelector } from "react-redux";
 
 export default function TravelReportModify() {
@@ -17,8 +17,8 @@ export default function TravelReportModify() {
     const [form, setForm] = useState({
         reportTitle: "",
         reportContent: "",
-        reportStartDate: "",
-        reportEndDate: "",
+        // reportStartDate: "",
+        // reportEndDate: "",
         reportDestination: "",
     });
     const [loading, setLoading] = useState(false);
@@ -67,7 +67,8 @@ export default function TravelReportModify() {
     useEffect(() => {
         console.log('selectedCountry : ', selectedCountry);
 
-        dispatch(callCityByCountryCodeAPI(selectedCountry)); // 도시 API 호출
+        dispatch(callCountryAPI()); // 도시 API 호출
+        dispatch(callCityByCountryCodeAPI(selectedCountry)); 
 
     }, [selectedCountry]);
 

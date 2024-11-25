@@ -44,6 +44,10 @@ export default function TravelReport () {
         navigate("/AddReportDate");
     };
 
+    const onClickTravelReportCreateForm = () => {
+        navigate("/TravelReportCreateForm");
+    };
+
     // const onClickTravelReportHandler = (travelReport) => {
     //     console.log("onClickTravelReportHandler : " + travelReport.reportCode);
     //     navigate(`/travelReport/${travelReport.reportCode}`, { replace: false, state: travelReport});
@@ -53,6 +57,10 @@ export default function TravelReport () {
         <div>
             <div>
             <button onClick={onClickCreateTravelReport}>후기 생성</button>
+            </div>
+
+            <div>
+            <button onClick={onClickTravelReportCreateForm}>입력폼</button>
             </div>
 
         {/* <div>

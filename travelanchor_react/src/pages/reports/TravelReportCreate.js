@@ -30,7 +30,7 @@ export default function ReportCreate() {
         reportContent: "Content",
         reportStartDate: startDate,
         reportEndDate: endDate,
-        reportDestination: selectedCityName,
+        reportDestination: selectedCity,
         reportCreatedAt: today,
         reportIsdeleted: "N"
     })
