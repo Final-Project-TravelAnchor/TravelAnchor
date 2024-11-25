@@ -61,4 +61,10 @@ public class PopulationController {
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "여행메이트 수정 성공", populationService.updatePopulation(populationDTO)));
 
     }
+
+    @Operation(summary = "메이트 조회수 증가 요청", description = "메이트 조회수 증가 처리가 진행됩니다.", tags = { "PopulationController" })
+    @GetMapping("/updatePopulationView/{populationCode}")
+    public ResponseEntity<ResponseDTO> updatePopulationViews(@PathVariable int populationCode){
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "메이트 조회수 증가 성공", populationService.updatePopulationViews(populationCode)));
+    }
 }

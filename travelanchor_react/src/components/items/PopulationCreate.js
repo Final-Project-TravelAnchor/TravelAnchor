@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Navigate, replace, useNavigate, useParams } from "react-router-dom";
 import { callCreatePopulationAPI } from "../../apis/PopulationAPICalls";
 import './PopulationCreate.css';
+import { callCountryAPI, callCityByCountryCodeAPI, callCityAPI, callCountryByCountryCodeAPI } from '../../apis/AreaAPICalls';
 
 
 export default function PopulationCreate() {
@@ -10,14 +11,22 @@ export default function PopulationCreate() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    const countryList = useSelector((state) => state.areaReducer); // 국가 리스트
+    const cityList = useSelector((state) => state.cityReducer); // 도시 리스트
+    const [selectedCountry, setSelectedCountry] = useState(1); // 국가 코드로 초기값 설정
+    const [selectedCity, setSelectedCity] = useState("");
+
+    console.log("countryList:", countryList);
+    console.log("cityList:", cityList);
+
     const today = new Date().toISOString().split('T')[0];
     // console.log(today);
 
     const [ form, setForm ] = useState({
         populationCode: null,
-        travelCode: 1,  // 이건 국가 코드 가져와야 함.
+        travelCode: selectedCity,  // 이건 국가 코드 가져와야 함.
         memberCode: 1, // 만드는 회원의 코드를 가져와야 함
-        countryCode: 1,
+        countryCode: selectedCountry,
         populationTitle: null,
         populationDescription: null,
         populationCreatedAt: today,
@@ -26,12 +35,26 @@ export default function PopulationCreate() {
         populationOnoff: "Y",
     })
 
+    useEffect(() => {
+        console.log('selectedCountry : ', selectedCountry);
+
+        dispatch(callCityByCountryCodeAPI(selectedCountry)); // 도시 API 호출
+
+    }, [selectedCountry]);
+
     useEffect( () => {
         // 국가 TBL에 접근할 dispatch 구현하기
+
+        dispatch(callCountryAPI());
+
         // dispatch(call)
     }, []);
 
     const onClickCreatePopulationHandler = async () => {
+
+        console.log('onClickCreatePopulationHandler', selectedCity);
+        console.log('onClickCreatePopulationHandler', selectedCountry);
+
         console.log("[PopulationCreate] onClickCreatePopulationClickCreate");
 
         // form 값으로 API 요청
@@ -77,6 +100,47 @@ export default function PopulationCreate() {
                     onChange={onChangeHandler}
                     />
                 <br/>
+
+                <div className="country-group">
+                    <label>국가</label>
+                    <select
+                        value={selectedCountry}
+                        onChange={(e) => setSelectedCountry(e.target.value)} // 국가 선택 시 상태 변경
+                    >
+                        {countryList.length > 0 && countryList.map((country) => (
+                            <option 
+                            key={country.countryCode} 
+                            value={country.countryCode}
+                            >
+                            {country.countryName}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+
+                {/* 도시 리스트 */}
+                <div>
+                    <label>도시</label>
+                    <select 
+                        className="city-list"
+                        value={selectedCity}
+                        onChange={(e) => setSelectedCity(e.target.value)} // 국가 선택 시 상태 변경
+                        >
+                        {cityList.length > 0 ? (
+                            cityList.map((city) => (
+                                <option 
+                                key={city.cityCode} 
+                                value={city.cityCode}
+                                >
+                                {city.cityName}
+                                </option>
+                            ))
+                        ) : (
+                        <p>표시할 도시 정보가 없습니다.</p>
+                        )}
+                    </select>
+                </div>
+
                 <label className="mate-create-label">모집인원
                 </label>
                     <input
@@ -87,6 +151,8 @@ export default function PopulationCreate() {
                     onChange={onChangeHandler}
                     />
                 <br/>
+
+
                 <div className="mate-create-button-container">
                     <button onClick={onClickCreatePopulationHandler}
                     className="mate-create-save-button">추가하기</button>
