@@ -3,7 +3,7 @@
     margin: 0 auto;
     margin-top: 120px;
     margin-bottom: 50px;
-    font-family: "nanumfont";
+    /* font-family: "nanumfont"; */
 }
 
 .translation-title {
@@ -12,7 +12,7 @@
     font-weight: bold;
     text-align: center;
     margin-bottom: 20px;
-    font-family: "nanumfont";
+    /* font-family: "nanumfont"; */
 }
 
 .translation-input-group {

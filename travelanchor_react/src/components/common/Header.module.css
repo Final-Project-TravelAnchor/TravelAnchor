@@ -21,10 +21,9 @@
 
 .navMenu .navItem a{
 	display: block;
-	font-size: 20px;
-	font-family: 'nanumfont';
-	font-weight: bold;
-	padding: 30px 30px;
+	font-size: 22px;
+	font-family: 'LINESeedKR-Bd';
+	padding: 20px 20px;
 }
 
 .navMenu .navItem {
@@ -36,7 +35,8 @@
 	top:100%;
 	left:0;
 	/* min-width: 100px; */
-	background: #ff880018;
+	background:#ffffff;
+    border: #FF8600 solid 2px;
 	border-radius: 10px;
 }
 
@@ -44,7 +44,7 @@
 	display: block;
 	font-size:18px;
 	padding:10px 0;
-	min-width:160px;
+	min-width:100px;
 	text-align: center;
 }
 
