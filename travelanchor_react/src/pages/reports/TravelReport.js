@@ -59,9 +59,9 @@ export default function TravelReport () {
             <button onClick={onClickCreateTravelReport}>후기 생성</button>
             </div>
 
-            <div>
+            {/* <div>
             <button onClick={onClickTravelReportCreateForm}>입력폼</button>
-            </div>
+            </div> */}
 
         {/* <div>
             <h1>여행 후기 리스트</h1>
