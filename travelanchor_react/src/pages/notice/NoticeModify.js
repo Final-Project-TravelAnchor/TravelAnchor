@@ -11,7 +11,7 @@ export default function NoticeModify() {
     const dispatch = useDispatch();
     // console.log(location.state);
     const notice = location.state || {};
-    console.log("[NoticeModify] notice: " + notice);
+    console.log("[NoticeModify] notice: " , notice);
 
     const [ form, setForm ] = useState({});
 
@@ -32,7 +32,8 @@ export default function NoticeModify() {
         };
 
         await dispatch(callUpdateNoticeAPI(updatedNotice));
-        navigate(`/notice/${notice.noticeCode}`, { replace: false });
+        // navigate(`/notice/${notice.noticeCode}`, { replace: false });
+        navigate(`/notice`, { replace: false });
     };
 
     // 취소
