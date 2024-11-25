@@ -1,0 +1,97 @@
+.fb-modify-container {
+	width: 80%;
+    max-width: 900px; /* 최대 너비 */
+    margin: 40px auto; /* 화면 중앙 정렬 */
+	margin-top: 120px;
+	margin-bottom: 50px;
+}
+
+.fb-modify-title {
+	font-size: 30px;
+	font-weight: bold;
+	color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.fb-modify-form {
+	width: 100%;
+    max-width: 800px; /* 적당한 크기로 제한 */
+    margin: 0px auto 40px; /* 화면 중앙 정렬 및 상단 여백 */
+    padding: 30px;
+    background: #f9f9f9; /* 밝은 배경 */
+    border-radius: 15px; /* 둥근 모서리 */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
+}
+
+.fb-modify-button-container {
+	display: flex;
+    justify-content: end;
+	padding: 20px;
+	gap: 10px;
+}
+
+.fb-modify-save-button,
+.fb-modify-cancel-button {
+	padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.fb-modify-save-button {
+	background-color: #FF8600;
+}
+
+.fb-modify-save-button:hover {
+	background-color: #e07500;
+}
+
+.fb-modify-cancel-button {
+	background-color: gray
+}
+
+.fb-modify-cancel-button:hover {
+	background-color: darkgrey
+}
+
+.fb-modify-content-row {
+    display: flex; /* 가로 정렬 */
+    align-items: center; /* 세로 정렬 */
+    gap: 10px; /* 라벨과 텍스트 필드 사이 간격 */
+}
+
+.fb-modify-label {
+	font-size: 18px;
+    font-weight: bold;
+    color: #FF8600;
+    text-align: right; /* 라벨 텍스트 정렬 */
+}
+
+.fb-modify-title-input {
+	width: 100%;
+	border-radius: 15px;
+	padding: 10px;
+	font-size: 18px;
+    box-sizing: border-box; /* 패딩을 포함한 크기 설정 */
+	margin-top: 10px;
+	margin-bottom: 20px;
+}
+
+.fb-modify-content-textarea {
+    width: 100%;
+    min-height: 200px;
+    border-radius: 15px;
+    padding: 20px;
+    box-sizing: border-box; /* 패딩을 포함한 크기 설정 */
+	font-size: 18px;
+    text-align: left; /* 텍스트 정렬을 왼쪽으로 */
+    resize: none; /* 크기 조정 방지 (선택 사항) */
+	margin-top: 10px;
+	margin-bottom: 20px;
+	/* white-space: pre-wrap; */
+}
