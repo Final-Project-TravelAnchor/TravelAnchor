@@ -24,21 +24,24 @@ const actions = createActions({
 /* 리듀서 */
 const memberReducer = handleActions(
 	{
-		[GET_MEMBER]: (state, { payload }) => {
-			return payload;
-		},
-		[PUT_MEMBER]: (state, { payload }) => {
-			return payload;
-		},
+		[GET_MEMBER]: (state, { payload }) => ({
+            ...state,
+            member: payload, // 기존 상태를 유지하며 member 정보 업데이트
+        }),
+        [PUT_MEMBER]: (state, { payload }) => ({
+            ...state,
+            member: payload, // 회원 정보 업데이트
+        }),
 		[POST_LOGIN]: (state, { payload }) => {
 			return payload;
 		},
 		[POST_REGISTER]: (state, { payload }) => {
 			return payload;
 		},
-		[GET_POINT]: (state, { payload }) => {
-            return payload; // 회원 점수 업데이트
-        },
+		[GET_POINT]: (state, { payload }) => ({
+            ...state,
+            point: payload, // 기존 상태를 유지하며 point 정보 업데이트
+        }),
 	},
 	initialState
 );

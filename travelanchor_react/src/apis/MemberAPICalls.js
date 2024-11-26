@@ -218,7 +218,7 @@ export const callGetPoint = ({ memberId}) => {
 		console.log('[MemberAPICalls] callGetPointAPI RESULT 회원점수정보 : ', result);
 
 		if (result.status === 200) {
-            dispatch({ type: GET_MEMBER, payload: result.data }); // data 저장
+            dispatch({ type: GET_POINT, payload: result.data }); // data 저장
         } else {
             console.error('Error fetching member:', result.message);
         }

@@ -9,8 +9,8 @@ const MyPage = () => {
     const { memberId } = useParams(); // 경로에서 memberId 가져오기
     const dispatch = useDispatch();
     const navigate = useNavigate(); 
-    const member = useSelector(state => state.memberReducer);
-    const point = useSelector(state => state.memberReducer); // 회원 점수
+    const member = useSelector(state => state.memberReducer.member); // 회원 정보
+    const point = useSelector(state => state.memberReducer.point);
 
     
 
@@ -58,7 +58,12 @@ const MyPage = () => {
                 <p>번호:{member.memberMobileNumber}</p>
                 <p>회원등급:{member.memberLevel}</p>
                 <p>가입날짜:{member.memberCreatedAt}</p>
-                <p>나의 매너점수: {point.pointRewardPoint}</p>
+                <p>
+                    매너점수: 
+                    {point?.pointRewardTotalCount 
+                        ? (point.pointRewardPoint / point.pointRewardTotalCount).toFixed(1) 
+                        : '점수 정보를 불러오지 못했습니다.'}
+                </p>
 
                 <button className={mypageCss.button} onClick={handleUpdateClick}>정보수정하기</button>
             </section>
