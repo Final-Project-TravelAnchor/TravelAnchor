@@ -37,46 +37,55 @@ const MyPage = () => {
             <header className={mypageCss.header}>
                 <h1>My Page</h1>
             </header>
-
+            
             {/* 프로필 섹션 */}
             <section className={mypageCss.profileSection}>
-            <div className={mypageCss.profilePicture}>
-            <img 
-                src={
-                    member.profilePhoto 
-                        ? `http://localhost:8080/uploadedImages/${member.profilePhoto}` 
-                        : '/images/main/default-avatar.png'
-                } 
-                alt="프로필 사진" 
-            />
-
-            </div>
-                <h2>안녕하세요!
-				    <br/>
-				    {member.memberNickName}님</h2>
-                <p>이름:{member.memberName}</p>
-                <p>번호:{member.memberMobileNumber}</p>
-                <p>회원등급:{member.memberLevel}</p>
-                <p>가입날짜:{member.memberCreatedAt}</p>
-                <p>
-                    매너점수: 
-                    {point?.pointRewardTotalCount 
-                        ? (point.pointRewardPoint / point.pointRewardTotalCount).toFixed(1) 
-                        : '점수 정보를 불러오지 못했습니다.'}
-                </p>
-
-                <button className={mypageCss.button} onClick={handleUpdateClick}>정보수정하기</button>
+                <div className={mypageCss.profileTop}>
+                    {/* 프로필 사진 */}
+                    <div className={mypageCss.profilePicture}>
+                        <img 
+                            src={
+                                (member.profilePhoto 
+                                    ? `http://localhost:8080/uploadedImages/${member.profilePhoto}` 
+                                    : '/uploadedImages/default-avatar.png'
+                                )} 
+                            alt="프로필 사진" 
+                        />
+                    </div>
+                        
+                    {/* 프로필 기본 정보 */}
+                    <div className={mypageCss.profileInfo}>
+                        <h2>{member.memberNickName}님 환영합니다</h2>
+                        <p className={mypageCss.username}>나의 아이디 {member.memberId}</p>
+                        <p className={mypageCss.memberLevel}>나의 등급 [{member.memberLevel}]</p>
+                    </div>
+                </div>
+                        
+                {/* 상세 정보 - 하단 세분할 */}
+                <div className={mypageCss.profileDetails}>
+                    <div className={mypageCss.detailBox}>
+                        <p><strong>휴대폰 번호:</strong></p>
+                        <p>{member.memberMobileNumber}</p>
+                    </div>
+                    <div className={mypageCss.detailBox}>
+                        <p><strong>가입 날짜:</strong></p>
+                        <p>{member.memberCreatedAt}</p>
+                    </div>
+                    <div className={mypageCss.detailBox}>
+                        <p><strong>매너 점수:</strong></p>
+                        <p>
+                            {point?.pointRewardTotalCount 
+                                ? (point.pointRewardPoint / point.pointRewardTotalCount).toFixed(1) 
+                                : '정보 없음'}
+                        </p>
+                    </div>
+                </div>
+                            
+                {/* 정보 수정 버튼 */}
+                <button className={mypageCss.button} onClick={handleUpdateClick}>
+                    정보 수정하기
+                </button>
             </section>
-
-           
-
-            {/* 버튼 섹션
-            <section className={mypageCss.navigationButtons}>
-                <button className={mypageCss.navBtn}>내 정보</button>
-                <button className={mypageCss.navBtn}>나의 여행 일정</button>
-                <button className={mypageCss.navBtn}>나의 저장 장소</button>
-                <button className={mypageCss.navBtn}>나의 후기</button>
-            </section> */}
         </div>
     );
 };
