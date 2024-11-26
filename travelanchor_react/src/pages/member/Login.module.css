@@ -45,7 +45,7 @@ input {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 입력창 그림자 */
 }
 
-button {
+.loginButton {
     width: 52%;
     padding: 10px;
     margin: 10px 0;
@@ -58,7 +58,7 @@ button {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 버튼 그림자 */
 }
 
-button:hover {
+.loginButton:hover {
     background-color: #e06b00;
 }
 
