@@ -99,17 +99,18 @@ export default function App() {
               <Route path="freeboardModify/:freeboardCode" element={<FreeBoardModify />} />
               <Route path="freeboardCreate" element={<FreeBoardCreate />} />
             </Route>
-            <Route path='travelReport' element={ <TravelReport/> }/>
+            <Route path="travelreport">
+            <Route index element={<TravelReport/> }/>
             <Route path='AddReportDate' element={ <AddReportDate/> }/>
             <Route path='AddReportDestination' element={ <AddReportDestination/> }/>
             <Route path='travelReportList' element={ <TravelReportList/> }/>
-            <Route path='travelReport/:reportCode' element={ <TravelReportDetail/> }/>
+            <Route path=":reportCode" element={ <TravelReportDetail/> }/>
             <Route path='travelReportCreate' element={ <TravelReportCreate/> }/>
             <Route path='travelReportModify/:reportCode' element={ <TravelReportModify/> }/>
             <Route path='Report' element={ <Report/> }/>
             <Route path='Map' element={ <Map/> }/>
             {/* <Route path='ShareKakao' element={ <ShareKakao/> }/> */}
-
+            </Route>
             <Route path="MyPage/:memberId" element={ <MyPage/> }/>  
             <Route path="MyPageUpdate/:memberId" element={ <MyPageUpdate/> }/>  
             <Route path="Accommodation" element={ <Accommodation/> }/>

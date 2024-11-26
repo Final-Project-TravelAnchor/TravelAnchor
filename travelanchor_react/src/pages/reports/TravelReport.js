@@ -41,7 +41,7 @@ export default function TravelReport () {
         }
 
         console.log('onClickCreateTravelReport called');
-        navigate("/AddReportDate");
+        navigate("/travelReport/AddReportDate");
     };
 
     const onClickTravelReportCreateForm = () => {

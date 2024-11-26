@@ -30,10 +30,12 @@ export default function ReportCreate() {
         reportContent: "Content",
         reportStartDate: startDate,
         reportEndDate: endDate,
-        reportDestination: selectedCity,
+        reportDestination: selectedCityName,
         reportCreatedAt: today,
         reportIsdeleted: "N"
     })
+
+    console.log("form" + form);
 
     const onClickCreateTravelReportHandler = async () => {
         console.log("[ReportCreate] onClickCreateTravelReportHandler");

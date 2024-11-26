@@ -35,6 +35,14 @@ export default function TravelReportModify() {
         setDatePeriod([null, null]);
     };
 
+    const formatDate = (date) => {
+        if (!date) return "";
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, "0");
+        const day = String(date.getDate()).padStart(2, "0");
+        return `${year}-${month}-${day}`; // YYYY-MM-DD 형식 반환
+    };
+
     // const nextPage = () => {
     //     if (startDate && endDate) {
     //         dispatch({
@@ -63,6 +71,8 @@ export default function TravelReportModify() {
             });
         }
     }, [travelReport]);
+
+    console.log("travelReport 이거이거 " + travelReport);
 
     useEffect(() => {
         console.log('selectedCountry : ', selectedCountry);
@@ -106,7 +116,8 @@ export default function TravelReportModify() {
             await dispatch(callUpdateTravelReportAPI(updatedTravelReport));
             alert("게시글이 성공적으로 수정되었습니다.");
             console.log("이게 맞는지 보여주세묘 : " + travelReport.reportCode);
-            navigate(`/travelReport/${travelReport.reportCode}`, { replace: true });
+            // navigate(`/travelReport/${travelReport.reportCode}`, { replace: true });
+            navigate(`/travelReport`, { replace: true });
             // window.location.reload(); // 페이지 새로고침
         } catch (err) {
             console.error("Error updating TravelReport: ", err);
@@ -159,8 +170,8 @@ export default function TravelReportModify() {
                         setDatePeriod(update); 
                         setForm({
                             ...form,
-                            reportStartDate: update[0]?.toISOString().split("T")[0] || "",
-                            reportEndDate: update[1]?.toISOString().split("T")[0] || "",
+                            reportStartDate: update[0] ? formatDate(update[0]) : "",
+                            reportEndDate: update[1] ? formatDate(update[1]) : "",
                         });
                     }}
                     startDate={startDate}
