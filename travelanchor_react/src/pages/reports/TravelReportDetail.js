@@ -12,7 +12,7 @@ export default function TravelReportDetail() {
 
     const onClickModifyModeHandler = (travelReport) => {
         console.log("[TravelReportDetail] onClickModifyModeHandler ", travelReport);
-        navigate(`/travelReportModify/${travelReport.reportCode}`, { state: travelReport, replace: false });
+        navigate(`/travelReport/travelReportModify/${travelReport.reportCode}`, { state: travelReport, replace: false });
     };
 
     // 삭제

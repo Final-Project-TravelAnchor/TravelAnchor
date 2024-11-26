@@ -27,7 +27,7 @@ function AddReportDestination () {
             });
             console.log("nextPage");
         // 도시가 선택되었을 때만 이동
-            navigate('/TravelReportCreate');
+            navigate('/travelReport/TravelReportCreate');
         } else {
         alert('여행한 도시를 선택해주세요..');
         }
