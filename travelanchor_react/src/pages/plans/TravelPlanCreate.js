@@ -6,8 +6,6 @@ import { callCreateTravelPlanAPI } from "../../apis/TravelPlanAPICalls";
 import { cityReducer, selectedCityReducer } from "../../modules/CityModule";
 import planReducer from '../../modules/PlanModule';
 
-
-
 export default function TravelPlanCreate() {
 
     const dispatch = useDispatch();
@@ -50,18 +48,23 @@ export default function TravelPlanCreate() {
     })
 
     const onClickCreateTravelPlanHandler = async () => {
-        console.log("[TravelPlan] onClickCreateTravelPlanHandler");
+        console.log("[TravelPlanCreate] onClickCreateTravelPlanHandler");
+
+        dispatch({
+            type: 'add-plan/SET_TOTAL_DATE',
+            payload: { totalDate },
+        });
 
         // form 값으로 API 요청
         await dispatch(callCreateTravelPlanAPI(form));
 
-        navigate("/plans/TravelPlan");
+        navigate("/plans/AddByDayPlan");
 
     };
 
     const onClickCancelTravelPlanHandler = () => {
         console.log("[TravelPlanCreate] onClickCancelTravelPlanHandler");
-        navigate("/plans/TravelPlan");
+        navigate(-1);
     };
 
     const onChangeHandler = (e) => {

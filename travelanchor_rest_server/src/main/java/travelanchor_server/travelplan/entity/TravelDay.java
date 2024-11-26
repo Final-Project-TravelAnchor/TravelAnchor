@@ -1,9 +1,6 @@
 package travelanchor_server.travelplan.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "tbl_travel_day")
@@ -11,6 +8,7 @@ public class TravelDay {
 
     @Id
     @Column(name = "day_code")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int dayCode;
 
     @Column(name = "travel_code")

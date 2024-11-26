@@ -174,3 +174,25 @@ export const callDeleteTravelPlanAPI = (updatedTravelPlan) => {
         }
     };
 };
+
+export const callCreateDayPlanAPI = (createdTravelDay) => {
+    console.log('[TravelPlanAPICalls] Create!!!');
+    const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/travel-plan/v1/travel-plan/day`;
+
+    return async (dispatch, getState) => {
+        try {
+            
+            const result = await fetchPostTravelPlanData(requestURL, createdTravelDay);
+
+            console.log("callCreateDayPlanAPI : ", result);
+
+            if(result.status === 200) {
+                console.log('[TravelPlanAPICalls] callCreateTravelPlanAPI Result : ', result);
+                dispatch({ type: POST_TRAVELPLAN, payload: result });
+            }
+
+        } catch (error) {
+            console.error('[TravelPlanAPICalls] callUpdateTravelPlanAPI error : ', error);
+        }
+    };
+};
