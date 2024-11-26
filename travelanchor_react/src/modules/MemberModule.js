@@ -38,4 +38,3 @@ const memberReducer = handleActions(
 );
 
 export default memberReducer;
-// membermodule.js
