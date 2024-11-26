@@ -112,6 +112,21 @@ ul li a:hover {
 }
 
 .hamburgerDropdown button:hover {
-    background-color: #e0e0e0; /* 마우스 오버 시 배경색 */
+    background-color: #ffebd2;
+     /* 마우스 오버 시 배경색 */
 }
 
+
+.profileSection {
+    text-align: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.profilePhoto {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+}

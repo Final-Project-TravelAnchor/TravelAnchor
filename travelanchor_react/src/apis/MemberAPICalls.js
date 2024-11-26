@@ -1,4 +1,4 @@
-import { GET_MEMBER, PUT_MEMBER, POST_LOGIN, POST_REGISTER } from '../modules/MemberModule';
+import { GET_MEMBER, PUT_MEMBER, POST_LOGIN, POST_REGISTER, GET_POINT } from '../modules/MemberModule';
 
 export const callGetMemberAPI = ({ memberId }) => {
 	const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/member/v1/members/${memberId}`;
@@ -26,6 +26,7 @@ export const callGetMemberAPI = ({ memberId }) => {
 };
 
 export const callUpdateMemberAPI = ({ memberId, updatedData }) => {
+	
     const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/member/v1/members/${memberId}`;
 
     return async (dispatch) => {
@@ -196,3 +197,31 @@ export const callResetPwAPI = ({ mobileNumber, verificationCode, newPassword }) 
         }
     };
 };
+
+export const callGetPoint = ({ memberId}) => {
+	
+	
+	const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/point/v1/${memberId}`;
+
+	return async (dispatch) => {
+
+		const result = await fetch(requestURL, {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+				Accept: '*/*',
+				Authorization:
+					'Bearer ' + window.localStorage.getItem('accessToken')
+			}
+		}).then((response) => response.json());
+
+		console.log('[MemberAPICalls] callGetPointAPI RESULT 회원점수정보 : ', result);
+
+		if (result.status === 200) {
+            dispatch({ type: GET_POINT, payload: result.data }); // data 저장
+        } else {
+            console.error('Error fetching member:', result.message);
+        }
+	};
+};
+
