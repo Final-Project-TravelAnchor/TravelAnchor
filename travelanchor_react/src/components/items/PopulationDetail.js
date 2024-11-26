@@ -18,6 +18,8 @@ export default function PopulationDetail() {
     const populationDetail = useSelector((state) => state.populationReducer);
     const memberInfo = useSelector((state) => state.memberReducer);
 
+    // console.log("memberInfo", memberInfo);
+
     // console.log("populationDetail", populationDetail);
 
     const fetchPopulationAndMember = async () => {
