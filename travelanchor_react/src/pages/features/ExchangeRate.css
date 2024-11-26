@@ -1,6 +1,6 @@
 .exchange-h1 {
-	font-size: 2rem;
-	color: #ff8600;
+	font-size: 30px;
+	color: #333;
 	text-align: center;
 	font-weight: bold;
 	margin-bottom: 20px;
@@ -19,7 +19,9 @@
 	align-items: center;
 	background-size: cover;
 	color: #333;
-	padding: 20px;
+	/* padding: 20px; */
+	margin-top: 120px;
+	margin-bottom: 50px;
 }
 
 .exchange-rate-content {

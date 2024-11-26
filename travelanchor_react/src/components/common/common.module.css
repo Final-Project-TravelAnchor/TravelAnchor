@@ -1,3 +1,31 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Gowun+Batang&family=Gowun+Dodum&family=Nanum+Gothic&family=Orbit&display=swap');
+
+.gowun-dodum-regular {
+	font-family: "Gowun Dodum", serif;
+	font-weight: 400;
+	font-style: normal;
+	}   */
+
+@font-face {
+	font-family: 'HakgyoansimWoojuR';
+	src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-2@1.0/HakgyoansimWoojuR.woff2') format('woff2');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'LINESeedKR-Bd';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Bd.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
 
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -25,6 +53,7 @@ footer, header, hgroup, menu, nav, section {
 	display: block;
 }
 body {
+	font-family: 'Pretendard-Regular';
 	line-height: 1;
 	color:#222;
 }
@@ -48,7 +77,26 @@ a{
     color: #222;
 }
 
+h1 {
+	font-size: 30px;
+	font-weight: bold;
+}
+
+h2 {
+	font-size: 25px;
+	font-weight: 300;
+}
+
+h3 {
+	font-size: 18px;
+}
+
+p {
+	font-size: 18px;
+}
+
 button{
+	font-family: 'Pretendard-Regular';
 	background: inherit ; 
 	border:none;
 	box-shadow:none; 
@@ -56,6 +104,10 @@ button{
 	padding:0; 
 	overflow:visible;
 	cursor:pointer;
+}
+
+input, select, textarea {
+	font-family: 'Pretendard-Regular';
 }
 
 /* 전체 페이지 레이아웃 */

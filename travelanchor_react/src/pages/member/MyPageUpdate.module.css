@@ -26,7 +26,7 @@
 }
 
 .submitBtn {
-    background-color: #ff6600;
+    background-color: #ff8600;
     color: white;
     padding: 10px;
     font-size: 16px;
@@ -67,7 +67,7 @@
 }
 
 .modifyButton {
-    background-color: #ff6600; /* Green color */
+    background-color: #ff8600; /* Green color */
     color: white;
 }
 
@@ -76,7 +76,7 @@
 }
 
 .saveButton {
-    background-color: #ff6600; /* Orange color */
+    background-color: #ff8600; /* Orange color */
     color: white;
 }
 
@@ -86,7 +86,7 @@
 
 .productImageButton {
     padding: 10px 20px;
-    background-color: #007bff;
+    background-color: #ff8600;
     color: white;
     border: none;
     border-radius: 4px;
@@ -95,7 +95,7 @@
 }
 
 .productImageButton:hover {
-    background-color: #0056b3;
+    background-color: #e05a00;
 }
 
 .imagePreview {

@@ -6,6 +6,8 @@ import { callLogoutAPI } from "../../apis/MemberAPICalls";
 import { decodeJwt } from '../../utils/tokenUtils';
 import LoginModal from "./LoginModal";
 import commonCss from "./common.module.css";
+import { callGetMemberAPI, callGetPoint  } from '../../apis/MemberAPICalls';
+
 
 function Header({ hideAuthLinks }) {
 	const navigate = useNavigate();
@@ -16,7 +18,8 @@ function Header({ hideAuthLinks }) {
 	const isLogin = window.localStorage.getItem('accessToken'); // Local Storage 에 token 정보 확인
 	const [search, setSearch] = useState("");
 	const [loginModal, setLoginModal] = useState(false);
-
+  const member = useSelector(state => state.memberReducer.member); // 회원 정보
+  const point = useSelector(state => state.memberReducer.point);
 	const [isDropdownOpen, setDropdownOpen] = useState(false); // 드롭다운 상태
 	const [isHamburgerOpen, setHamburgerOpen] = useState(false);
 
@@ -98,16 +101,29 @@ function Header({ hideAuthLinks }) {
 		);
 	}
 
-	// 드롭다운 열림/닫힘 상태 제어
-	const toggleDropdown = () => {
-		setDropdownOpen((prev) => !prev);
-	};
+ const plansClick = () => {
+	navigate(`/plans/`); 
+};
 
-	const toggleHamburgerDropdown = () => {
-		setHamburgerOpen((prev) => !prev);
-	};
+const favoriteClick = () => {
+	navigate(`/Restaurants`); 
+};
 
-	return (
+const reportClick = () => {
+	navigate(`/TravelReport`); 
+};
+
+	
+// 드롭다운 열림/닫힘 상태 제어
+const toggleDropdown = () => {
+	setDropdownOpen((prev) => !prev);
+};
+
+const toggleHamburgerDropdown = () => {
+	setHamburgerOpen((prev) => !prev);
+};
+
+return (
 		<>
 			<div className={HeaderCSS.HeaderWrap}>
 				{loginModal ? (
@@ -213,6 +229,31 @@ function Header({ hideAuthLinks }) {
 								<button>나의 저장 장소</button>
 								<button>나의 후기</button>
 								<button>나의 매너 점수</button>
+							<div className={HeaderCSS.hamburgerDropdown}  onMouseLeave={() => setHamburgerOpen(false)}>
+								<div className={HeaderCSS.profileSection}>
+									<img 
+                                	src={
+										member.profilePhoto 
+										? `http://localhost:8080/uploadedImages/${member.profilePhoto}` 
+										: '/images/main/default-avatar.png'
+                                	} 
+                                	alt="프로필 사진"
+                                	className={HeaderCSS.profilePhoto}
+                            		/>
+									<h2>안녕하세요!
+										<br/>
+										{member.memberNickName}님</h2>
+										<p>
+                						    나의 매너점수: 
+                						    {point?.pointRewardTotalCount 
+                						        ? (point.pointRewardPoint / point.pointRewardTotalCount).toFixed(1) 
+                						        : '점수 정보를 불러오지 못했습니다.'}
+                						</p>
+								
+									<button onClick={plansClick}>나의 여행 일정</button>
+									<button onClick={favoriteClick}>나의 저장 장소</button>
+									<button onClick={reportClick}>나의 후기</button>
+								</div>
 							</div>
 						)}
 					</div>
