@@ -25,6 +25,10 @@ const MyPage = () => {
         navigate(`/MyPageUpdate/${memberId}`); // memberId를 경로에 포함
     };
 
+    const handleSavedTravelDestinaitonClick = () => {
+        navigate(`/SavedTravelDestination/${memberId}`); // 저장한 여행지 페이지로 이동
+    };
+
     return (
         <div className={mypageCss.container}>
             {/* 헤더 섹션 */}
@@ -58,7 +62,7 @@ const MyPage = () => {
             <section className={mypageCss.navigationButtons}>
                 <button className={mypageCss.navBtn}>내 정보</button>
                 <button className={mypageCss.navBtn}>나의 여행 일정</button>
-                <button className={mypageCss.navBtn}>나의 저장 장소</button>
+                <button className={mypageCss.navBtn} onClick={handleSavedTravelDestinaitonClick}>나의 저장 장소</button>
                 <button className={mypageCss.navBtn}>나의 후기</button>
             </section>
         </div>

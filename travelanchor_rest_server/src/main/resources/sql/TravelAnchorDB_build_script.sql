@@ -328,9 +328,9 @@ CREATE TABLE IF NOT EXISTS tbl_travel_destination_favorite
 (
     favorite_code int AUTO_INCREMENT NOT NULL COMMENT '즐겨찾기 코드',
     member_code INT COMMENT '회원식별코드',
-    api_link VARCHAR(300) NOT NULL COMMENT 'API 링크',
+    api_link VARCHAR(2083) NOT NULL COMMENT 'API 링크',
     destination_name VARCHAR(50) NOT NULL COMMENT '여행지 이름',
-    destination_photos VARCHAR(300) NOT NULL COMMENT '여행지 사진',
+    destination_photos VARCHAR(2083) NOT NULL COMMENT '여행지 사진',
     CONSTRAINT pk_favorite_code PRIMARY KEY (favorite_code),
     CONSTRAINT fk_member_code11 FOREIGN KEY (member_code) REFERENCES tbl_member(member_code)
 ) ENGINE=InnoDB COMMENT '여행지 저장';
@@ -340,9 +340,9 @@ CREATE TABLE IF NOT EXISTS tbl_restaurant_favorite
 (
     favorite_code int AUTO_INCREMENT NOT NULL COMMENT '즐겨찾기 코드',
     member_code INT COMMENT '회원식별코드',
-    api_link VARCHAR(300) NOT NULL COMMENT 'API 링크',
+    api_link VARCHAR(2083) NOT NULL COMMENT 'API 링크',
     restaurant_name VARCHAR(50) NOT NULL COMMENT '맛집 이름',
-    restaurant_photos VARCHAR(300) NOT NULL COMMENT '맛집 사진',
+    restaurant_photos VARCHAR(2083) NOT NULL COMMENT '맛집 사진',
     place_type VARCHAR(50) NOT NULL COMMENT '장소 타입',
     CONSTRAINT pk_favorite_code PRIMARY KEY (favorite_code),
     CONSTRAINT fk_member_code12 FOREIGN KEY (member_code) REFERENCES tbl_member(member_code)

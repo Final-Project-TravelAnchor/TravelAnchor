@@ -41,6 +41,8 @@ import FindId from './pages/member/FindId';
 import FindPw from './pages/member/FindPw';
 import TravelDestinations from './pages/travels/TravelDestinations';
 import TravelDestinationDetail from './pages/travels/TravelDestinationDetail';
+import SavedTravelDestination from './pages/travels/SavedTravelDestination';
+import LandmarkDetail from './pages/travels/LandmarkDetail';
 
 export default function App() {
   return (
@@ -97,6 +99,8 @@ export default function App() {
             <Route path="/findpw" element={ <FindPw/>} />
             <Route path="TravelDestinations" element={ <TravelDestinations/> }/>
             <Route path="TravelDestinations/:place_id" element={ <TravelDestinationDetail/> }/>
+            <Route path="/SavedTravelDestination/:memberId" element={ <SavedTravelDestination/> }/>
+            <Route path="/Landmarks/:landmark_id" element={ <LandmarkDetail /> }/>
           </Route>
           <Route path='*' element={ <Error/> }/>
           <Route path="/register" element={ <Register/> } />
