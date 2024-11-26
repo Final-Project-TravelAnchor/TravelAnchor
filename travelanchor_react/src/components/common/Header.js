@@ -102,7 +102,7 @@ function Header({ hideAuthLinks }) {
 	}
 
  const plansClick = () => {
-	navigate(`/plans/`); 
+	navigate(`/plans/TravelPlan`); 
 };
 
 const favoriteClick = () => {
@@ -210,52 +210,51 @@ return (
 
 					{/* 햄버거 버튼 */}
 					<div>
-						<button
-							type="button"
-							className={HeaderCSS.hamburgerBtn}
-							onClick={() => setHamburgerOpen(!isHamburgerOpen)}
-						>
-							<img
-								src="/images/main/BtnHamberger.png"
-								alt="hamburger"
-							/>
-						</button>
-						{isHamburgerOpen && (
-							<div
-								className={HeaderCSS.hamburgerDropdown}
-								onMouseLeave={() => setHamburgerOpen(false)}
-							>
-								<button>나의 여행 일정</button>
-								<button>나의 저장 장소</button>
-								<button>나의 후기</button>
-								<button>나의 매너 점수</button>
-							<div className={HeaderCSS.hamburgerDropdown}  onMouseLeave={() => setHamburgerOpen(false)}>
-								<div className={HeaderCSS.profileSection}>
-									<img 
-                                	src={
-										member.profilePhoto 
-										? `http://localhost:8080/uploadedImages/${member.profilePhoto}` 
-										: '/images/main/default-avatar.png'
-                                	} 
-                                	alt="프로필 사진"
-                                	className={HeaderCSS.profilePhoto}
-                            		/>
-									<h2>안녕하세요!
-										<br/>
-										{member.memberNickName}님</h2>
-										<p>
-                						    나의 매너점수: 
-                						    {point?.pointRewardTotalCount 
-                						        ? (point.pointRewardPoint / point.pointRewardTotalCount).toFixed(1) 
-                						        : '점수 정보를 불러오지 못했습니다.'}
-                						</p>
-								
-									<button onClick={plansClick}>나의 여행 일정</button>
-									<button onClick={favoriteClick}>나의 저장 장소</button>
-									<button onClick={reportClick}>나의 후기</button>
-								</div>
-							</div>
-						)}
+					    <button
+					        type="button"
+					        className={HeaderCSS.hamburgerBtn}
+					        onClick={() => setHamburgerOpen(!isHamburgerOpen)}
+					    >
+					        <img src="/images/main/BtnHamberger.png" alt="hamburger" />
+					    </button>
+					    {isHamburgerOpen && (
+					        <div 
+					            className={HeaderCSS.hamburgerDropdown}  
+					            onMouseLeave={() => setHamburgerOpen(false)}
+					        >
+					            {member ? (
+					                // 로그인 상태일 때
+					                <div className={HeaderCSS.profileSection}>
+					                    <img 
+					                        src={
+					                            member.profilePhoto 
+					                                ? `http://localhost:8080/uploadedImages/${member.profilePhoto}` 
+					                                : '/images/main/default-avatar.png'
+					                        } 
+					                        className={HeaderCSS.profilePhoto}
+					                    />
+					                    <h2>안녕하세요!
+					                        <br/>
+					                        {member.memberNickName}님
+					                    </h2>
+					                    <p>
+					                        나의 매너점수: 
+					                        {point?.pointRewardTotalCount 
+					                            ? (point.pointRewardPoint / point.pointRewardTotalCount).toFixed(1) 
+					                            : '점수 정보를 불러오지 못했습니다.'}
+					                    </p>
+					                    <button onClick={plansClick}>나의 여행 일정</button>
+					                    <button onClick={favoriteClick}>나의 저장 장소</button>
+					                    <button onClick={reportClick}>나의 후기</button>
+					                </div>
+					            ) : (
+					                // 비로그인 상태일 때
+					                <div className={HeaderCSS.profileSection}>
+					                    <p>로그인 후 이용 가능한 메뉴입니다.</p>
+					                </div>
+					            )}
+					        </div>
+					    )}
 					</div>
 				</div>
 			</div>
