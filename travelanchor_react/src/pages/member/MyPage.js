@@ -29,8 +29,7 @@ const MyPage = () => {
         navigate(`/MyPageUpdate/${memberId}`); // memberId를 경로에 포함
     };
 
-    
-
+   
     return (
         <div className={mypageCss.container}>
             {/* 헤더 섹션 */}
@@ -40,6 +39,7 @@ const MyPage = () => {
             
             {/* 프로필 섹션 */}
             <section className={mypageCss.profileSection}>
+
                 <div className={mypageCss.profileTop}>
                     {/* 프로필 사진 */}
                     <div className={mypageCss.profilePicture}>
@@ -85,6 +85,7 @@ const MyPage = () => {
                 <button className={mypageCss.button} onClick={handleUpdateClick}>
                     정보 수정하기
                 </button>
+
             </section>
         </div>
     );

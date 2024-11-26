@@ -45,6 +45,8 @@ import FindId from './pages/member/FindId';
 import FindPw from './pages/member/FindPw';
 import TravelDestinations from './pages/travels/TravelDestinations';
 import TravelDestinationDetail from './pages/travels/TravelDestinationDetail';
+import SavedTravelDestination from './pages/travels/SavedTravelDestination';
+import LandmarkDetail from './pages/travels/LandmarkDetail';
 import TravelPlan from './pages/plans/TravelPlan';
 import TravelPlanDetail from './pages/plans/TravelPlanDetail';
 import AddPlanDate from './pages/plans/AddPlanDate';
@@ -53,6 +55,7 @@ import TravelPlanCreate from './pages/plans/TravelPlanCreate';
 // import UpdatePlanDate from './pages/plans/UpdatePlanDate';
 // import UpdatePlanDestination from './pages/plans/UpdatePlanDestination';
 import TravelPlanUpdate from './pages/plans/TravelPlanUpdate';
+
 
 export default function App() {
   return (
@@ -121,6 +124,8 @@ export default function App() {
             <Route path="/findpw" element={ <FindPw/>} />
             <Route path="TravelDestinations" element={ <TravelDestinations/> }/>
             <Route path="TravelDestinations/:place_id" element={ <TravelDestinationDetail/> }/>
+            <Route path="/SavedTravelDestination/:memberId" element={ <SavedTravelDestination/> }/>
+            <Route path="/Landmarks/:landmark_id" element={ <LandmarkDetail /> }/>
           </Route>
           <Route path='*' element={ <Error/> }/>
           <Route path="/register" element={ <Register/> } />

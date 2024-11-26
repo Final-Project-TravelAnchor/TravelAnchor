@@ -176,6 +176,36 @@ app.get("/api/TravelDestinations/details", async (req, res) => {
     }
 });
 
+// 랜드마크 디테일
+app.get("/api/landmark/details", async (req, res) => {
+	const { landmark_id } = req.query; // place_id를 쿼리에서 가져옴
+	const API_KEY = process.env.REACT_APP_GOOGLE_KEY;
+
+	if (!API_KEY) {
+		return res.status(400).json({ error: "API Key is missing." });
+	}
+
+	try {
+		// URL 구성 시 landmark_id 사용
+		const url = `https://maps.googleapis.com/maps/api/place/details/json?landmark_id=${landmark_id}&language=ko&key=${API_KEY}`;
+		console.log("Requesting Google API (Details):", url);
+
+		const response = await axios.get(url);
+
+		res.json(response.data.result);
+	} catch (error) {
+		if (error.response) {
+			console.error("Google API error:", error.response.data);
+			res.status(error.response.status).json({
+				error: error.response.data,
+			});
+		} else {
+			console.error("Google API error:", error.message);
+			res.status(500).json({ error: error.message });
+		}
+	}
+});
+
 // 서버 시작
 app.listen(PORT, () => {
 	console.log(`Server is running on http://localhost:${PORT}`);
