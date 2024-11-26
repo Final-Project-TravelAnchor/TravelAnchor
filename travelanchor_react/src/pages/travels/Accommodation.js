@@ -62,11 +62,11 @@ function Accommodation() {
   // };
 
 	const [ token, setToken ] = useState();
-	const onClickHandler = async () => {
-		const tokenResponse = await callAmadeusToken(); 
-		setToken(tokenResponse.access_token);
-		console.log("token : " + tokenResponse.access_token);
-	};
+	// const onClickHandler = async () => {
+	// 	const tokenResponse = await callAmadeusToken(); 
+	// 	setToken(tokenResponse.access_token);
+	// 	console.log("token : " + tokenResponse.access_token);
+	// };
 
 
   const ref = {
@@ -77,13 +77,13 @@ function Accommodation() {
     roomQuantity: useRef(null),
   };
   
-  const onClickHandlerHotelsByCity = async () => {
-		console.log("ref : " , ref);
+  // const onClickHandlerHotelsByCity = async () => {
+	// 	console.log("ref : " , ref);
 
-		const hotelsResponse = await callAmadeusHotelsByCity(token, ref);
-    console.log("hotelsResponse : " , hotelsResponse);
-    setHotelList(hotelsResponse);
-  };
+	// 	const hotelsResponse = await callAmadeusHotelsByCity(token, ref);
+  //   console.log("hotelsResponse : " , hotelsResponse);
+  //   setHotelList(hotelsResponse);
+  // };
 
 
   const onClickHandlerHotelPrices = async () => {
@@ -101,14 +101,20 @@ function Accommodation() {
   };
 
   const onClickHandlerHotelsAndPrices = async () => {
-    if (!token) {
-      console.error("Access Token이 없습니다.");
-      return;
-    }
-  
     try {
-      // 1. 도시별 호텔 조회
-      const hotelsResponse = await callAmadeusHotelsByCity(token, ref);
+      // 1. Access Token 요청
+      const tokenResponse = await callAmadeusToken();
+      const newToken = tokenResponse.access_token;
+      setToken(newToken);
+      console.log("Access Token 발급 완료: ", newToken);
+  
+      // 2. 도시별 호텔 및 가격 정보 가져오기
+      if (!newToken) {
+        console.error("Access Token 발급 실패");
+        return;
+      }
+  
+      const hotelsResponse = await callAmadeusHotelsByCity(newToken, ref);
       console.log("도시별 호텔 응답: ", hotelsResponse);
   
       if (!hotelsResponse || hotelsResponse.length === 0) {
@@ -116,15 +122,15 @@ function Accommodation() {
         return;
       }
   
-      // 2. 호텔 ID 추출
+      // 3. 호텔 ID 추출
       const hotelIds = hotelsResponse.map((hotel) => hotel.hotelId).join(",");
       console.log("추출된 호텔 ID들: ", hotelIds);
   
-      // 3. 호텔 가격 조회
-      const pricesResponse = await callAmadeusHotelPrices(token, { hotelIdRef: hotelIds }, ref);
+      // 4. 호텔 가격 조회
+      const pricesResponse = await callAmadeusHotelPrices(newToken, { hotelIdRef: hotelIds }, ref);
       console.log("호텔 가격 응답: ", pricesResponse);
   
-      // 4. 가격 데이터를 호텔 리스트에 병합
+      // 5. 호텔 목록에 가격 정보 병합
       const updatedHotelList = hotelsResponse.map((hotel) => {
         const matchingOffer = pricesResponse.data?.find(
           (offer) => offer.hotel?.hotelId === hotel.hotelId
@@ -132,17 +138,17 @@ function Accommodation() {
   
         return {
           ...hotel,
-          price: matchingOffer?.offers?.[0]?.price?.total || "가격 정보 없음",
-          roomType: matchingOffer?.offers?.[0]?.room?.typeEstimated?.category || "방 유형 정보 없음",
-          checkInDate: matchingOffer?.offers?.[0]?.checkInDate || "체크인 날짜 정보 없음",
-          checkOutDate: matchingOffer?.offers?.[0]?.checkOutDate || "체크아웃 날짜 정보 없음",
+          price: matchingOffer?.offers?.[0]?.price?.total || "예약불가",
+          roomType: matchingOffer?.offers?.[0]?.room?.typeEstimated?.category || "",
+          checkInDate: matchingOffer?.offers?.[0]?.checkInDate || checkInDate,
+          checkOutDate: matchingOffer?.offers?.[0]?.checkOutDate || checkOutDate,
         };
       });
   
-      console.log("최종 호텔 리스트: ", updatedHotelList);
+      console.log("최종 병합된 호텔 리스트: ", updatedHotelList);
       setHotelList(updatedHotelList);
     } catch (error) {
-      console.error("도시별 호텔 및 가격 조회 중 오류: ", error);
+      console.error("호텔 및 가격 데이터 가져오는 중 오류 발생: ", error);
     }
   };
 
@@ -150,89 +156,82 @@ function Accommodation() {
   return (
     <div className="hotel-container">
       <h1 className="hotel-search-title">숙박 조회</h1>
-      <button onClick={onClickHandler}>누르고 시작하세요~</button>
-			{token && <p>Token: {token}</p>}
+      {/* <button onClick={onClickHandler}>누르고 시작하세요~</button>
+			{token && <p>Token: {token}</p>} */}
       {/* <input
         type="text"
         placeholder="도시 코드를 입력하세요 (예: SEL)"
         ref={ref.cityCode}
         // onChange={(e) => setCityCode(e.target.value.toUpperCase())}
       /> */}
+      <div className="hotel-search-form">
+      <label>도시   </label>
       <select ref={ref.cityCode}>
 				{cities?.length > 0 ? (
-					cities.map(city => (
-						<option key={city.cityCode} value={city.cityIataCode}>{city.cityName}</option>
+          cities.map(city => (
+            <option key={city.cityCode} value={city.cityIataCode}>{city.cityName}</option>
 					))
 				) : (
-					<option>도시 데이터를 불러오는 중...</option>
+          <option>Loading</option>
 				)}
 			</select>
-      <button onClick={onClickHandlerHotelsByCity}>City Hotel Search</button>
+      {/* <button onClick={onClickHandlerHotelsByCity}>City Hotel Search</button> */}
 
+      <label>   체크인   </label>
       <input
         type="date"
         // value={checkInDate}
         ref={ref.checkInDate}
         onChange={(e) => setCheckInDate(e.target.value)}
-        placeholder="체크인 날짜"
-      />
+        placeholder="체크인"
+        />
+      <label>   체크아웃   </label>
       <input
         type="date"
         // value={checkOutDate}
         ref={ref.checkOutDate}
         onChange={(e) => setCheckOutDate(e.target.value)}
-        placeholder="체크아웃 날짜"
-      />
+        placeholder="체크아웃"
+        />
+      <label>   인원   </label>
       <input
         type="text"
         // value={adults}
         ref={ref.adults}
         onChange={(e) => setAdults(e.target.value)}
-        placeholder="성인 수"
-      />
+        defaultValue={2}
+        placeholder="숫자만입력"
+        />
+      <label>   필요객실   </label>
       <input
         type="text"
         // value={roomQuantity}
         ref={ref.roomQuantity}
         onChange={(e) => setRoomQuantity(e.target.value)}
-        placeholder="객실 수"
-      />
-      <button onClick={onClickHandlerHotelsAndPrices}>HotelPrice Search</button>
+        defaultValue={1}
+        placeholder="숫자만입력"
+        />
+      <button 
+      className="hotel-search-button"
+      onClick={onClickHandlerHotelsAndPrices}>호텔 검색</button>
+      </div>
       
-      {/* {hotelList.length > 0 ? (
-        <div>
-          <h2>호텔 리스트</h2>
-          <div className="">
-            {hotelList.map((hotel, index) => (
-              <div key={index} className="">
-                <h3>{hotel.name}</h3>
-                <p>체크인 날짜: {hotel.checkInDate || '정보 없음'}</p>
-                <p>체크아웃 날짜: {hotel.checkOutDate || '정보 없음'}</p>
-                <p>방 유형: {hotel.roomType || '정보 없음'}</p>
-                <p>가격: {hotel.price || '가격 정보 없음'}</p>
-              </div>
-            ))}
-          </div>
+      <div>
+      {hotelList.length > 0 ? (
+        <div className="cardContainer">
+    {hotelList.map((hotel, index) => (
+      <div key={index} className="card">
+        <h3>{hotel.name}</h3>
+        <p>{hotel.checkInDate} - {hotel.checkOutDate}</p>
+        <p>{hotel.roomType}</p>
+        <h5>{hotel.price}</h5>
+      </div>
+          ))}
         </div>
       ) : (
-        <p>호텔 데이터를 찾을 수 없습니다.</p>
-      )} */}
-      {hotelList.length > 0 ? (
-  <div>
-    <h2>호텔 리스트</h2>
-    {hotelList.map((hotel, index) => (
-      <div key={index}>
-        <h3>{hotel.name}</h3>
-        <p>체크인 날짜: {hotel.checkInDate}</p>
-        <p>체크아웃 날짜: {hotel.checkOutDate}</p>
-        <p>방 유형: {hotel.roomType}</p>
-        <p>가격: {hotel.price}</p>
+        <p>호텔을 검색하세요 😊</p>
+      )}
       </div>
-    ))}
-  </div>
-) : (
-  <p>호텔 데이터를 찾을 수 없습니다.</p>
-)}
     </div>
   );
 }

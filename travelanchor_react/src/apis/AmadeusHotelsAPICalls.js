@@ -8,6 +8,7 @@ export const callAmadeusHotelsByCity = async (access_token, ref) => {
   const url = `https://test.api.amadeus.com/v1/reference-data/locations/hotels/by-city`;
   const params = new URLSearchParams({
     cityCode: ref.cityCode.current?.value || '',
+    radius: 5,
     radiusUnit: 'KM',
     hotelSource: 'ALL',
   })
