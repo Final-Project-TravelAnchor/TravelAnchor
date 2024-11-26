@@ -87,7 +87,7 @@ function Login() {
                         onChange={onChangeHandler}
                         onKeyDown={onKeyPressHandler}
                     />
-                    <button onClick={onClickLoginHandler}>로그인</button>
+                    <button className={LoginCSS.loginButton} onClick={onClickLoginHandler}>로그인</button>
                     <GoogleLoginComponent />
                     <div className={LoginCSS.links}>
                         <button onClick={onClickFindIdHandler}>아이디찾기</button>
