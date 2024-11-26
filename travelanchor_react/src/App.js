@@ -114,7 +114,7 @@ export default function App() {
             <Route path="Translation" element={ <Translation/> }/>
             <Route path="Flight" element={ <Flight/> }/>
             <Route path="ExchangeRate" element={ <ExchangeRate/> }/>
-            <Route path="/login" element={ <Login/> } />
+            <Route path="login" element={ <Login/> } />
             <Route path="Restaurants" element={ <Restaurants/> }/>
             <Route path="Restaurants/:place_id" element={ <RestaurantDetail/> }/>
             <Route path="/findid" element={ <FindId/> } />
