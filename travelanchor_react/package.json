@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@google-cloud/functions-framework": "^3.4.2",
+    "@react-oauth/google": "^0.12.1",
     "@reduxjs/toolkit": "^2.3.0",
     "@stomp/stompjs": "^7.0.0",
     "@testing-library/jest-dom": "^5.16.4",
