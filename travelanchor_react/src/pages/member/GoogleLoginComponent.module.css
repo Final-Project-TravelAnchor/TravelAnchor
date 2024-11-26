@@ -1,0 +1,6 @@
+.googleButtonWrapper {
+    width: 75%; /* 일반 로그인 버튼과 동일한 너비 */
+    margin: 10px auto; /* 가운데 정렬 및 여백 */
+    display: flex;
+    justify-content: center;
+}

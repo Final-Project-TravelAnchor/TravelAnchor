@@ -22,9 +22,9 @@ public class PointController {
 
 
     @Operation(summary = "회원 점수 조회 요청", description = "회원 점수가 조회됩니다.", tags = {" PointController "})
-    @GetMapping("/{memberCode}")
-    public ResponseEntity<ResponseDTO> findMemberPoint(@PathVariable int memberCode) {
-        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "점수 조회 성공", pointService.findMemberPoint(memberCode)));
+    @GetMapping("/{memberId}")
+    public ResponseEntity<ResponseDTO> findMemberPoint(@PathVariable String memberId) {
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "점수 조회 성공", pointService.findMemberPoint(memberId)));
     }
 
     @Operation(summary = "회원 점수 수정 요청", description = "회원 점수가 수정됩니다.", tags = {" PointController "})
@@ -32,4 +32,6 @@ public class PointController {
     public ResponseEntity<ResponseDTO> updateMemberPoint(@PathVariable int memberCode, @RequestBody PointDTO pointDTO) {
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "점수 조회 성공", pointService.updateMemberPoint(memberCode, pointDTO)));
     }
+
+
 }

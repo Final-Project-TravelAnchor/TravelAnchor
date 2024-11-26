@@ -11,9 +11,13 @@ import PopulationCreate from './components/items/PopulationCreate';
 import PopulationModify from './components/items/PopulationModify';
 import ChatRoom from './components/items/ChatRoom';
 import TravelReport from './pages/reports/TravelReport';
+import TravelReportList from './pages/reports/TravelReportList';
+import TravelReportDetail from './pages/reports/TravelReportDetail';
+import TravelReportCreate from './pages/reports/TravelReportCreate';
+// import TravelReportCreateForm from './pages/reports/TravelReportCreateForm';
+import TravelReportModify from './pages/reports/TravelReportModify';
 import AddReportDate from './pages/reports/AddReportDate';
 import AddReportDestination from './pages/reports/AddReportDestination';
-import ReportCreate from './pages/reports/ReportCreate';
 import Map from './apis/MapAPICalls';
 import ShareKakao from './apis/ShareKakao';
 import Weather from './pages/features/Weather';
@@ -43,6 +47,15 @@ import TravelDestinations from './pages/travels/TravelDestinations';
 import TravelDestinationDetail from './pages/travels/TravelDestinationDetail';
 import SavedTravelDestination from './pages/travels/SavedTravelDestination';
 import LandmarkDetail from './pages/travels/LandmarkDetail';
+import TravelPlan from './pages/plans/TravelPlan';
+import TravelPlanDetail from './pages/plans/TravelPlanDetail';
+import AddPlanDate from './pages/plans/AddPlanDate';
+import AddPlanDestination from './pages/plans/AddPlanDestination';
+import TravelPlanCreate from './pages/plans/TravelPlanCreate';
+// import UpdatePlanDate from './pages/plans/UpdatePlanDate';
+// import UpdatePlanDestination from './pages/plans/UpdatePlanDestination';
+import TravelPlanUpdate from './pages/plans/TravelPlanUpdate';
+
 
 export default function App() {
   return (
@@ -60,6 +73,15 @@ export default function App() {
               <Route path="chatroom/:populationCode" element={<ChatRoom />} />
             </Route>
             <Route path="plans">
+              <Route path="TravelPlan" element={<TravelPlan />} />
+              <Route path=":travelCode" element={<TravelPlanDetail />} />
+              <Route path="AddPlanDate" element={<AddPlanDate />} />
+              <Route path="AddPlanDestination" element={<AddPlanDestination />} />
+              <Route path="TravelPlanCreate" element={<TravelPlanCreate />} />
+              {/* <Route path="UpdatePlanDate" element={<UpdatePlanDate />} />
+              <Route path="UpdatePlanDestination" element={<UpdatePlanDestination />} /> */}
+              <Route path="TravelPlanUpdate/:travelCode" element={<TravelPlanUpdate />} />
+
               <Route path="ExpenseList" element={<ExpenseList />} />
               <Route path="ExpenseInsert" element={<ExpenseInsert />} />
               <Route path="ExpenseUpdate/:expenseDetailCode" element={<ExpenseUpdate />} />
@@ -77,14 +99,17 @@ export default function App() {
               <Route path="freeboardModify/:freeboardCode" element={<FreeBoardModify />} />
               <Route path="freeboardCreate" element={<FreeBoardCreate />} />
             </Route>
-            <Route path='TravelReport' element={ <TravelReport/> }/>
+            <Route path='travelReport' element={ <TravelReport/> }/>
             <Route path='AddReportDate' element={ <AddReportDate/> }/>
             <Route path='AddReportDestination' element={ <AddReportDestination/> }/>
-            <Route path='ReportCreate' element={ <ReportCreate/> }/>
+            <Route path='travelReportList' element={ <TravelReportList/> }/>
+            <Route path='travelReport/:reportCode' element={ <TravelReportDetail/> }/>
+            <Route path='travelReportCreate' element={ <TravelReportCreate/> }/>
+            <Route path='travelReportModify/:reportCode' element={ <TravelReportModify/> }/>
             <Route path='Report' element={ <Report/> }/>
             <Route path='Map' element={ <Map/> }/>
             {/* <Route path='ShareKakao' element={ <ShareKakao/> }/> */}
-           
+
             <Route path="MyPage/:memberId" element={ <MyPage/> }/>  
             <Route path="MyPageUpdate/:memberId" element={ <MyPageUpdate/> }/>  
             <Route path="Accommodation" element={ <Accommodation/> }/>
@@ -92,7 +117,7 @@ export default function App() {
             <Route path="Translation" element={ <Translation/> }/>
             <Route path="Flight" element={ <Flight/> }/>
             <Route path="ExchangeRate" element={ <ExchangeRate/> }/>
-            <Route path="/login" element={ <Login/> } />
+            <Route path="login" element={ <Login/> } />
             <Route path="Restaurants" element={ <Restaurants/> }/>
             <Route path="Restaurants/:place_id" element={ <RestaurantDetail/> }/>
             <Route path="/findid" element={ <FindId/> } />

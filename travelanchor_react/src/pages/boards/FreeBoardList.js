@@ -19,9 +19,9 @@ export default function FreeBoardList( freeboardDetail ) {
             className="free-board-item"
             onClick={() => onClickFreeBoardHandler(freeboard)}    
         >
-            <h5>{freeboard.freeBoardCode}</h5>
-            <h5>{freeboard.freeBoardTitle}</h5>
-            <h5>{freeboard.freeBoardContent}</h5>
+            {/* <h5>{freeboard.freeBoardCode}</h5> */}
+            <h3>{freeboard.freeBoardTitle}</h3>
+            <h4>{freeboard.freeBoardContent}</h4>
             <h5>{freeboard.freeBoardCreatedAt}</h5>
         </div>
     );

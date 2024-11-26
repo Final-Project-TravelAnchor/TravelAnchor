@@ -2,7 +2,7 @@ import {
     GET_POPULATIONS,
     GET_POPULATIONS_DETAIL,
     PUT_POPULATIONS,
-    POST_CREATE_POPULATIONS
+    POST_CREATE_POPULATIONS,
 } from "../modules/PopulationModule";
 
 // 비동기 API 호출 메서드 분리
@@ -163,4 +163,26 @@ export const callCreatePopulationAPI = (createdPopulation) => {
         }
     };
 };
+
+export const callUpdatePopulationViewsAPI = (populationCode) => {
+    console.log('[PopulationAPICalls] callUpdatePopulationViewsAPI Start');
+    console.log('[PopulationAPICalls] callUpdatePopulationViewsAPI', populationCode);
+    const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/population/v1/updatePopulationView/${populationCode}`;
+
+    return async (dispatch, getState) => {
+        try {
+            
+            const result = await fetchGetPopulationData(requestURL);
+
+            if(result.status === 200) {
+                console.log('[PopulationAPICalls] callUpdatePopulationViewsAPI Result : ', result);
+                dispatch({ type: PUT_POPULATIONS, payload: result });
+            }
+
+        } catch (error) {
+            console.error('[PopulationAPICalls] callUpdatePopulationViewsAPI error : ', error);
+        }
+    };
+};
+
 

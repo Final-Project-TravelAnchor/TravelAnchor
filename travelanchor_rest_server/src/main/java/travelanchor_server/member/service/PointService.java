@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import travelanchor_server.member.dto.PointDTO;
 import travelanchor_server.member.entity.Member;
 import travelanchor_server.member.entity.Point;
+import travelanchor_server.member.repository.MemberRepository;
 import travelanchor_server.member.repository.PointRepository;
 
 @Service
@@ -16,20 +17,24 @@ public class PointService {
 
     private static final Logger log = LoggerFactory.getLogger(PointService.class);
     private final PointRepository pointRepository;
+    private final MemberRepository memberRepository;
     private final ModelMapper modelMapper;
 
     @Autowired
-    public PointService(PointRepository pointRepository, ModelMapper modelMapper) {
+    public PointService(PointRepository pointRepository, MemberRepository memberRepository,ModelMapper modelMapper) {
         this.pointRepository = pointRepository;
+        this.memberRepository = memberRepository;
         this.modelMapper = modelMapper;
     }
 
-    public Object findMemberPoint(int memberCode) {
+    public Object findMemberPoint(String memberId) {
         log.info("[PointService] findMemberPoint() start");
-        log.info("[PointService] memberCode: " +  memberCode);
+//        log.info("[PointService] memberCode: " +  memberCode);
 
-        Point point = pointRepository.findByMemberCode(memberCode);
+        Member member = memberRepository.findByMemberId(memberId);
+        Point point = pointRepository.findByMemberCode(member.getMemberCode());
         log.info("[PointService] memberPoint: " + point);
+
         return modelMapper.map(point, PointDTO.class);
     }
 

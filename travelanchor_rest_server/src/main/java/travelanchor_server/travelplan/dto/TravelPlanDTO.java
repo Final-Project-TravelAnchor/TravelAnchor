@@ -6,8 +6,8 @@ public class TravelPlanDTO {
     private int travelCode;
     private int memberCode;
     private String travelName;
-    private Date travelStartDate;
-    private Date travelEndDate;
+    private String travelStartDate;
+    private String travelEndDate;
     private String travelTotalDate;
     private String travelDestination;
     private String travelOnoff;
@@ -16,7 +16,7 @@ public class TravelPlanDTO {
     public TravelPlanDTO() {
     }
 
-    public TravelPlanDTO(int travelCode, int memberCode, String travelName, Date travelStartDate, Date travelEndDate, String travelTotalDate, String travelDestination, String travelOnoff, String travelIsdeleted) {
+    public TravelPlanDTO(int travelCode, int memberCode, String travelName, String travelStartDate, String travelEndDate, String travelTotalDate, String travelDestination, String travelOnoff, String travelIsdeleted) {
         this.travelCode = travelCode;
         this.memberCode = memberCode;
         this.travelName = travelName;
@@ -52,19 +52,19 @@ public class TravelPlanDTO {
         this.travelName = travelName;
     }
 
-    public Date getTravelStartDate() {
+    public String getTravelStartDate() {
         return travelStartDate;
     }
 
-    public void setTravelStartDate(Date travelStartDate) {
+    public void setTravelStartDate(String travelStartDate) {
         this.travelStartDate = travelStartDate;
     }
 
-    public Date getTravelEndDate() {
+    public String getTravelEndDate() {
         return travelEndDate;
     }
 
-    public void setTravelEndDate(Date travelEndDate) {
+    public void setTravelEndDate(String travelEndDate) {
         this.travelEndDate = travelEndDate;
     }
 

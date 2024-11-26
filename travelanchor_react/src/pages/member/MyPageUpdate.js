@@ -14,7 +14,7 @@ const MyPageUpdate = () => {
     const [image, setImage] = useState(null); // 프로필 사진 상태
     const [imageUrl, setImageUrl] = useState(null);
     const [imagePreview, setImagePreview] = useState(member?.profilePhoto || '/images/main/default-avatar.png');
-    const [modifyMode, setModifyMode] = useState(false); // 수정모드 상태
+    // const [modifyMode, setModifyMode] = useState(false); // 수정모드 상태
     const [form, setForm] = useState({
         memberNickName: member?.memberNickName || '',
     });
@@ -46,11 +46,11 @@ const MyPageUpdate = () => {
         setImage(e.target.files[0]);
     };
 
-    const onClickImageUpload = () => {
-        if (modifyMode) {
-            imageInput.current.click();
-        }
-    };
+        const onClickImageUpload = () => {
+           {
+                imageInput.current.click();
+            }
+        };
 
    
 
@@ -98,69 +98,67 @@ const MyPageUpdate = () => {
 
 
     return (
-        <div className={updatePageCss.container}>
-        <div className={updatePageCss.submitBtnContainer}>
-            <button className={updatePageCss.backButton} onClick={() => navigate(-1)}>
-                돌아가기
-            </button>
-            {modifyMode && (
-                <button className={updatePageCss.saveButton} onClick={onClickUserUpdateHandler}>
-                    정보 수정 저장하기
-                </button>
-            )}
-            {!modifyMode && (
-                <button className={updatePageCss.modifyButton} onClick={() => setModifyMode(true)}>
-                    수정모드
-                </button>
-            )}
-        </div>
+            <div className={updatePageCss.container}>
+                <header className={updatePageCss.header}>
+                    <h1>회원 정보 수정</h1>
+                </header>
 
-        <header className={updatePageCss.header}>
-            <h1>회원 정보 수정</h1>
-        </header>
-
-        <section className={updatePageCss.formSection}>
-            {/* 프로필 사진 수정 */}
-            <label htmlFor="profileImage">프로필 사진</label>
-            <button
-                className={updatePageCss.productImageButton}
-                onClick={onClickImageUpload}
-                style={!modifyMode ? { backgroundColor: 'gray' } : null}
-            >
-                이미지 업로드
-            </button>
-            {imagePreview && (
-                <div className={updatePageCss.imagePreview}>
-                    <img
-                        className={updatePageCss.productImage}
-                        src={imagePreview}
-                        alt="preview"
-                    />
-                    <input
-                        style={{ display: 'none' }}
-                        type="file"
-                        name="profileImage"
-                        accept="image/jpg,image/png,image/jpeg,image/gif"
-                        onChange={onChangeImageUpload}
-                        ref={imageInput}
-                    />
+                <button className={updatePageCss.backButton} onClick={() => navigate(-1)}>
+                    돌아가기
+                </button>
+            
+                <section className={updatePageCss.formSection}>
+                    {/* 좌우로 나뉜 레이아웃 */}
+                    <div className={updatePageCss.leftSection}>
+                        <label htmlFor="profileImage">프로필 사진</label>
+                        <button
+                            className={updatePageCss.productImageButton}
+                            onClick={onClickImageUpload}
+                        >
+                            이미지 업로드
+                        </button>
+                        {imagePreview && (
+                            <div className={updatePageCss.imagePreview}>
+                                <img
+                                    className={updatePageCss.productImage}
+                                    src={imagePreview}
+                                    alt="preview"
+                                />
+                                <input
+                                    style={{ display: 'none' }}
+                                    type="file"
+                                    name="profileImage"
+                                    accept="image/jpg,image/png,image/jpeg,image/gif"
+                                    onChange={onChangeImageUpload}
+                                    ref={imageInput}
+                                />
+                            </div>
+                        )}
+                    </div>
+                    
+                    <div className={updatePageCss.rightSection}>
+                        <label htmlFor="nickname">닉네임</label>
+                        <input
+                            type="text"
+                            id="nickname"
+                            name="memberNickName"
+                            value={form.memberNickName}
+                            onChange={onChangeHandler}
+                            className={updatePageCss.inputField}
+                        />
+                    </div>
+                </section>
+                    
+            {/*     저장 버튼 */}
+                <div className={updatePageCss.buttonSection}>
+                    <button className={updatePageCss.saveButton} onClick={onClickUserUpdateHandler}>
+                        정보 수정 저장하기
+                    </button>
                 </div>
-            )}
-
-            {/* 닉네임 수정 */}
-            <label htmlFor="nickname">닉네임</label>
-            <input
-                type="text"
-                id="nickname"
-                name="memberNickName"
-                value={form.memberNickName}
-                onChange={onChangeHandler}
-                className={updatePageCss.inputField}
-                disabled={!modifyMode}
-            />
-        </section>
-    </div>
-    );
-};
-
+            </div>
+                
+                        
+        );  
+};          
+    
 export default MyPageUpdate;

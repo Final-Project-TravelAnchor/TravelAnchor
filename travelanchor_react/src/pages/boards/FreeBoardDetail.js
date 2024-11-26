@@ -33,16 +33,20 @@ export default function FreeBoardDetail() {
         navigate(`/freeboard/freeboardModify/${freeboard.freeboardCode}`, { state: freeboard, replace: false });
     };
 
+    const onClickBackHandler = () => {
+        navigate(`/freeboard`);
+    }
+
     useEffect(() => {
         console.log("[FreeBoardDetail] freeboard useEffect");
 
-        const tokenSub = findSub();
+        // const tokenSub = findSub();
 
-        // console.log(tokenSub);
+        // // console.log(tokenSub);
 
-        if(tokenSub) {
-            dispatch(callGetMemberAPI({memberId: tokenSub}));
-        }
+        // if(tokenSub) {
+        //     dispatch(callGetMemberAPI({memberId: tokenSub}));
+        // }
 
         // dispatch(callPopulationDetailAPI(populationCode));
     }, []);
@@ -51,6 +55,17 @@ export default function FreeBoardDetail() {
         <div className="free-board-detail-container">
             <div>
                 {
+                    freeboard ? 
+                    (
+                        <div className="free-board-detail-content">
+                            <h1 className="free-board-detail-title">{freeboard.freeBoardTitle}</h1>
+                            <div className="fb-detail-in-container">
+                                <h3>작성일 : {freeboard.freeBoardCreatedAt}</h3>
+                                <div  className="fb-detail-in-text">
+                                <h3>{freeboard.freeBoardContent}</h3>
+                                </div>
+            <div className="fb-button-container">
+                {/* {
                     userMembercode && userMembercode.memberCode === freeboard.memberCode ?
                     (
                         <button onClick={() => onClickModifyModeHandler(freeboard)}>
@@ -61,16 +76,19 @@ export default function FreeBoardDetail() {
                     (
                         null
                     )
-                }
+                } */}
+                <button 
+                className="fb-detail-update-button"
+                onClick={() => onClickModifyModeHandler(freeboard)}>
+                            수정하기
+                        </button>
+                        <button 
+                className="fb-detail-back-button"
+                onClick={() => onClickBackHandler()}>
+                            뒤로가기
+                        </button>
             </div>
-            <div>
-                {
-                    freeboard ? 
-                    (
-                        <div className="free-board-detail-content">
-                            <h1>{freeboard.freeBoardTitle}</h1>
-                            <h3>생성일자 : {freeboard.freeBoardCreatedAt}</h3>
-                            <h3>내용 : {freeboard.freeBoardContent}</h3>
+                            </div>
                         </div>
                     )
                     :

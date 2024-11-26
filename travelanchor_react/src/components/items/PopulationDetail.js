@@ -1,13 +1,16 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { callPopulationDetailAPI } from "../../apis/PopulationAPICalls";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
+import { callPopulationDetailAPI, callUpdatePopulationViewsAPI } from "../../apis/PopulationAPICalls";
 import './PopulationDetail.css';
 import { isLogin, findSub } from "../../utils/tokenUtils";
 import { callGetMemberAPI } from "../../apis/MemberAPICalls";
 
 export default function PopulationDetail() {
 
+    const location = useLocation();
+    const population = location.state;
+    // console.log(population);
     const { populationCode } = useParams();
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -15,24 +18,33 @@ export default function PopulationDetail() {
     const populationDetail = useSelector((state) => state.populationReducer);
     const memberInfo = useSelector((state) => state.memberReducer);
 
+    // console.log("memberInfo", memberInfo);
+
+    // console.log("populationDetail", populationDetail);
+
     const fetchPopulationAndMember = async () => {
         // 모집글 상세 API 호출
         dispatch(callPopulationDetailAPI(populationCode));
 
         // 사용자 정보 가져오기
-        const tokenSub = findSub();
-        if (tokenSub) {
-            try {
-                await dispatch(callGetMemberAPI({ memberId: tokenSub }));
-            } catch (error) {
-                console.error("Failed to fetch member data:", error);
-            }
-        }
+        // const tokenSub = findSub();
+        // if (tokenSub) {
+        //     try {
+        //         await dispatch(callGetMemberAPI({ memberId: tokenSub }));
+        //     } catch (error) {
+        //         console.error("Failed to fetch member data:", error);
+        //     }
+        // }
     };
 
+    // useEffect(() => {
+    //     fetchPopulationAndMember();
+    // }, [populationCode, dispatch]);
+
     useEffect(() => {
-        fetchPopulationAndMember();
-    }, [populationCode, dispatch]);
+        console.log("populationDetail", population.populationCode);
+        dispatch(callUpdatePopulationViewsAPI(population.populationCode));
+    }, []);
 
     const onClickModifyModeHandler = () => {
         navigate(`/items/populationModify/${populationCode}`, { state: { populationDetail }, replace: false });
@@ -56,18 +68,24 @@ export default function PopulationDetail() {
             <div className="detail-container">
                 {populationDetail && (
                     <div className="detail-content">
-                        <h2 className="mate-detail-title">{populationDetail.populationTitle}</h2>
+                        <h2 className="mate-detail-title">{population.populationTitle}</h2>
                         <h2 className="detail-item">
-                            <span className="detail-label">생성일자:</span> {populationDetail.populationCreatedAt}
+                            <span className="detail-label">생성일자:</span> {population.populationCreatedAt}
                         </h2>
                         <h2 className="detail-item">
-                            <span className="detail-label">조회수:</span> {populationDetail.populationViews}
+                            <span className="detail-label">조회수:</span> {population.populationViews}
                         </h2>
                         <h2 className="detail-item">
-                            <span className="detail-label">모집인원:</span> {populationDetail.populationPeople}
+                            <span className="detail-label">국가:</span> {population.travelCode}
                         </h2>
                         <h2 className="detail-item">
-                            <span className="detail-label">내용:</span> {populationDetail.populationDescription}
+                            <span className="detail-label">도시:</span> {population.countryCode}
+                        </h2>
+                        <h2 className="detail-item">
+                            <span className="detail-label">모집인원:</span> {population.populationPeople}
+                        </h2>
+                        <h2 className="detail-item">
+                            <span className="detail-label">내용:</span> {population.populationDescription}
                         </h2>
                         <button onClick={onClickInsertChatRoom} className="detail-chat-button">
                             채팅하기
@@ -75,7 +93,7 @@ export default function PopulationDetail() {
                     </div>
                 )}
                 <div className="mate-detail-button-container">
-                    {memberInfo?.memberCode === populationDetail?.memberCode && (
+                    {memberInfo?.memberCode === population?.memberCode && (
                         <button
                             onClick={onClickModifyModeHandler}
                             className="mate-detail-modify-button"

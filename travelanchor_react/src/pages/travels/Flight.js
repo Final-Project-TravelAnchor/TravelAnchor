@@ -118,24 +118,24 @@ export default function Flight() {
 	};
 
 	return (
-		<div>
-		<h1 className="title">항공권 최저가 검색</h1>
-		<div className="flight-container">
+		<div className="filght-container">
+			<h1 className="title">항공권 최저가 검색</h1>
+			<div className="flight-search-container">
 
-		<div className="content">
-		{/* 입력 섹션 */}
-		<div className="form-section">
-			{/* <button className="fetch-token-button" onClick={onClickHandler}>
-			토큰받기
-			</button> */}
+			<div className="content">
+			{/* 입력 섹션 */}
+			<div className="form-section">
+				{/* <button className="fetch-token-button" onClick={onClickHandler}>
+				토큰받기
+				</button> */}
 
-			<div className="form-group">
-			<label>여행 유형</label>
-			<select ref={ref.tripType} onChange={(e) => setTripType(e.target.value)}>
-				<option value="one-way">편도</option>
-				<option value="round-trip">왕복</option>
-			</select>
-			</div>
+				<div className="form-group">
+				<label>여행 유형</label>
+				<select ref={ref.tripType} onChange={(e) => setTripType(e.target.value)}>
+					<option value="one-way">편도</option>
+					<option value="round-trip">왕복</option>
+				</select>
+				</div>
 
 			{/* <div className="form-group">
 			<label>출발지</label>
@@ -218,10 +218,10 @@ export default function Flight() {
 			<button className="search-button" onClick={onClickHandlerFlight}>
 			항공권 검색
 			</button>
-		</div>
+			</div>
 
-		{/* 출력 섹션 */}
-		<div className="output-section">
+			{/* 출력 섹션 */}
+			<div className="output-section">
 			{loadingAirline && (
 				<div className="loading">
 				<p>항공권 정보를 불러오는 중</p>

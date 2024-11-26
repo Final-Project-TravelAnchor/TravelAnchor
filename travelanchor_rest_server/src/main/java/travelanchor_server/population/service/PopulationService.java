@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import travelanchor_server.population.dto.PopulationDTO;
+import travelanchor_server.population.entity.Notice;
 import travelanchor_server.population.entity.Population;
 import travelanchor_server.population.repository.PopulationRepository;
 
@@ -106,5 +107,28 @@ public class PopulationService {
         }
         log.info("[PopulationService] updatePopulation() End");
         return (result > 0) ? "여행메이트 수정 성공" : "여행메이트 수정 실패";
+    }
+
+    @Transactional
+    public Object updatePopulationViews(int populationCode) {
+        log.info("[PopulationService] updatePopulationViews() Start");
+        int result = 0;
+
+        try{
+
+            Population population = populationRepository.findById(populationCode).get();
+            System.out.println("population = " + population);
+
+            population.setPopulationViews(population.getPopulationViews() + 1);
+
+            populationRepository.save(population);
+
+            result = 1;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        log.info("[PopulationService] updatePopulationViews() End");
+        return (result > 0) ? "메이트 조회수 증가 성공" : "메이트 조회수 증가 실패";
     }
 }

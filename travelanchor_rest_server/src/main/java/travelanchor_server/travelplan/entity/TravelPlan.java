@@ -20,10 +20,10 @@ public class TravelPlan {
     private String travelName;
 
     @Column(name = "travel_start_date")
-    private Date travelStartDate;
+    private String travelStartDate;
 
     @Column(name = "travel_end_date")
-    private Date travelEndDate;
+    private String travelEndDate;
 
     @Column(name = "travel_total_date")
     private String travelTotalDate;
@@ -40,7 +40,7 @@ public class TravelPlan {
     public TravelPlan() {
     }
 
-    public TravelPlan(int travelCode, int memberCode, String travelName, Date travelStartDate, Date travelEndDate, String travelTotalDate, String travelDestination, String travelOnoff, String travelIsdeleted) {
+    public TravelPlan(int travelCode, int memberCode, String travelName, String travelStartDate, String travelEndDate, String travelTotalDate, String travelDestination, String travelOnoff, String travelIsdeleted) {
         this.travelCode = travelCode;
         this.memberCode = memberCode;
         this.travelName = travelName;
@@ -76,19 +76,19 @@ public class TravelPlan {
         this.travelName = travelName;
     }
 
-    public Date getTravelStartDate() {
+    public String getTravelStartDate() {
         return travelStartDate;
     }
 
-    public void setTravelStartDate(Date travelStartDate) {
+    public void setTravelStartDate(String travelStartDate) {
         this.travelStartDate = travelStartDate;
     }
 
-    public Date getTravelEndDate() {
+    public String getTravelEndDate() {
         return travelEndDate;
     }
 
-    public void setTravelEndDate(Date travelEndDate) {
+    public void setTravelEndDate(String travelEndDate) {
         this.travelEndDate = travelEndDate;
     }
 
@@ -139,3 +139,5 @@ public class TravelPlan {
                 '}';
     }
 }
+
+
