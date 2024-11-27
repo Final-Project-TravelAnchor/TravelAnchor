@@ -169,7 +169,7 @@ export default function ChatRoom() {
                       style={{ fontWeight: 'bold', cursor: 'pointer' }}
                       onClick={() => handleProfileClick(item)} // 이름 클릭 시 프로필 팝업 띄우기
                     >
-                      {item.memberName}{item.messageSentAt}
+                      {item.memberName + " " + item.messageSentAt.slice(0, 16)}
                     </span>
                     <img
                       src={`http://${process.env.REACT_APP_RESTAPI_IP}:8080/${item.messageContent}`}
