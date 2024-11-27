@@ -1,0 +1,48 @@
+.RestaurantDetailContainer {
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'Pretendard-Regular';
+    color: #333;
+}
+
+.RestaurantDetailContainer img {
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 8px;
+}
+
+.RestaurantPrevButton, .RestaurantNextButton {
+    position: absolute;
+    top: 50%;
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: none;
+    font-size: 2rem;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 50%;
+    transform: translateY(-50%);
+}
+
+.RestaurantPrevButton {
+    left: 10px;
+}
+
+.RestaurantNextButton {
+    right: 10px;
+}
+
+.RestaurantDetailContainer button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #FF8600;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.RestaurantDetailContainer button:hover {
+    background-color: #e07500;
+}

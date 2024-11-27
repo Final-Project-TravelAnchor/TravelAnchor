@@ -7,7 +7,6 @@ export default function TravelPlanDetail() {
 
 	const location = useLocation();
 	const travelPlan = location.state;
-	// console.log(travelPlan);
 
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
