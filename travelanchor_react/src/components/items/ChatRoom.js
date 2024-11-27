@@ -150,7 +150,7 @@ export default function ChatRoom() {
       <div className="chat-left">
         <img
           src={`http://${process.env.REACT_APP_RESTAPI_IP}:8080/hot-air-balloon.jpg`}
-          alt="left"
+          alt="chat room image"
           className="left-image"
         />
       </div>

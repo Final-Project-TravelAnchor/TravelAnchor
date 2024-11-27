@@ -186,7 +186,7 @@ return (
 									</li>
 									<li>
 										<NavLink to="/Accommodation">
-											숙박
+											호텔	
 										</NavLink>
 									</li>
 								</ul>
@@ -211,13 +211,29 @@ return (
 							<NavLink to="Notice">공지사항</NavLink>
 						</li>
 						<li className={HeaderCSS.navItem}>
-							<NavLink to="ExchangeRate">환율</NavLink>
+							<NavLink to="ExchangeRate"><img
+							src={`http://${process.env.REACT_APP_RESTAPI_IP}:8080/exchange.png`}
+							alt="Chat Image"
+							className="message-image"
+							loading="lazy"
+                    		/>
+					</NavLink>
 						</li>
 						<li className={HeaderCSS.navItem}>
-							<NavLink to="Weather">날씨</NavLink>
+							<NavLink to="Weather"><img
+							src={`http://${process.env.REACT_APP_RESTAPI_IP}:8080/weather.png`}
+							alt="Chat Image"
+							className="message-image"
+							loading="lazy"
+                    		/></NavLink>
 						</li>
 						<li className={HeaderCSS.navItem}>
-							<NavLink to="Translation">번역</NavLink>
+							<NavLink to="Translation"><img
+							src={`http://${process.env.REACT_APP_RESTAPI_IP}:8080/translation.png`}
+							alt="Chat Image"
+							className="message-image"
+							loading="lazy"
+                    		/></NavLink>
 						</li>
 					</ul>
 				</div>
