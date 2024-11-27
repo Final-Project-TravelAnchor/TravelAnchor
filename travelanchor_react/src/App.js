@@ -127,7 +127,7 @@ export default function App() {
             <Route path="/findpw" element={ <FindPw/>} />
             <Route path="TravelDestinations" element={ <TravelDestinations/> }/>
             <Route path="TravelDestinations/:place_id" element={ <TravelDestinationDetail/> }/>
-            <Route path="/SavedTravelDestination/:memberId" element={ <SavedTravelDestination/> }/>
+            <Route path="/SavedTravelDestination/:memberCode" element={ <SavedTravelDestination/> }/>
             <Route path="/Landmarks/:landmark_id" element={ <LandmarkDetail /> }/>
             <Route path="/register" element={ <Register/> } />
           </Route>
