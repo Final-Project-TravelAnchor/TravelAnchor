@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import travelanchor_server.area.entity.City;
 import travelanchor_server.common.Criteria;
 import travelanchor_server.common.ResponseDTO;
 import travelanchor_server.travelplan.dto.TravelPlanDTO;
@@ -63,6 +64,15 @@ public class TravelReportService {
         TravelReport travelReport = travelReportRepository.findById(reportCode).get();
 
         return modelMapper.map(travelReport, TravelReport.class);
+    }
+
+    public Object findTravelReportByMemberCode(int memberCode) {
+        log.info("[TravelReportService] findTravelReportDetail()");
+
+        List<TravelReport> travelReportByMemberList = travelReportRepository.findByMemberCode(memberCode);
+
+        log.info("[TravelReportService] findTravelReportDetail() End");
+        return travelReportByMemberList.stream().map(travelReport -> modelMapper.map(travelReport, TravelReport.class)).collect(Collectors.toList());
     }
 
     @Transactional
@@ -133,4 +143,5 @@ public class TravelReportService {
         log.info("[TravelReportService] deleteTravelReport() End");
         return (result > 0) ? "여행 후기 삭제 성공" : "여행 후기 삭제 실패";
     }
+
 }
