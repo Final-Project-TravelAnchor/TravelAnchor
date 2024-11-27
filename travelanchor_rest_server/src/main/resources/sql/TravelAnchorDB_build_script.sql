@@ -271,6 +271,7 @@ CREATE TABLE IF NOT EXISTS tbl_comment
     member_code INT COMMENT '작성자 회원식별코드',
     comment_content TEXT NOT NULL COMMENT '댓글내용',
     comment_created_at DATE NOT NULL COMMENT '작성일자',
+    member_nickname TEXT NOT NULL COMMENT '닉네임',
     CONSTRAINT pk_comment_code PRIMARY KEY (comment_code)
 #     CONSTRAINT fk_free_board_code FOREIGN KEY (free_board_code) REFERENCES tbl_free_board(free_board_code),
 #     CONSTRAINT fk_member_code7 FOREIGN KEY (member_code) REFERENCES tbl_member(member_code)
@@ -636,17 +637,17 @@ INSERT INTO tbl_free_board (free_board_code, free_board_category_code, free_boar
 (9, 9, 'Policy Updates on Bookings', 'Updates to our booking policies.', '2024-09-25', 9, 'N'),
 (10, 10, 'General Information', 'Find answers to common questions.', '2024-10-30', 10, 'N');
 
-INSERT INTO tbl_comment (comment_code, free_board_code, member_code, comment_content, comment_created_at) VALUES
-(1, 1, 1, 'Great announcement! Looking forward to it.', '2024-01-02'),
-(2, 2, 2, 'Thanks for the packing tips, very helpful.', '2024-02-11'),
-(3, 3, 3, 'Can\'t wait for the travel fair!', '2024-03-06'),
-(4, 4, 4, 'Noted about the maintenance. Thanks!', '2024-04-02'),
-(5, 5, 5, 'Good safety tips. Very useful.', '2024-05-13'),
-(6, 6, 6, 'Looking forward to the promotions!', '2024-06-21'),
-(7, 7, 7, 'I will definitely share my story soon.', '2024-07-06'),
-(8, 8, 8, 'The travel deals are amazing!', '2024-08-19'),
-(9, 9, 9, 'Policy updates are always good to know.', '2024-09-26'),
-(10, 10, 10, 'Thanks for the general information.', '2024-10-31');
+INSERT INTO tbl_comment (comment_code, free_board_code, member_code, comment_content, comment_created_at, member_nickname) VALUES
+(1, 1, 1, 'Great announcement! Looking forward to it.', '2024-01-02', '짱구'),
+(2, 2, 2, 'Thanks for the packing tips, very helpful.', '2024-02-11', '철수'),
+(3, 3, 3, 'Can\'t wait for the travel fair!', '2024-03-06', '영희'),
+(4, 4, 4, 'Noted about the maintenance. Thanks!', '2024-04-02', '맹구'),
+(5, 5, 5, 'Good safety tips. Very useful.', '2024-05-13', '유리'),
+(6, 6, 6, 'Looking forward to the promotions!', '2024-06-21', '짱수'),
+(7, 7, 7, 'I will definitely share my story soon.', '2024-07-06', '수지'),
+(8, 8, 8, 'The travel deals are amazing!', '2024-08-19', '흰둥이'),
+(9, 9, 9, 'Policy updates are always good to know.', '2024-09-26', '미선씨'),
+(10, 10, 10, 'Thanks for the general information.', '2024-10-31', '토란');
 
 INSERT INTO tbl_travel_reports (member_code, report_title, report_content, report_start_date, report_end_date, report_destination, report_created_at, report_isdeleted, report_image_url) VALUES
 (1,  '환상적인 제주 여행', '제주의 푸른 바다와 아름다운 자연을 만끽한 3박 4일 여행기입니다. 다양한 맛집도 소개해드릴게요.','2024-04-01', '2024-04-14',

@@ -9,16 +9,26 @@ public class CommentDTO {
     private int memberCode;
     private String commentContent;
     private String commentCreatedAt;
+    private String memberNickName;
 
     public CommentDTO() {
     }
 
-    public CommentDTO(int commentCode, int freeBoardCode, int memberCode, String commentContent, String commentCreatedAt) {
+    public CommentDTO(int commentCode, int freeBoardCode, int memberCode, String commentContent, String commentCreatedAt, String memberNickName) {
         this.commentCode = commentCode;
         this.freeBoardCode = freeBoardCode;
         this.memberCode = memberCode;
         this.commentContent = commentContent;
         this.commentCreatedAt = commentCreatedAt;
+        this.memberNickName = memberNickName;
+    }
+
+    public String getMemberNickName() {
+        return memberNickName;
+    }
+
+    public void setMemberNickName(String memberNickName) {
+        this.memberNickName = memberNickName;
     }
 
     public int getCommentCode() {
@@ -68,7 +78,8 @@ public class CommentDTO {
                 ", freeBoardCode=" + freeBoardCode +
                 ", memberCode=" + memberCode +
                 ", commentContent='" + commentContent + '\'' +
-                ", commentCreatedAt=" + commentCreatedAt +
+                ", commentCreatedAt='" + commentCreatedAt + '\'' +
+                ", memberNickName='" + memberNickName + '\'' +
                 '}';
     }
 }

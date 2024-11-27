@@ -25,15 +25,27 @@ public class Comment {
     @Column(name = "comment_created_at")
     private String commentCreatedAt;
 
+    @Column(name = "member_nickname")
+    private String memberNickName;
+
     public Comment() {
     }
 
-    public Comment(int commentCode, int freeBoardCode, int memberCode, String commentContent, String commentCreatedAt) {
+    public Comment(int commentCode, int freeBoardCode, int memberCode, String commentContent, String commentCreatedAt, String memberNickName) {
         this.commentCode = commentCode;
         this.freeBoardCode = freeBoardCode;
         this.memberCode = memberCode;
         this.commentContent = commentContent;
         this.commentCreatedAt = commentCreatedAt;
+        this.memberNickName = memberNickName;
+    }
+
+    public String getMemberNickName() {
+        return memberNickName;
+    }
+
+    public void setMemberNickName(String memberNickName) {
+        this.memberNickName = memberNickName;
     }
 
     public int getCommentCode() {
@@ -78,12 +90,13 @@ public class Comment {
 
     @Override
     public String toString() {
-        return "CommentDTO{" +
+        return "Comment{" +
                 "commentCode=" + commentCode +
                 ", freeBoardCode=" + freeBoardCode +
                 ", memberCode=" + memberCode +
                 ", commentContent='" + commentContent + '\'' +
-                ", commentCreatedAt=" + commentCreatedAt +
+                ", commentCreatedAt='" + commentCreatedAt + '\'' +
+                ", memberNickName='" + memberNickName + '\'' +
                 '}';
     }
 }

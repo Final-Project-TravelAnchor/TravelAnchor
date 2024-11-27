@@ -150,6 +150,7 @@ export const callUpdateCommentAPI = (commentCode, updatedComment) => {
 export const callCreateCommentAPI = (createdComment) => {
     console.log('[CommentAPICalls] callCreateCommentAPI Start');
     const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/comment/v1/comment`;
+    console.log('[CommentAPICalls] callCreateCommentAPI : ', createdComment);
 
     return async (dispatch, getState) => {
         try {
