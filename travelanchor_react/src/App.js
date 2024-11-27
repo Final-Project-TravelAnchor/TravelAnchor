@@ -126,9 +126,9 @@ export default function App() {
             <Route path="TravelDestinations/:place_id" element={ <TravelDestinationDetail/> }/>
             <Route path="/SavedTravelDestination/:memberId" element={ <SavedTravelDestination/> }/>
             <Route path="/Landmarks/:landmark_id" element={ <LandmarkDetail /> }/>
+            <Route path="/register" element={ <Register/> } />
           </Route>
           <Route path='*' element={ <Error/> }/>
-          <Route path="/register" element={ <Register/> } />
         </Routes>
 
       </BrowserRouter>
