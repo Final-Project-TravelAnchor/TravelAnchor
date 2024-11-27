@@ -34,6 +34,18 @@ export default function FreeBoardDetail() {
     const comment = useSelector(state => state.commentReducer);
     console.log("잘되냐?",comment)
 
+    // 수정하기 버튼
+    const onClickModifyModeHandler = (freeboard) => {
+        console.log("[FreeBoardDetail]onClickModifyModeHandler ", freeboard);
+        navigate(`/freeboard/freeboardModify/${freeboard.freeboardCode}`, { state: freeboard, replace: false });
+    };
+
+    // 뒤로가기 버튼
+    const onClickBackHandler = () => {
+        navigate(`/freeboard`);
+    }
+
+    //----------------------댓글 조회----------------------
     // 댓글 불러오기
     useEffect(() => {
         if (freeboard) {
@@ -42,10 +54,18 @@ export default function FreeBoardDetail() {
         console.log("프리보드코드는?", freeboard.freeBoardCode);
     }, [freeboard, dispatch]);
 
+    // 댓글 목록 필터링
+    const filteredComments = Object.values(comment || {}).filter(
+        (comment) => comment.freeBoardCode === freeboard.freeBoardCode
+    );
+
+    console.log("필터링되냐", filteredComments);
+    // console.log("댓글쓴멤버코드는?", filteredComments[0].memberCode);
+
     // 날짜 형식
     const today = new Date().toISOString().split('T')[0];
     
-    // 댓글 등록
+    //----------------------댓글 등록----------------------
     const [ form, setForm ] = useState({
         conmmentCode: null,
         freeBoardCode: freeboard.freeBoardCode,
@@ -75,12 +95,49 @@ export default function FreeBoardDetail() {
         });
     };
 
+    //-------------------------------댓글 수정-----------------------------
+    // 수정 상태 관리
+    const [editingCommentCode, setEditingCommentCode] = useState(null);
+    const [editingContent, setEditingContent] = useState("");
 
-    const handleUpdateComment = (commentCode, content) => {
-        const updatedComment = { commentCode, content };
-        dispatch(callUpdateCommentAPI(updatedComment));
+    // 댓글 수정 시작
+    const handleStartEditing = (commentCode, currentContent) => {
+        setEditingCommentCode(commentCode); // 수정할 댓글 설정
+        setEditingContent(currentContent); // 기존 내용을 수정 필드에 표시
     };
 
+    // 댓글 수정 완료
+const handleUpdateComment = async (commentCode) => {
+    if (!editingContent.trim()) {
+        alert("댓글 내용을 입력해주세요.");
+        return;
+    }
+
+    // 수정할 댓글 데이터 생성
+    const updatedComment = {
+        commentCode, // 매개변수로 전달된 commentCode 사용
+        commentContent: editingContent, // 수정된 댓글 내용
+    };
+
+    // 수정 API 호출
+    await dispatch(callUpdateCommentAPI(commentCode, updatedComment)); 
+
+    // 수정 완료 후 상태 초기화
+    setEditingCommentCode(null);
+    setEditingContent("");
+
+    // 댓글 목록 새로고침
+    dispatch(callCommentAPI(freeboard.freeBoardCode));
+    };
+
+    // 댓글 수정 취소
+    const handleCancelEditing = () => {
+        setEditingCommentCode(null);
+        setEditingContent("");
+    };
+
+
+    //-------------------------------댓글 삭제-----------------------------
     // 댓글 삭제 핸들러
     const handleDeleteComment = async (deletedComment) => {
         // 댓글 삭제 API 호출
@@ -88,31 +145,8 @@ export default function FreeBoardDetail() {
         
         // 성공 시 새로고침
         dispatch(callCommentAPI(freeboard.freeBoardCode));
-
     };
 
-    // 수정하기 버튼
-    const onClickModifyModeHandler = (freeboard) => {
-        console.log("[FreeBoardDetail]onClickModifyModeHandler ", freeboard);
-        navigate(`/freeboard/freeboardModify/${freeboard.freeboardCode}`, { state: freeboard, replace: false });
-    };
-
-    // 뒤로가기 버튼
-    const onClickBackHandler = () => {
-        navigate(`/freeboard`);
-    }
-
-    // useEffect(() => {
-    //     console.log("[FreeBoardDetail] freeboard useEffect");
-    // }, []);
-
-    // 댓글 목록 필터링
-    const filteredComments = Object.values(comment || {}).filter(
-        (comment) => comment.freeBoardCode === freeboard.freeBoardCode
-    );
-
-    console.log("필터링되냐", filteredComments);
-    // console.log("댓글쓴멤버코드는?", filteredComments[0].memberCode);
 
 
     return (
@@ -152,31 +186,55 @@ export default function FreeBoardDetail() {
                     뒤로가기
                 </button>
             </div>
-            <div>
+            <div className="fb-comment-container">
                 {/* 댓글 목록 */}
-                <h3>댓글</h3>
+                <h3 key={comment.commentCode}>댓글</h3>
                 <div className="comments-list">
-                    {filteredComments && filteredComments.length > 0 ? (
-                        filteredComments.map((commentItem) => (
-                            <div className="comment-item">
-                                <p>{filteredComments[0].memberCode} : </p>
-                                <p>{commentItem.commentContent} {commentItem.commentCreatedAt}</p>
-                                <button
-                                    onClick={() => handleUpdateComment(commentItem.commentCode, "수정된 내용")}
-                                >
-                                    수정
+            {filteredComments && filteredComments.length > 0 ? (
+                filteredComments.map((commentItem) => (
+                    <div className="comment-item" key={commentItem.commentCode}>
+                        {editingCommentCode === commentItem.commentCode ? (
+                            // 수정 중일 때 표시할 폼
+                            <div>
+                                <input
+                                    type="text"
+                                    value={editingContent}
+                                    onChange={(e) => setEditingContent(e.target.value)}
+                                />
+                                <button onClick={() => handleUpdateComment(commentItem.commentCode)}>
+                                    저장
                                 </button>
-                                <button
-                                    onClick={() => handleDeleteComment(commentItem.commentCode)}
-                                >
-                                    삭제
-                                </button>
+                                <button onClick={handleCancelEditing}>취소</button>
                             </div>
-                        ))
-                    ) : (
-                        <p>댓글이 없습니다.</p>
-                    )}
-                </div>
+                        ) : (
+                            // 일반 댓글 표시
+                            <div>
+                                <p>
+                                    {commentItem.memberCode}: {commentItem.commentContent}
+                                </p>
+                                <div className="button-container">
+                                    <span className="comment-date">{commentItem.commentCreatedAt}</span>
+                                    <button
+                                        onClick={() =>
+                                            handleStartEditing(commentItem.commentCode, commentItem.commentContent)
+                                        }
+                                    >
+                                        수정
+                                    </button>
+                                    <button
+                                        onClick={() => handleDeleteComment(commentItem.commentCode)}
+                                    >
+                                        삭제
+                                    </button>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                ))
+            ) : (
+                <p>댓글이 없습니다.</p>
+            )}
+        </div>
 
                 {/* 댓글 작성 */}
                 <div className="add-comment">

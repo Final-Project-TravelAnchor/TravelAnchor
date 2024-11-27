@@ -76,6 +76,9 @@ export const fetchPostData = async (requestURL, createdComment) => {
 };
 
 const fetchDelData = async (requestURL, deletedComment) => {
+
+    console.log('Fetching comment data url: ', requestURL);
+
     try {
         const response = await fetch(requestURL, {
             method: 'DELETE',
@@ -103,6 +106,7 @@ const fetchDelData = async (requestURL, deletedComment) => {
         throw error; // 호출 측에서 에러 처리를 할 수 있도록 재던짐
     }
 };
+
 // 댓글 전체리스트
 export const callCommentAPI = () => {
 	const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/comment/v1/comment`
@@ -121,9 +125,10 @@ export const callCommentAPI = () => {
 	};
 };
 
-export const callUpdateCommentAPI = (updatedComment) => {
+// 댓글 수정
+export const callUpdateCommentAPI = (commentCode, updatedComment) => {
     console.log('[CommentAPICalls] callUpdateCommentAPI', updatedComment);
-    const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/comment/v1/comment`;
+    const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/comment/v1/comment/${commentCode}`;
 
     return async (dispatch, getState) => {
         try {
@@ -141,6 +146,7 @@ export const callUpdateCommentAPI = (updatedComment) => {
     };
 };
 
+// 댓글 등록
 export const callCreateCommentAPI = (createdComment) => {
     console.log('[CommentAPICalls] callCreateCommentAPI Start');
     const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/comment/v1/comment`;
@@ -161,6 +167,7 @@ export const callCreateCommentAPI = (createdComment) => {
     };
 };
 
+// 댓글 삭제(완전삭제)
 export const callDeleteCommentAPI = (commentCode, deletedComment) => {
     console.log('[CommentAPICalls] callDeleteCommnetAPI Start');
     const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/comment/v1/comment/${commentCode}`;
