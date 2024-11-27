@@ -47,8 +47,8 @@ import TravelDestinations from './pages/travels/TravelDestinations';
 import TravelDestinationDetail from './pages/travels/TravelDestinationDetail';
 import TravelPlan from './pages/plans/TravelPlan';
 import TravelPlanDetail from './pages/plans/TravelPlanDetail';
-import AddPlanDate from './pages/plans/AddPlanDate';
-import AddPlanDestination from './pages/plans/AddPlanDestination';
+// import AddPlanDate from './pages/plans/AddPlanDate';
+// import AddPlanDestination from './pages/plans/AddPlanDestination';
 import TravelPlanCreate from './pages/plans/TravelPlanCreate';
 import ActivityUpdate from './pages/plans/ActivityUpdate';
 import AddByDayPlan from './pages/plans/AddByDayPlan';
@@ -75,8 +75,8 @@ export default function App() {
             <Route path="plans">
               <Route path="TravelPlan" element={<TravelPlan />} />
               <Route path=":travelCode" element={<TravelPlanDetail />} />
-              <Route path="AddPlanDate" element={<AddPlanDate />} />
-              <Route path="AddPlanDestination" element={<AddPlanDestination />} />
+              {/* <Route path="AddPlanDate" element={<AddPlanDate />} />
+              <Route path="AddPlanDestination" element={<AddPlanDestination />} /> */}
               <Route path="TravelPlanCreate" element={<TravelPlanCreate />} />
               {/* <Route path="UpdatePlanDate" element={<UpdatePlanDate />} />
               <Route path="UpdatePlanDestination" element={<UpdatePlanDestination />} /> */}

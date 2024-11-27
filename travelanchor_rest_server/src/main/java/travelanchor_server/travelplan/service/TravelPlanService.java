@@ -181,9 +181,13 @@ public class TravelPlanService {
         log.info("[TravelPlanService] travelDayDTO : "+ travelDayDTO);
         int result = 0;
 
+        int maxDayCode;
         try {
             TravelDay insertTravelDayPlan = modelMapper.map(travelDayDTO, TravelDay.class);
             travelDayRepository.save(insertTravelDayPlan);
+
+            maxDayCode = travelDayRepository.maxDayCode();
+            log.info("[TravelPlanService] maxDayCode : " + maxDayCode);
 
             result = 1;
         } catch (Exception e) {
@@ -191,7 +195,8 @@ public class TravelPlanService {
         }
         log.info("[TravelPlanService] insertTravelDayPlan() End");
 
-        return (result > 0) ? "여행 일자별 일정 입력 성공" : "여행 일자별 일정 입력 실패";
+        return maxDayCode;
+//        return (result > 0) ? "여행 일자별 일정 입력 성공" : "여행 일자별 일정 입력 실패";
     }
 
     @Transactional

@@ -162,6 +162,8 @@ CREATE TABLE IF NOT EXISTS tbl_travel_day
     travel_code INT NOT NULL COMMENT '여행코드',
     day_number INT NOT NULL COMMENT '여행차수',
     day_date INT NOT NULL COMMENT '해당 일',
+    activity_title VARCHAR(20) NOT NULL COMMENT '세부활동제목',
+    activity_detail VARCHAR(100) NOT NULL COMMENT '세부활동',
     CONSTRAINT pk_day_code PRIMARY KEY (day_code)
 #     CONSTRAINT fk_travel_code FOREIGN KEY (travel_code) REFERENCES tbl_travel_plans(travel_code)
 ) ENGINE=InnoDB COMMENT '일정별일과';
@@ -444,18 +446,17 @@ INSERT INTO tbl_travel_plans (travel_code, member_code, travel_name, travel_star
 (9, 9, '스페인 바르셀로나 여행', '2024-12-01', '2024-12-08', '8일', '바르셀로나', 'N','N'),
 (10, 10, '캐나다 토론토 여행', '2025-01-10', '2025-01-20', '11일', '토론토', 'Y','N');
 
-INSERT INTO tbl_travel_day (day_code, travel_code, day_number, day_date) VALUES
-(1, 1, 1, 1),
-(2, 1, 2, 2),
-(3, 1, 1, 1),
-(4, 1, 1, 1),
-(5, 1, 1, 1),
-(6, 1, 1, 1),
-(7, 1, 1, 1),
-(8, 1, 1, 1),
-(9, 1, 1, 1),
-(10, 1, 1, 1);
-# (3, 1, 1, 2);
+INSERT INTO tbl_travel_day (day_code, travel_code, day_number, day_date, activity_title, activity_detail) VALUES
+(1, 1, 1, 1, '아침식사', '고기구워먹느라 50000원씀'),
+(2, 1, 2, 2, '카페', '갬성카페가서 커피먹느라 25000원씀'),
+(3, 1, 1, 1, '전시회', '입장권으로 15000원씀'),
+(4, 1, 1, 1, '길거리음식', '길거리음식 사먹느라 32000원씀'),
+(5, 1, 1, 1, '세부활동제목5', '세부적인 활동을 적는 란.5'),
+(6, 1, 1, 1, '세부활동제목6', '세부적인 활동을 적는 란.6'),
+(7, 1, 1, 1, '세부활동제목7', '세부적인 활동을 적는 란.7'),
+(8, 1, 1, 1, '세부활동제목8', '세부적인 활동을 적는 란.8'),
+(9, 1, 1, 1, '세부활동제목9', '세부적인 활동을 적는 란.9'),
+(10, 1, 1, 1, '세부활동제목10', '세부적인 활동을 적는 란.10');
 
 INSERT INTO tbl_activity (activity_code, day_code, activity_title, activity_detail) VALUES
 (1, 1, '아침식사', '고기구워먹느라 50000원씀'),

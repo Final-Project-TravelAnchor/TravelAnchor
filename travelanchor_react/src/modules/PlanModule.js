@@ -10,11 +10,13 @@ const initialState = {
 export const SET_DATE_PERIOD = "add-report/SET_DATE_PERIOD";
 export const SET_TOTAL_DATE = "add-plan/SET_TOTAL_DATE";
 export const SET_DAY_NUMBER = "add-plan/SET_DAY_NUMBER";
+export const SET_FORM = "add-plan/SET_FORM";
 
 const actions = createActions({
   [SET_DATE_PERIOD]: (startDate, endDate) => ({ startDate, endDate }),
   [SET_TOTAL_DATE]: () => ({}),
-  [SET_DAY_NUMBER]: () => ({})
+  [SET_DAY_NUMBER]: () => ({}),
+  [SET_FORM]: () => ({})
 });
 
 const planReducer = handleActions(
@@ -38,7 +40,10 @@ const planReducer = handleActions(
       return { 
         ...state,
         dayNumber: payload.dayNumber,
-    };
+      };
+    },
+    [SET_FORM]: (state, { payload }) => {
+      return payload;
     },
 },
   initialState

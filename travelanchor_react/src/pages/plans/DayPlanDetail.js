@@ -1,56 +1,69 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { useState } from "react";
+import { useState, useEffect } from "react"; // useEffect 추가
 import { callCreateDayPlanAPI } from "../../apis/TravelPlanAPICalls";
+import { callCreateActivityPlanAPI } from "../../apis/ActivityAPICalls";
 
 export default function DayPlanDetail() {
 
+    const [inputForm, setInputForm] = useState({});
     const navigator = useNavigate();
     const dispatch = useDispatch();
-    const location = useLocation(); // useLocation을 호출해 객체를 반환받음
+    const location = useLocation();
     const planDay = location.state || {};
-    // console.log("DayPlanDetail : ", planDay);
+    console.log("DayPlanDetail planDay : ", planDay);
+    const form = useSelector(state => state.planReducer);
 
-    const selectedDate = useSelector((state) => state.planReducer);
-    const startDate = selectedDate.startDate.split("T")[0];
-    const endDate = selectedDate.endDate.split("T")[0];
-
-    const start = new Date(startDate);
+    console.log("DayPlanDetail form : ", form);
+    // const dayMax = useSelector(state => state.travelDayReducer);
+    
+    const start = new Date(form.travelStartDate);
     const calculatedDate = new Date(start);
-    calculatedDate.setDate(start.getDate() + (planDay.dayNumber - 1)); // dayNumber에 따라 날짜 증가
+    calculatedDate.setDate(start.getDate() + (planDay.dayNumber - 1));
 
-    // 날짜 포맷팅 (YYYY-MM-DD)
     const formattedDate = calculatedDate.toISOString().split("T")[0];
 
-    // console.log("DayPlanDetail : " , selectedDate);
-
-    const [ form, setForm ] = useState({
-        activityTitle: "",
-        activityDetail: "",
-    });
+    // inputForm 초기화 로직 추가 (수정 필요 부분)
+    // useEffect(() => {
+    //     setInputForm({
+    //         activityTitle: "",
+    //         activityDetail: "",
+    //     });
+    // }, []);
 
     const onChangeHandler = (e) => {
-        setForm({
-			...form,
-			[e.target.name]: e.target.value,
-		});
-        // console.log("onChangeHandler : ", e.target.value);
+        setInputForm({
+            ...inputForm,
+            [e.target.name]: e.target.value,
+        });
     };
 
-    const onClickHandler = () => {
-        // console.log("DayPlanDetail ClickHandler");
-        
-        const createdTravelDay = {
-            travelCode: planDay.maxTravelCode,
-            dayNumber: Number(planDay.dayNumber),
-            dayDate: Number(planDay.dayNumber),
-        };
+    // useEffect(() => {
+    
+    //     return () => {
+    //         console.log("Cleanup on component unmount");
+    //     };
+    // }, []);
 
-        dispatch(callCreateDayPlanAPI(createdTravelDay));
-
-        navigator("/plans/AddByDayPlan");
-
-        // dispatch(callCreateActivityPlanAPI(createdTravelDay))
+    const onClickHandler = async () => {
+        try {
+            const createdTravelDay = {
+                dayCode: null,
+                travelCode: planDay.travelCode,
+                dayNumber: planDay.dayNumber,
+                dayDate: planDay.dayDate,
+                activityTitle: inputForm.activityTitle || "",
+                activityDetail: inputForm.activityDetail || "",
+            };
+            
+            console.log("DayPlanDetail: " , createdTravelDay);
+    
+            await dispatch(callCreateDayPlanAPI(createdTravelDay)); // 비동기 작업 실행
+    
+            navigator("/plans/AddByDayPlan");
+        } catch (error) {
+            console.error("Error in onClickHandler: ", error);
+        }
     };
 
     return (
@@ -64,19 +77,19 @@ export default function DayPlanDetail() {
                     placeholder="Day 제목을 입력하세요."
                     name="activityTitle"
                     onChange={onChangeHandler}
-                    value={form.activityTitle}
+                    value={inputForm.activityTitle || ""} 
                 />
                 <input
                     placeholder="Day 계획을 입력하세요."
                     name="activityDetail"
                     onChange={onChangeHandler}
-                    value={form.activityDetail}
+                    value={inputForm.activityDetail || ""}
                 />
             </div>
             <div>
-                <button
-                    onClick={onClickHandler}
-                >추가</button>
+                <button onClick={onClickHandler}>
+                    추가
+                </button>
             </div>
         </>
     );
