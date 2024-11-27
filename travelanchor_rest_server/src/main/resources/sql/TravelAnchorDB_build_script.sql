@@ -400,8 +400,12 @@ INSERT INTO tbl_get_badge (badge_code, member_code) VALUES
 
 -- 포인트 리워드 테이블 더미 데이터
 INSERT INTO tbl_point_reward (member_code, point_reward_total_count, point_reward_point) VALUES
-(1, 2, 8.5),
-(2, 8, 30);
+(1, 2, 9),
+(2, 9, 30),
+(3, 8, 20),
+(4, 20, 95),
+(5, 5, 6),
+(6, 7, 17);
 
 -- 리뷰 카테고리 테이블 더미 데이터
 INSERT INTO tbl_member_reviews_category (review_category_code, review_category_level, review_category_sub_code, member_review) VALUES

@@ -58,6 +58,7 @@ public class MemberService {
             String oriImage = member.getProfilePhoto();
             log.info("[MemberService] member: " + member);
             member.setMemberNickName(memberDTO.getMemberNickName());
+            member.setMemberAddress(memberDTO.getMemberAddress());
 //            member.setMemberPassword(memberDTO.getMemberPassword());
             member.setProfilePhoto((memberDTO.getProfilePhoto()));
 

@@ -1,68 +1,76 @@
 /* 전체 컨테이너 */
 .container {
-    position: relative; /* 백 버튼 배치에 사용 */
-    padding: 20px;
+    position: relative;
+    padding: 30px;
     max-width: 800px;
-    margin: 0 auto;
+    margin: 40px auto;
     background-color: #ffebd2;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 30px;
+    font-family: 'Pretendard-Regular', sans-serif;
 }
 
 /* 헤더 */
 .header {
     text-align: center;
+    font-size: 24px;
+    color: #ff6600;
+    margin-bottom: 20px;
 }
 
 /* 폼 섹션 */
 .formSection {
     display: flex;
-    gap: 20px; /* 좌우 섹션 간격 */
+    gap: 20px;
 }
 
 /* 좌우 섹션 */
 .leftSection,
 .rightSection {
-    flex: 1; /* 동일한 비율로 분배 */
+    flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 20px;
     background: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* 프로필 사진 */
+/* 프로필 사진 버튼 */
 .productImageButton {
-    padding: 10px 20px;
+    padding: 12px 20px;
     background-color: #ff8600;
-    color: white;
+    color: #fff;
     border: none;
-    border-radius: 4px;
+    border-radius: 6px;
     cursor: pointer;
-    margin-top: 10px;
+    margin-top: 15px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .productImageButton:hover {
     background-color: #e05a00;
+    transform: translateY(-2px);
 }
 
+/* 프로필 사진 미리보기 */
 .imagePreview {
-    margin-top: 10px;
+    margin-top: 15px;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 .productImage {
-    max-width: 100%;
-    height: auto;
+    max-width: 120px;
+    height: 120px;
     border-radius: 8px;
     margin-top: 10px;
+    object-fit: cover;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
@@ -75,28 +83,71 @@
 
 .inputField {
     width: 100%;
-    padding: 10px;
+    padding: 12px;
     font-size: 16px;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 6px;
+    transition: border-color 0.2s ease;
 }
 
-/* 버튼 섹션 */
-.buttonSection {
-    text-align: center; /* 가운데 정렬 */
+.inputField:focus {
+    border-color: #ff8600;
+    outline: none;
+}
+
+/* 주소 검색 섹션 */
+.inputContainer {
+    display: flex;
+    gap: 10px;
+    align-items: center;
     margin-top: 20px;
 }
 
+.inputContainer input {
+    flex: 3;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    transition: border-color 0.2s ease;
+}
+
+.inputContainer input:focus {
+    border-color: #ff8600;
+    outline: none;
+}
+
+.registerButton {
+    flex: 1;
+    padding: 12px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #ff8600;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.registerButton:hover {
+    background-color: #e05a00;
+    transform: translateY(-2px);
+}
+
+/* 저장 버튼 섹션 */
+.buttonSection {
+    text-align: center;
+}
 
 .saveButton {
     background-color: #ff8600;
-    color: white;
-    padding: 12px 20px;
-    font-size: 16px;
+    color: #fff;
+    padding: 15px 30px;
+    font-size: 18px;
     border: none;
-    border-radius: 4px;
+    border-radius: 8px;
     cursor: pointer;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: background-color 0.3s, transform 0.2s;
 }
 
@@ -105,27 +156,22 @@
     transform: translateY(-2px);
 }
 
-/* 백 버튼 스타일 */
+/* 백 버튼 */
 .backButton {
-    position: absolute; /* 고정 위치 */
-    top: 20px; /* 상단에서 20px */
-    left: 20px; /* 왼쪽에서 20px */
-    background-color: #ff8600;
-    color: #f7f0f0;
-    font-size: 12px; /* 버튼 크기 줄이기 */
-    padding: 10px 15px; /* 작게 설정 */
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background-color: #ff6600;
+    color: #fff;
+    font-size: 14px;
+    padding: 8px 16px;
     border: none;
-    border-radius: 4px;
+    border-radius: 6px;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .backButton:hover {
-    background-color: #bbb;
-    transform: translateY(-2px); /* 호버 시 약간 올라감 */
+    background-color: #e05a00;
+    transform: translateY(-2px);
 }
-
-
-
-
