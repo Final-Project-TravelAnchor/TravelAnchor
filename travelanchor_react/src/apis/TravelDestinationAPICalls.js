@@ -17,13 +17,28 @@ export const callTravelDestinationDetailAPI = async ({ place_id }) => {
         const response = await axios.get("http://localhost:5000/api/TravelDestinations/details", {
             params: {
                 place_id,
-                culturalLandmarks: JSON.stringify(["famous monuments"]) 
+                culturalLandmarks: JSON.stringify(["famous landmark"]) 
             }
         });
 
         return response.data || {};
     } catch (err) {
         console.error("Error fetching travelDestination details:", err.message);
+        throw err;
+    }
+};
+
+export const callLandmarkDetailAPI = async ({ landmark_id }) => {
+    try {
+        const response = await axios.get("http://localhost:5000/api/landmark/details", {
+            params: {
+                landmark_id
+            }
+        });
+
+        return response.data || [];
+    } catch (err) {
+        console.error("Error fetching landmark details:", err.message);
         throw err;
     }
 };

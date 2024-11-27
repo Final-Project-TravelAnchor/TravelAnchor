@@ -4,9 +4,11 @@
 <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white">
 <img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white">
 <img src="https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white">
+<img src="https://img.shields.io/badge/nodedotjs-5FA04E?style=for-the-badge&logo=nodedotjs&logoColor=white">
 
 #Back
 <img src="https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white">
+<img src="https://img.shields.io/badge/springsecurity-6DB33F?style=for-the-badge&logo=springsecurity&logoColor=white">
 <img src="https://img.shields.io/badge/intellijidea-000000?style=for-the-badge&logo=intellijidea&logoColor=white">
 
 #DataBase
@@ -27,3 +29,59 @@
 |[@crushed-taro](https://github.com/crushed-taro)|[@jieunjieune](https://github.com/jieunjieune)|[@BJY10707](https://github.com/BJY10707)|[@dlskfk](https://github.com/dlskfk)|[@JingiHong](https://github.com/JingiHong)|[@Jinny04](https://github.com/Jinny04)|
 |PM, BE, FE|BE, FE|BE, FE|BE, FE|BE, FE|BE, FE|
 |실시간 채팅, 모집공고 CRUD, 이용자 신고 CRUD, 사용자 CRUD|항공권조회 (API), 날씨조회 (API), 환율조회 (API), 텍스트번역 (API)|마이페이지 CRUD, 가계부 CRUD(정산), 호텔조회 (API)|여행 일정 CRUD, 여행 후기(API), 자유게시판 CRUD|회원가입 CRUD, 로그인 (API)|여행지 CRUD, 맛집 추천 (API)|
+
+## 🎬 프로젝트 소개
+<img src="https://github.com/user-attachments/assets/945859de-4fd6-4ea8-b812-168edba7e1b5">
+
+# 개요
+‘여행닻(travel anchor)’은 배를 출항할 때 닻을 올리는데, 그 의미를 여행과 접목 시켜 여행의 닻을 올려 출발한다는 뜻입니다.
+
+‘여행닻’ 프로젝트는 여행의 즐거움을 메이트와 함께 할 수 있고, 여행지에 대한 다양한 정보를 찾을 수 있는 사이트입니다.
+
+# 주요기능
+ * ✈️ 항공편 조회
+    - 원하는 날짜에 저렴한 항공편을 조회할 수 있습니다.
+    - (항공편 조회 후 원하는 항공편을 예약할 수 있습니다.)
+
+* 🏨 숙박 조회
+    - 원하는 날짜에 저렴한 숙소를 조회할 수 있습니다.
+    - (숙소 조회 후 원하는 숙소를 예약할 수 있습니다.)
+
+* ☀️ 현지 날씨, 번역
+    - 여행하고 싶은 나라를 선택하면 사이트에서 실시간으로 제공하는 현지 날씨를 볼 수 있습니다.
+    - 사이트를 통해 번역하고 싶은 내용을 원하는 나라의 언어로 번역할 수 있습니다.
+
+* 📃 마이페이지
+    - 예약한 내역을 조회하고 관리할 수 있습니다.
+    - 작성한 게시글, 일정, 리뷰 등을 조회하고 관리할 수 있습니다.
+    - 마이페이지에서 저장한 여행지와 맛집을 관리할 수 있습니다.
+
+* 📝 가계부
+    - 저희 사이트에서 제공하는 가계부는 이용자가 나라를 선택하면 그에 맞는 환율이 적용되어 작성됩니다.
+    - 메이트와 같이 여행을 한 후 가계부를 작성하여 복잡했던 계산을 쉽게 할 수 있습니다.
+
+* 👨‍👧‍👦 여행 메이트 구하기
+    - 여행 메이트를 구하는 글을 등록할 수 있습니다.
+    - 글을 보고 원하는 여행 메이트가 있다면 댓글을 작성하거나 실시간 채팅으로 매칭할 수 있습니다.
+
+* 🚨 여행메이트 별점, 신고 기능
+    - 같이 여행을 다녀온 메이트에 대해서 별점을 남길 수 있습니다.
+    - 만약 여행 메이트가 부정한 행동, 사기 등을 했을 경우 신고 기능을 통해 신고할 수 있습니다.
+
+* 📅 일정 작성 및 공유 기능
+    - 여행 가기 전 일정 캘린더를 통해 여행 일정을 쉽고 깔끔하게 정리할 수 있습니다.
+    - 여행 후기를 작성한 후에 공유를 할 수 있고, 공유를 하면 다른 사용자가 그 일정을 볼 수 있습니다.
+
+* 🌏 자율게시판 필터 국가별
+    - 자율게시판을 통해 이용자가 원하는 내용의 게시글을 작성할 수 있습니다.
+    - 자율게시판은 국가별, 글 종류 (맛집, 메이트, 투어, 기타 등)로 분류되어 있어 원하는 카테고리에서 게시글을 볼 수 있습니다.
+
+* 🧳 여행지 추천
+    - 인기 있는 여행지 탭에서 인기 순으로 정렬된 여행지를 조회할 수 있습니다.
+    - 여행지를 조회하면 여행지에 대한 이미지와 상세 정보, 명소를 볼 수 있습니다.
+    - 마음에 드는 여행지는 마이페이지에 저장하고 볼 수 있습니다.
+
+* 🍴 지역 맛집 추천
+    - 원하는 나라의 지역별로 맛집을 조회할 수 있습니다.
+    - 맛집을 조회하면 맛집에 대한 이미지와 설명, 가격을 볼 수 있습니다.
+    - 마음에 드는 맛집을 마이페이지에 저장하고 볼 수 있습니다.

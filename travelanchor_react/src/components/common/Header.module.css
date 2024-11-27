@@ -1,5 +1,111 @@
 .HeaderWrap {
-	position:sticky;
+	position:sticky;/* 전체 컨테이너 */
+    z-index: 30;
+.container {
+    font-family: 'Pretendard-Regular';    
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 30px;
+    background: linear-gradient(135deg, #fff5e6, #ffebd2);
+    border-radius: 20px;
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.container:hover {
+    transform: translateY(-10px);
+}
+
+/* 헤더 */
+.header h1 {
+    font-size: 24px;
+    color: #ff6600;
+    margin-bottom: 20px;
+}
+
+/* 프로필 섹션 */
+/* 프로필 섹션 */
+.profileSection {
+    padding: 20px;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+
+.profileTop {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.profilePicture {
+    flex-shrink: 0;
+}
+
+.profilePicture img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 2px solid #ff8600;
+    object-fit: cover;
+}
+
+.profileInfo {
+    margin-left: 15px;
+}
+
+.profileInfo h2 {
+    font-size: 50px;
+    margin: 0;
+    color: #333;
+    font-weight: bold;
+}
+
+.profileInfo .username {
+    font-size: 30px;
+    color: #666;
+    margin-top: 15px;
+}
+
+.profileDetails {
+    margin-top: 25px;
+    padding: 10px;
+    background: #f9f9f9;
+    border-radius: 10px;
+}
+
+.profileDetails p {
+    font-size: 20px;
+    color: #555;
+    margin: 8px 0;
+}
+
+.profileDetails p strong {
+    color: #333;
+}
+
+.button {
+    background-color: #ff8600;
+    color: #ffffff;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin: 10px 0;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+}
+
+.button:hover {
+    background-color: #e05a00;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}   
+
+
 	display: flex;
 	width:100%;
 	top: 0;
@@ -21,10 +127,9 @@
 
 .navMenu .navItem a{
 	display: block;
-	font-size: 20px;
-	font-family: 'nanumfont';
-	font-weight: bold;
-	padding: 30px 30px;
+	font-size: 22px;
+	font-family: 'LINESeedKR-Bd';
+	padding: 20px 20px;
 }
 
 .navMenu .navItem {
@@ -36,7 +141,8 @@
 	top:100%;
 	left:0;
 	/* min-width: 100px; */
-	background: #ff880018;
+	background:#ffffff;
+    border: #FF8600 solid 2px;
 	border-radius: 10px;
 }
 
@@ -44,7 +150,7 @@
 	display: block;
 	font-size:18px;
 	padding:10px 0;
-	min-width:160px;
+	min-width:100px;
 	text-align: center;
 }
 
@@ -87,9 +193,9 @@ ul li a:hover {
 
 .hamburgerDropdown {
     position: fixed; /* 화면 전체에 고정 */
-    top: 100px; /* 헤더 바로 아래로 위치 */
+    top: 82px; /* 헤더 바로 아래로 위치 */
     right: 0;
-    height: calc(100vh - 100px); /* 화면 높이에서 헤더 높이만큼 뺀 값 */
+    height: calc(100vh - 82px); /* 화면 높이에서 헤더 높이만큼 뺀 값 */
     width: 300px; /* 드롭다운 너비 */
     background-color: rgba(255, 255, 255, 0.95); /* 약간 투명한 흰색 배경 */
     border-left: 1px solid #ddd; /* 왼쪽 경계선 */
@@ -112,6 +218,21 @@ ul li a:hover {
 }
 
 .hamburgerDropdown button:hover {
-    background-color: #e0e0e0; /* 마우스 오버 시 배경색 */
+    background-color: #ffebd2;
+     /* 마우스 오버 시 배경색 */
 }
 
+
+.profileSection {
+    text-align: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.profilePhoto {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+}

@@ -33,4 +33,6 @@ public class MemberController {
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK,"회원정보 수정 성공",memberService.updateMemberInfo(memberId, memberDTO, profilePhoto)));
     }
 
+
+
 }

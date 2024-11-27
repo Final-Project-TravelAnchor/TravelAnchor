@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface TravelReportRepository extends JpaRepository<TravelReport, Integer> {
     List<TravelReport> findAll();
+
+    List<TravelReport> findByMemberCode(int memberCode);
 }

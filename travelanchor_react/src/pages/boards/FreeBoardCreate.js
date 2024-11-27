@@ -4,9 +4,10 @@ import { Navigate, replace, useNavigate, useParams } from "react-router-dom";
 import { callCreateFreeBoardAPI } from "../../apis/FreeBoardAPICalls";
 import { callGetMemberAPI } from "../../apis/MemberAPICalls";
 import { decodeJwt } from "../../utils/tokenUtils";
+import './FreeBoardCreate.css';
 
 
-export default function PopulationCreate() {
+export default function FreeBoardCreate() {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -31,7 +32,7 @@ export default function PopulationCreate() {
         freeBoardTitle: "Title", 
         freeBoardContent: "Content",
         freeBoardCreatedAt: today,
-        memberCode: userMembercode.memberCode,
+        // memberCode: userMembercode.memberCode,
         freeBoardIsdeleted: "N",
     })
 
@@ -59,24 +60,35 @@ export default function PopulationCreate() {
 
 
     return (
-        <div>
-            <h1>FreeBoardCreate page</h1>
-            <label>자유게시판 제목 : <input
+        <div className="fb-create-container">
+            <h1 className="fb-create-title">자유게시판 작성</h1>
+            <div className="fb-create-form">
+            <label className="fb-create-label">제목</label>
+                <input
+                className="fb-create-title-input"
                 type="text"
                 name="freeBoardTitle"
-                placeholder="자유게시판 제목"
+                placeholder="제목을 입력해주세요!"
                 onChange={onChangeHandler}
-            /></label>
+                />
             <br/>
-            <label>자유게시판 설명 : <input
+            <label className="fb-create-label">내용</label>
+                <textarea
+                className="fb-create-content-textarea"
                 type="text"
                 name="freeBoardContent"
-                placeholder="공고 설명"
+                placeholder="내용을 입력해주세요!"
                 onChange={onChangeHandler}
-            /></label>
-            <br/>
-            <button onClick={onClickCreateFreeBoardHandler}>추가하기</button>
-            <button onClick={onClickCancelFreeBoardHandler}>취소하기</button>
+                />
+            <div className="fb-create-button-container">
+                <button 
+                className="fb-create-save-button"
+                onClick={onClickCreateFreeBoardHandler}>추가하기</button>
+                <button 
+                className="fb-create-cancel-button"
+                onClick={onClickCancelFreeBoardHandler}>취소하기</button>
+            </div>
+            </div>
         </div>
     );
 }

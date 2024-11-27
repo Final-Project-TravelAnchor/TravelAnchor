@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import FindIdCSS from './FindId.module.css';
@@ -6,10 +6,17 @@ import { callFindIdAPI } from '../../apis/MemberAPICalls';
 
 function FindId() {
 
+    const inputRef = useRef(null);
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [mobileNumber, setMobileNumber] = useState("");
     const [message, setMessage] = useState("");
+
+    useEffect(() => {
+        if (message) {
+            inputRef.current.focus();
+        }
+    }, [message]);
 
     const onChangeHandler = (e) => {
         const value = e.target.value;
@@ -18,35 +25,50 @@ function FindId() {
             .replace(/[^0-9]/g, '') // 숫자만 남기기
             .replace(/^(\d{3})(\d{4})(\d{4})$/, '$1-$2-$3'); // 포맷팅
         
-        // 자리 수가 13자를 초과하지 않도록 체크
-        if (formattedValue.length <= 13) {
-            setMobileNumber(formattedValue);
-        }
+            if (formattedValue.length <= 13) {
+                setMobileNumber(formattedValue);
+            } else {
+                setMessage("핸드폰 번호는 13자리를 초과할 수 없습니다."); // 메시지 설정
+                inputRef.current.focus(); // 입력창에 포커스
+            }
     };
 
     const onClickFindIdHandler = async () => {
         try {
             const foundId = await dispatch(callFindIdAPI({ mobileNumber })); // API 호출
-            setMessage(`찾은 아이디: ${foundId}`); // 아이디 찾기 성공 메시지
+            setMessage(`찾은 아이디 : ${foundId}`); // 아이디 찾기 성공 메시지
         } catch (error) {
             setMessage(error.message); // 에러 메시지
         }
     };
 
+    const onKeyPressHandler = (e) => {
+        if (e.key === 'Enter') {
+            onClickFindIdHandler();
+        }
+    };
+
     return (
-        <div className={FindIdCSS.backgroundDiv}>
-            <h1>아이디 찾기</h1>
-            <div className={FindIdCSS.inputContainer}>
+        <div className={FindIdCSS.FindIdbackgroundDiv}>
+            <div className={FindIdCSS.overlay}></div>
+            <div className={FindIdCSS.findIdContainer}>
+            <h2 className={FindIdCSS.findIdTitle}>아이디 찾기</h2>
+            <p>가입 시 등록한 휴대폰 번호를 입력하면<br />
+                아이디를 알려드립니다.
+            </p>
+            <img src="/images/main/lock.png" alt="lock" className={FindIdCSS.lockImage} />
                 <input
                     type="text"
                     placeholder="휴대전화 번호"
                     value={mobileNumber}
                     onChange={onChangeHandler}
-                    maxLength={13} // 최대 길이 설정
+                    onKeyPress={onKeyPressHandler}
+                    maxLength={13}
+                    ref={inputRef}
                 />
-                <button onClick={onClickFindIdHandler}>아이디 찾기</button>
+                {message && <p className={FindIdCSS.errorMessage}>{message}</p>}
+                <button className={FindIdCSS.findIdButton} onClick={onClickFindIdHandler}>아이디 찾기</button>
             </div>
-            {message && <p>{message}</p>}
         </div>
     );
 }

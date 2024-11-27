@@ -13,6 +13,7 @@ import ChatRoom from './components/items/ChatRoom';
 import TravelReport from './pages/reports/TravelReport';
 import TravelReportList from './pages/reports/TravelReportList';
 import TravelReportDetail from './pages/reports/TravelReportDetail';
+import TravelReportByMember from './pages/reports/TravelReportByMember';
 import TravelReportCreate from './pages/reports/TravelReportCreate';
 // import TravelReportCreateForm from './pages/reports/TravelReportCreateForm';
 import TravelReportModify from './pages/reports/TravelReportModify';
@@ -45,6 +46,8 @@ import FindId from './pages/member/FindId';
 import FindPw from './pages/member/FindPw';
 import TravelDestinations from './pages/travels/TravelDestinations';
 import TravelDestinationDetail from './pages/travels/TravelDestinationDetail';
+import SavedTravelDestination from './pages/travels/SavedTravelDestination';
+import LandmarkDetail from './pages/travels/LandmarkDetail';
 import TravelPlan from './pages/plans/TravelPlan';
 import TravelPlanDetail from './pages/plans/TravelPlanDetail';
 // import AddPlanDate from './pages/plans/AddPlanDate';
@@ -56,6 +59,7 @@ import DayPlanDetail from './pages/plans/DayPlanDetail';
 // import UpdatePlanDate from './pages/plans/UpdatePlanDate';
 // import UpdatePlanDestination from './pages/plans/UpdatePlanDestination';
 import TravelPlanUpdate from './pages/plans/TravelPlanUpdate';
+
 
 export default function App() {
   return (
@@ -101,20 +105,22 @@ export default function App() {
               <Route path="freeboardModify/:freeboardCode" element={<FreeBoardModify />} />
               <Route path="freeboardCreate" element={<FreeBoardCreate />} />
             </Route>
-            
             <Route path="travelReport">
               <Route index element={ <TravelReport/> }/>
-              <Route path=":reportCode" element={ <TravelReportDetail/> }/>
-              <Route path="AddReportDate" element={ <AddReportDate/> }/>
+              <Route path='AddReportDate' element={ <AddReportDate/> }/>
               <Route path="AddReportDestination" element={ <AddReportDestination/> }/>
-              <Route path="travelReportCreate" element={ <TravelReportCreate/> }/>
+              <Route path=":reportCode" element={ <TravelReportDetail/> }/>
+              <Route path='travelReportCreate' element={ <TravelReportCreate/> }/>
               <Route path="travelReportModify/:reportCode" element={ <TravelReportModify/> }/>
+              <Route path='travelReportList' element={ <TravelReportList/> }/>
+              <Route path="member/:memberCode" element={ <TravelReportByMember/> }/>
+              <Route path='Report' element={ <Report/> }/>
+              <Route path='Map' element={ <Map/> }/>
               {/* <Route path='travelReportList' element={ <TravelReportList/> }/> */}
               {/* <Route path='Report' element={ <Report/> }/>
               <Route path='Map' element={ <Map/> }/> */}
               {/* <Route path='ShareKakao' element={ <ShareKakao/> }/> */}
             </Route>
-
             <Route path="MyPage/:memberId" element={ <MyPage/> }/>  
             <Route path="MyPageUpdate/:memberId" element={ <MyPageUpdate/> }/>  
             <Route path="Accommodation" element={ <Accommodation/> }/>
@@ -122,16 +128,18 @@ export default function App() {
             <Route path="Translation" element={ <Translation/> }/>
             <Route path="Flight" element={ <Flight/> }/>
             <Route path="ExchangeRate" element={ <ExchangeRate/> }/>
-            <Route path="/login" element={ <Login/> } />
+            <Route path="login" element={ <Login/> } />
             <Route path="Restaurants" element={ <Restaurants/> }/>
             <Route path="Restaurants/:place_id" element={ <RestaurantDetail/> }/>
             <Route path="/findid" element={ <FindId/> } />
             <Route path="/findpw" element={ <FindPw/>} />
             <Route path="TravelDestinations" element={ <TravelDestinations/> }/>
             <Route path="TravelDestinations/:place_id" element={ <TravelDestinationDetail/> }/>
+            <Route path="/SavedTravelDestination/:memberCode" element={ <SavedTravelDestination/> }/>
+            <Route path="/Landmarks/:landmark_id" element={ <LandmarkDetail /> }/>
+            <Route path="/register" element={ <Register/> } />
           </Route>
           <Route path='*' element={ <Error/> }/>
-          <Route path="/register" element={ <Register/> } />
         </Routes>
 
       </BrowserRouter>

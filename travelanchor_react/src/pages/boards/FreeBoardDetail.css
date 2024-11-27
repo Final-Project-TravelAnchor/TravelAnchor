@@ -4,7 +4,7 @@
     align-items: center;
     margin-top: 120px;
 	margin-bottom: 50px;
-    min-height: 100vh;
+    min-height: 65vh;
 }
 
 .free-board-detail-title {
@@ -12,6 +12,7 @@
     font-size: 30px;
     font-weight: bold;
     margin-bottom: 20px;
+	text-align: center;
 }
 
 .free-board-detail-content h1{
@@ -23,4 +24,178 @@
 .free-board-detail-content h3{
 	font-size: 18px;
 	color: #333
+}
+
+.fb-detail-in-container {
+	width: 100%;
+    min-width: 800px;
+    margin: 0px auto 40px; /* 화면 중앙 정렬 및 상단 여백 */
+    padding: 30px;
+    background: #f9f9f9;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.fb-detail-in-text {
+	min-height: 100px;
+	background-color: white;
+	margin-top: 20px;
+	padding: 20px;
+	border-radius: 15px; /* 둥근 모서리 */
+}
+
+.fb-button-container {
+	display: flex;
+    justify-content: end;
+	padding: 20px;
+	gap: 10px;
+}
+
+.fb-detail-update-button,
+.fb-detail-back-button {
+	padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.fb-detail-update-button {
+	background-color: #FF8600;
+}
+
+.fb-detail-update-button:hover {
+	background-color: #e07500;
+}
+
+.fb-detail-back-button {
+	background-color: gray
+}
+
+.fb-detail-back-button:hover {
+	background-color: darkgrey
+}
+
+/* 댓글관련 css */
+.fb-comment-container {
+	max-width: 100%;
+	min-height: 100px;
+	background-color: white;
+	margin-top: 20px;
+	padding: 20px;
+	border-radius: 15px; /* 둥근 모서리 */
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.fb-comment-container h3 {
+    font-size: 20px;
+    font-weight: bold;
+    color: #ff8600;
+    margin: 5px;
+}
+
+.comments-list {
+    margin-top: 10px;
+}
+
+/* 개별 댓글 */
+.comment-item {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    background-color: #fff;
+    position: relative; /* 버튼 정렬을 위한 기준 설정 */
+}
+
+/* 댓글 내용 */
+.comment-item p {
+    font-size: 16px;
+    color: #333;
+    margin-right: 100px; /* 버튼 위치 확보 */
+}
+
+/* 버튼 및 작성일 컨테이너 */
+.comment-item .button-container {
+    display: flex;
+    justify-content: flex-end; /* 오른쪽 정렬 */
+    align-items: center; /* 세로 중앙 정렬 */
+    gap: 5px; /* 요소 간 간격 */
+    position: absolute;
+    top: 10px; /* 댓글 상단에 고정 */
+    right: 15px; /* 오른쪽 여백 */
+}
+
+.button-container span {
+	color: #555;
+	font-size: 12px;
+}
+
+/* 수정 및 삭제 버튼 */
+.comment-item button {
+    padding: 5px 10px;
+    font-size: 0.8rem;
+    color: #333;
+    border: 1px solid #FF8600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.comment-item button:hover {
+    background-color: #ff8600 /* 버튼 hover 색상 */
+}
+
+/* 댓글 작성 섹션 */
+.add-comment {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.add-comment input {
+    flex: 1;
+    padding: 10px;
+    font-size: 0.9rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.add-comment input:focus {
+    border-color: #ff8600;
+}
+
+.add-comment button {
+    padding: 10px 15px;
+    font-size: 0.9rem;
+    color: white;
+    background-color: #ff8600;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.add-comment button:hover {
+    background-color: #e07600;
+}
+
+/* 수정 중일 때의 input 스타일 */
+.comment-item input {
+    width: 100%;
+    padding: 8px;
+    font-size: 0.9rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    margin-bottom: 5px;
 }

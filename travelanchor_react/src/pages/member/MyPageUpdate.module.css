@@ -1,92 +1,45 @@
+/* 전체 컨테이너 */
 .container {
+    position: relative; /* 백 버튼 배치에 사용 */
     padding: 20px;
-    max-width: 600px;
+    max-width: 800px;
     margin: 0 auto;
-    background-color: #f9f9f9;
+    background-color: #ffebd2;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-.header {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.formSection {
     display: flex;
     flex-direction: column;
-    gap: 20px; /* 항목들 사이 간격을 더 넓게 설정 */
+    gap: 20px;
 }
 
-.inputField {
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+/* 헤더 */
+.header {
+    text-align: center;
 }
 
-.submitBtn {
-    background-color: #ff6600;
-    color: white;
-    padding: 10px;
-    font-size: 16px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.submitBtn:hover {
-    background-color: #e05a00;
-}
-
-/* 버튼들의 컨테이너 */
-.submitBtnContainer {
+/* 폼 섹션 */
+.formSection {
     display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
+    gap: 20px; /* 좌우 섹션 간격 */
 }
 
-.backButton,
-.modifyButton,
-.saveButton {
-    padding: 10px 20px;
-    font-size: 16px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+/* 좌우 섹션 */
+.leftSection,
+.rightSection {
+    flex: 1; /* 동일한 비율로 분배 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.backButton {
-    background-color: #ccc;
-    color: #333;
-}
-
-.backButton:hover {
-    background-color: #bbb;
-}
-
-.modifyButton {
-    background-color: #ff6600; /* Green color */
-    color: white;
-}
-
-.modifyButton:hover {
-    background-color: #e05a00;
-}
-
-.saveButton {
-    background-color: #ff6600; /* Orange color */
-    color: white;
-}
-
-.saveButton:hover {
-    background-color: #e05a00;
-}
-
+/* 프로필 사진 */
 .productImageButton {
     padding: 10px 20px;
-    background-color: #007bff;
+    background-color: #ff8600;
     color: white;
     border: none;
     border-radius: 4px;
@@ -95,7 +48,7 @@
 }
 
 .productImageButton:hover {
-    background-color: #0056b3;
+    background-color: #e05a00;
 }
 
 .imagePreview {
@@ -109,8 +62,70 @@
     max-width: 100%;
     height: auto;
     border-radius: 8px;
+    margin-top: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
-input[type="file"] {
-    margin-top: 10px;
+/* 닉네임 필드 */
+.rightSection label {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
 }
+
+.inputField {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* 버튼 섹션 */
+.buttonSection {
+    text-align: center; /* 가운데 정렬 */
+    margin-top: 20px;
+}
+
+
+.saveButton {
+    background-color: #ff8600;
+    color: white;
+    padding: 12px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.saveButton:hover {
+    background-color: #e05a00;
+    transform: translateY(-2px);
+}
+
+/* 백 버튼 스타일 */
+.backButton {
+    position: absolute; /* 고정 위치 */
+    top: 20px; /* 상단에서 20px */
+    left: 20px; /* 왼쪽에서 20px */
+    background-color: #ff8600;
+    color: #f7f0f0;
+    font-size: 12px; /* 버튼 크기 줄이기 */
+    padding: 10px 15px; /* 작게 설정 */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.backButton:hover {
+    background-color: #bbb;
+    transform: translateY(-2px); /* 호버 시 약간 올라감 */
+}
+
+
+
+

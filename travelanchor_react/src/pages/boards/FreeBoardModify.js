@@ -2,6 +2,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { callUpdateFreeBoardAPI } from "../../apis/FreeBoardAPICalls";
 import { useDispatch } from "react-redux";
+import './FreeBoardModify.css';
 
 export default function FreeBoardModify() {
     const location = useLocation();
@@ -64,45 +65,52 @@ export default function FreeBoardModify() {
 
     const onClickCancelHandler = () => {
         if (window.confirm("수정을 취소하시겠습니까? 변경사항은 저장되지 않습니다.")) {
-            navigate(`/freeboard/${freeboard.freeBoardCode}`, { replace: true });
+            navigate(`/freeboard`, { replace: true });
         }
     };
 
     return (
-        <>
+        <div className="fb-modify-container">
             <div>
-                <h1>FreeBoard Modify Page</h1>
+                <h1 className="fb-modify-title">자유게시판 수정</h1>
             </div>
-            <div>
-                {loading && <p>수정 중입니다... 잠시만 기다려주세요.</p>}
-                {error && <p style={{ color: "red" }}>{error}</p>}
-                <label>
-                    제목:{" "}
+            <div className="fb-modify-form">
+                <label className="fb-modify-label">
+                    제목{" "}
+                </label>
                     <input
+                        className="fb-modify-title-input"
                         placeholder="제목"
                         name="freeBoardTitle"
                         onChange={onChangeHandler}
                         value={form.freeBoardTitle}
                     />
-                </label>
                 <br />
-                <label>
-                    설명:{" "}
-                    <input
+                <label className="fb-modify-label">
+                    설명{" "}
+                </label>
+                    <textarea
+                        className="fb-modify-content-textarea"
                         placeholder="설명"
                         name="freeBoardContent"
                         onChange={onChangeHandler}
                         value={form.freeBoardContent}
                     />
-                </label>
                 <br />
-                <button onClick={onClickSaveHandler} disabled={loading}>
+                <div className="fb-modify-button-container">
+                <button 
+                className="fb-modify-save-button"
+                onClick={onClickSaveHandler} disabled={loading}>
                     {loading ? "저장 중..." : "수정하기"}
                 </button>
-                <button onClick={onClickCancelHandler} disabled={loading}>
+                <button 
+                className="fb-modify-cancel-button"
+                onClick={onClickCancelHandler} disabled={loading}>
                     취소하기
                 </button>
+                </div>
+
             </div>
-        </>
+        </div>
     );
 }

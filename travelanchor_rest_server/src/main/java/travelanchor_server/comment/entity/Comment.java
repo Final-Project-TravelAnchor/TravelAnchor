@@ -23,12 +23,12 @@ public class Comment {
     private String commentContent;
 
     @Column(name = "comment_created_at")
-    private Date commentCreatedAt;
+    private String commentCreatedAt;
 
     public Comment() {
     }
 
-    public Comment(int commentCode, int freeBoardCode, int memberCode, String commentContent, Date commentCreatedAt) {
+    public Comment(int commentCode, int freeBoardCode, int memberCode, String commentContent, String commentCreatedAt) {
         this.commentCode = commentCode;
         this.freeBoardCode = freeBoardCode;
         this.memberCode = memberCode;
@@ -68,11 +68,11 @@ public class Comment {
         this.commentContent = commentContent;
     }
 
-    public Date getCommentCreatedAt() {
+    public String getCommentCreatedAt() {
         return commentCreatedAt;
     }
 
-    public void setCommentCreatedAt(Date commentCreatedAt) {
+    public void setCommentCreatedAt(String commentCreatedAt) {
         this.commentCreatedAt = commentCreatedAt;
     }
 

@@ -1,17 +1,18 @@
 .weather-container {
     max-width: 800px;
     margin: 0 auto; /* 화면 중앙 정렬 */
-    padding: 50px;
+    /* padding: 50px; */
     border-radius: 10px;
     /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
-    font-family: Arial, sans-serif;
     /* background-color: #f9f9f9; */
     color: #333;
     text-align: center;
+	margin-top: 120px;
+	margin-bottom: 50px;
 }
 
 .weather-container h1 {
-    font-size: 25px;
+    font-size: 30px;
     font-weight: bold;
 	margin-bottom: 20px;
     color: #333;
@@ -50,10 +51,10 @@
     background-color: #e07500;
 }
 
-#forecast {
+/* #forecast {
     margin-top: 20px;
     text-align: center;
-}
+} */
 
 .weather-card-container h2 {
     font-size: 30px;
@@ -143,6 +144,7 @@
 	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 	padding: 10px;
 	margin: 10px 0;
+	text-align: center;
 }
 
 .weather-card h3 {

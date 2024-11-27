@@ -15,16 +15,18 @@ const fetchGetSavedTravelDestinationData = async (requestURL) => {
 		});
 		const result = await response.json();
 
+		if (!response.ok) {
+			throw new Error(result.message || "Failed to fetch travel destinations");
+		}
+
 		return result;
 	} catch (error) {
 		console.error("Error fetching data:", error);
+		throw error; 
 	}
 };
 
-const fetchPostTravelDestinationData = async (
-	requestURL,
-	savedTravelDestination
-) => {
+const fetchPostTravelDestinationData = async (requestURL, savedTravelDestination) => {
 	console.log("Fetching travelDestination url: ", requestURL);
 	console.log("Fetching travelDestination data", savedTravelDestination);
 
@@ -34,16 +36,20 @@ const fetchPostTravelDestinationData = async (
 			headers: {
 				Accept: "*/*",
 				"Content-Type": "application/json",
+				Authorization:
+					'Bearer ' + window.localStorage.getItem('accessToken')
 			},
 			body: JSON.stringify(savedTravelDestination),
-		}).then((response) => response.json());
+		});
 
-		console.log(
-			"[FavoriteTravelDestinationAPICalls] fetchPostTravelDestinationData RESULT : ",
-			response
-		);
+		const result = await response.json();
 
-		return response;
+		if (!response.ok) {
+			throw new Error(result.message || "Failed to save travel destination");
+		}
+
+		console.log("[FavoriteTravelDestinationAPICalls] fetchPostTravelDestinationData RESULT : ", result);
+		return result;
 	} catch (error) {
 		console.error("Error fetching TravelDestination data:", error);
 		throw error;
@@ -61,63 +67,63 @@ const fetchDeleteTravelDestinationData = async (requestURL) => {
 		});
 		const result = await response.json();
 
+		if (!response.ok) {
+			throw new Error(result.message || "Failed to delete travel destination");
+		}
+
 		return result;
 	} catch (error) {
 		console.error("Error fetching data:", error);
-	}
-};
-
-export const fetchSavedTravelDestinationsAPI = async (memberCode) => {
-	const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/travel-destination/v1/travel-destinations/${memberCode}`;
-	console.log(
-		"[FavoriteTravelDestinationAPICalls] CallGetSavedTravelDestinationAPI",
-		requestURL
-	);
-
-	return fetchGetSavedTravelDestinationData(requestURL);
-};
-
-export const saveTravelDestinationAPI = async (payload) => {
-	try {
-		const response = await fetch(
-			`http://${process.env.REACT_APP_RESTAPI_IP}:8080/travel-destination/v1/travel-destination`,
-			{
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify(payload),
-			}
-		);
-
-		if (!response.ok) {
-			const errorData = await response.json();
-			console.error("API error response:", errorData);
-			throw new Error(
-				`API Error: ${errorData.message || response.statusText}`
-			);
-		}
-
-		return await response.json();
-	} catch (error) {
-		console.error("Error in saveTravelDestinationAPI:", error);
 		throw error;
 	}
 };
 
-export const deleteTravelDestinationAPI = async (
-	favoriteCode,
-	travelDestinationDTO
-) => {
-	const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/travel-destination/v1/travel-destinations/${favoriteCode}`;
-	console.log(
-		"[FavoriteTravelDestinationAPICalls] CallDeleteTravelDestinationAPI",
-		requestURL
-	);
+export const fetchSavedTravelDestinationsAPI = () => {
+	const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/travel-destination/v1/travel-destinations`;
+	console.log("[FavoriteTravelDestinationAPICalls] CallGetSavedTravelDestinationAPI", requestURL);
 
-	return fetchDeleteTravelDestinationData(
-		requestURL,
-		"DELETE",
-		travelDestinationDTO
-	);
+	return async (dispatch, getState) => {
+		try {
+			const result = await fetchGetSavedTravelDestinationData(requestURL);
+
+			console.log("fetchSavedTravelDestinationsAPI Result:", result);
+			dispatch({ type: GET_TRAVEL_DESTINATIONS, payload: result.data });
+		} catch (err) {
+			console.error("fetchSavedTravelDestinationsAPI Fetch Error:", err);
+		}
+	};
+};
+
+export const saveTravelDestinationAPI = (savedTravelDestination) => {
+	console.log("[FavoriteTravelDestinationAPICalls] saveTravelDestinationAPI Start");
+	const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/travel-destination/v1/travel-destinations`;
+
+	return async (dispatch, getState) => {
+		try {
+			const result = await fetchPostTravelDestinationData(requestURL, savedTravelDestination);
+
+			if (result.status === 200) {
+				console.log("[FavoriteTravelDestinationAPICalls] saveTravelDestinationAPI Result:", result);
+				dispatch({ type: POST_TRAVEL_DESTINATION, payload: result.data });
+			}
+		} catch (error) {
+			console.error("[FavoriteTravelDestinationAPICalls] saveTravelDestinationAPI Error:", error);
+		}
+	};
+};
+
+export const deleteTravelDestinationAPI = (favoriteCode) => {
+	const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/travel-destination/v1/travel-destinations/${favoriteCode}`;
+	console.log("[FavoriteTravelDestinationAPICalls] CallDeleteTravelDestinationAPI", requestURL);
+
+	return async (dispatch, getState) => {
+		try {
+			const result = await fetchDeleteTravelDestinationData(requestURL);
+
+			console.log("deleteTravelDestinationAPI Result:", result);
+			dispatch({ type: DELETE_TRAVEL_DESTINATION, payload: favoriteCode });
+		} catch (err) {
+			console.error("deleteTravelDestinationAPI Fetch Error:", err);
+		}
+	};
 };

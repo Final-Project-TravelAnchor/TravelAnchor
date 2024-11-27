@@ -9,6 +9,7 @@ import areaReducer from './AreaModule';
 import { cityReducer, selectedCityReducer } from './CityModule';
 import planReducer from './PlanModule';
 import {travelPlanReducer, travelDayReducer} from './TravelPlanModule';
+import commentReducer from './CommentModule';
 
 const rootReducer = combineReducers({
 	memberReducer,
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
 	planReducer,
 	travelPlanReducer,
 	travelDayReducer,
+	commentReducer,
 });
 
 export default rootReducer;

@@ -1,6 +1,7 @@
 import {
     GET_TRAVEL_REPORT,
     GET_TRAVEL_REPORT_DETAIL,
+    GET_TRAVEL_REPORT_BY_MEMBER_CODE,
     POST_TRAVEL_REPORT,
     PUT_TRAVEL_REPORT,
     PUT_TRAVEL_REPORT_DELETION_STATUS
@@ -102,6 +103,29 @@ export const callTravelReportListAPI = () => {
 
     };
 }
+
+export const callTravelReportByMemberCodeAPI = (memberCode) => {
+    const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/travel-report/v1/travel-report/member/${memberCode}`;
+    console.log("[API 호출] Request URL:", requestURL);
+
+    return async (dispatch) => {
+        try {
+            const response = await fetch(requestURL);
+            const data = await response.json();
+
+            console.log("[API 응답 데이터]:", data);
+
+            if (response.ok) {
+                console.log("[액션 디스패치] GET_TRAVEL_REPORT_BY_MEMBER_CODE");
+                dispatch({ type: "GET_TRAVEL_REPORT_BY_MEMBER_CODE", payload: data });
+            } else {
+                console.error("[API 오류] 상태 코드:", response.status);
+            }
+        } catch (error) {
+            console.error("[API 호출 실패]:", error);
+        }
+    };
+};
 
 export const callTravelReportDetailAPI = (reportCode) => {
     const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/travel-report/v1/travel-report/${reportCode}`;
