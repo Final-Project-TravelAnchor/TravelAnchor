@@ -4,7 +4,6 @@ import { replace, useNavigate, useParams } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import FreeBoard from "./FreeBoard";
 import { decodeJwt } from "../../utils/tokenUtils";
-import { callGetMemberAPI } from "../../apis/MemberAPICalls";
 import { findSub } from "../../utils/tokenUtils";
 import './FreeBoardDetail.css';
 import {
@@ -13,26 +12,30 @@ import {
     callUpdateCommentAPI,
     callDeleteCommentAPI,
 } from "../../apis/CommentAPICalls";
-import memberReducer from "../../modules/MemberModule";
+import { callGetMemberAPI  } from '../../apis/MemberAPICalls';
 
 export default function FreeBoardDetail() {
 
     const location = useLocation();
     const freeboard = location.state;
-
-    // console.log("freeboard: " , freeboard);
-
-    const userInfo = useSelector(state => state.memberReducer);
-    const userMembercode = userInfo.data;
-
-    console.log("게시판작성자코드?",freeboard.memberCode);
-    console.log("멤버아이디?",userMembercode);
-    // console.log("현재 로그인한 멤버?",userMembercode.memberName);
-
-    const navigate = useNavigate();
+    const { memberCode } = useParams();
     const dispatch = useDispatch();
+    const userInfo = useSelector(state => state.memberReducer.member);
+    console.log("userInfo : ", userInfo);
+    const navigate = useNavigate();
     const comment = useSelector(state => state.commentReducer);
-    console.log("잘되냐?",comment)
+    console.log("comment : ", comment);
+
+    useEffect(() => {
+        if (memberCode) {
+            dispatch(callGetMemberAPI({ memberCode }));
+        }
+    }, [dispatch, memberCode]);
+
+    // console.log("게시판작성자코드?",freeboard.memberCode);
+    // console.log("지금로그인한멤버코드?", userInfo.memberCode);
+    // console.log("지금로그인한멤버닉넴?", userInfo.memberNickName);
+    // console.log("잘되냐?",comment)
 
     // 수정하기 버튼
     const onClickModifyModeHandler = (freeboard) => {
@@ -45,13 +48,13 @@ export default function FreeBoardDetail() {
         navigate(`/freeboard`);
     }
 
-    //----------------------댓글 조회----------------------
+    //-------------------------------댓글 조회-----------------------------
     // 댓글 불러오기
     useEffect(() => {
         if (freeboard) {
             dispatch(callCommentAPI(freeboard.freeBoardCode));
         }
-        console.log("프리보드코드는?", freeboard.freeBoardCode);
+        // console.log("프리보드코드는?", freeboard.freeBoardCode);
     }, [freeboard, dispatch]);
 
     // 댓글 목록 필터링
@@ -59,17 +62,18 @@ export default function FreeBoardDetail() {
         (comment) => comment.freeBoardCode === freeboard.freeBoardCode
     );
 
-    console.log("필터링되냐", filteredComments);
-    // console.log("댓글쓴멤버코드는?", filteredComments[0].memberCode);
+    // console.log("필터링되냐", filteredComments);
+    // console.log("댓글쓴사람?",filteredComments[3].memberCode);
+    
 
     // 날짜 형식
     const today = new Date().toISOString().split('T')[0];
     
-    //----------------------댓글 등록----------------------
+    //-------------------------------댓글 등록-----------------------------
     const [ form, setForm ] = useState({
         conmmentCode: null,
         freeBoardCode: freeboard.freeBoardCode,
-        memberCode: 2,
+        memberCode: userInfo.memberCode,
         commentContent: "",
         commentCreatedAt: today,
     })
@@ -82,8 +86,14 @@ export default function FreeBoardDetail() {
     };
     
     const handleAddComment = async () => {
-        console.log("댓글달기 눌렀는데?");
-        await dispatch(callCreateCommentAPI(form));
+        // console.log("댓글달기 눌렀는데?");
+
+        const updatedForm = {
+            ...form,
+            memberNickName: userInfo.memberNickName
+        };
+
+        await dispatch(callCreateCommentAPI(updatedForm));
         
         // 댓글 등록 후 댓글 목록 새로고침
         dispatch(callCommentAPI(freeboard.freeBoardCode));
@@ -210,29 +220,42 @@ const handleUpdateComment = async (commentCode) => {
                             // 일반 댓글 표시
                             <div>
                                 <p>
-                                    {commentItem.memberCode}: {commentItem.commentContent}
+                                    {commentItem.memberNickName}: {commentItem.commentContent}
                                 </p>
                                 <div className="button-container">
                                     <span className="comment-date">{commentItem.commentCreatedAt}</span>
-                                    <button
-                                        onClick={() =>
-                                            handleStartEditing(commentItem.commentCode, commentItem.commentContent)
-                                        }
-                                    >
-                                        수정
-                                    </button>
-                                    <button
-                                        onClick={() => handleDeleteComment(commentItem.commentCode)}
-                                    >
-                                        삭제
-                                    </button>
+                                    {
+                                        userInfo.memberCode === commentItem.memberCode ? 
+                                        (
+                                            <>
+                                                <button
+                                                    onClick={() =>
+                                                        handleStartEditing(commentItem.commentCode, commentItem.commentContent)
+                                                    }
+                                                >
+                                                    수정
+                                                </button>
+                                                <button
+                                                    onClick={() => handleDeleteComment(commentItem.commentCode)}
+                                                >
+                                                    삭제
+                                                </button>
+                                            </>
+                                        )
+                                        :
+                                        (null)
+                                        
+                                        
+                                    }
                                 </div>
+                                
+                                    
                             </div>
                         )}
                     </div>
                 ))
             ) : (
-                <p>댓글이 없습니다.</p>
+                <p>등록된 댓글이 없습니다. 첫 댓글을 달아보세요😊</p>
             )}
         </div>
 

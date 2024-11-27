@@ -34,6 +34,7 @@ export default function FreeBoardCreate() {
         freeBoardCreatedAt: today,
         // memberCode: userMembercode.memberCode,
         freeBoardIsdeleted: "N",
+        memberCode: userInfo.memberCode,
     })
 
     const onClickCreateFreeBoardHandler = async () => {

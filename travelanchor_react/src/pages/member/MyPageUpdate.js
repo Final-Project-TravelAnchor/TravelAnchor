@@ -12,64 +12,70 @@ const MyPageUpdate = () => {
 
     // 상태 변수들 정의
     const [image, setImage] = useState(null); // 프로필 사진 상태
-    const [imageUrl, setImageUrl] = useState(null);
-    const [imagePreview, setImagePreview] = useState(member?.profilePhoto || '/images/main/default-avatar.png');
-    // const [modifyMode, setModifyMode] = useState(false); // 수정모드 상태
-    const [form, setForm] = useState({
-        memberNickName: member?.memberNickName || '',
-    });
-
+    const [imagePreview, setImagePreview] = useState('/images/main/default-avatar.png');
+    const [form, setForm] = useState({ memberNickName: member?.memberNickName || ''});
     const imageInput = useRef();
 
-    useEffect(() => {
-        if (image) {
-            const fileReader = new FileReader();
-            fileReader.onload = (e) => {
-                setImagePreview(e.target.result); // 미리보기 업데이트
-            };
-            fileReader.readAsDataURL(image);
-        }
-    }, [image]);
-    
+
     useEffect(() => {
         if (member) {
             setForm({
                 memberNickName: member.memberNickName || '',
+                memberAddress: member.memberAddress || '',
             });
             setImagePreview(member?.profilePhoto || '/images/main/default-avatar.png');
         }
     }, [member]);
 
-    const onChangeImageUpload = (e) => {
-        console.log(e.target.files[0]); // 업로드된 파일 확인
+    
+    useEffect(() => {
+        if (image) {
+            const fileReader = new FileReader();
+            fileReader.onload = (e) => setImagePreview(e.target.result); 
+            fileReader.readAsDataURL(image);
+        }
+    }, [image]);
+    
 
-        setImage(e.target.files[0]);
+    const onChangeHandler = ({ target: { name, value } }) => {
+        setForm(prevForm => ({ ...prevForm, [name]: value }));
     };
+    
+    
 
-        const onClickImageUpload = () => {
-           {
-                imageInput.current.click();
-            }
-        };
-
+    const onChangeImageUpload = (e) => setImage(e.target.files[0]);
    
 
-    const onChangeHandler = (e) => {
-        const { name, value } = e.target;
-        setForm({
-            ...form,
-            [name]: value,
-        });
-    };
+    const onClickImageUpload = () =>  imageInput.current.click();
+
+    // 카카오 주소 API를 실행하는 함수
+    const onClickAddressHandler = () => {
+        new window.daum.Postcode({
+          oncomplete: (data) => {
+              setForm((prevForm) => ({
+                  ...prevForm,
+                  memberAddress: data.address, // 카카오 API로 받은 주소를 업데이트
+              }));
+          },
+        }).open();
+      };
+
+   
+    
 
     const onClickUserUpdateHandler = () => {
         if (!form.memberNickName.trim()) {
             alert('닉네임을 입력해주세요.');
             return;
         }
+        
     
         const formData = new FormData();
-        const memberData = { memberNickName: form.memberNickName };
+
+        const memberData = { 
+            memberNickName: form.memberNickName, 
+            memberAddress: form.memberAddress || '' 
+        };
     
         formData.append(
             'memberDTO',
@@ -94,6 +100,8 @@ const MyPageUpdate = () => {
         alert('정보가 성공적으로 수정되었습니다.');
         navigate(`/MyPage/${memberId}`, { replace: true });
     };
+
+    
 
 
 
@@ -148,8 +156,25 @@ const MyPageUpdate = () => {
                         />
                     </div>
                 </section>
+
+                <div className={updatePageCss.inputContainer}>
+                  <label htmlFor="memberAddress">주소</label>
+                  <input
+                    type="text"
+                    name="memberAddress"
+                    id="memberAddress"
+                    placeholder="주소"
+                    autoComplete="off"
+                    value={form.memberAddress}
+                    onChange={onChangeHandler}
                     
-            {/*     저장 버튼 */}
+                  />
+                  <button className={updatePageCss.registerButton} onClick={onClickAddressHandler}>
+                    주소 검색
+                  </button>
+                </div>
+                    
+            {/*저장 버튼 */}
                 <div className={updatePageCss.buttonSection}>
                     <button className={updatePageCss.saveButton} onClick={onClickUserUpdateHandler}>
                         정보 수정 저장하기
