@@ -8,7 +8,7 @@ import LoginModal from "./LoginModal";
 import commonCss from "./common.module.css";
 import { callGetMemberAPI, callGetPoint  } from '../../apis/MemberAPICalls';
 import { callTravelReportByMemberCodeAPI } from "../../apis/TravelReportAPICalls";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 
 function Header({ hideAuthLinks }) {
 	const navigate = useNavigate();
