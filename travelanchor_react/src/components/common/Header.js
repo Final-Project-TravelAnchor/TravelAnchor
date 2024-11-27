@@ -110,6 +110,7 @@ function Header({ hideAuthLinks }) {
 					className={HeaderCSS.HeaderBtn}
 					onClick={onClickMypageHandler}
 				>
+
 					<NavLink to={`/MyPage/${member?.memberId}`}>
 						{member?.memberNickName || '회원'}님의 마이페이지
 					</NavLink>
@@ -172,7 +173,7 @@ return (
 								여행
 							</a>
 							{isDropdownOpen && (
-								<ul className={HeaderCSS.dropdownMenu}>
+								<ul className={HeaderCSS.dropdownMenu} onMouseLeave={() => setDropdownOpen(false)}>
 									<li>
 										<NavLink to="TravelDestinations">
 											여행지
@@ -248,30 +249,39 @@ return (
 					            onMouseLeave={() => setHamburgerOpen(false)}
 					        >
 					            {member ? (
-					                // 로그인 상태일 때
-					                <div className={HeaderCSS.profileSection}>
-					                    <img 
-					                        src={
-					                            member.profilePhoto 
-					                                ? `http://localhost:8080/uploadedImages/${member.profilePhoto}` 
-					                                : '/images/main/default-avatar.png'
-					                        } 
-					                        className={HeaderCSS.profilePhoto}
-					                    />
-					                    <h2>안녕하세요!
-					                        <br/>
-					                        {member.memberNickName}님
-					                    </h2>
-					                    <p>
-					                        나의 매너점수: 
-					                        {point?.pointRewardTotalCount 
-					                            ? (point.pointRewardPoint / point.pointRewardTotalCount).toFixed(1) 
-					                            : '점수 정보를 불러오지 못했습니다.'}
-					                    </p>
-					                    <button onClick={plansClick}>나의 여행 일정</button>
-					                    <button onClick={favoriteClick}>나의 저장 장소</button>
-					                    <button onClick={reportClick}>나의 후기</button>
-					                </div>
+					            // 로그인 상태일 때
+					            <div className={HeaderCSS.profileSection}>
+						    		<div className={HeaderCSS.profileTop}>
+						    		    <img 
+						    		        src={
+						    		            member.profilePhoto 
+						    		                ? `http://localhost:8080/uploadedImages/${member.profilePhoto}` 
+						    		                : '/images/main/default-avatar.png'
+						    		        } 
+						    		        alt="프로필 사진" 
+						    		        onError={(e) => {
+						    		            e.target.onerror = null; // 무한 루프 방지
+						    		            e.target.src = '/images/main/default-avatar.png'; // 기본 이미지로 대체
+						    		        }}
+						    		        className={HeaderCSS.profilePhoto}
+						    		    />
+						    		    <div className={HeaderCSS.profileInfo}>
+						    		        <h2>안녕하세요,</h2>
+						    		        <h3>{member.memberNickName}님!</h3>
+						    		        <p className={HeaderCSS.profileDetails}>
+						    		            매너점수: {point?.pointRewardTotalCount 
+						    		                ? (point.pointRewardPoint / point.pointRewardTotalCount).toFixed(1) 
+						    		                : '점수 정보를 불러오지 못했습니다.'} / 5
+						    		        </p>
+						    		    </div>
+						    		</div>
+						    		<div className={HeaderCSS.profileButtons}>
+						    		    <button onClick={plansClick} className={HeaderCSS.button}>나의 여행 일정</button>
+						    		    <button onClick={favoriteClick} className={HeaderCSS.button}>나의 저장 장소</button>
+						    		    <button onClick={reportClick} className={HeaderCSS.button}>나의 후기</button>
+						    		</div>
+								</div>
+
 					            ) : (
 					                // 비로그인 상태일 때
 					                <div className={HeaderCSS.profileSection}>
