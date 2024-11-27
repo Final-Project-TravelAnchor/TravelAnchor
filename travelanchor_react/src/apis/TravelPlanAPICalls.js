@@ -3,7 +3,9 @@ import {
 	GET_TRAVELPLAN_DETAIL,
 	PUT_TRAVELPLAN,
 	POST_TRAVELPLAN,
-    PUT_TRAVEL_PLAN_DELETION_STATUS
+	POST_TRAVEL_DAY,
+    PUT_TRAVEL_PLAN_DELETION_STATUS,
+    GET_TRAVEL_DAY
 } from "../modules/TravelPlanModule";
 
 export const fetchGetTravelPlanData = async (requestURL) => {
@@ -136,6 +138,7 @@ export const callUpdateTravelPlanAPI = (updatedTravelPlan) => {
 
 export const callCreateTravelPlanAPI = (createdTravelPlan) => {
     console.log('[TravelPlanAPICalls] Create!!!');
+    console.log("[TravelPlanAPICalls] createdTravelPlan : ", createdTravelPlan);
     const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/travel-plan/v1/travel-plan`;
 
     return async (dispatch, getState) => {
@@ -173,4 +176,45 @@ export const callDeleteTravelPlanAPI = (updatedTravelPlan) => {
             console.error('[TravelPlanAPICalls] callDeleteTravelPlanAPI error : ', error);
         }
     };
+};
+
+export const callCreateDayPlanAPI = (createdTravelDay) => {
+    console.log('[TravelPlanAPICalls] Create!!!');
+    const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/travel-plan/v1/travel-plan/day`;
+
+    return async (dispatch, getState) => {
+        try {
+            
+            const result = await fetchPostTravelPlanData(requestURL, createdTravelDay);
+
+            console.log("callCreateDayPlanAPI : ", result);
+
+            if(result.status === 200) {
+                console.log('[TravelPlanAPICalls] callCreateTravelPlanAPI Result : ', result);
+                dispatch({ type: POST_TRAVEL_DAY, payload: result });
+            }
+
+        } catch (error) {
+            console.error('[TravelPlanAPICalls] callUpdateTravelPlanAPI error : ', error);
+        }
+    };
+};
+
+export const callTravelDayListAPI = () => {
+    const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/travel-plan/v1/travel-plan`;
+	console.log("[TravelPlan] callTravelDayListAPI : ", requestURL);
+
+	return async (dispatch, getState) => {
+		try {
+			const result = await fetchGetTravelPlanData(requestURL);
+
+
+			if(result.status === 200) {
+				console.log("[TravelPlanCalls] callTravelDayListAPI Result : ", result);
+				dispatch({ type:GET_TRAVEL_DAY, payload:result });
+			}
+		} catch (error) {
+			console.log("[TravelPlanCalls] callTravelDayListAPI Error", error);
+		}
+	};
 };

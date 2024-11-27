@@ -1,6 +1,7 @@
 package travelanchor_server.travelplan.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import travelanchor_server.travelplan.entity.Activity;
 
 import java.util.List;
