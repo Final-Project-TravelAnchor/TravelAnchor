@@ -1,9 +1,6 @@
 package travelanchor_server.travelplan.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table (name = "tbl_expense")
@@ -11,10 +8,14 @@ public class Expense {
 
     @Id
     @Column (name = "expense_code")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int expenseCode;
 
     @Column (name = "activity_code")
     private int activityCode;
+
+    @Column (name = "travel_code")
+    private int travelCode;
 
     @Column (name = "expense_total_amount")
     private int expenseTotalAmount;
@@ -22,9 +23,10 @@ public class Expense {
     public Expense() {
     }
 
-    public Expense(int expenseCode, int activityCode, int expenseTotalAmount) {
+    public Expense(int expenseCode, int activityCode, int travelCode, int expenseTotalAmount) {
         this.expenseCode = expenseCode;
         this.activityCode = activityCode;
+        this.travelCode = travelCode;
         this.expenseTotalAmount = expenseTotalAmount;
     }
 
@@ -52,11 +54,20 @@ public class Expense {
         this.expenseTotalAmount = expenseTotalAmount;
     }
 
+    public int getTravelCode() {
+        return travelCode;
+    }
+
+    public void setTravelCode(int travelCode) {
+        this.travelCode = travelCode;
+    }
+
     @Override
     public String toString() {
-        return "ExpenseDTO{" +
+        return "Expense{" +
                 "expenseCode=" + expenseCode +
                 ", activityCode=" + activityCode +
+                ", travelCode=" + travelCode +
                 ", expenseTotalAmount=" + expenseTotalAmount +
                 '}';
     }

@@ -8,6 +8,7 @@ import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import travelanchor_server.member.dto.MemberDTO;
+import travelanchor_server.population.entity.Population;
 import travelanchor_server.travelplan.dto.*;
 import travelanchor_server.travelplan.entity.Activity;
 import travelanchor_server.travelplan.entity.Expense;
@@ -517,5 +518,16 @@ public class TravelPlanService {
 
 
         } return (result > 0) ? "세부 활동 금액 삭제 성공" : "세부 활동 금액 삭제 실패";
+    }
+
+    public Object findExpenseDetailByTravelCode(int travelCode) {
+        log.info("[TravelPlanService] findExpenseDetailByTravelCode()");
+
+        // 해당 Code의 여행 일정을 가져옴.
+        List<Expense> expenseList = expenseRepository.findByTravelCode(travelCode);
+
+        log.info("[TravelPlanService] expense : ", expenseList);
+
+        return expenseList.stream().map(expense -> modelMapper.map(expense, Expense.class)).collect(Collectors.toList());
     }
 }

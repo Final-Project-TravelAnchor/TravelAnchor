@@ -184,6 +184,7 @@ CREATE TABLE IF NOT EXISTS tbl_expense
 (
     expense_code INT AUTO_INCREMENT NOT NULL COMMENT '활동금액코드',
     activity_code INT NOT NULL COMMENT '활동코드',
+    travel_code INT NOT NULL COMMENT '여행일정',
     expense_total_amount INT NOT NULL COMMENT '활동총비용',
     CONSTRAINT pk_expense_code PRIMARY KEY (expense_code)
 #     CONSTRAINT fk_activity_code FOREIGN KEY (activity_code) REFERENCES tbl_activity(activity_code)
@@ -477,17 +478,17 @@ INSERT INTO tbl_activity (activity_code, day_code, activity_title, activity_deta
 (10, 10, '세부활동제목10', '세부적인 활동을 적는 란.10');
 # (3, 3, '세부활동제목3', '세부적인 활동을 적는 란.3');
 
-INSERT INTO tbl_expense (expense_code, activity_code, expense_total_amount) VALUES
-(1, 1, 50000),
-(2, 2, 25000),
-(3, 3, 15000),
-(4, 4, 32000),
-(5, 5, 28000),
-(6, 6, 50000),
-(7, 7, 40000),
-(8, 8, 23000),
-(9, 9, 18000),
-(10, 10, 30000);
+INSERT INTO tbl_expense (expense_code, activity_code, travel_code, expense_total_amount) VALUES
+(1, 1,1, 50000),
+(2, 2,2, 25000),
+(3, 3,3, 15000),
+(4, 4,4, 32000),
+(5, 5,5, 28000),
+(6, 6,6, 50000),
+(7, 7,7, 40000),
+(8, 8,9, 23000),
+(9, 9,9, 18000),
+(10, 10, 10,  30000);
 
 INSERT INTO tbl_expense_detail (expense_detail_code, expense_code, expense_detail_amount, member_code) VALUES
 (1, 1, 0, 1),
