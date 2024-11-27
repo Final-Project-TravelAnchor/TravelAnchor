@@ -86,7 +86,7 @@ public class AuthController {
         if (!resetPw) {
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
-                    .body(new ResponseDTO(HttpStatus.BAD_REQUEST, "비밀번호 재설정에 실패했습니다. 인증 코드를 확인하세요.", null));
+                    .body(new ResponseDTO(HttpStatus.BAD_REQUEST, "인증 코드를 확인하세요.", null));
         }
 
         return ResponseEntity

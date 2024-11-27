@@ -8,7 +8,7 @@ import LoginModal from "./LoginModal";
 import commonCss from "./common.module.css";
 import { callGetMemberAPI, callGetPoint  } from '../../apis/MemberAPICalls';
 import { callTravelReportByMemberCodeAPI } from "../../apis/TravelReportAPICalls";
-
+import { useEffect } from "react";
 
 function Header({ hideAuthLinks }) {
 	const navigate = useNavigate();
@@ -19,10 +19,22 @@ function Header({ hideAuthLinks }) {
 	const isLogin = window.localStorage.getItem('accessToken'); // Local Storage 에 token 정보 확인
 	const [search, setSearch] = useState("");
 	const [loginModal, setLoginModal] = useState(false);
-  const member = useSelector(state => state.memberReducer.member); // 회원 정보
-  const point = useSelector(state => state.memberReducer.point);
+	const member = useSelector(state => state.memberReducer.member); // 회원 정보
+	const point = useSelector(state => state.memberReducer.point);
 	const [isDropdownOpen, setDropdownOpen] = useState(false); // 드롭다운 상태
 	const [isHamburgerOpen, setHamburgerOpen] = useState(false);
+
+	useEffect(() => {
+        const token = window.localStorage.getItem('accessToken');
+        if (token) {
+            const decodedToken = decodeJwt(token);
+            if (decodedToken.exp * 1000 > Date.now()) {
+                dispatch(callGetMemberAPI({ memberId: decodedToken.sub }));
+            } else {
+                window.localStorage.removeItem('accessToken');
+            }
+        }
+    }, [dispatch, isLogin]);
 
 	const onSearchChangeHandler = (e) => {
 		setSearch(e.target.value);
@@ -44,10 +56,18 @@ function Header({ hideAuthLinks }) {
 		}
 	};
 
-	// 로고 클릭시 메인 페이지로 이동
-	const onClickLogoHandler = () => {
-		navigate("/", { replace: true });
-	};
+	    // 로고 클릭시 메인 페이지로 이동
+    const onClickLogoHandler = () => {
+        navigate("/", { replace: true });
+        // 회원 정보 다시 불러오기
+        const token = window.localStorage.getItem('accessToken');
+        if (token) {
+            const decodedToken = decodeJwt(token);
+            if (decodedToken.exp * 1000 > Date.now()) {
+                dispatch(callGetMemberAPI({ memberId: decodedToken.sub }));
+            }
+        }
+    };
 
 	// 토큰이 만료되었을때 다시 로그인
 	const onClickMypageHandler = () => {
@@ -90,8 +110,8 @@ function Header({ hideAuthLinks }) {
 					className={HeaderCSS.HeaderBtn}
 					onClick={onClickMypageHandler}
 				>
-					<NavLink to="/MyPage/:memberId">
-						{loginMember.data?.memberName}님의 마이페이지
+					<NavLink to={`/MyPage/${member?.memberId}`}>
+						{member?.memberNickName || '회원'}님의 마이페이지
 					</NavLink>
 				</button>{" "}
 				|{" "}

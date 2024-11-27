@@ -54,7 +54,7 @@ function FindId() {
             <div className={FindIdCSS.findIdContainer}>
             <h2 className={FindIdCSS.findIdTitle}>아이디 찾기</h2>
             <p>가입 시 등록한 휴대폰 번호를 입력하면<br />
-                이메일 주소의 일부를 알려드립니다.
+                아이디를 알려드립니다.
             </p>
             <img src="/images/main/lock.png" alt="lock" className={FindIdCSS.lockImage} />
                 <input

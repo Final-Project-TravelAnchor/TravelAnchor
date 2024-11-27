@@ -8,12 +8,12 @@ public class CommentDTO {
     private int freeBoardCode;
     private int memberCode;
     private String commentContent;
-    private Date commentCreatedAt;
+    private String commentCreatedAt;
 
     public CommentDTO() {
     }
 
-    public CommentDTO(int commentCode, int freeBoardCode, int memberCode, String commentContent, Date commentCreatedAt) {
+    public CommentDTO(int commentCode, int freeBoardCode, int memberCode, String commentContent, String commentCreatedAt) {
         this.commentCode = commentCode;
         this.freeBoardCode = freeBoardCode;
         this.memberCode = memberCode;
@@ -53,11 +53,11 @@ public class CommentDTO {
         this.commentContent = commentContent;
     }
 
-    public Date getCommentCreatedAt() {
+    public String getCommentCreatedAt() {
         return commentCreatedAt;
     }
 
-    public void setCommentCreatedAt(Date commentCreatedAt) {
+    public void setCommentCreatedAt(String commentCreatedAt) {
         this.commentCreatedAt = commentCreatedAt;
     }
 

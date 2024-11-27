@@ -77,13 +77,13 @@ public class CommentService {
     }
 
     @Transactional
-    public Object updateComment(int reportCode, CommentDTO commentDTO) {
+    public Object updateComment(int commentCode, CommentDTO commentDTO) {
         log.info("[CommentService] updateComment() Start");
-        log.info("[CommentService] reportCode : "+ reportCode);
+        log.info("[CommentService] commentCode : "+ commentCode);
         int result = 0;
 
         try{
-            Comment comment = commentRepository.findById(reportCode).get();
+            Comment comment = commentRepository.findById(commentCode).get();
             log.info("[CommentService] comment : " + comment);
             comment.setCommentContent(commentDTO.getCommentContent());
 
