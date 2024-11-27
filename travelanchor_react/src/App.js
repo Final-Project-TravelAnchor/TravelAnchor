@@ -13,6 +13,7 @@ import ChatRoom from './components/items/ChatRoom';
 import TravelReport from './pages/reports/TravelReport';
 import TravelReportList from './pages/reports/TravelReportList';
 import TravelReportDetail from './pages/reports/TravelReportDetail';
+import TravelReportByMember from './pages/reports/TravelReportByMember';
 import TravelReportCreate from './pages/reports/TravelReportCreate';
 // import TravelReportCreateForm from './pages/reports/TravelReportCreateForm';
 import TravelReportModify from './pages/reports/TravelReportModify';
@@ -105,6 +106,7 @@ export default function App() {
             <Route path='AddReportDestination' element={ <AddReportDestination/> }/>
             <Route path='travelReportList' element={ <TravelReportList/> }/>
             <Route path=":reportCode" element={ <TravelReportDetail/> }/>
+            <Route path="member/:memberCode" element={ <TravelReportByMember/> }/>
             <Route path='travelReportCreate' element={ <TravelReportCreate/> }/>
             <Route path='travelReportModify/:reportCode' element={ <TravelReportModify/> }/>
             <Route path='Report' element={ <Report/> }/>

@@ -1,12 +1,13 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import HeaderCSS from "./Header.module.css";
 import { useSelector, useDispatch } from "react-redux";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { callLogoutAPI } from "../../apis/MemberAPICalls";
 import { decodeJwt } from '../../utils/tokenUtils';
 import LoginModal from "./LoginModal";
 import commonCss from "./common.module.css";
 import { callGetMemberAPI, callGetPoint  } from '../../apis/MemberAPICalls';
+import { callTravelReportByMemberCodeAPI } from "../../apis/TravelReportAPICalls";
 
 
 function Header({ hideAuthLinks }) {
@@ -26,6 +27,9 @@ function Header({ hideAuthLinks }) {
 	const onSearchChangeHandler = (e) => {
 		setSearch(e.target.value);
 	};
+
+	const memberCode = member ? member.memberCode : null;
+	console.log("memberCode :" + memberCode);
 
 	const onEnterkeyHandler = (e) => {
 		if (e.key == "Enter") {
@@ -110,7 +114,8 @@ const favoriteClick = () => {
 };
 
 const reportClick = () => {
-	navigate(`/TravelReport`); 
+    navigate(`/travelreport/member/${memberCode}`);
+	return memberCode;
 };
 
 	
