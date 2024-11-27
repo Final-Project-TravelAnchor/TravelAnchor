@@ -7,14 +7,35 @@ public class TravelDayDTO {
     private int dayNumber;
     private int dayDate;
 
+    private String activityTitle;
+    private String activityDetail;
+
     public TravelDayDTO() {
     }
 
-    public TravelDayDTO(int dayCode, int travelCode, int dayNumber, int dayDate) {
+    public TravelDayDTO(int dayCode, int travelCode, int dayNumber, int dayDate, String activityTitle, String activityDetail) {
         this.dayCode = dayCode;
         this.travelCode = travelCode;
         this.dayNumber = dayNumber;
         this.dayDate = dayDate;
+        this.activityTitle = activityTitle;
+        this.activityDetail = activityDetail;
+    }
+
+    public String getActivityTitle() {
+        return activityTitle;
+    }
+
+    public void setActivityTitle(String activityTitle) {
+        this.activityTitle = activityTitle;
+    }
+
+    public String getActivityDetail() {
+        return activityDetail;
+    }
+
+    public void setActivityDetail(String activityDetail) {
+        this.activityDetail = activityDetail;
     }
 
     public int getDayCode() {
@@ -56,6 +77,8 @@ public class TravelDayDTO {
                 ", travelCode=" + travelCode +
                 ", dayNumber=" + dayNumber +
                 ", dayDate=" + dayDate +
+                ", activityTitle='" + activityTitle + '\'' +
+                ", activityDetail='" + activityDetail + '\'' +
                 '}';
     }
 }

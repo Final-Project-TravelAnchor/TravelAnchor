@@ -1,20 +1,20 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { callLandmarkDetailAPI } from "../../apis/TravelDestinationAPICalls";
-import styles from "./LandmarkDetail.module.css"; // Import CSS module
+import styles from "./LandmarkDetail.module.css";
 
 const LandmarkDetail = () => {
 	const navigate = useNavigate();
-	const { landmark_id } = useParams(); // Get landmark_id from URL
-	const [landmark, setLandmark] = useState(null); // Single landmark object
+	const { landmark_id } = useParams();
+	const [landmark, setLandmark] = useState(null);
 	const [error, setError] = useState(null);
-	const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0); // Current photo index
+	const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
 
 	useEffect(() => {
 		const fetchLandmarkDetails = async () => {
 			try {
 				const response = await callLandmarkDetailAPI({ landmark_id });
-				setLandmark(response); // Set the landmark details
+				setLandmark(response); 
 			} catch (err) {
 				setError("랜드마크 정보를 가져오는데 실패했습니다.");
 			}
@@ -24,7 +24,7 @@ const LandmarkDetail = () => {
 	}, [landmark_id]);
 
 	const handleBackToList = () => {
-		navigate(`/TravelDestinations/${landmark.place_id}`);
+		navigate(`/TravelDestinations`);
 	};
 
 	const handleNextPhoto = () => {
@@ -64,7 +64,6 @@ const LandmarkDetail = () => {
 							onClick={handlePrevPhoto}
 							aria-label="Previous Photo"
 						>
-							❮
 						</button>
 						<img
 							src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=600&photoreference=${landmark.photos[currentPhotoIndex].photo_reference}&key=${process.env.REACT_APP_GOOGLE_KEY}`}
@@ -76,7 +75,6 @@ const LandmarkDetail = () => {
 							onClick={handleNextPhoto}
 							aria-label="Next Photo"
 						>
-							❯
 						</button>
 					</>
 				) : (

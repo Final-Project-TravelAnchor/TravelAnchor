@@ -1,5 +1,6 @@
 .HeaderWrap {
 	position:sticky;/* 전체 컨테이너 */
+    z-index: 30;
 .container {
     font-family: 'Pretendard-Regular';    
     max-width: 1000px;

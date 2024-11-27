@@ -33,7 +33,7 @@ export default function TravelPlan() {
             return;
         }
         console.log("[TravelPlan] onClickCreateTravelPlanHandler");
-        navigate("/plans/AddPlanDate");
+        navigate("/plans/TravelPlanCreate");
 	};
 
 	if(loading) {

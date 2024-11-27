@@ -19,7 +19,7 @@
 }
 
 .photoCarousel {
-	position: relative;
+	/* position: relative; */
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -30,15 +30,15 @@
 	max-width: 100%;
 	max-height: 400px;
 	border-radius: 8px;
-	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .prevButton,
 .nextButton {
-	position: absolute;
+	position: relative;
 	background: rgba(0, 0, 0, 0.5);
 	color: #fff;
 	border: none;
+	font-size: 2rem;
 	padding: 10px;
 	cursor: pointer;
 	border-radius: 50%;
@@ -47,10 +47,12 @@
 }
 
 .prevButton {
+	content: "←";
 	left: 10px;
 }
 
 .nextButton {
+	content: "→";
 	right: 10px;
 }
 

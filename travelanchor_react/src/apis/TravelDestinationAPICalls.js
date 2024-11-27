@@ -36,7 +36,7 @@ export const callLandmarkDetailAPI = async ({ landmark_id }) => {
             }
         });
 
-        return response.data || {};
+        return response.data || [];
     } catch (err) {
         console.error("Error fetching landmark details:", err.message);
         throw err;

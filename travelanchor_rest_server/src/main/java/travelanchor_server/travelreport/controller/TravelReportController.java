@@ -39,6 +39,13 @@ public class TravelReportController {
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "부분 정보 조회 성공", travelReportService.findTravelReportDetail(reportCode)));
     }
 
+    @Operation(summary = "여행 후기 회원별 조회 요청", description = "여행 후기 회원별 조회 처리가 진행됩니다.", tags = { "TravelReportController" })
+    @GetMapping("/travel-report/member/{memberCode}")
+    public ResponseEntity<ResponseDTO> findTravelReportByMemberCode(@PathVariable int memberCode) {
+        log.info("[TravelReportController] findTravelReportByMemberCode Start");
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "회원별 정보 조회 성공", travelReportService.findTravelReportByMemberCode(memberCode)));
+    }
+
     @Operation(summary = "여행 후기 등록 요청", description = "해당 여행 후기 등록이 진행됩니다.", tags = { "TravelReportController" })
     @PostMapping("/travel-report")
     public ResponseEntity<ResponseDTO> insertTravelReport(@RequestBody TravelReportDTO travelReportDTO) {
