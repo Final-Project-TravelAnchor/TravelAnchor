@@ -3,19 +3,33 @@ import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { callUpdateTravelPlanAPI, callDeleteTravelPlanAPI, callTravelPlanDetailAPI } from "../../apis/TravelPlanAPICalls";
 
+import { calExpenseTotalAmountBytravelCode } from "../../apis/ExpenseAPICalls";
+
 export default function TravelPlanDetail() {
 
 	const location = useLocation();
 	const travelPlan = location.state;
+
+	console.log("TravelPlanDetail travelPlan: " , travelPlan);
 
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
 	const travelPlanReducer = useSelector(state => state.travelPlanReducer)
 
+	const expenseList = useSelector(state => state.expenseReducer);
+	const expense = expenseList.data;
+	console.log("TravelPlanReducer expense: " , expense[0].expenseTotalAmount);
+
 	const onClickUpdateHandler = (travelPlan) => {
 		navigate(`/plans/TravelPlanUpdate/${travelPlan.travelCode}`, { state: travelPlan, replace: false });
 	};
+
+	useEffect(() => {
+
+		dispatch(calExpenseTotalAmountBytravelCode(travelPlan.travelCode));
+
+	},[travelPlan]);
 
 	 // 삭제
 	const onClickDeleteHandler = async () => {
@@ -56,6 +70,12 @@ export default function TravelPlanDetail() {
 				<h2>여행도착: {travelPlan.travelEndDate}</h2>
 				<h2>여행기간: {travelPlan.travelTotalDate}</h2>
 				<h2>여행지: {travelPlan.travelDestination}</h2>
+			</div>
+
+			<div>
+				<button>
+					{expense[0].expenseTotalAmount}원
+				</button>
 			</div>
 
 			<div>

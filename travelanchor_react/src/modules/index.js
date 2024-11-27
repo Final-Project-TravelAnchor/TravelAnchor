@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import memberReducer from './MemberModule';
 import populationReducer from './PopulationModule';
-import expenseDetailReducer from './ExpenseDetailModule';
+import { expenseDetailReducer, expenseReducer} from './ExpenseDetailModule';
 import travelReportReducer from './TravelReportModule';
 import noticeReducer from './NoticeModule';
 import freeboardReducer from './FreeBoardModule';
@@ -25,6 +25,7 @@ const rootReducer = combineReducers({
 	travelPlanReducer,
 	travelDayReducer,
 	commentReducer,
+	expenseReducer,
 });
 
 export default rootReducer;
