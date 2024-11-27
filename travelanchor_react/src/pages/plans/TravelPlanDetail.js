@@ -10,7 +10,7 @@ export default function TravelPlanDetail() {
 	const location = useLocation();
 	const travelPlan = location.state;
 
-	console.log("TravelPlanDetail travelPlan: " , travelPlan);
+	// console.log("TravelPlanDetail travelPlan: " , travelPlan);
 
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
@@ -19,7 +19,7 @@ export default function TravelPlanDetail() {
 
 	const expenseList = useSelector(state => state.expenseReducer);
 	const expense = expenseList.data;
-	console.log("TravelPlanReducer expense: " , expense[0].expenseTotalAmount);
+	// console.log("TravelPlanReducer expense: " , expense[0].expenseTotalAmount);
 
 	const onClickUpdateHandler = (travelPlan) => {
 		navigate(`/plans/TravelPlanUpdate/${travelPlan.travelCode}`, { state: travelPlan, replace: false });
