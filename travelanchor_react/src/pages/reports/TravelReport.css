@@ -1,0 +1,109 @@
+/* 전체 페이지 스타일 */
+.travel-report-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    padding: 20px;
+    width: 100%;
+}
+/* 후기 생성 버튼 스타일 */
+.create-travel-report-button-container {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    margin-bottom: 20px;
+    margin-right: 500px;
+}
+
+.create-travel-report-button {
+    padding: 12px 30px; 
+    font-size: 18px;
+    background-color: #FF8600;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+    width: 250px;  /* 버튼의 가로 너비를 고정하여 더 넓게 */
+}
+
+.create-travel-report-button:hover {
+    background-color: #e07500;
+}
+
+
+/* 후기 리스트 영역 */
+.travel-report-list-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+/* "후기가 없습니다." 메시지 스타일 */
+.no-travel-report-message {
+    font-size: 18px;
+    color: #888;
+    margin-top: 30px;
+    font-style: italic;
+}
+
+/* 여행 후기 항목 스타일 */
+.travel-report-item {
+    display: flex;
+    flex-direction: column;  /* 세로 방향 정렬 */
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 30px;  /* 내부 여백 */
+    margin: 10px 0;  /* 항목 간 간격 */
+    height: 100px;  /* 고정 높이 */
+    width: 100%;
+    max-width: 800px;  /* 최대 너비 제한 */
+    border-radius: 10px;  /* 둥근 모서리 */
+    border: solid 2px #FF8600;
+    background-color: #fff;  /* 흰색 배경 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* 그림자 효과 */
+    transition: transform 0.2s, box-shadow 0.2s;  /* 호버 효과 애니메이션 */
+    cursor: pointer;
+    overflow: hidden;  /* 내용이 넘칠 경우 숨김 처리 */
+}
+
+/* 후기 항목에 마우스를 올렸을 때의 효과 */
+.travel-report-item:hover {
+    transform: scale(1.02);  /* 마우스 오버 시 크기 확장 */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);  /* 더 큰 그림자 */
+}
+
+/* 후기 제목 */
+.travel-report-title {
+    color: #333;
+    font-size: 20px;  /* 제목 크기 */
+    font-weight: bold;
+    margin-bottom: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;  /* 제목이 꽉 차게 설정 */
+}
+
+/* 후기 내용 */
+.travel-report-content {
+    color: #555;
+    font-size: 14px;  /* 내용 크기 */
+    line-height: 1.5;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;  /* 긴 텍스트가 있을 경우 말줄임 표시 */
+    width: 100%;  /* 내용이 줄어들지 않도록 설정 */
+}
+
+/* 후기 작성일 */
+.travel-report-created-at {
+    color: #888;
+    font-size: 12px;
+    margin-top: 10px;
+    width: 100%;  /* 작성일도 너비 꽉 차게 */
+    text-align: right;  /* 작성일 오른쪽 정렬 */
+}
