@@ -1,24 +1,40 @@
-.travelDestinationContainer {
+.travelDestinationDetailContainer {
 	margin: 20px;
 	padding: 20px;
+	font-family: 'Pretendard-Regular';
+	/* display: grid;
+	justify-content: center; */
 }
 
-.travelDestinationContainer h1 {
+.travelDestinationDetailContainer h1 {
 	font-size: 2.5rem;
 	margin-bottom: 10px;
-	font-family: 'Pretendard-Regular';
 }
 
-.travelDestinationContainer h2 {
+.travelDestinationDetailContainer h2 {
 	font-size: 2rem;
 	margin-top: 30px;
-	font-family: 'Pretendard-Regular';
+	font-weight: bold;
 }
 
-.travelDestinationContainer p {
+.travelDestinationDetailContainer p {
 	font-size: 1.5rem;
 	margin-top: 30px;
-	font-family: 'Pretendard-Regular';
+}
+
+.travelDestinationDetailContainer button {
+	margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #FF8600;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+	justify-self: start;
+}
+
+.travelDestinationDetailContainer button:hover {
+	background-color: #e07500;
 }
 
 /* Photo Carousel */
@@ -33,6 +49,7 @@
 .carouselImages {
 	display: flex;
 	transition: transform 0.3s ease-in-out;
+	gap: 15px;
 }
 
 .carouselImages img {
@@ -41,24 +58,24 @@
 	border-radius: 8px;
 }
 
-.arrowButton {
+.DestiantionPrevButton, .DestinationNextButton {
 	position: absolute;
-	top: 50%;
-	transform: translateY(-50%);
-	background-color: rgba(0, 0, 0, 0.5);
-	color: white;
-	border: none;
-	font-size: 2rem;
-	padding: 10px;
-	cursor: pointer;
-	z-index: 1;
+    top: 50%;
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: none;
+    font-size: 2rem;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 50%;
+    transform: translateY(-50%);
 }
 
-.arrowButtonLeft {
+.DestiantionPrevButton {
 	left: 10px;
 }
 
-.arrowButtonRight {
+.DestinationNextButton {
 	right: 10px;
 }
 
@@ -66,9 +83,10 @@
 .landmarksContainer {
 	display: flex;
 	flex-wrap: wrap;
-	justify-content: space-between;
+	justify-content: left;
 	gap: 20px;
 	margin-top: 20px;
+	font-family: 'Pretendard-Regular';
 }
 
 .landmarkCard {

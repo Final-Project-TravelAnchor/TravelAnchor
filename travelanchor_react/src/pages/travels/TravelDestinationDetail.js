@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect, useCallback } from "react";
 import { callTravelDestinationDetailAPI } from "../../apis/TravelDestinationAPICalls";
 import { saveTravelDestinationAPI } from "../../apis/FavoriteTravelDestinationCalls";
@@ -18,39 +18,32 @@ const TravelDestinationDetail = () => {
 	const [error, setError] = useState(null);
 	const [isSaved, setIsSaved] = useState(false);
 	const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
-	const [memberCode, setMemberCode] = useState(null);
-	const [memberName, setMemberName] = useState(null); 
+	// const [memberCode, setMemberCode] = useState(null);
+	// const [memberName, setMemberName] = useState(null); 
+	const isLogin = window.localStorage.getItem('accessToken');
+	const member = useSelector(state => state.memberReducer.member);
 	const [form, setForm] = useState({
 		favoriteCode: null,
 		apiLink: `https://maps.googleapis.com/maps/api/place/details/json?place_id=${place_id}&language=ko&key=${process.env.REACT_APP_GOOGLE_KEY}`,
 		destinationName: "",
 		destinationPhotos: "",
-		memberName: "", 
+		memberCode: "", 
 	});
 
 	useEffect(() => {
-		const tokenSub = decodeJwt(window.localStorage.getItem("accessToken"));
+        const token = window.localStorage.getItem('accessToken');
+        if (token) {
+            const decodedToken = decodeJwt(token);
+            if (decodedToken.exp * 1000 > Date.now()) {
+                dispatch(callGetMemberAPI({ memberId: decodedToken.sub }));
+            } else {
+                window.localStorage.removeItem('accessToken');
+            }
+        }
+    }, [dispatch, isLogin]);
 
-		// Fetch member details
-		const fetchMemberDetails = async () => {
-			try {
-				const response = await dispatch(
-					callGetMemberAPI({ memberName: tokenSub.sub })
-				);
-				if (response && response.member) {
-					setMemberName(response.member.memberName);
-					setForm((prevForm) => ({
-						...prevForm,
-						memberName: response.member.memberName,
-					}));
-				}
-			} catch (err) {
-				console.error("Error fetching member details:", err);
-			}
-		};
-
-		fetchMemberDetails();
-	}, [dispatch]);
+	const memberCode = member ? member.memberCode : null;
+	console.log("memberCode :" + memberCode);
 
 	const fetchTravelDestinationDetails = useCallback(async () => {
 		try {
@@ -74,13 +67,13 @@ const TravelDestinationDetail = () => {
 	}, [place_id, fetchTravelDestinationDetails]);
 
 	const onClickSaveTravelDestinationHandler = async () => {
-		if (!memberName) {
+		if (!memberCode) {
 			alert("사용자 정보가 없습니다. 다시 로그인해주세요.");
 			return;
 		}
 
 		try {
-			const destinationToSave = { ...form, memberName };
+			const destinationToSave = { ...form, memberCode };
 			const response = await dispatch(
 				saveTravelDestinationAPI(destinationToSave)
 			);
@@ -105,17 +98,13 @@ const TravelDestinationDetail = () => {
 
 	const goToPreviousPhoto = () => {
 		setCurrentPhotoIndex((prevIndex) =>
-			prevIndex === 0
-				? travelDestinationDetails.photos.length - 1
-				: prevIndex - 1
+			prevIndex === 0 ? travelDestinationDetails.photos.length - 1 : prevIndex - 1
 		);
 	};
 
 	const goToNextPhoto = () => {
 		setCurrentPhotoIndex((prevIndex) =>
-			prevIndex === travelDestinationDetails.photos.length - 1
-				? 0
-				: prevIndex + 1
+			prevIndex === travelDestinationDetails.photos.length - 1 ? 0 : prevIndex + 1
 		);
 	};
 
@@ -124,7 +113,7 @@ const TravelDestinationDetail = () => {
 		return <div>Loading travel destination details...</div>;
 
 	return (
-		<div className={styles.travelDestinationContainer}>
+		<div className={styles.travelDestinationDetailContainer}>
 			<h1>{form.destinationName}</h1>
 			{travelDestinationDetails.website && (
 				<p>
@@ -156,29 +145,25 @@ const TravelDestinationDetail = () => {
 									<img
 										key={index}
 										src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=600&photoreference=${photo.photo_reference}&key=${process.env.REACT_APP_GOOGLE_KEY}`}
-										alt={`Photo ${index + 1}`}
+										alt={`Photo ${currentPhotoIndex + 1}`}
 									/>
 								)
 							)}
 						</div>
+						<div>
 						<button
-							className={`${styles.arrowButton} ${styles.arrowButtonLeft}`}
+							className={styles.DestiantionPrevButton}
 							onClick={goToPreviousPhoto}
-							disabled={
-								travelDestinationDetails.photos.length === 0
-							}
-						>
-							&#8592;
+							>
+							&#8249;
 						</button>
 						<button
-							className={`${styles.arrowButton} ${styles.arrowButtonRight}`}
+							className={styles.DestinationNextButton}
 							onClick={goToNextPhoto}
-							disabled={
-								travelDestinationDetails.photos.length === 0
-							}
-						>
-							&#8594;
+							>
+							&#8250;
 						</button>
+						</div>
 					</>
 				) : (
 					<p>No photos available</p>

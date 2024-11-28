@@ -9,7 +9,7 @@ function TravelDestinations() {
     const [error, setError] = useState(null);
     const [currentIndex, setCurrentIndex] = useState(0); // 슬라이드 인덱스
     const visibleCards = 1; // 화면에 보이는 카드 수
-    const cardWidth = 300 + 25; // 카드 너비(300px) + gap(20px)
+    const cardWidth = 300 + 35; // 카드 너비(300px) + gap(20px)
 
     const fetchTravelDestinationData = useCallback(async () => {
         try {
@@ -61,6 +61,7 @@ function TravelDestinations() {
 
     return (
         <div style={{ position: "relative", overflow: "hidden", maxWidth: "1000px", margin: "0 auto" }}>
+            <h1>여행지</h1>
             <button className={`${style.arrowButton} ${style.arrowButtonLeft}`} onClick={handlePrev}>
                 ←
             </button>
