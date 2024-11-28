@@ -55,7 +55,7 @@ export default function PopulationDetail() {
             navigate("/login", { replace: false });
             return;
         }
-        navigate(`/items/chatroom/${populationCode}`, { state : memberInfo });
+        navigate(`/items/chatroom/${populationCode}`, { state : { memberInfo, population } });
     };
 
     const onClickBackPopulationHandler = () => {

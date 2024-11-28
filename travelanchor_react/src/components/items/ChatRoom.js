@@ -7,7 +7,12 @@ import ProfilePopup from "./ProfilePopup";  // ProfilePopup 임포트
 
 export default function ChatRoom() {
   const { populationCode } = useParams();
-  const memberInfo = useLocation().state.data;
+  const stateData = useLocation().state;
+  console.log(stateData);
+  const population = stateData.population;
+  // console.log("ChatRoom population : ", population);
+  const memberInfo = stateData.memberInfo.member;
+  // console.log("ChatRoom memberInfo : ", memberInfo);
   const [messages, setMessages] = useState([]);
   // console.log("ChatRoom messages : ", messages);
   const [inputValue, setInputValue] = useState("");
@@ -148,6 +153,7 @@ export default function ChatRoom() {
     <div className="chat-container">
       {/* 왼쪽 이미지 섹션 */}
       <div className="chat-left">
+        <p>{population.populationTitle}</p>
         <img
           src={`http://${process.env.REACT_APP_RESTAPI_IP}:8080/hot-air-balloon.jpg`}
           alt="chat room image"
