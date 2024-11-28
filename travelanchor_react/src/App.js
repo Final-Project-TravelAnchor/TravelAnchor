@@ -20,7 +20,6 @@ import TravelReportModify from './pages/reports/TravelReportModify';
 import AddReportDate from './pages/reports/AddReportDate';
 import AddReportDestination from './pages/reports/AddReportDestination';
 import Map from './apis/MapAPICalls';
-import ShareKakao from './apis/ShareKakao';
 import Weather from './pages/features/Weather';
 import Flight from './pages/travels/Flight';
 import Accommodation from './pages/travels/Accommodation';
@@ -111,7 +110,6 @@ export default function App() {
             <Route path='travelReportModify/:reportCode' element={ <TravelReportModify/> }/>
             <Route path='Report' element={ <Report/> }/>
             <Route path='Map' element={ <Map/> }/>
-            {/* <Route path='ShareKakao' element={ <ShareKakao/> }/> */}
             </Route>
             <Route path="MyPage/:memberId" element={ <MyPage/> }/>  
             <Route path="MyPageUpdate/:memberId" element={ <MyPageUpdate/> }/>  

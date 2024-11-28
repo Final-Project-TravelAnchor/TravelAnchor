@@ -4,18 +4,13 @@ import { callTravelReportListAPI } from '../../apis/TravelReportAPICalls';
 import { useNavigate } from 'react-router-dom';
 import { isLogin } from '../../utils/tokenUtils';
 import TravelReportList from './TravelReportList';
+import './TravelReport.css'; 
 
 export default function TravelReport () {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const travelReport = useSelector(state => state.travelReportReducer || []);
     const [loading, setLoading] = useState(true);
-    // const [auth, setAuth] = useState(null);
-
-    // useEffect(() => {
-    //     // Redux 액션 호출
-    //     dispatch(callTravelReportListAPI());
-    // }, []);
 
     useEffect(() => {
         const fetchTravelReport = async () => {
@@ -27,16 +22,9 @@ export default function TravelReport () {
         fetchTravelReport();
     }, [dispatch]);
 
-    // useEffect(() => {
-    //     const authValue = findAuth();
-    //     setAuth(authValue);
-    //     console.log("auth : ", authValue);
-    // }, []);
-
     const onClickCreateTravelReport = () => {
-
         if(!isLogin()) {
-			navigate("/login", { replace: false });
+            navigate("/login", { replace: false });
             return;
         }
 
@@ -44,55 +32,25 @@ export default function TravelReport () {
         navigate("/travelReport/AddReportDate");
     };
 
-    const onClickTravelReportCreateForm = () => {
-        navigate("/TravelReportCreateForm");
-    };
-
-    // const onClickTravelReportHandler = (travelReport) => {
-    //     console.log("onClickTravelReportHandler : " + travelReport.reportCode);
-    //     navigate(`/travelReport/${travelReport.reportCode}`, { replace: false, state: travelReport});
-    // };
-
     return (
-        <div>
-            <div>
-            <button onClick={onClickCreateTravelReport}>후기 생성</button>
+        <div className="travel-report-container">
+            <div className="create-travel-report-button-container">
+                <button className="create-travel-report-button" onClick={onClickCreateTravelReport}>
+                    + 후기 추가하기
+                </button>
             </div>
 
-            {/* <div>
-            <button onClick={onClickTravelReportCreateForm}>입력폼</button>
-            </div> */}
-
-        {/* <div>
-            <h1>여행 후기 리스트</h1>
-            {Array.isArray(travelReport) && travelReport.length > 0 ? (
-                <ul>
-                    {travelReport.map((travelReport) => (
-                        <li
-                            key={travelReport.reportCode}
-                            onClick={() => onClickTravelReportHandler(travelReport)} // 개별 항목 전달
-                            style={{ cursor: 'pointer' }}
-                        >
-                            후기 : {travelReport.reportTitle}, 여행지 : {travelReport.reportDestination}, 내용 : {travelReport.reportContent}, 작성일 : {travelReport.reportCreatedAt}
-                        </li>
-                    ))}
-                </ul>
-            ) : (
-                <p>데이터가 없습니다.</p>
-            )}
-        </div> */}
-
-                <div>
-                    {travelReport?.length > 0 
-                        ? travelReport.map((travelReport) => (
-                            <TravelReportList 
-                                key={travelReport.reportCode} 
-                                travelReport={travelReport} 
-                            />
-                        ))
-                        : <div>후기가 없습니다.</div>
-                    }
-                </div>
-</div>
+            <div className="travel-report-list-container">
+                {travelReport?.length > 0 
+                    ? travelReport.map((travelReport) => (
+                        <TravelReportList 
+                            key={travelReport.reportCode} 
+                            travelReport={travelReport} 
+                        />
+                    ))
+                    : <div className="no-travel-report-message">후기가 없습니다.</div>
+                }
+            </div>
+        </div>
     );
-};
+}
