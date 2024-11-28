@@ -187,7 +187,7 @@ app.get("/api/landmark/details", async (req, res) => {
 
 	try {
 		// URL 구성 시 landmark_id 사용
-		const url = `https://maps.googleapis.com/maps/api/place/details/json?landmark_id=${landmark_id}&language=ko&key=${API_KEY}`;
+		const url = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${landmark_id}&language=ko&key=${API_KEY}`;
 		console.log("Requesting Google API (Details):", url);
 
 		const response = await axios.get(url);

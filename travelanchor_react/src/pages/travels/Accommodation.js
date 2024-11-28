@@ -155,7 +155,7 @@ function Accommodation() {
 
   return (
     <div className="hotel-container">
-      <h1 className="hotel-search-title">숙박 조회</h1>
+      <h1 className="hotel-search-title">호텔 조회</h1>
       {/* <button onClick={onClickHandler}>누르고 시작하세요~</button>
 			{token && <p>Token: {token}</p>} */}
       {/* <input

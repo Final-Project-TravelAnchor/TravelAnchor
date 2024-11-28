@@ -1,9 +1,6 @@
 package travelanchor_server.travelplan.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "tbl_travel_day")
@@ -11,6 +8,7 @@ public class TravelDay {
 
     @Id
     @Column(name = "day_code")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int dayCode;
 
     @Column(name = "travel_code")
@@ -22,14 +20,38 @@ public class TravelDay {
     @Column(name = "day_date")
     private int dayDate;
 
+    @Column(name = "activity_title")
+    private String activityTitle;
+
+    @Column(name = "activity_detail")
+    private String activityDetail;
+
     public TravelDay() {
     }
 
-    public TravelDay(int dayCode, int travelCode, int dayNumber, int dayDate) {
+    public TravelDay(int dayCode, int travelCode, int dayNumber, int dayDate, String activityTitle, String activityDetail) {
         this.dayCode = dayCode;
         this.travelCode = travelCode;
         this.dayNumber = dayNumber;
         this.dayDate = dayDate;
+        this.activityTitle = activityTitle;
+        this.activityDetail = activityDetail;
+    }
+
+    public String getActivityTitle() {
+        return activityTitle;
+    }
+
+    public void setActivityTitle(String activityTitle) {
+        this.activityTitle = activityTitle;
+    }
+
+    public String getActivityDetail() {
+        return activityDetail;
+    }
+
+    public void setActivityDetail(String activityDetail) {
+        this.activityDetail = activityDetail;
     }
 
     public int getDayCode() {
@@ -66,11 +88,13 @@ public class TravelDay {
 
     @Override
     public String toString() {
-        return "TravelDayDTO{" +
+        return "TravelDay{" +
                 "dayCode=" + dayCode +
                 ", travelCode=" + travelCode +
                 ", dayNumber=" + dayNumber +
                 ", dayDate=" + dayDate +
+                ", activityTitle='" + activityTitle + '\'' +
+                ", activityDetail='" + activityDetail + '\'' +
                 '}';
     }
 }

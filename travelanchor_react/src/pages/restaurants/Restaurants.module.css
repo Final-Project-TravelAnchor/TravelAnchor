@@ -1,31 +1,64 @@
-.cardContainer {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 20px;
+.RestaurantContainer {
+	display: grid;
+	justify-content: center;
 }
-.card {
-	border: 1px solid #ddd;
-	border-radius: 8px;
-	width: 300px;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-	padding: 16px;
-	text-align: center;
-	background-color: #fff;
+
+.RestaurantContainer button {
+	padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+	margin-right: 20px;
 }
-.cardImg {
+
+.RestaurantContainer button {
+	background-color: #FF8600;
+}
+
+.RestaurantContainer button:hover {
+	background-color: #e07500;
+}
+
+.RestaurantCardContainer {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 20px; 
+    justify-content: center;
+    padding: 20px;
+}
+
+.RestaurantCard {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    width: 100%; /* Take full space of the grid cell */
+    max-width: 300px; /* Optional: Limit card width */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+    text-align: center;
+    background-color: #fff;
+}
+
+.RestaurantCard img {
 	max-width: 100%;
 	border-radius: 8px;
 	height: 300px;
 	object-fit: cover;
 }
-.cardH2 {
+
+.RestaurantCard h2 {
 	font-size: 1.2em;
 	margin: 10px 0;
 }
-.cardP {
+
+.RestaurantCard P {
 	color: #555;
 }
-.card .rating {
+
+.RestaurantCard .rating {
 	font-weight: bold;
 	color: #FF9E67;
 }

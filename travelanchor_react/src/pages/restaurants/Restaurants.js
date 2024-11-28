@@ -47,12 +47,11 @@ function Restaurants() {
         return sortedPlaces.map((place, index) => (
             <div 
                 key={place.place_id || index} 
-                className={style.card}
+                className={style.RestaurantCard}
                 onClick={() => (navigate(`/Restaurants/${place.place_id}`), {state: {place}})} // 맛집 세부 조회 페이지로 이동
                 style={{ cursor: "pointer" }} 
             >
                 <img
-                    className={style.cardImg}
                     src={
                         place.photos && place.photos.length > 0
                             ? `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${place.photos[0].photo_reference}&key=${process.env.REACT_APP_GOOGLE_KEY}`
@@ -60,8 +59,8 @@ function Restaurants() {
                     }
                     alt={place.name}
                 />
-                <h2 className={style.cardH2}>{place.name}</h2>
-                <p className={style.cardP}>{place.formatted_address}</p>
+                <h2>{place.name}</h2>
+                <p>{place.formatted_address}</p>
                 <p className={style.rating}>Rating: {place.rating || "N/A"}</p>
             </div>
         ));
@@ -72,8 +71,8 @@ function Restaurants() {
     }, [city, fetchPlaceData]);
 
     return (
-        <div className={`Contents ${commonCss.Contents}`}>
-            <h1>맛집 목록</h1>
+        <div className={`Contents ${commonCss.Contents} ${style.RestaurantContainer}`}>
+            <h1>맛집 목록</h1><br/>
             <form>
                 <label htmlFor="city">도시 선택: </label>
                 <select name="city" id="city" onChange={(e) => setCity(e.target.value)} value={city}>
@@ -86,21 +85,21 @@ function Restaurants() {
                     <option value="paris">파리</option>
                     <option value="london">런던</option>
                 </select>
-            </form>
+            </form><br/>
             <form>
                 <label htmlFor="sort">정렬 기준: </label>
                 <select name="sort" id="sort" onChange={(e) => setSort(e.target.value)} value={sort}>
                     <option value="name">이름순</option>
                     <option value="rating">추천순</option>
                 </select>
-            </form>
-            <div>
+            </form><br/>
+            <div >
                 <button onClick={() => onClickHandler("restaurant")}>음식점</button>
                 <button onClick={() => onClickHandler("tavern")}>술집</button>
                 <button onClick={() => onClickHandler("cafe")}>카페</button>
             </div>
             {error && <p className="error">{error}</p>}
-            <div className={style.cardContainer}>{renderPlaceCards()}</div>
+            <div className={style.RestaurantCardContainer}>{renderPlaceCards()}</div>
         </div>
     );
 }

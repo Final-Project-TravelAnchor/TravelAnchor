@@ -49,12 +49,16 @@ import SavedTravelDestination from './pages/travels/SavedTravelDestination';
 import LandmarkDetail from './pages/travels/LandmarkDetail';
 import TravelPlan from './pages/plans/TravelPlan';
 import TravelPlanDetail from './pages/plans/TravelPlanDetail';
-import AddPlanDate from './pages/plans/AddPlanDate';
-import AddPlanDestination from './pages/plans/AddPlanDestination';
+// import AddPlanDate from './pages/plans/AddPlanDate';
+// import AddPlanDestination from './pages/plans/AddPlanDestination';
 import TravelPlanCreate from './pages/plans/TravelPlanCreate';
+import ActivityUpdate from './pages/plans/ActivityUpdate';
+import AddByDayPlan from './pages/plans/AddByDayPlan';
+import DayPlanDetail from './pages/plans/DayPlanDetail'; 
 // import UpdatePlanDate from './pages/plans/UpdatePlanDate';
 // import UpdatePlanDestination from './pages/plans/UpdatePlanDestination';
 import TravelPlanUpdate from './pages/plans/TravelPlanUpdate';
+import UnderConstruction from './components/common/UnderConstruction';
 
 
 export default function App() {
@@ -75,13 +79,15 @@ export default function App() {
             <Route path="plans">
               <Route path="TravelPlan" element={<TravelPlan />} />
               <Route path=":travelCode" element={<TravelPlanDetail />} />
-              <Route path="AddPlanDate" element={<AddPlanDate />} />
-              <Route path="AddPlanDestination" element={<AddPlanDestination />} />
+              {/* <Route path="AddPlanDate" element={<AddPlanDate />} />
+              <Route path="AddPlanDestination" element={<AddPlanDestination />} /> */}
               <Route path="TravelPlanCreate" element={<TravelPlanCreate />} />
               {/* <Route path="UpdatePlanDate" element={<UpdatePlanDate />} />
               <Route path="UpdatePlanDestination" element={<UpdatePlanDestination />} /> */}
               <Route path="TravelPlanUpdate/:travelCode" element={<TravelPlanUpdate />} />
-
+              <Route path="ActivityUpdate/:activityCode" element={<ActivityUpdate />} />
+              <Route path="AddByDayPlan" element={<AddByDayPlan />} />
+              <Route path="day/:day" element={<DayPlanDetail />} />
               <Route path="ExpenseList" element={<ExpenseList />} />
               <Route path="ExpenseInsert" element={<ExpenseInsert />} />
               <Route path="ExpenseUpdate/:expenseDetailCode" element={<ExpenseUpdate />} />
@@ -99,6 +105,7 @@ export default function App() {
               <Route path="freeboardModify/:freeboardCode" element={<FreeBoardModify />} />
               <Route path="freeboardCreate" element={<FreeBoardCreate />} />
             </Route>
+
             <Route path="travelreport">
             <Route index element={<TravelReport/> }/>
             <Route path='AddReportDate' element={ <AddReportDate/> }/>
@@ -110,6 +117,7 @@ export default function App() {
             <Route path='travelReportModify/:reportCode' element={ <TravelReportModify/> }/>
             <Route path='Report' element={ <Report/> }/>
             <Route path='Map' element={ <Map/> }/>
+             
             </Route>
             <Route path="MyPage/:memberId" element={ <MyPage/> }/>  
             <Route path="MyPageUpdate/:memberId" element={ <MyPageUpdate/> }/>  
@@ -125,9 +133,10 @@ export default function App() {
             <Route path="/findpw" element={ <FindPw/>} />
             <Route path="TravelDestinations" element={ <TravelDestinations/> }/>
             <Route path="TravelDestinations/:place_id" element={ <TravelDestinationDetail/> }/>
-            <Route path="/SavedTravelDestination/:memberId" element={ <SavedTravelDestination/> }/>
+            <Route path="/SavedTravelDestination/:memberCode" element={ <SavedTravelDestination/> }/>
             <Route path="/Landmarks/:landmark_id" element={ <LandmarkDetail /> }/>
             <Route path="/register" element={ <Register/> } />
+            <Route path="/other" element={ <UnderConstruction/> } />
           </Route>
           <Route path='*' element={ <Error/> }/>
         </Routes>

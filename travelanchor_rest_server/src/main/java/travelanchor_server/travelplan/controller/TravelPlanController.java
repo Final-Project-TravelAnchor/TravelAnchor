@@ -181,6 +181,12 @@ public class TravelPlanController {
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "상세정보 조회 성공", travelPlanService.findExpenseDetailByCode(expenseDetailCode)));
     }
 
+    @Operation(summary = "trvelCode 상세 조회 요청", description = "travelCode 상세 조회 처리가 진행됩니다.", tags = { "TravelPlanController" })
+    @GetMapping("/travel-plan/expenseDetailByTravelCode/{travelCode}")
+    public ResponseEntity<ResponseDTO> findExpenseDetailByTravelCode(@PathVariable int travelCode) {
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "travelCode 조회 성공", travelPlanService.findExpenseDetailByTravelCode(travelCode)));
+    }
+
     @Operation(summary = "세부활동금액 등록 요청", description = "세부활동금액 등록이 진행됩니다.", tags = { "TravelPlanController" })
     @PostMapping("/travel-plan/expenseDetail")
     public ResponseEntity<ResponseDTO> insertExpenseDetail(@RequestBody ExpenseDetailDTO expenseDetailDTO) {
