@@ -171,7 +171,9 @@ return (
 								여행
 							</a>
 							{isDropdownOpen && (
-								<ul className={HeaderCSS.dropdownMenu}>
+								<ul className={HeaderCSS.dropdownMenu}
+								onMouseLeave={() => toggleDropdown(false)}
+								>
 									<li>
 										<NavLink to="TravelDestinations">
 											여행지
@@ -209,31 +211,35 @@ return (
 						<li className={HeaderCSS.navItem}>
 							<NavLink to="Notice">공지사항</NavLink>
 						</li>
-						<li className={HeaderCSS.navItem}>
-							<NavLink to="ExchangeRate"><img
-							src={`http://${process.env.REACT_APP_RESTAPI_IP}:8080/exchange.png`}
-							alt="Chat Image"
-							className="message-image"
-							loading="lazy"
-                    		/>
-					</NavLink>
+						<div className={HeaderCSS.iconContainer}>
+						<li className={HeaderCSS.icon}>
+							<NavLink to="ExchangeRate">
+								<img
+									src={`http://${process.env.REACT_APP_RESTAPI_IP}:8080/exchange.png`}
+									alt="환율"
+									loading="lazy"
+								/>
+							</NavLink>
 						</li>
-						<li className={HeaderCSS.navItem}>
-							<NavLink to="Weather"><img
-							src={`http://${process.env.REACT_APP_RESTAPI_IP}:8080/weather.png`}
-							alt="Chat Image"
-							className="message-image"
-							loading="lazy"
-                    		/></NavLink>
+						<li className={HeaderCSS.icon}>
+							<NavLink to="Weather">
+								<img
+									src={`http://${process.env.REACT_APP_RESTAPI_IP}:8080/weather.png`}
+									alt="날씨"
+									loading="lazy"
+								/>
+							</NavLink>
 						</li>
-						<li className={HeaderCSS.navItem}>
-							<NavLink to="Translation"><img
-							src={`http://${process.env.REACT_APP_RESTAPI_IP}:8080/translation.png`}
-							alt="Chat Image"
-							className="message-image"
-							loading="lazy"
-                    		/></NavLink>
+						<li className={HeaderCSS.icon}>
+							<NavLink to="Translation">
+								<img
+									src={`http://${process.env.REACT_APP_RESTAPI_IP}:8080/translation.png`}
+									alt="번역"
+									loading="lazy"
+								/>
+							</NavLink>
 						</li>
+					</div>
 					</ul>
 				</div>
 

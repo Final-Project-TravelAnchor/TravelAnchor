@@ -10,6 +10,11 @@
 .travel-plan-container h1 {
 	font-size: 30px;
 	font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.travel-plan-list {
+    padding:10px;
 }
 
 .travel-plan-create-button {
@@ -25,4 +30,33 @@ padding: 10px 20px;
 
 .travel-plan-create-button:hover {
     background-color: #e07500;
+}
+
+.travel-plan-item {
+    width: 400px;
+    min-height: 50px;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    border: 1px solid #FF8600;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.travel-plan-item:hover {
+    transform: scale(1.03); /* 살짝 확대 효과 */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* 호버 시 그림자 강조 */
+}
+
+.travel-plan-item h2 {
+    font-size: 25px;
+    font-weight: bold;
+    color: #FF8600;
+    margin-bottom: 5px;
+    margin-left: 15px;
+    text-align: center;
+}
+
+.travel-plan-item h5 {
+    font-size: 16px;
+    text-align: center;
 }

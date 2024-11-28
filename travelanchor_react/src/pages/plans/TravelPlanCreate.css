@@ -1,4 +1,4 @@
-.travel-plan-update-container {
+.travel-plan-create-container {
 	display: flex;
     flex-direction: column;
     align-items: center;
@@ -7,13 +7,13 @@
     min-height: 65vh;
 }
 
-.travel-plan-update-container h1 {
+.travel-plan-create-container h1 {
 	font-size: 30px;
 	font-weight: bold;
 	margin-bottom: 20px;
 }
 
-.travel-plan-update-form {
+.travel-plan-create-form {
 	min-height: 100%;
     display: flex;
     flex-direction: column;
@@ -24,26 +24,25 @@
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    margin-bottom: 20px;
     line-height: 2;
 }
 
-.travel-plan-update-container h2 {
+.travel-plan-create-container h2 {
 	color: #FF8600;
 	font-family:'LINESeedKR-Bd';
 }
 
-.travel-plan-update-container label {
+.travel-plan-create-container label {
 	color: #333;
 	font-size: 18px;
 	font-weight: bold;
 }
 
-.travel-plan-update-container input {
+.travel-plan-create-container input {
 	width: 280px;
 }
 
-.travel-plan-update-container select, option {
+.travel-plan-create-container select, option {
 	width: 300px;
 }
 
@@ -75,16 +74,16 @@
 	line-height: 1.6;
 }
 
-.travel-plan-update-buttons {
+.travel-plan-create-buttons {
 	display: flex;
     justify-content: end;
 	gap: 10px;
-    /* margin-top: 20px; */
+    margin-top: 20px;
     width: 640px;
 }
 
-.travel-plan-update-save-button,
-.travel-plan-update-cancel-button {
+.travel-plan-create-save-button,
+.travel-plan-create-cancel-button {
 	padding: 10px 20px;
     font-size: 16px;
     color: #ff8600;
@@ -96,12 +95,12 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.travel-plan-update-save-button:hover {
+.travel-plan-create-save-button:hover {
 	background-color: #ff8600;
 	color: #fff;
 }
 
-.travel-plan-update-cancel-button:hover {
+.travel-plan-create-cancel-button:hover {
 	background-color: #999;
 	color: #fff;
 	border: 1px solid #999;

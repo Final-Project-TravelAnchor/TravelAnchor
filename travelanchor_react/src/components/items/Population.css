@@ -48,16 +48,18 @@
 
 /* 개별 카드 스타일 */
 .population-card {
+    display: flex; /* Flexbox 사용 */
+    justify-content: center; /* 가로 방향 중앙 정렬 */
+    align-items: center; /* 세로 방향 중앙 정렬 */
+    height: 150px;
     background: white;
     border-radius: 10px;
     padding: 20px;
     border: 1px solid #ddd;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-	font-size: 25px;
-	font-weight: bold;
-	color: #FF8600;
-	text-align: center;
+    /* color: #FF8600; */
+    text-align: center;
 }
 
 .population-card:hover {
@@ -79,7 +81,7 @@
 /* 반응형 스타일 */
 @media (max-width: 768px) {
     .mate-title {
-        font-size: 24px;
+        font-size: 30px;
     }
 
     .mate-create-button {
@@ -90,4 +92,15 @@
     .population-card {
         padding: 15px;
     }
+}
+
+.population-card h5 {
+    font-size: 25px;
+    font-family: 'LINESeedKR-Bd';
+    color: #FF8600;
+}
+
+.Population-card-content p {
+    color:#333;
+    line-height: 1.4;
 }

@@ -1,74 +1,86 @@
+/* 컨테이너 */
 .translation-container {
-    max-width: 600px;
+    width: 1000px;
     margin: 0 auto;
+    text-align: center;
     margin-top: 120px;
-    margin-bottom: 50px;
-    /* font-family: "nanumfont"; */
+	margin-bottom: 50px;
+    min-height: 65vh;
 }
 
+/* 제목 스타일 */
 .translation-title {
-    color: #333;
     font-size: 30px;
-    font-weight: bold;
-    text-align: center;
+	font-weight: bold;
+	margin-bottom: 50px;
+}
+
+/* 언어 선택 그룹 */
+.translation-language-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;font-family: 'LINESeedKR-Bd';
+    gap: 10px;
     margin-bottom: 20px;
-    /* font-family: "nanumfont"; */
 }
 
 .translation-input-group {
-    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
 }
 
-.translation-label {
-    font-weight: bold;
-    margin-right: 10px;
-    display: block;
+.translation-select {
+    padding: 10px;
+    border: 1px solid #FF8600;
+    border-radius: 30px;
+    font-size: 18px;
+    justify-content: center;font-family: 'LINESeedKR-Bd';
     margin-bottom: 5px;
 }
 
-.translation-select,
-.translation-text-input {
-    width: 100%;
-    padding: 10px;
+/* 화살표 스타일 */
+.translation-arrow {
+    font-size: 18px;
+    color: #333;
+    font-family: 'LINESeedKR-Bd';
+}
+
+/* 텍스트 입력 및 출력 */
+.translation-text-wrapper {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.translation-textarea {
+    width: 45%;
+    height: 120px;
+    border: 1px solid #ccc;
     border-radius: 4px;
-    border: 1px solid #ddd;
-    box-sizing: border-box;
-}
-
-.translation-text-input {
-    margin-top: 5px;
-}
-
-.translation-button {
-    width: 100%;
-    padding: 10px;
-    background-color: #FF8600;
-    color: #fff;
-    font-weight: bold;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.translation-button:hover {
-    background-color: #e67700;
+    padding: 20px;
+    font-size: 18px;
+    resize: none;
+    font-family: 'LINESeedKR-Bd';
 }
 
 .translation-result {
-    margin-top: 20px;
-    padding: 10px;
-    background-color: #FFF8E7;
-    border-radius: 4px;
-}
-
-.translation-result-title {
-    color: #FF8600;
-    margin-bottom: 10px;
-}
-
-.translation-result-text {
-    font-size: 18px;
+    background-color: #f9f9f9;
     color: #333;
-    line-height: 1.6;
+}
+
+/* 번역 실행 버튼 */
+.translation-button {
+    padding: 10px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #FF8600; /* 요청한 버튼 색상 */
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+}
+
+.translation-button:hover {
+    background-color: #e67500;
 }

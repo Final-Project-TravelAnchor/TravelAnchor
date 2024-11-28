@@ -43,14 +43,14 @@ export default function TravelPlan() {
 
     return (
         <div className="travel-plan-container">
-			<h1>나의 여행일정</h1>
-            <div>
+			<h1>나의 여행 일정</h1>
+            <div className="travel-plan-list">
 				{travelPlans?.length > 0 ? (
 					travelPlans.map((travelPlan) => (
 						<TravelPlanList key={travelPlan.travelCode} travelPlan={travelPlan} />
 					))
 				) : (
-					<div>여행 일정이 없습니다.</div>
+					<div>등록된 일정이 없습니다. 일정을 추가해보세요😊</div>
 				)}
             </div>
             <div>
