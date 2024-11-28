@@ -1,8 +1,22 @@
+.chat-page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 100px;
+	margin-bottom: 50px;
+    min-height: 65vh;
+}
+.chat-page-container h1 {
+    font-size: 30px;
+    font-weight: bolder;
+    color: #ff8600;
+}
+
 .chat-container {
     display: flex;
     width: 80%;
     max-width: 1200px; /* 최대 너비 제한 */
-    height: 70vh; /* 높이 제한 */
+    height:70vh; /* 높이 제한 */
     margin: auto; /* 자동 여백으로 수평 및 수직 중앙 정렬 */
     padding: 30px;
     border-radius: 10px;
@@ -55,6 +69,7 @@
     background: #f9f9f9;
     border-radius: 5px;
     font-size: 18px;
+    line-height: 1.2;
 }
 
 .image-message .message-image {
@@ -166,4 +181,15 @@
     position: absolute;
     top: 10px;
     right: 10px;
+  }
+
+  .chat-span-name {
+    color: #FF8600;
+    font-weight: bolder;
+  }
+
+  .chat-span-date {
+    color: #888;
+    font-size: 14px;
+    margin-left: 540px;
   }
