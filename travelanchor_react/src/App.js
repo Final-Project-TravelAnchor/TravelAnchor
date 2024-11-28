@@ -59,6 +59,7 @@ import DayPlanDetail from './pages/plans/DayPlanDetail';
 // import UpdatePlanDate from './pages/plans/UpdatePlanDate';
 // import UpdatePlanDestination from './pages/plans/UpdatePlanDestination';
 import TravelPlanUpdate from './pages/plans/TravelPlanUpdate';
+import UnderConstruction from './components/common/UnderConstruction';
 
 
 export default function App() {
@@ -138,6 +139,7 @@ export default function App() {
             <Route path="/SavedTravelDestination/:memberCode" element={ <SavedTravelDestination/> }/>
             <Route path="/Landmarks/:landmark_id" element={ <LandmarkDetail /> }/>
             <Route path="/register" element={ <Register/> } />
+            <Route path="/other" element={ <UnderConstruction/> } />
           </Route>
           <Route path='*' element={ <Error/> }/>
         </Routes>

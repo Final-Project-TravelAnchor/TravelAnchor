@@ -110,7 +110,6 @@ function Header({ hideAuthLinks }) {
 					className={HeaderCSS.HeaderBtn}
 					onClick={onClickMypageHandler}
 				>
-
 					<NavLink to={`/MyPage/${member?.memberId}`}>
 						{member?.memberNickName || '회원'}님의 마이페이지
 					</NavLink>
@@ -173,7 +172,7 @@ return (
 								여행
 							</a>
 							{isDropdownOpen && (
-								<ul className={HeaderCSS.dropdownMenu} onMouseLeave={() => setDropdownOpen(false)}>
+								<ul className={HeaderCSS.dropdownMenu}>
 									<li>
 										<NavLink to="TravelDestinations">
 											여행지
@@ -187,7 +186,7 @@ return (
 									</li>
 									<li>
 										<NavLink to="/Accommodation">
-											숙박
+											호텔	
 										</NavLink>
 									</li>
 								</ul>
@@ -212,13 +211,29 @@ return (
 							<NavLink to="Notice">공지사항</NavLink>
 						</li>
 						<li className={HeaderCSS.navItem}>
-							<NavLink to="ExchangeRate">환율</NavLink>
+							<NavLink to="ExchangeRate"><img
+							src={`http://${process.env.REACT_APP_RESTAPI_IP}:8080/exchange.png`}
+							alt="Chat Image"
+							className="message-image"
+							loading="lazy"
+                    		/>
+					</NavLink>
 						</li>
 						<li className={HeaderCSS.navItem}>
-							<NavLink to="Weather">날씨</NavLink>
+							<NavLink to="Weather"><img
+							src={`http://${process.env.REACT_APP_RESTAPI_IP}:8080/weather.png`}
+							alt="Chat Image"
+							className="message-image"
+							loading="lazy"
+                    		/></NavLink>
 						</li>
 						<li className={HeaderCSS.navItem}>
-							<NavLink to="Translation">번역</NavLink>
+							<NavLink to="Translation"><img
+							src={`http://${process.env.REACT_APP_RESTAPI_IP}:8080/translation.png`}
+							alt="Chat Image"
+							className="message-image"
+							loading="lazy"
+                    		/></NavLink>
 						</li>
 					</ul>
 				</div>
