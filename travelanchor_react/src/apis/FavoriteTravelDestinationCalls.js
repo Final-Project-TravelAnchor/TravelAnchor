@@ -78,8 +78,8 @@ const fetchDeleteTravelDestinationData = async (requestURL) => {
 	}
 };
 
-export const fetchSavedTravelDestinationsAPI = () => {
-	const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/travel-destination/v1/travel-destinations`;
+export const callGetSavedTravelDestinationsAPI = (memberCode) => {
+	const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/travel-destination/v1/travel-destinations/${memberCode}`;
 	console.log("[FavoriteTravelDestinationAPICalls] CallGetSavedTravelDestinationAPI", requestURL);
 
 	return async (dispatch, getState) => {
