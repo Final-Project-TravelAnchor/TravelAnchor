@@ -17,7 +17,7 @@
 .free-board-button-right {
 	display: flex;
     justify-content: flex-end; /* 오른쪽 정렬 */
-	width: 900px;
+	width: 930px;
     /* margin-top: 20px; */
 	margin-bottom: 20px;
 }
@@ -44,13 +44,14 @@
     gap: 20px; /* 카드 간격 */
     justify-content: center; /* 카드 중앙 정렬 */
     padding: 20px; /* 내부 여백 */
-    max-width: 1000px; /* 최대 너비 제한 */
+    max-width: 1200px; /* 최대 너비 제한 */
     box-sizing: border-box; /* 패딩 포함한 크기 계산 */
 }
 
 .free-board-item {
     display: flex; /* 플렉스 레이아웃 사용 */
     min-height: 80px;
+    width: 400px;
     flex-direction: column; /* 세로 정렬 */
     justify-content: space-between;
     /* align-items: flex-start; */

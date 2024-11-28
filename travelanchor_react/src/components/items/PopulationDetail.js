@@ -75,12 +75,12 @@ export default function PopulationDetail() {
                         <h2 className="detail-item">
                             <span className="detail-label">조회수:</span> {population.populationViews}
                         </h2>
-                        <h2 className="detail-item">
+                        {/* <h2 className="detail-item">
                             <span className="detail-label">국가:</span> {population.travelCode}
                         </h2>
                         <h2 className="detail-item">
                             <span className="detail-label">도시:</span> {population.countryCode}
-                        </h2>
+                        </h2> */}
                         <h2 className="detail-item">
                             <span className="detail-label">모집인원:</span> {population.populationPeople}
                         </h2>

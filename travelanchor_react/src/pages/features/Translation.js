@@ -29,55 +29,63 @@ export default function Translation() {
 	return (
         <div className="translation-container">
             <h1 className="translation-title">텍스트 번역</h1>
-
-            <div className="translation-input-group">
-                <label className="translation-label">입력 언어</label>
-                <select ref={sourceRef} className="translation-select">
-                    <option value="ko">한국어</option>
-                    <option value="en">영어</option>
-                    <option value="ja">일본어</option>
-                    <option value="zh">중국어</option>
-                    <option value="fr">프랑스어</option>
-                    <option value="es">스페인어</option>
-                    <option value="th">태국어</option>
-                    <option value="mn">몽골어</option>
-                </select>
+    
+            {/* 언어 선택 그룹 */}
+            <div className="translation-language-wrapper">
+                {/* 입력 언어 */}
+                <div className="translation-input-group">
+                    <select ref={sourceRef} className="translation-select">
+                        <option value="ko">한국어</option>
+                        <option value="en">영어</option>
+                        <option value="ja">일본어</option>
+                        <option value="zh">중국어</option>
+                        <option value="fr">프랑스어</option>
+                        <option value="es">스페인어</option>
+                        <option value="th">태국어</option>
+                        <option value="mn">몽골어</option>
+                    </select>
+                </div>
+    
+                {/* 화살표 */}
+                <div className="translation-arrow">
+                    <span>→</span>
+                </div>
+    
+                {/* 출력 언어 */}
+                <div className="translation-input-group">
+                    <select ref={targetRef} className="translation-select" defaultValue="en">
+                        <option value="en">영어</option>
+                        <option value="ko">한국어</option>
+                        <option value="ja">일본어</option>
+                        <option value="zh">중국어</option>
+                        <option value="fr">프랑스어</option>
+                        <option value="es">스페인어</option>
+                        <option value="th">태국어</option>
+                        <option value="mn">몽골어</option>
+                    </select>
+                </div>
             </div>
-
-            <div className="translation-input-group">
-                <label className="translation-label">출력 언어</label>
-                <select ref={targetRef} className="translation-select">
-                    <option value="ko">한국어</option>
-                    <option value="en">영어</option>
-                    <option value="ja">일본어</option>
-                    <option value="zh">중국어</option>
-                    <option value="fr">프랑스어</option>
-                    <option value="es">스페인어</option>
-                    <option value="th">태국어</option>
-                    <option value="mn">몽골어</option>
-                </select>
-            </div>
-
-            <div className="translation-input-group">
-                <input
-                    type="text"
+    
+            {/* 텍스트 입력 및 출력 */}
+            <div className="translation-text-wrapper">
+                <textarea
+                    className="translation-textarea"
                     value={text}
                     onChange={(e) => setText(e.target.value)}
-                    placeholder="번역할 텍스트를 입력하세요"
-                    className="translation-text-input"
+                    placeholder="번역할 텍스트를 입력하세요!"
+                />
+                <textarea
+                    className="translation-textarea translation-result"
+                    value={translation || ""}
+                    readOnly
+                    placeholder="번역된 텍스트가 여기 표시됩니다 😊"
                 />
             </div>
-
+    
+            {/* 번역 실행 버튼 */}
             <button onClick={onClickHandler} className="translation-button">
-                번역 실행
+                번역하기
             </button>
-
-            {translation && (
-                <div className="translation-result">
-                    {/* <h2 className="translation-result-title">번역된 텍스트</h2> */}
-                    <h4 className="translation-result-text">{translation}</h4>
-                </div>
-            )}
         </div>
     );
 }

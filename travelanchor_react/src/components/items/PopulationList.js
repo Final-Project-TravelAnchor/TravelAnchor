@@ -1,4 +1,3 @@
-import PopulationCSS from "./PopulationList.module.css";
 import { useNavigate } from "react-router-dom";
 
 export default function PopulationList( populationDetail ) {
@@ -17,7 +16,7 @@ export default function PopulationList( populationDetail ) {
 
     return (
         <div 
-            className={PopulationCSS.PopulationDiv}
+            className="Population-card-content"
             onClick={() => onClickPopulationHandler(population.populationCode)}    
         >
             <h5>{population.populationTitle}</h5><br/>

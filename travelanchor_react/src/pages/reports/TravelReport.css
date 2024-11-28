@@ -3,8 +3,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 20px;
-    padding: 20px;
+    margin-top: 120px;
+    margin-bottom: 50px;
+    /* padding: 20px; */
     width: 100%;
 }
 /* 후기 생성 버튼 스타일 */

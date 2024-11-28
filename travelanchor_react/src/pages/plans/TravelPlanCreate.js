@@ -10,6 +10,7 @@ import planReducer from '../../modules/PlanModule';
 import {
     SET_FORM,
 } from "../../modules/PlanModule";
+import './TravelPlanCreate.css';
 
 export default function TravelPlanCreate() {
 
@@ -149,26 +150,31 @@ export default function TravelPlanCreate() {
     };
 
     return (
-        <div>
+        <div className='travel-plan-create-container'>
             <h1>여행 일정을 계획해보세요!</h1>
+            <div className='travel-plan-create-form'>
+            <h2>Step1! 여행의 제목을 지어주세요</h2>
             <label>제목 : <input
                 type="text"
                 name="travelName"
-                placeholder="여행의 타이틀을 멋드러지게 입력"
+                placeholder="여행에게 멋진 제목을 지어주세요"
                 onChange={onChangeHandler}
-            /></label>
+                /></label>
+            </div>
             <br/>
+            <div className='travel-plan-create-form'>
+            <h2>Step2! 여행할 국가와 도시를 선택해 주세요</h2>
             <div>
-            <label>국가</label>
+            <label>국가 : </label>
                 <select
                     value={selectedCountry}
                     onChange={(e) => setSelectedCountry(e.target.value)} // 국가 선택 시 상태 변경
-                >
+                    >
                     {countryList.length > 0 ? (
                         countryList.map((country) => (
                             <option 
-                                key={country.countryCode} 
-                                value={country.countryCode}
+                            key={country.countryCode} 
+                            value={country.countryCode}
                             >
                                 {country.countryName}
                             </option>
@@ -179,7 +185,7 @@ export default function TravelPlanCreate() {
                 </select>
             </div>
             <div>
-            <label>도시</label>
+            <label>도시 : </label>
                 <select
                     value={selectedCity || ""} // 선택된 도시 상태
                     name="travelDestination"
@@ -188,12 +194,12 @@ export default function TravelPlanCreate() {
                         // console.log("value : ",e.target.value);
                         return setSelectedCity(e.target.value)} // 도시 선택 시 상태 변경
                     }
-                >
+                    >
                     {cityList.length > 0 ? (
                         cityList.map((city) => (
                             <option 
-                                key={city.cityCode} 
-                                value={city.cityName}
+                            key={city.cityCode} 
+                            value={city.cityName}
                             >
                                 {city.cityName} 
                             </option>
@@ -203,8 +209,9 @@ export default function TravelPlanCreate() {
                     )}
                 </select>
             </div>
-            <div>
-                <h3>여행 날짜를 선택해 주세요</h3>
+                    </div><br/>
+                    <div className='travel-plan-create-form'>
+                <h2>Step3! 여행 날짜를 선택해 주세요</h2>
                 <DatePicker
                     selected={startDate}
                     onChange={(update) => {
@@ -218,20 +225,25 @@ export default function TravelPlanCreate() {
                     dateFormat="yyyy/MM/dd"
                     minDate={new Date()}
                 />
-                <div>
-                    <h4>현재 선택된 정보</h4>
-                    <p>시작일: {form.travelStartDate || "미선택"}</p>
-                    <p>종료일: {form.travelEndDate || "미선택"}</p>
-                    <p>총 여행일수: {form.travelTotalDate || "미선택"}</p>
-                </div>
-            </div>
-            <div>
-                <button onClick={reset}>
-                    초기화
+                <button onClick={reset}
+                className='travel-plan-reset-button'>
+                    날짜 초기화
                 </button>
+                <div className='travel-plan-select-info'>
+                    <p>여행 시작 : {form.travelStartDate || "미선택"}</p>
+                    <p>여행 종료 : {form.travelEndDate || "미선택"} (총 {form.travelTotalDate || "미선택"})</p>
+                </div>
+            
             </div>
-            <button onClick={onClickCreateTravelPlanHandler}>추가하기</button>
-            <button onClick={onClickCancelTravelPlanHandler}>취소하기</button>
+
+            <div className='travel-plan-create-buttons'>
+            <button 
+            className='travel-plan-create-save-button'
+            onClick={onClickCreateTravelPlanHandler}>추가하기</button>
+            <button 
+            className='travel-plan-create-cancel-button'
+            onClick={onClickCancelTravelPlanHandler}>취소하기</button>
+            </div>
         </div>
     );
 }

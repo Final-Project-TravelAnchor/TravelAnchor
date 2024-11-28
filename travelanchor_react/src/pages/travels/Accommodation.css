@@ -25,13 +25,18 @@
 }
 
 .hotel-search-form label {
+  padding: 10px;
   font-size: 18px;
   font-weight: bold;
   color: #ffffff;
 }
 
-.hotel-search-form input {
-  width: 100px;
+.hotel-date-input {
+  width: 130px;
+}
+
+.hotel-number-input {
+  width: 40px;
 }
 
 .hotel-search-button {
