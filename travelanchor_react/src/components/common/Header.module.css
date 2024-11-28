@@ -195,6 +195,7 @@ ul li a:hover {
     cursor: pointer;
 }
 
+
 .hamburgerDropdown {
     position: fixed; /* 화면 전체에 고정 */
     top: 82px; /* 헤더 바로 아래로 위치 */

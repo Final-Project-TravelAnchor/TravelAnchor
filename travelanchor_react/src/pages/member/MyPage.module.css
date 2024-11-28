@@ -112,7 +112,7 @@
 }
 
 .progressbar .CircularProgressbar-text {
-    dominant-baseline: middle; /* 세로 중앙 정렬 */
+    /* dominant-baseline: middle; 세로 중앙 정렬 */
     text-anchor: middle; /* 가로 중앙 정렬 */
     fill: #2B2D36; /* 텍스트 색상 */
     font-size: 18px; /* 텍스트 크기 */
