@@ -9,7 +9,7 @@ const PORT = 5000;
 // CORS 설정
 app.use(
 	cors({
-		origin: "http://localhost:3000", // 프론트엔드 도메인
+		origin: `http://${process.env.REACT_APP_RESTAPI_IP}:3000`, // 프론트엔드 도메인
 		methods: ["GET", "POST", "OPTIONS"],
 		credentials: true,
 	})

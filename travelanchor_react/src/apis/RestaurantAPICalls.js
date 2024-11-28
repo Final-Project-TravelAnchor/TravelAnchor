@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const callGetRestaurantAPI = async ({ type, city }) => {
 	try {
-		const response = await axios.get("http://localhost:5000/api/places", {
+		const response = await axios.get(`http://${process.env.REACT_APP_RESTAPI_IP}:5000/api/places`, {
 			params: { type, city }, // 서버로 type과 city 전달
 		});
 		return response.data.results || [];
@@ -14,7 +14,7 @@ export const callGetRestaurantAPI = async ({ type, city }) => {
 
 export const callRestaurantDetailAPI = async ({ place_id }) => {
 	try {
-		const response = await axios.get("http://localhost:5000/api/places/details", {
+		const response = await axios.get(`http://${process.env.REACT_APP_RESTAPI_IP}:5000/api/places/details`, {
 			params: { place_id }, // 서버로 place_id 전달
 		});
 		return response.data || [];

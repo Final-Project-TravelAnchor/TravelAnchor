@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const callGetTravelDestinationAPI = async ({ cities }) => {
 	try {
-		const response = await axios.get("http://localhost:5000/api/TravelDestinations", {
+		const response = await axios.get(`http://${process.env.REACT_APP_RESTAPI_IP}:5000/api/TravelDestinations`, {
 			params: { cities: JSON.stringify(cities) },
 		});
 		return response.data || [];
@@ -14,7 +14,7 @@ export const callGetTravelDestinationAPI = async ({ cities }) => {
 
 export const callTravelDestinationDetailAPI = async ({ place_id }) => {
     try {
-        const response = await axios.get("http://localhost:5000/api/TravelDestinations/details", {
+        const response = await axios.get(`http://${process.env.REACT_APP_RESTAPI_IP}:5000/api/TravelDestinations/details`, {
             params: {
                 place_id,
                 culturalLandmarks: JSON.stringify(["famous landmark"]) 
@@ -30,7 +30,7 @@ export const callTravelDestinationDetailAPI = async ({ place_id }) => {
 
 export const callLandmarkDetailAPI = async ({ landmark_id }) => {
     try {
-        const response = await axios.get("http://localhost:5000/api/landmark/details", {
+        const response = await axios.get(`http://${process.env.REACT_APP_RESTAPI_IP}:5000/api/landmark/details`, {
             params: {
                 landmark_id
             }
