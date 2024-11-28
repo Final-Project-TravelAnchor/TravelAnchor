@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { callUpdateTravelPlanAPI, callDeleteTravelPlanAPI, callTravelPlanDetailAPI } from "../../apis/TravelPlanAPICalls";
 
 import { calExpenseTotalAmountBytravelCode } from "../../apis/ExpenseAPICalls";
+import "./TravelPlanDetail.css";
 
 export default function TravelPlanDetail() {
 
@@ -64,31 +65,36 @@ export default function TravelPlanDetail() {
 		<div className="travel-plan-detail-container">
 			<h1>여행일정 상세보기</h1>
 				
-			<div>
-				<h1>제목: {travelPlan.travelName}</h1>
-				<h2>여행출발: {travelPlan.travelStartDate}</h2>
-				<h2>여행도착: {travelPlan.travelEndDate}</h2>
-				<h2>여행기간: {travelPlan.travelTotalDate}</h2>
-				<h2>여행지: {travelPlan.travelDestination}</h2>
+			<div className="travel-plan-detail-form">
+				<div className="travel-plan-detil-content">
+				<h1>{travelPlan.travelName}</h1>
+				<h3>여행일: {travelPlan.travelStartDate} ~ {travelPlan.travelEndDate} ({travelPlan.travelTotalDate})</h3>
+				<h3>여행지: {travelPlan.travelDestination}</h3>
+				</div>
+				
+				<div className="travel-plan-detail-bottons">
+					<button className="travel-plan-detail-back-button" onClick={onClickBackHandler}>
+						뒤로가기
+					</button>
+					<button 
+					className="travel-plan-detail-update-button"
+					onClick={() => onClickUpdateHandler(travelPlan)}>
+						수정하기
+					</button>
+					<button 
+					className="travel-plan-detail-delete-button"
+					onClick={() => onClickDeleteHandler(travelPlan)}>
+						삭제하기
+					</button>
+				</div>
 			</div>
 
-			<div>
+			{/* <div>
 				<button>
 					{expense[0].expenseTotalAmount}원
 				</button>
-			</div>
+			</div> */}
 
-			<div>
-				<button className="notice-back-button" onClick={onClickBackHandler}>
-                    뒤로가기
-                </button>
-				<button onClick={() => onClickUpdateHandler(travelPlan)}>
-					수정하기
-				</button>
-				<button onClick={() => onClickDeleteHandler(travelPlan)}>
-					삭제하기
-				</button>
-			</div>
 		</div>
 	);
 }

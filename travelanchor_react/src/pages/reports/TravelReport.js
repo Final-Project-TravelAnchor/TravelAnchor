@@ -34,6 +34,7 @@ export default function TravelReport () {
 
     return (
         <div className="travel-report-container">
+            <h1> 여행 후기 보기 </h1>
             <div className="create-travel-report-button-container">
                 <button className="create-travel-report-button" onClick={onClickCreateTravelReport}>
                     + 후기 추가하기

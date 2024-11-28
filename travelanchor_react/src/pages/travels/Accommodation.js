@@ -165,7 +165,7 @@ function Accommodation() {
         // onChange={(e) => setCityCode(e.target.value.toUpperCase())}
       /> */}
       <div className="hotel-search-form">
-      <label>도시   </label>
+      <label>도시</label>
       <select ref={ref.cityCode}>
 				{cities?.length > 0 ? (
           cities.map(city => (
@@ -177,8 +177,9 @@ function Accommodation() {
 			</select>
       {/* <button onClick={onClickHandlerHotelsByCity}>City Hotel Search</button> */}
 
-      <label>   체크인   </label>
+      <label>체크인</label>
       <input
+        className="hotel-date-input"
         type="date"
         // value={checkInDate}
         ref={ref.checkInDate}
@@ -187,14 +188,16 @@ function Accommodation() {
         />
       <label>   체크아웃   </label>
       <input
+        className="hotel-date-input"
         type="date"
         // value={checkOutDate}
         ref={ref.checkOutDate}
         onChange={(e) => setCheckOutDate(e.target.value)}
         placeholder="체크아웃"
         />
-      <label>   인원   </label>
+      <label>인원</label>
       <input
+      className="hotel-number-input"
         type="text"
         // value={adults}
         ref={ref.adults}
@@ -202,8 +205,9 @@ function Accommodation() {
         defaultValue={2}
         placeholder="숫자만입력"
         />
-      <label>   필요객실   </label>
+      <label>필요객실</label>
       <input
+      className="hotel-number-input"
         type="text"
         // value={roomQuantity}
         ref={ref.roomQuantity}

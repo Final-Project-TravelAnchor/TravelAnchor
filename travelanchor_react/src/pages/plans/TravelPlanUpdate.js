@@ -16,18 +16,18 @@ export default function TravelPlanUpdate() {
 
     const travelPlan = location.state || {};
 
-    // console.log('location.state:', location.state);
+    console.log('location.state:', location.state);
 
     const [form, setForm] = useState({
         travelName: "", 
-        travelStartDate: "",
-        travelEndDate: "",
-        travelTotalDate: "",
+        travelStartDate: travelPlan.travelStartDate,
+        travelEndDate: travelPlan.travelEndDate,
+        travelTotalDate: travelPlan.travelTotalDate,
         travelDestination: "",
     });
     const [datePeriod, setDatePeriod] = useState([null, null]);
     const [startDate, endDate] = datePeriod;
-    const [selectedCountry, setSelectedCountry] = useState(""); 
+    const [selectedCountry, setSelectedCountry] = useState(1); 
     const [selectedCity, setSelectedCity] = useState("");
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -37,16 +37,34 @@ export default function TravelPlanUpdate() {
         setDatePeriod([null, null]);
     };
 
-    // 시작일과 종료일을 Date 객체로 변환
-	const start = new Date(startDate);
-	const end = new Date(endDate);
-	// 날짜 차이 계산 (밀리초 기준)
-	const differenceInTime = end - start;
-	// 밀리초를 일 단위로 변환
-	const differenceInDays = differenceInTime / (1000 * 60 * 60 * 24);
-	// 총 날짜 문자열 생성
-	const totalDate = `${differenceInDays + 1}일`;
-	// console.log(totalDate);
+    function calculateTotalDays(start, end) {
+        const startDate = new Date(start);
+        const endDate = new Date(end);
+        const differenceInTime = endDate - startDate;
+        return `${differenceInTime / (1000 * 60 * 60 * 24) + 1}일`;
+    }
+
+    const formatDateToLocal = (date) => {
+        if (!date) return ""; // 날짜가 없는 경우 빈 문자열 반환
+        const offset = date.getTimezoneOffset() * 60000; // 로컬 시간대를 보정
+        const localDate = new Date(date.getTime() - offset);
+        return localDate.toISOString().split("T")[0]; // YYYY-MM-DD 형식으로 반환
+    };
+
+    useEffect(() => {
+        if (startDate && endDate) {
+            const totalDate = calculateTotalDays(startDate, endDate);
+    
+            setForm((prevForm) => ({
+                ...prevForm,
+                travelStartDate: formatDateToLocal(startDate),
+                travelEndDate: formatDateToLocal(endDate),
+                travelTotalDate: totalDate,
+                travelDestination: selectedCity,
+            }));
+        }
+    }, [startDate, endDate, selectedCity]);
+
 
     useEffect(() => {
         if (travelPlan) {
@@ -118,7 +136,7 @@ export default function TravelPlanUpdate() {
                 travelName: form.travelName, 
                 travelStartDate: form.travelStartDate,
                 travelEndDate: form.travelEndDate,
-                travelTotalDate: totalDate,
+                travelTotalDate: form.travelTotalDate,
                 travelDestination: selectedCity,
                 travelOnoff: 'N',
                 travelIsdeleted: 'N',
@@ -150,11 +168,10 @@ export default function TravelPlanUpdate() {
     };
 
     return (
-        <div>
-            <h1>여행일정 수정하기</h1>
-            {loading && <p>수정 중입니다... 잠시만 기다려주세요.</p>}
-            {error && <p style={{ color: "red" }}>{error}</p>}
-
+        <div className="travel-plan-update-container">
+            <h1>여행 일정 수정</h1>
+            <div className="travel-plan-update-form">
+                <h2>제목 수정</h2>
             <label>
                 제목: 
                 <input
@@ -164,75 +181,103 @@ export default function TravelPlanUpdate() {
                     value={form.travelName || ""}
                 />
             </label>
-
-            <div>
-                <h3>여행 날짜를 선택해 주세요</h3>
-                <DatePicker
-                    selected={startDate}
-                    onChange={(update) => {
-                        setDatePeriod(update); 
-                        setForm({
-                            ...form,
-                            travelStartDate: update[0] ? formatDate(update[0]) : "",
-                            travelEndDate: update[1] ? formatDate(update[1]) : "",
-                        });
-                    }}
-                    startDate={startDate}
-                    endDate={endDate}
-                    selectsRange
-                    inline
-                    placeholderText="시작일과 종료일 선택"
-                    dateFormat="yyyy/MM/dd"
-                    minDate={new Date()}
-                />
             </div>
 
-            <button onClick={reset}>초기화</button>
-
-            <div className="country-group">
-                <label>국가</label>
+            <div className="travel-plan-update-form">
+                <h2>국가 및 도시 수정</h2>
+                <div>
+            <label>국가 : </label>
                 <select
                     value={selectedCountry}
                     onChange={(e) => setSelectedCountry(e.target.value)} // 국가 선택 시 상태 변경
-                >
-                    {countryList.length > 0 && countryList.map((country) => (
-                        <option 
-                        key={country.countryCode} 
-                        value={country.countryCode}
-                        >
-                        {country.countryName}
-                        </option>
-                    ))}
+                    >
+                    {countryList.length > 0 ? (
+                        countryList.map((country) => (
+                            <option 
+                            key={country.countryCode} 
+                            value={country.countryCode}
+                            >
+                                {country.countryName}
+                            </option>
+                        ))
+                    ) : (
+                        <option disabled>국가 정보가 없습니다.</option>
+                    )}
                 </select>
             </div>
 
             {/* 도시 리스트 */}
             <div>
-                <h3>도시</h3>
-                <ul className="city-list"> 
-                {cityList.length > 0 ? (
-                    cityList.map((city) => (
-                        <li
-                        key={city.cityCode}
-                        onClick={() => setSelectedCity(city.cityName)}
-                        className={`city-item ${selectedCity === city.cityName ? "active" : ""}`}
-                        >
-                        {city.cityName} ({city.cityCode})
-                        </li>
-                    ))
-                ) : (
-                <p>표시할 도시 정보가 없습니다.</p>
-                )}
-                </ul>
+            <label>도시 : </label>
+                <select
+                    value={selectedCity || ""} // 선택된 도시 상태
+                    name="travelDestination"
+                    // onChange={onChangeHandler}
+                    onChange={(e) => {
+                        // console.log("value : ",e.target.value);
+                        return setSelectedCity(e.target.value)} // 도시 선택 시 상태 변경
+                    }
+                    >
+                    {cityList.length > 0 ? (
+                        cityList.map((city) => (
+                            <option 
+                            key={city.cityCode} 
+                            value={city.cityName}
+                            >
+                                {city.cityName} 
+                            </option>
+                        ))
+                    ) : (
+                        <option disabled>표시할 도시 정보가 없습니다.</option>
+                    )}
+                </select>
+            </div>
             </div>
 
+            <div className="travel-plan-update-form">
+                <h2>날짜 수정</h2>
+                <div>
+                    <DatePicker
+                        selected={startDate}
+                        onChange={(update) => {
+                            setDatePeriod(update); 
+                            setForm({
+                                ...form,
+                                travelStartDate: update[0] ? formatDate(update[0]) : "",
+                                travelEndDate: update[1] ? formatDate(update[1]) : "",
+                            });
+                        }}
+                        startDate={startDate}
+                        endDate={endDate}
+                        selectsRange
+                        inline
+                        placeholderText="시작일과 종료일 선택"
+                        dateFormat="yyyy/MM/dd"
+                        minDate={new Date()}
+                    />
+                </div>
+                <button 
+                className="travel-plan-reset-button"
+                onClick={reset}>날짜 초기화</button>
 
-            <button onClick={onClickSaveHandler} disabled={loading}>
+                <div className='travel-plan-select-info'>
+                    <p>여행 시작 : {form.travelStartDate || "미선택"}</p>
+                    <p>여행 종료 : {form.travelEndDate || "미선택"} (총 {form.travelTotalDate || "미선택"})</p>
+                </div>
+            </div>
+
+            <div className="travel-plan-update-buttons">
+            <button 
+            className="travel-plan-update-save-button"
+            onClick={onClickSaveHandler} disabled={loading}>
                 {loading ? "저장 중..." : "수정하기"}
             </button>
-            <button onClick={onClickCancelHandler} disabled={loading}>
+            <button 
+            className="travel-plan-update-cancel-button"
+            onClick={onClickCancelHandler} disabled={loading}>
                 취소하기
             </button>
+            </div>
         </div>
     );
 }

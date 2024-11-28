@@ -9,6 +9,7 @@
     text-align: center;
 	margin-top: 120px;
 	margin-bottom: 50px;
+	min-height: 65vh;
 }
 
 .weather-container h1 {

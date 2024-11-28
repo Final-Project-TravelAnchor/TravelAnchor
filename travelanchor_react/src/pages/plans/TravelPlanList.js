@@ -28,7 +28,7 @@ export default function TravelPlanList(travelPlanDetail) {
             >
                 <h2>{travelPlan.travelName}</h2>
                 <h5>
-                    {travelPlan.travelStartDate} - {travelPlan.travelEndDate} at{" "}
+                    {travelPlan.travelStartDate} ~ {travelPlan.travelEndDate} at{" "}
                     {travelPlan.travelDestination}
                 </h5>
             </div>
