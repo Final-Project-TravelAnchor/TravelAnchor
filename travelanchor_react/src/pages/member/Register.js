@@ -166,16 +166,16 @@ function Register() {
 	};
 
 	return (
-		<div className={RegisterCSS.backgroundDiv}>
-			<div className={RegisterCSS.mainContainer}>
-				<h1 className={RegisterCSS.title}>회원가입</h1>
+		<div className={RegisterCSS.RegisterbackgroundDiv}>
+			<div className={RegisterCSS.RegistermainContainer}>
+				<h1 className={RegisterCSS.Registertitle}>회원가입</h1>
 				<div className={RegisterCSS.registerDiv}>
 					{errorMessage && (
 						<p className={RegisterCSS.errorMessage}>
 							{errorMessage}
 						</p>
 					)}
-					<div className={RegisterCSS.inputContainer}>
+					<div className={RegisterCSS.RegisterinputContainer}>
 						<label htmlFor="memberId">아이디</label>
 						<input
 							type="text"
@@ -186,7 +186,7 @@ function Register() {
 							onChange={onChangeHandler}
 						/>
 					</div>
-					<div className={RegisterCSS.inputContainer}>
+					<div className={RegisterCSS.RegisterinputContainer}>
 						<label htmlFor="memberPassword">패스워드</label>
 						<input
 							type="password"
@@ -197,7 +197,7 @@ function Register() {
 							onChange={onChangeHandler}
 						/>
 					</div>
-					<div className={RegisterCSS.inputContainer}>
+					<div className={RegisterCSS.RegisterinputContainer}>
 						<label htmlFor="confirmMemberPassword">
 							패스워드 확인
 						</label>
@@ -210,7 +210,7 @@ function Register() {
 							onChange={onChangeHandler}
 						/>
 					</div>
-					<div className={RegisterCSS.inputContainer}>
+					<div className={RegisterCSS.RegisterinputContainer}>
 						<label htmlFor="memberName">이름</label>
 						<input
 							type="text"
@@ -221,7 +221,7 @@ function Register() {
 							onChange={onChangeHandler}
 						/>
 					</div>
-					<div className={RegisterCSS.inputContainer}>
+					<div className={RegisterCSS.RegisterinputContainer}>
 						<label htmlFor="memberMobileNumber">휴대전화</label>
 						<input
 							type="tel"
@@ -234,7 +234,7 @@ function Register() {
 							onChange={onChangeHandler}
 						/>
 					</div>
-					<div className={RegisterCSS.inputContainer}>
+					<div className={RegisterCSS.RegisterinputContainer}>
 						<label htmlFor="memberNickName">닉네임</label>
 						<input
 							type="text"
@@ -245,7 +245,7 @@ function Register() {
 							onChange={onChangeHandler}
 						/>
 					</div>
-					<div className={RegisterCSS.inputContainer}>
+					<div className={RegisterCSS.RegisterinputContainer}>
 						<label htmlFor="memberBirthDate">생년월일</label>
 						<input
 							type="date"
@@ -256,7 +256,7 @@ function Register() {
 							onChange={onChangeHandler}
 						/>
 					</div>
-					<div className={RegisterCSS.inputContainer}>
+					<div className={RegisterCSS.RadioinputContainer}>
 						<label htmlFor="memberGender">성별</label>
 						<div className={RegisterCSS.radioContainer}>
 							<label>
@@ -281,38 +281,42 @@ function Register() {
 							</label>
 						</div>
 					</div>
-					<div className={RegisterCSS.inputContainer}>
-						<label htmlFor="memberAddress">주소</label>
-						<input
-							type="text"
-							name="memberAddress"
-							id="memberAddress"
-							placeholder="주소"
-							autoComplete="off"
-							value={form.memberAddress}
-							onChange={onChangeHandler}
-							readOnly
-						/>
-						<button
-							className={RegisterCSS.registerButton}
-							onClick={onClickAddressHandler}
-						>
-							주소 검색
-						</button>
-						<button
-							className={RegisterCSS.backButton}
-							onClick={onClickBackHandler}
-						>
-							돌아가기
-						</button>
-						<button
-							className={RegisterCSS.registerButton}
-							onClick={onClickRegisterHandler}
-						>
-							가입하기
-						</button>
-					</div>
 				</div>
+				<div className={RegisterCSS.RegisterinputContainer}>
+				<label htmlFor="memberAddress">주소</label>
+				<div className={RegisterCSS.addressWrapper}>
+					<input
+						type="text"
+						name="memberAddress"
+						id="memberAddress"
+						placeholder="주소"
+						autoComplete="off"
+						value={form.memberAddress}
+						onChange={onChangeHandler}
+						readOnly
+					/>
+					
+					<button
+						className={RegisterCSS.addressButton}
+						onClick={onClickAddressHandler}
+					>
+						주소 검색
+					</button>
+					</div>
+					</div>
+				
+				<button
+					className={RegisterCSS.backButton}
+					onClick={onClickBackHandler}
+				>
+					돌아가기
+				</button>
+				<button
+					className={RegisterCSS.registerButton}
+					onClick={onClickRegisterHandler}
+				>
+					가입하기
+				</button>
 			</div>
 		</div>
 	);
