@@ -150,15 +150,16 @@ export default function ChatRoom() {
   };
 
   return (
+    <div className="chat-page-container">
+      <h1>{population.populationTitle}</h1> 
     <div className="chat-container">
       {/* 왼쪽 이미지 섹션 */}
       <div className="chat-left">
-        <p>{population.populationTitle}</p>
         <img
           src={`http://${process.env.REACT_APP_RESTAPI_IP}:8080/hot-air-balloon.jpg`}
           alt="chat room image"
           className="left-image"
-        />
+          />
       </div>
       {/* 채팅창 내용 */}
       <div className="chat-right">
@@ -166,15 +167,15 @@ export default function ChatRoom() {
           {messages.length > 0 ? (
             messages.map((item, index) => (
               <div
-                key={index}
-                className={`message ${item.type === "IMAGE" ? "image-message" : "text-message"}`}
+              key={index}
+              className={`message ${item.type === "IMAGE" ? "image-message" : "text-message"}`}
               >
                 {item.type === "IMAGE" ? (
                   <div>
                     <span
                       style={{ fontWeight: 'bold', cursor: 'pointer' }}
                       onClick={() => handleProfileClick(item)} // 이름 클릭 시 프로필 팝업 띄우기
-                    >
+                      >
                       {item.memberName + " " + item.messageSentAt.slice(0, 16)}
                     </span>
                     <img
@@ -182,16 +183,18 @@ export default function ChatRoom() {
                       alt="Chat Image"
                       className="message-image"
                       loading="lazy"
-                    />
+                      />
                   </div>
                 ) : (
                   <div>
                     <span
-                      style={{ fontWeight: 'bold', cursor: 'pointer' }}
+                      // style={{ fontWeight: 'bold', cursor: 'pointer' }}
                       onClick={() => handleProfileClick(item)} // 이름 클릭 시 프로필 팝업 띄우기
-                    >
-                      {item.memberName + " " + item.messageSentAt.slice(0, 16)}
+                      className="chat-span-name"
+                      >
+                      {item.memberName}
                     </span>
+                    <span className="chat-span-date">{item.messageSentAt.slice(0, 16)}</span>
                     <br/>
                     <span>{item.messageContent}</span>
                   </div>
@@ -209,7 +212,7 @@ export default function ChatRoom() {
           <button
             onClick={() => document.querySelector("input[type='file']").click()}
             className="image-plus-button"
-          >
+            >
             +
           </button>
           <input
@@ -219,13 +222,13 @@ export default function ChatRoom() {
             onKeyDown={onKeyPressHandler}
             placeholder="메시지를 입력하세요"
             className="input-field"
-          />
+            />
           <input
             type="file"
             accept="image/*"
             onChange={handleInputImageChange}
             className="image-input"
-          />
+            />
           <button onClick={sendMessage} className="send-button">
             보내기
           </button>
@@ -237,5 +240,6 @@ export default function ChatRoom() {
         <ProfilePopup member={selectedMember} onClose={handleCloseProfilePopup} />
       )}
     </div>
+      </div>
   );
 }
