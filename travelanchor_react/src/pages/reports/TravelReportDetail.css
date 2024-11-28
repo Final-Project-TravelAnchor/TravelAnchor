@@ -1,0 +1,71 @@
+/* 전체 컨테이너 스타일 */
+.travel-report-detail-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 800px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 콘텐츠 스타일 */
+.travel-report-detail-content {
+    font-size: 18px;
+    color: #333;
+    line-height: 1.6;
+    width: 100%;
+}
+
+/* hr 스타일 */
+.travel-report-detail-content hr {
+    border: none;
+    border-top: 1px solid #ff8600; /* 구분선 색상 및 두께 */
+    margin: 15px 0;               /* 구분선 위아래 여백 */
+    width: 100%;                  /* 구분선의 너비 */
+}
+
+/* 오류 메시지 스타일 */
+.travel-report-detail-error {
+    font-size: 18px;
+    color: #888;
+    margin-top: 20px;
+    font-style: italic;
+    text-align: center;
+}
+
+/* 버튼 컨테이너 */
+.travel-report-detail-buttons {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+    width: 100%;
+}
+
+/* 버튼 스타일 */
+.travel-report-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: white;
+    background-color: #ff8600;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.travel-report-button:hover {
+    background-color: #e07500;
+    transform: scale(1.05);
+}
+
+.travel-report-button.delete {
+    background-color: #ff4d4d;
+}
+
+.travel-report-button.delete:hover {
+    background-color: #d43b3b;
+}
