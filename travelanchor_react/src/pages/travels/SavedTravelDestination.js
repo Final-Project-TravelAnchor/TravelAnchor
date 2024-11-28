@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { callGetMemberAPI } from "../../apis/MemberAPICalls";
 import { decodeJwt } from "../../utils/tokenUtils";
-import { fetchSavedTravelDestinationsAPI } from '../../apis/FavoriteTravelDestinationCalls';
+import { callGetSavedTravelDestinationsAPI } from '../../apis/FavoriteTravelDestinationCalls';
 
 const SavedTravelDestination = () => {
     const { memberCode } = useParams();
@@ -16,12 +16,12 @@ const SavedTravelDestination = () => {
 
     useEffect(() => {
         if (memberCode) {
-            dispatch(fetchSavedTravelDestinationsAPI({ memberCode }));
+            dispatch(callGetSavedTravelDestinationsAPI({ memberCode }));
         }
     }, [dispatch, memberCode]);
 
     useEffect(() => {
-            dispatch(fetchSavedTravelDestinationsAPI(memberCode));
+            dispatch(callGetSavedTravelDestinationsAPI(memberCode));
     }, [dispatch]);
 
     // useEffect(() => {
