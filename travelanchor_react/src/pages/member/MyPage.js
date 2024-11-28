@@ -48,7 +48,7 @@ const MyPage = () => {
                         <img 
                             src={
                                 member.profilePhoto 
-                                    ? `http://localhost:8080/uploadedImages/${member.profilePhoto}` 
+                                    ? `http://${process.env.REACT_APP_RESTAPI_IP}:8080/uploadedImages/${member.profilePhoto}` 
                                     : '/images/main/default-avatar.png'
                                 } 
                                 alt="프로필 사진" 
