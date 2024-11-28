@@ -281,7 +281,6 @@ return (
 						    		    <button onClick={reportClick} className={HeaderCSS.button}>나의 후기</button>
 						    		</div>
 								</div>
-
 					            ) : (
 					                // 비로그인 상태일 때
 					                <div className={HeaderCSS.profileSection}>
