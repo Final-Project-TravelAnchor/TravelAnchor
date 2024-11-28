@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { callRestaurantDetailAPI } from "../../apis/RestaurantAPICalls";
+import styles from "../restaurants/RestaurantDetail.module.css";
 
 const RestaurantDetail = () => {
     const navigate = useNavigate();
     const { place_id } = useParams();
     const [places, setPlaces] = useState([]); 
+    const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [isSaved, setIsSaved] = useState(false);
@@ -41,6 +43,18 @@ const RestaurantDetail = () => {
         }
     };
 
+    const handleNextPhoto = () => {
+        setCurrentPhotoIndex((prevIndex) =>
+            prevIndex === places.photos.length - 1 ? 0 : prevIndex + 1
+        );
+    };
+
+    const handlePrevPhoto = () => {
+        setCurrentPhotoIndex((prevIndex) =>
+            prevIndex === 0 ? places.photos.length - 1 : prevIndex - 1
+        );
+    };
+
     const handleBackToList = () => {
         navigate("/Restaurants");
     };
@@ -51,7 +65,7 @@ const RestaurantDetail = () => {
         return <div>No restaurant details available.</div>;
 
     return (
-        <div>
+        <div className={styles.RestaurantDetailContainer}>
             <h1>{places.name}</h1>
             <p>
                 <strong>주소:</strong> {places.formatted_address}  
@@ -102,24 +116,29 @@ const RestaurantDetail = () => {
             )}
 
             <h2>사진</h2>
-            <div>
-                {places.photos && places.photos.length > 0 ? (
-                    places.photos.map((photo, index) => (
-                        <img
-                            key={index}
-                            src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photo.photo_reference}&key=${process.env.REACT_APP_GOOGLE_KEY}`}
-                            alt={`Photo ${index + 1}`}
-                            style={{
-                                width: "500px",
-                                height: "auto",
-                                marginBottom: "10px",
-                            }}
-                        />
-                    ))
-                ) : (
-                    <p>No photos available</p>
-                )}
-            </div>
+            {places.photos && places.photos.length > 0 ? (
+                <div style={{ position: "relative", textAlign: "center" }}>
+                    <img
+                        src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${places.photos[currentPhotoIndex].photo_reference}&key=${process.env.REACT_APP_GOOGLE_KEY}`}
+                        alt={`Photo ${currentPhotoIndex + 1}`}
+                        className={styles.RestaurantPhoto}
+                    />
+                    <button
+                        onClick={handlePrevPhoto}
+                        className={styles.RestaurantPrevButton}
+                    >
+                        &#8249;
+                    </button>
+                    <button
+                        onClick={handleNextPhoto}
+                        className={styles.RestaurantNextButton}
+                    >
+                        &#8250;
+                    </button>
+                </div>
+            ) : (
+                <p>No photos available</p>
+            )}
 
             <h2>리뷰</h2>
             <ul>

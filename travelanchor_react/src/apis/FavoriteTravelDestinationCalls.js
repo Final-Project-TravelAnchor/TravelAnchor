@@ -78,16 +78,11 @@ const fetchDeleteTravelDestinationData = async (requestURL) => {
 	}
 };
 
-export const fetchSavedTravelDestinationsAPI = (memberId) => {
-	const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/travel-destination/v1/travel-destinations/${memberId}`;
+export const fetchSavedTravelDestinationsAPI = () => {
+	const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/travel-destination/v1/travel-destinations`;
 	console.log("[FavoriteTravelDestinationAPICalls] CallGetSavedTravelDestinationAPI", requestURL);
 
-	return async (dispatch) => {
-		if (!memberId) {
-			console.error("Member ID is not provided!");
-			return;
-		}
-
+	return async (dispatch, getState) => {
 		try {
 			const result = await fetchGetSavedTravelDestinationData(requestURL);
 

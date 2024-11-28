@@ -185,7 +185,7 @@ return (
 									</li>
 									<li>
 										<NavLink to="/Accommodation">
-											숙박
+											호텔	
 										</NavLink>
 									</li>
 								</ul>
@@ -210,13 +210,29 @@ return (
 							<NavLink to="Notice">공지사항</NavLink>
 						</li>
 						<li className={HeaderCSS.navItem}>
-							<NavLink to="ExchangeRate">환율</NavLink>
+							<NavLink to="ExchangeRate"><img
+							src={`http://${process.env.REACT_APP_RESTAPI_IP}:8080/exchange.png`}
+							alt="Chat Image"
+							className="message-image"
+							loading="lazy"
+                    		/>
+					</NavLink>
 						</li>
 						<li className={HeaderCSS.navItem}>
-							<NavLink to="Weather">날씨</NavLink>
+							<NavLink to="Weather"><img
+							src={`http://${process.env.REACT_APP_RESTAPI_IP}:8080/weather.png`}
+							alt="Chat Image"
+							className="message-image"
+							loading="lazy"
+                    		/></NavLink>
 						</li>
 						<li className={HeaderCSS.navItem}>
-							<NavLink to="Translation">번역</NavLink>
+							<NavLink to="Translation"><img
+							src={`http://${process.env.REACT_APP_RESTAPI_IP}:8080/translation.png`}
+							alt="Chat Image"
+							className="message-image"
+							loading="lazy"
+                    		/></NavLink>
 						</li>
 					</ul>
 				</div>
@@ -247,30 +263,38 @@ return (
 					            onMouseLeave={() => setHamburgerOpen(false)}
 					        >
 					            {member ? (
-					                // 로그인 상태일 때
-					                <div className={HeaderCSS.profileSection}>
-					                    <img 
-					                        src={
-					                            member.profilePhoto 
-					                                ? `http://localhost:8080/uploadedImages/${member.profilePhoto}` 
-					                                : '/images/main/default-avatar.png'
-					                        } 
-					                        className={HeaderCSS.profilePhoto}
-					                    />
-					                    <h2>안녕하세요!
-					                        <br/>
-					                        {member.memberNickName}님
-					                    </h2>
-					                    <p>
-					                        나의 매너점수: 
-					                        {point?.pointRewardTotalCount 
-					                            ? (point.pointRewardPoint / point.pointRewardTotalCount).toFixed(1) 
-					                            : '점수 정보를 불러오지 못했습니다.'}
-					                    </p>
-					                    <button onClick={plansClick}>나의 여행 일정</button>
-					                    <button onClick={favoriteClick}>나의 저장 장소</button>
-					                    <button onClick={reportClick}>나의 후기</button>
-					                </div>
+					            // 로그인 상태일 때
+					            <div className={HeaderCSS.profileSection}>
+						    		<div className={HeaderCSS.profileTop}>
+						    		    <img 
+						    		        src={
+						    		            member.profilePhoto 
+						    		                ? `http://localhost:8080/uploadedImages/${member.profilePhoto}` 
+						    		                : '/images/main/default-avatar.png'
+						    		        } 
+						    		        alt="프로필 사진" 
+						    		        onError={(e) => {
+						    		            e.target.onerror = null; // 무한 루프 방지
+						    		            e.target.src = '/images/main/default-avatar.png'; // 기본 이미지로 대체
+						    		        }}
+						    		        className={HeaderCSS.profilePhoto}
+						    		    />
+						    		    <div className={HeaderCSS.profileInfo}>
+						    		        <h2>안녕하세요,</h2>
+						    		        <h3>{member.memberNickName}님!</h3>
+						    		        <p className={HeaderCSS.profileDetails}>
+						    		            매너점수: {point?.pointRewardTotalCount 
+						    		                ? (point.pointRewardPoint / point.pointRewardTotalCount).toFixed(1) 
+						    		                : '점수 정보를 불러오지 못했습니다.'} / 5
+						    		        </p>
+						    		    </div>
+						    		</div>
+						    		<div className={HeaderCSS.profileButtons}>
+						    		    <button onClick={plansClick} className={HeaderCSS.button}>나의 여행 일정</button>
+						    		    <button onClick={favoriteClick} className={HeaderCSS.button}>나의 저장 장소</button>
+						    		    <button onClick={reportClick} className={HeaderCSS.button}>나의 후기</button>
+						    		</div>
+								</div>
 					            ) : (
 					                // 비로그인 상태일 때
 					                <div className={HeaderCSS.profileSection}>

@@ -8,6 +8,7 @@ import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import travelanchor_server.member.dto.MemberDTO;
+import travelanchor_server.population.entity.Population;
 import travelanchor_server.travelplan.dto.*;
 import travelanchor_server.travelplan.entity.Activity;
 import travelanchor_server.travelplan.entity.Expense;
@@ -81,10 +82,14 @@ public class TravelPlanService {
         log.info("[TravelPlanService] travelPlanDTO : " + travelPlanDTO);
         int result = 0;
 
+        int maxTravelCode;
         try {
             TravelPlan insertTravelPlan = modelMapper.map(travelPlanDTO, TravelPlan.class);
 
             travelPlanRepository.save(insertTravelPlan);
+
+            maxTravelCode = travelPlanRepository.maxTravelCode();
+            log.info("[TravelPlanService] maxTravelCode : " + maxTravelCode);
 
             result = 1;
         } catch (Exception e) {
@@ -92,7 +97,8 @@ public class TravelPlanService {
         }
         log.info("[TravelPlanService] insertTravelPlan() End");
 
-        return (result > 0) ? "여행 일정 입력 성공" : "여행 일정 입력 실패";
+        return maxTravelCode;
+//        return (result > 0) ? "여행 일정 입력 성공" : "여행 일정 입력 실패";
     }
 
     @Transactional
@@ -176,9 +182,13 @@ public class TravelPlanService {
         log.info("[TravelPlanService] travelDayDTO : "+ travelDayDTO);
         int result = 0;
 
+        int maxDayCode;
         try {
             TravelDay insertTravelDayPlan = modelMapper.map(travelDayDTO, TravelDay.class);
             travelDayRepository.save(insertTravelDayPlan);
+
+            maxDayCode = travelDayRepository.maxDayCode();
+            log.info("[TravelPlanService] maxDayCode : " + maxDayCode);
 
             result = 1;
         } catch (Exception e) {
@@ -186,7 +196,8 @@ public class TravelPlanService {
         }
         log.info("[TravelPlanService] insertTravelDayPlan() End");
 
-        return (result > 0) ? "여행 일자별 일정 입력 성공" : "여행 일자별 일정 입력 실패";
+        return maxDayCode;
+//        return (result > 0) ? "여행 일자별 일정 입력 성공" : "여행 일자별 일정 입력 실패";
     }
 
     @Transactional
@@ -267,7 +278,7 @@ public class TravelPlanService {
 
         return modelMapper.map(activity, Activity.class);
     }
-    
+
     @Transactional
     public Object insertTravelActivityPlan(ActivityDTO activityDTO) {
         log.info("[TravelPlanService] insertTravelActivityPlan() Start");
@@ -507,5 +518,16 @@ public class TravelPlanService {
 
 
         } return (result > 0) ? "세부 활동 금액 삭제 성공" : "세부 활동 금액 삭제 실패";
+    }
+
+    public Object findExpenseDetailByTravelCode(int travelCode) {
+        log.info("[TravelPlanService] findExpenseDetailByTravelCode()");
+
+        // 해당 Code의 여행 일정을 가져옴.
+        List<Expense> expenseList = expenseRepository.findByTravelCode(travelCode);
+
+        log.info("[TravelPlanService] expense : ", expenseList);
+
+        return expenseList.stream().map(expense -> modelMapper.map(expense, Expense.class)).collect(Collectors.toList());
     }
 }

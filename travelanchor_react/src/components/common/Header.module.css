@@ -1,5 +1,6 @@
 .HeaderWrap {
 	position:sticky;/* 전체 컨테이너 */
+    z-index: 30;
 .container {
     font-family: 'Pretendard-Regular';    
     max-width: 1000px;
@@ -24,85 +25,89 @@
 }
 
 /* 프로필 섹션 */
-/* 프로필 섹션 */
 .profileSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     padding: 20px;
-    background: #fff;
+    background: #ffffff;
     border-radius: 15px;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-    text-align: left;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 600px;
+    margin: auto;
 }
 
 .profileTop {
     display: flex;
     align-items: center;
+    justify-content: center;
+    gap: 20px; /* 사진과 텍스트 간의 간격 */
+    width: 100%;
     margin-bottom: 20px;
 }
 
-.profilePicture {
-    flex-shrink: 0;
-}
-
-.profilePicture img {
-    width: 200px;
-    height: 200px;
+.profilePhoto {
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
     border: 2px solid #ff8600;
     object-fit: cover;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .profileInfo {
-    margin-left: 15px;
+    text-align: left;
+    font-size: 16px;
+    color: #333;
 }
 
 .profileInfo h2 {
-    font-size: 50px;
-    margin: 0;
-    color: #333;
+    font-size: 20px;
     font-weight: bold;
+    color: #ff6600;
 }
 
-.profileInfo .username {
-    font-size: 30px;
-    color: #666;
-    margin-top: 15px;
+.profileInfo h3 {
+    font-size: 18px;
+    color: #555;
+    margin-top: 5px;
 }
 
 .profileDetails {
-    margin-top: 25px;
-    padding: 10px;
-    background: #f9f9f9;
-    border-radius: 10px;
+    font-size: 18px;
+    color: #777;
+    margin-top: 10px;
 }
 
-.profileDetails p {
-    font-size: 20px;
-    color: #555;
-    margin: 8px 0;
-}
-
-.profileDetails p strong {
-    color: #333;
+.profileButtons {
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
 }
 
 .button {
     background-color: #ff8600;
-    color: #ffffff;
-    padding: 12px 20px;
+    color: white;
+    padding: 25px; /* 버튼의 내부 여백을 늘려 버튼을 크게 만듦 */
     border: none;
-    border-radius: 5px;
-    font-size: 16px;
+    border-radius: 10px; /* 둥근 모서리 */
+    font-size: 24px; /* 버튼 텍스트 크기를 키움 */
+    font-weight: bold;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    margin: 10px 0;
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%; /* 버튼이 부모 컨테이너의 너비를 채우도록 설정 */
 }
 
 .button:hover {
     background-color: #e05a00;
     transform: translateY(-3px);
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-}   
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
 
 
 	display: flex;
@@ -222,16 +227,4 @@ ul li a:hover {
 }
 
 
-.profileSection {
-    text-align: center;
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-}
 
-.profilePhoto {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-bottom: 10px;
-}

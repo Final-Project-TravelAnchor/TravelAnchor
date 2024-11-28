@@ -1,5 +1,11 @@
+.all {
+    margin-top: 120px;
+    margin-bottom: 60px;
+}
+
 /* 전체 컨테이너 */
 .container {
+    
     font-family: 'Pretendard-Regular';    
     max-width: 1000px;
     margin: 40px auto;
@@ -59,13 +65,13 @@
 }
 
 .profileInfo .username {
-    font-size: 18px;
+    font-size: 20px;
     color: #666;
     margin-top: 8px;
 }
 
 .profileInfo .memberLevel {
-    font-size: 18px;
+    font-size: 20px;
     color: #ff6600;
     font-weight: bold;
     margin-top: 5px;
@@ -74,32 +80,43 @@
 /* 상세 정보 섹션 */
 .profileDetails {
     display: flex;
-    justify-content: space-between;
+    flex-wrap: wrap; /* 줄바꿈 허용 */
+    justify-content: space-between; /* 요소 간 간격 유지 */
     margin-top: 30px;
     padding: 20px;
     background: #f9f9f9;
     border-radius: 10px;
-    gap: 10px;
+    gap: 20px; /* 간격 조정 */
 }
 
 .detailBox {
-    flex: 1; /* 각 섹션을 동일한 크기로 나눔 */
+    flex: 1 1 calc(25% - 50px); /* 4분할 (25% 크기 - 간격 고려) */
     text-align: center;
-    padding: 10px;
+    padding: 15px;
     background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     font-size: 16px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.detailBox:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
 .detailBox p {
     margin: 8px 0;
     color: #555;
+    line-height: 1.5;
 }
 
 .detailBox p strong {
     color: #333;
+    font-weight: bold;
 }
+
+
 
 /* 수정 버튼 */
 .button {

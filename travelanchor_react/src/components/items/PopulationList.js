@@ -20,9 +20,9 @@ export default function PopulationList( populationDetail ) {
             className={PopulationCSS.PopulationDiv}
             onClick={() => onClickPopulationHandler(population.populationCode)}    
         >
-            <h5>{population.populationTitle}</h5>
-            <h5>{population.populationPeople}명</h5>
-            <h5>조회수 : {population.populationViews}회</h5>
+            <h5>{population.populationTitle}</h5><br/>
+            <p>모집: {population.populationPeople}명</p>
+            <p>조회: {population.populationViews}회</p>
         </div>
     );
 

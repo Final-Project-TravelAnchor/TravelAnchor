@@ -3,7 +3,8 @@ import {
 	GET_EXPENSE_DETAIL_BY_CODE, 
 	POST_EXPENSE_DETAIL, 
 	PUT_EXPENSE_DETAIL,
-  DELETE_EXPENSE_DETAIL 
+  DELETE_EXPENSE_DETAIL ,
+  GET_TOTAL_BY_TRAVEL_CODE
 } from '../modules/ExpenseDetailModule';
 
 // 비동기 API 
@@ -190,3 +191,22 @@ export const callDeleteExpenseDetail = (expenseDetailCode, memberDTO) => {
   };
 };
 
+export const calExpenseTotalAmountBytravelCode = (travelCode) => {
+  const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/travel-plan/v1/travel-plan/expenseDetailByTravelCode/${travelCode}`;
+
+  return async(dispatch,getState) => {
+
+    try {
+
+      const result = await fetchGetExpenseDetail(requestURL);
+
+      if(result.status === 200) {
+
+        dispatch({ type: GET_TOTAL_BY_TRAVEL_CODE, payload: result});
+      }
+
+    }catch(error){
+      console.error('[ExpenseAPICalls] calExpenseTotalAmountBytravelCode error',error);
+    }
+  };
+};

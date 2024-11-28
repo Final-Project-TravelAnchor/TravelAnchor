@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import { callTravelDestinationDetailAPI } from "../../apis/TravelDestinationAPICalls";
 import { saveTravelDestinationAPI } from "../../apis/FavoriteTravelDestinationCalls";
 import { callGetMemberAPI } from "../../apis/MemberAPICalls";
+import { decodeJwt } from "../../utils/tokenUtils";
 import { POST_TRAVEL_DESTINATION } from "../../modules/FavoriteTravelDestinationModule";
 import styles from "../../../src/pages/travels/TravelDestinationDetail.module.css";
 
@@ -17,35 +18,40 @@ const TravelDestinationDetail = () => {
 	const [error, setError] = useState(null);
 	const [isSaved, setIsSaved] = useState(false);
 	const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
-	const [memberId, setMemberId] = useState(null); // Add state for memberId
+	const [memberCode, setMemberCode] = useState(null);
+	const [memberName, setMemberName] = useState(null); 
 	const [form, setForm] = useState({
 		favoriteCode: null,
-		memberId: null,
 		apiLink: `https://maps.googleapis.com/maps/api/place/details/json?place_id=${place_id}&language=ko&key=${process.env.REACT_APP_GOOGLE_KEY}`,
 		destinationName: "",
 		destinationPhotos: "",
+		memberName: "", 
 	});
 
 	useEffect(() => {
-		const fetchMemberId = async () => {
+		const tokenSub = decodeJwt(window.localStorage.getItem("accessToken"));
+
+		// Fetch member details
+		const fetchMemberDetails = async () => {
 			try {
 				const response = await dispatch(
-					callGetMemberAPI({ memberId: "current" })
+					callGetMemberAPI({ memberName: tokenSub.sub })
 				);
-				if (response?.payload?.memberId) {
-					setMemberId(response.payload.memberId);
-				} else {
-					console.error("Failed to fetch memberId.", memberId);
+				if (response && response.member) {
+					setMemberName(response.member.memberName);
+					setForm((prevForm) => ({
+						...prevForm,
+						memberName: response.member.memberName,
+					}));
 				}
 			} catch (err) {
-				console.error("Error fetching memberId:", err);
+				console.error("Error fetching member details:", err);
 			}
 		};
 
-		fetchMemberId();
+		fetchMemberDetails();
 	}, [dispatch]);
 
-	// Fetch travel destination details
 	const fetchTravelDestinationDetails = useCallback(async () => {
 		try {
 			const response = await callTravelDestinationDetailAPI({ place_id });
@@ -67,24 +73,22 @@ const TravelDestinationDetail = () => {
 		fetchTravelDestinationDetails();
 	}, [place_id, fetchTravelDestinationDetails]);
 
-	// Handle saving the destination with memberId
 	const onClickSaveTravelDestinationHandler = async () => {
-		if (!memberId) {
-			console.log("meberId : ", memberId);
+		if (!memberName) {
 			alert("사용자 정보가 없습니다. 다시 로그인해주세요.");
 			return;
 		}
 
 		try {
-			const destinationToSave = { ...form, memberId }; // Include memberId
+			const destinationToSave = { ...form, memberName };
 			const response = await dispatch(
 				saveTravelDestinationAPI(destinationToSave)
 			);
 
-			if (response && response.type === POST_TRAVEL_DESTINATION) {
-				setIsSaved(true); // Mark the destination as saved
+			if (response.type === POST_TRAVEL_DESTINATION) {
+				setIsSaved(true); 
 				alert("여행지가 성공적으로 저장되었습니다!");
-				navigate(`/SavedTravelDestination/${setMemberId}`); // Navigate to saved destinations
+				navigate(`/SavedTravelDestination/${memberCode}`);
 			} else {
 				console.warn("저장에 실패했습니다. 다시 시도해주세요.");
 				alert("저장에 실패했습니다.");
@@ -94,16 +98,6 @@ const TravelDestinationDetail = () => {
 			alert("저장 중 오류가 발생했습니다. 다시 시도해주세요.");
 		}
 	};
-
-	// const onClickSaveTravelDestinationHandler = async () => {
-	//     console.log("[SavedTravelDestination] onClickCreateTravelDestinationClickCreate");
-
-	//     // form 값으로 API 요청
-	//     await dispatch(saveTravelDestinationAPI(form));
-
-	//     navigate(`/SavedTravelDestination/${setMemberId}`);
-
-	// };
 
 	const handleBackToList = () => {
 		navigate("/TravelDestinations");
@@ -130,11 +124,10 @@ const TravelDestinationDetail = () => {
 		return <div>Loading travel destination details...</div>;
 
 	return (
-		<div className={styles.container}>
+		<div className={styles.travelDestinationContainer}>
 			<h1>{form.destinationName}</h1>
 			{travelDestinationDetails.website && (
 				<p>
-					<strong>웹사이트:</strong>
 					<a
 						href={travelDestinationDetails.website}
 						target="_blank"
@@ -196,15 +189,15 @@ const TravelDestinationDetail = () => {
 				{landmarks.length > 0 ? (
 					landmarks.map((landmark, index) => {
 						const handleLandmarkClick = () => {
-							navigate(`/Landmarks/${landmark.place_id}`); // 상세 경로로 이동
+							navigate(`/Landmarks/${landmark.place_id}`);
 						};
 
 						return (
 							<div
 								key={index}
 								className={styles.landmarkCard}
-								onClick={handleLandmarkClick} // 클릭 이벤트로 이동
-								style={{ cursor: "pointer" }} // 포인터 커서로 설정
+								onClick={handleLandmarkClick}
+								style={{ cursor: "pointer" }}
 							>
 								{landmark.photos &&
 									landmark.photos.length > 0 && (
@@ -215,7 +208,6 @@ const TravelDestinationDetail = () => {
 									)}
 								<div>
 									<h3>{landmark.name}</h3>
-									<p>{landmark.formatted_address}</p>
 								</div>
 							</div>
 						);
@@ -224,7 +216,7 @@ const TravelDestinationDetail = () => {
 					<p>근처에 표시할 랜드마크가 없습니다.</p>
 				)}
 			</div>
-			
+
 			{/* <button onClick={onClickSaveTravelDestinationHandler}>
 				{isSaved ? "저장됨" : "저장하기"}
 			</button> */}
