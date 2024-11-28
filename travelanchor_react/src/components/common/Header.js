@@ -9,7 +9,6 @@ import commonCss from "./common.module.css";
 import { callGetMemberAPI, callGetPoint  } from '../../apis/MemberAPICalls';
 import { callTravelReportByMemberCodeAPI } from "../../apis/TravelReportAPICalls";
 
-
 function Header({ hideAuthLinks }) {
 	const navigate = useNavigate();
 

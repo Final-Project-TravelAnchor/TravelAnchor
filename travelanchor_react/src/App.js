@@ -20,7 +20,6 @@ import TravelReportModify from './pages/reports/TravelReportModify';
 import AddReportDate from './pages/reports/AddReportDate';
 import AddReportDestination from './pages/reports/AddReportDestination';
 import Map from './apis/MapAPICalls';
-import ShareKakao from './apis/ShareKakao';
 import Weather from './pages/features/Weather';
 import Flight from './pages/travels/Flight';
 import Accommodation from './pages/travels/Accommodation';
@@ -106,21 +105,19 @@ export default function App() {
               <Route path="freeboardModify/:freeboardCode" element={<FreeBoardModify />} />
               <Route path="freeboardCreate" element={<FreeBoardCreate />} />
             </Route>
-            <Route path="travelReport">
-              <Route index element={ <TravelReport/> }/>
-              <Route path='AddReportDate' element={ <AddReportDate/> }/>
-              <Route path="AddReportDestination" element={ <AddReportDestination/> }/>
-              <Route path=":reportCode" element={ <TravelReportDetail/> }/>
-              <Route path='travelReportCreate' element={ <TravelReportCreate/> }/>
-              <Route path="travelReportModify/:reportCode" element={ <TravelReportModify/> }/>
-              <Route path='travelReportList' element={ <TravelReportList/> }/>
-              <Route path="member/:memberCode" element={ <TravelReportByMember/> }/>
-              <Route path='Report' element={ <Report/> }/>
-              <Route path='Map' element={ <Map/> }/>
-              {/* <Route path='travelReportList' element={ <TravelReportList/> }/> */}
-              {/* <Route path='Report' element={ <Report/> }/>
-              <Route path='Map' element={ <Map/> }/> */}
-              {/* <Route path='ShareKakao' element={ <ShareKakao/> }/> */}
+
+            <Route path="travelreport">
+            <Route index element={<TravelReport/> }/>
+            <Route path='AddReportDate' element={ <AddReportDate/> }/>
+            <Route path='AddReportDestination' element={ <AddReportDestination/> }/>
+            <Route path='travelReportList' element={ <TravelReportList/> }/>
+            <Route path=":reportCode" element={ <TravelReportDetail/> }/>
+            <Route path="member/:memberCode" element={ <TravelReportByMember/> }/>
+            <Route path='travelReportCreate' element={ <TravelReportCreate/> }/>
+            <Route path='travelReportModify/:reportCode' element={ <TravelReportModify/> }/>
+            <Route path='Report' element={ <Report/> }/>
+            <Route path='Map' element={ <Map/> }/>
+             
             </Route>
             <Route path="MyPage/:memberId" element={ <MyPage/> }/>  
             <Route path="MyPageUpdate/:memberId" element={ <MyPageUpdate/> }/>  

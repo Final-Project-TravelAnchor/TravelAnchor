@@ -4,8 +4,9 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useDispatch } from "react-redux";
 import { SET_DATE_PERIOD } from '../../modules/PlanModule';
+import './AddReportDate.css'; // CSS 파일 임포트
 
-function AddReportDate() {
+export default function AddReportDate() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -42,27 +43,28 @@ function AddReportDate() {
     };
 
     return (
-        <div>
-            <h3>여행 날짜를 선택해 주세요</h3>
-            <DatePicker
-                selected={startDate}
-                onChange={(update) => setDatePeriod(update)}
-                startDate={startDate}
-                endDate={endDate}
-                selectsRange
-                inline
-                placeholderText="시작일과 종료일 선택"
-                dateFormat="yyyy/MM/dd"
-                minDate={new Date()}
-            />
+        <div className="container">
+            <h3 className="title">여행 날짜를 선택해 주세요</h3>
+            <div className="date-picker-wrapper">
+                <DatePicker
+                    primaryColor={"orange"}
+                    selected={startDate}
+                    onChange={(update) => setDatePeriod(update)}
+                    startDate={startDate}
+                    endDate={endDate}
+                    selectsRange
+                    inline
+                    placeholderText="시작일과 종료일 선택"
+                    dateFormat="yyyy/MM/dd"
+                    minDate={new Date()}
+                />
+            </div>
 
             {/* 버튼 */}
-            <div>
-                <button onClick={reset}>초기화</button>
-                <button onClick={nextPage}>&gt;</button>
+            <div className="button-wrapper">
+                <button className="reset-button" onClick={reset}>초기화</button>
+                <button className="next-button" onClick={nextPage}>&gt;</button>
             </div>
         </div>
     );
 }
-
-export default AddReportDate;

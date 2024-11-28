@@ -290,7 +290,7 @@ CREATE TABLE IF NOT EXISTS tbl_travel_reports
     report_destination TEXT NOT NULL COMMENT '여행지',
     report_created_at DATE NOT NULL COMMENT '작성일자',
     report_isdeleted VARCHAR(1) NOT NULL COMMENT '삭제여부',
-    report_image_url TEXT NOT NULL COMMENT '이미지 URL',
+    report_image_url TEXT COMMENT '이미지 URL',
     CONSTRAINT pk_report_code PRIMARY KEY (report_code)
 #     CONSTRAINT fk_member_code8 FOREIGN KEY (member_code) REFERENCES tbl_member(member_code)
 ) ENGINE=InnoDB COMMENT '여행후기';

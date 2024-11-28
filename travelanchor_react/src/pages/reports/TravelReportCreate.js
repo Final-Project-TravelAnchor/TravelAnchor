@@ -5,6 +5,7 @@ import { Navigate, replace, useNavigate, useParams } from "react-router-dom";
 import { callCreateTravelReportAPI } from "../../apis/TravelReportAPICalls";
 import { cityReducer, selectedCityReducer } from "../../modules/CityModule";
 import planReducer from '../../modules/PlanModule';
+import './TravelReportCreate.css';
 
 
 export default function ReportCreate() {
@@ -60,26 +61,37 @@ export default function ReportCreate() {
     };
 
     return (
-        <div>
-            <h1>{selectedCityName}의 여행이 어땠는지 남겨주세요</h1>
-            <h3>시작일 : {startDate}
+        <div className="report-create-container">
+            <h1 className="report-create-title">
+                {selectedCityName}의 여행이 어땠는지 남겨주세요</h1>
+            <h3 className="report-create-dates">
+                시작일 : {startDate} <br/>
                 종료일 : {endDate}</h3>
-            <label>제목 : <input
+                <br/>
+            <div className="report-create-section">
+                <input
                 type="text"
                 name="reportTitle"
-                placeholder="제목"
+                placeholder="  제목"
                 onChange={onChangeHandler}
-            /></label>
+                className="report-create-input"
+            /></div>
             <br/>
-            <label> 내용 <input
+            <div className="report-create-section">
+                <input
                 type="text"
                 name="reportContent"
-                placeholder="내용을 입력하세요."
+                placeholder=" 내용을 입력하세요."
                 onChange={onChangeHandler}
-            /></label>
+                className="report-create-content-input"
+            /></div>
+            <div className="report-create-buttons">
             <br/>
-            <button onClick={onClickCreateTravelReportHandler}>추가하기</button>
-            <button onClick={onClickCancelTravelReportHandler}>취소하기</button>
+            <button onClick={onClickCreateTravelReportHandler}
+            className='report-create-button'>추가하기</button>
+            <button onClick={onClickCancelTravelReportHandler}
+            className='report-cancle-button'>취소하기</button>
+            </div>
         </div>
     );
 }
