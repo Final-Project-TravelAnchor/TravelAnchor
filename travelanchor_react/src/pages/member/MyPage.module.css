@@ -1,11 +1,5 @@
-.all {
-    margin-top: 120px;
-    margin-bottom: 60px;
-}
-
 /* 전체 컨테이너 */
 .container {
-    
     font-family: 'Pretendard-Regular';    
     max-width: 1000px;
     margin: 40px auto;
@@ -39,10 +33,19 @@
 /* 프로필 상단 */
 .profileTop {
     display: flex;
-    align-items: center;
+    justify-content: space-between; /* 자식 요소를 균등하게 배치 */
+    align-items: center; /* 세로축 중앙 정렬 */
     margin-bottom: 30px;
 }
 
+.profilePicture,
+.profileInfo,
+.mannerScore {
+    flex: 1; /* 동일한 비율로 공간을 차지 */
+    text-align: center; /* 모든 섹션의 텍스트를 가운데 정렬 */
+}
+
+/* 프로필 사진 */
 .profilePicture img {
     width: 150px;
     height: 150px;
@@ -51,10 +54,10 @@
     object-fit: cover;
 }
 
+/* 프로필 기본 정보 */
 .profileInfo {
-    margin-left: 20px;
-    flex-grow: 1;
     text-align: left;
+    flex-grow: 1; /* 프로필 정보가 공간을 적절히 차지하도록 설정 */
 }
 
 .profileInfo h2 {
@@ -65,7 +68,7 @@
 }
 
 .profileInfo .username {
-    font-size: 20px;
+    font-size: 18px;
     color: #666;
     margin-top: 8px;
 }
@@ -77,20 +80,60 @@
     margin-top: 5px;
 }
 
-/* 상세 정보 섹션 */
+/* 매너 점수 */
+.mannerScore {
+    flex: 1; /* 동일한 비율로 공간을 차지 */
+    text-align: center; /* 가운데 정렬 */
+    display: flex;
+    justify-content: center; /* 자식 요소를 수평 중앙 정렬 */
+    align-items: center; /* 자식 요소를 수직 중앙 정렬 */
+}
+
+/* 매너 점수 내부 컨테이너 */
+.mannerScoreContainer {
+    display: flex;
+    flex-direction: column; /* 세로로 배치 */
+    align-items: center; /* 자식 요소 가운데 정렬 */
+    gap: 10px; /* 제목, 그래프, 텍스트 간 간격 */
+}
+
+/* 매너 점수 제목 */
+.mannerScoreContainer strong {
+    font-size: 18px;
+    color: #333;
+    font-weight: bold;
+}
+
+/* 매너 점수 텍스트 */
+.mannerScoreContainer p {
+    margin: 0;
+    font-size: 14px;
+    color: #555;
+}
+
+.progressbar .CircularProgressbar-text {
+    dominant-baseline: middle; /* 세로 중앙 정렬 */
+    text-anchor: middle; /* 가로 중앙 정렬 */
+    fill: #2B2D36; /* 텍스트 색상 */
+    font-size: 18px; /* 텍스트 크기 */
+    font-weight: bold; /* 텍스트 굵기 */
+}
+
+
+
+/* 상세 정보 */
 .profileDetails {
     display: flex;
-    flex-wrap: wrap; /* 줄바꿈 허용 */
-    justify-content: space-between; /* 요소 간 간격 유지 */
+    justify-content: space-between; /* 요소를 세분할로 나눔 */
     margin-top: 30px;
     padding: 20px;
     background: #f9f9f9;
     border-radius: 10px;
-    gap: 20px; /* 간격 조정 */
+    gap: 20px; /* 요소 간격 */
 }
 
 .detailBox {
-    flex: 1 1 calc(25% - 50px); /* 4분할 (25% 크기 - 간격 고려) */
+    flex: 1 1 30%; /* 3등분 */
     text-align: center;
     padding: 15px;
     background: #fff;
@@ -115,8 +158,6 @@
     color: #333;
     font-weight: bold;
 }
-
-
 
 /* 수정 버튼 */
 .button {

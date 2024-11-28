@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
 import { callGetMemberAPI, callGetPoint  } from '../../apis/MemberAPICalls';
+import { CircularProgressChart } from './CircularProgressChart.tsx';
 import mypageCss from './MyPage.module.css'
 
 const MyPage = () => {
@@ -28,6 +29,12 @@ const MyPage = () => {
     const handleUpdateClick = () => {
         navigate(`/MyPageUpdate/${memberId}`); // memberId를 경로에 포함
     };
+
+    const mannerScore = point?.pointRewardTotalCount
+        ? (point.pointRewardPoint / point.pointRewardTotalCount).toFixed(1)
+        : null;
+
+    const mannerScorePercentage = mannerScore ? (mannerScore / 5) * 100:0 ;
 
     
 
@@ -66,9 +73,29 @@ const MyPage = () => {
                             <p className={mypageCss.username}>  이름    {member.memberName}</p>
                             <p className={mypageCss.memberLevel}>  등급    [{member.memberLevel}]</p>
                         </div>
+
+                        <div className={mypageCss.mannerScore}>
+                          <div className={mypageCss.mannerScoreContainer}>
+                            {/* 매너 점수 제목 */}
+                            <strong>매너 점수</strong>
+                            {/* 도넛 그래프 */}
+                            <CircularProgressChart
+                              value={mannerScorePercentage} // 매너 점수 전달
+                              size="120px"
+                              pathColor="#ff6600"
+                              trailColor="#ffebd2"
+                              textColor="#ff8600"
+                              interval={1000}
+                            />
+                            {/* 매너 점수 텍스트 */}
+                            <p>{mannerScore ? `${mannerScore} / 5` : "정보 없음"}</p>
+                          </div>
+                        </div>
                     </div>
+
+                    
                             
-                    {/* 상세 정보 - 하단 세분할 */}
+                    {/* 상세 정보 - 하단 셉분할 */}
                     <div className={mypageCss.profileDetails}>
                         <div className={mypageCss.detailBox}>
                             <p><strong>휴대폰 번호</strong></p>
@@ -82,14 +109,7 @@ const MyPage = () => {
                             <p><strong>주소</strong></p>
                             <p>{member.memberAddress}</p>
                         </div>
-                        <div className={mypageCss.detailBox}>
-                            <p><strong>매너 점수</strong></p>
-                            <p>
-                                {point?.pointRewardTotalCount 
-                                    ? (point.pointRewardPoint / point.pointRewardTotalCount).toFixed(1) 
-                                    : '정보 없음'} / 5
-                            </p>
-                        </div>
+                        
                     </div>
                                 
                     {/* 정보 수정 버튼 */}
