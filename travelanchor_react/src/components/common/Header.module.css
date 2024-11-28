@@ -214,13 +214,14 @@ ul li a:hover {
     font-size: 20px; /* 글자 크기 */
     /* border: 1px solid #ddd; 버튼 경계선 */
     border-radius: 8px; /* 버튼 모서리 둥글게 */
-    background-color: #ffffff; /* 버튼 배경색 */
+    background-color: #ff8600; /* 버튼 배경색 */
     cursor: pointer; /* 버튼 위에 마우스 커서 변경 */
     transition: background-color 0.3s ease; /* 배경색 전환 애니메이션 */
 }
 
+
 .hamburgerDropdown button:hover {
-    background-color: #ffebd2;
+    background-color: #e05a00;
      /* 마우스 오버 시 배경색 */
 }
 
