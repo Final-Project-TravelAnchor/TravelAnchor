@@ -1,9 +1,10 @@
 .travelDestinationDetailContainer {
+	color: #333;
 	margin: 20px;
 	padding: 20px;
 	font-family: 'Pretendard-Regular';
-	/* display: grid;
-	justify-content: center; */
+	display: grid;
+	/* justify-content: center; */
 }
 
 .travelDestinationDetailContainer h1 {
@@ -38,23 +39,25 @@
 }
 
 /* Photo Carousel */
-.carouselContainer {
+.DestinatiDetailImaesContainer {
 	position: relative;
 	width: 100%;
 	overflow: hidden;
-	max-width: 600px; /* 사진 영역 크기 조정 */
 	margin: 0 auto; /* 중앙 정렬 */
 }
 
-.carouselImages {
+.DestinatiDetailImages {
 	display: flex;
 	transition: transform 0.3s ease-in-out;
 	gap: 15px;
 }
 
-.carouselImages img {
-	max-width: 100%;
+
+.DestinatiDetailImages img {
+	flex-shrink: 0;
+	width: 100%; /* 컨테이너에 맞게 한 장씩 표시 */
 	max-height: 400px;
+	max-width: 600px;
 	border-radius: 8px;
 }
 
