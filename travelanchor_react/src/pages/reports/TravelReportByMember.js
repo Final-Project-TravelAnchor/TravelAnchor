@@ -2,6 +2,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { callTravelReportByMemberCodeAPI, callTravelReportListAPI } from "../../apis/TravelReportAPICalls";
+import './TravelReportByMember.css';
 
 export default function TravelReportByName() {
     const navigate = useNavigate();
@@ -61,18 +62,20 @@ export default function TravelReportByName() {
     };
 
     return (
-        <>
+        <div className="travel-report-member-container">
+            <h1 className="travel-report-member-title">나의 여행 후기</h1>
             {filteredReports.map((report) => (
                 <div
+                    className="travel-report-my"
                     key={report.reportCode}
                     onClick={() => onClickTravelReportHandler(report)}
                 >
-                    <h5>{report.reportCode}</h5>
-                    <h5>{report.reportTitle}</h5>
-                    <h5>{report.reportContent}</h5>
-                    <h5>{report.reportCreatedAt}</h5>
+                    {/* <h5>{report.reportCode}</h5> */}
+                    <h5 className="travel-report-my-title">{report.reportTitle}</h5>
+                    <h5 className="travel-report-content">{report.reportContent}</h5>
+                    <h5 className="travel-report-created-at">{report.reportCreatedAt}</h5>
                 </div>
             ))}
-        </>
+        </div>
     );
 }

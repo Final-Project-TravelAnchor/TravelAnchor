@@ -7,7 +7,8 @@
 }
 
 .exchange-h2 {
-	font-size: 20px;
+	font-size: 25px;
+	color: #fff;
 	text-align: center;
 	font-weight: bold;
 	margin-bottom: 20px;
@@ -22,6 +23,7 @@
 	/* padding: 20px; */
 	margin-top: 120px;
 	margin-bottom: 50px;
+	min-height: 65vh;
 }
 
 .exchange-rate-content {
@@ -62,20 +64,21 @@
 }
 
 .exchange-rate-card p {
-	font-size: 18px;
+	font-size: 20px;
 	font-weight: bold;
 	color: #ff8600;
 }
 
 .exchange-rate-calculator {
 	flex: 1;
-	background: rgba(255, 255, 255, 0.95);
+	background: #FF8600;
 	border-radius: 10px;
 	padding: 30px;
-	max-width: 400px; /* 폭 좁게 설정 */
+	max-width: 300px; /* 폭 좁게 설정 */
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	margin-left: 10px;
 	}
 
 .calculator-inputs {
@@ -87,29 +90,31 @@
 
 .calculator-inputs select,
 .calculator-inputs input {
-	font-size: 1.2rem;
+	font-size: 18px;
 	padding: 10px;
 	border-radius: 5px;
 	border: 1px solid #ddd;
 	width: 100%;
 	box-sizing: border-box;
+	text-align: center;
 	}
 
 .result {
 	font-size: 1.5rem;
 	font-weight: bold;
-	color: #FF8600;
+	color: #ffffff;
 	margin-top: 2px;
 	margin-bottom: 5px;
 	text-align: center;
 	}
 
 .convert-button {
-	background-color: #FF8600;
-	color: white;
+	background-color: #ffffff;
+	color: #FF8600;
 	font-size: 1.2rem;
 	border: none;
-	padding: 15px;
+	padding: 10px;
+	margin: 10px;
 	border-radius: 5px;
 	width: 100%;
 	cursor: pointer;
@@ -117,5 +122,6 @@
 	}
 
 .convert-button:hover {
-	background-color: #e07000;
+	background-color: #ff8600;
+	color: #fff;
 }
