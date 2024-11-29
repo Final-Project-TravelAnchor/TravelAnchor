@@ -1,0 +1,64 @@
+.travel-report-member-container {
+	display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 120px;
+	margin-bottom: 50px;
+    min-height: 65vh;
+}
+
+.travel-report-member-title {
+	font-size: 30px;
+	font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.travel-report-my {
+	display: flex; /* 플렉스 레이아웃 사용 */
+	width: 800px;
+    min-height: 100px;
+    flex-direction: column; /* 세로 정렬 */
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 40px; /* 내부 여백 */
+    /* margin: 10px; 카드 간격 */
+    border-radius: 20px; /* 둥근 모서리 */
+    border: solid 2px #FF8600;
+    background-color: #fff; /* 흰색 배경 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+    transition: transform 0.2s, box-shadow 0.2s; /* 호버 효과 애니메이션 */
+    cursor: pointer;
+}
+
+.travel-report-my:hover {
+    transform: scale(1.02);  /* 마우스 오버 시 크기 확장 */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);  /* 더 큰 그림자 */
+}
+
+/* 여행 후기 제목 */
+.travel-report-my-title {
+    color: #333;
+    font-size: 20px;  /* 제목 크기를 작게 설정 */
+    font-weight: bold;
+    margin-bottom: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* 여행 후기 내용 */
+.travel-report-content {
+    color: #555;
+    font-size: 12px;  /* 내용 크기를 작게 설정 */
+    line-height: 1.5;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* 여행 후기 작성일 */
+.travel-report-created-at {
+    color: #888;
+    font-size: 10px;  /* 작성일 크기를 작게 설정 */
+    margin-top: 10px;
+}
