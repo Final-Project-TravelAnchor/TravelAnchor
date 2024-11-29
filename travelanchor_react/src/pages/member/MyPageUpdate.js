@@ -106,84 +106,105 @@ const MyPageUpdate = () => {
 
 
     return (
-            <div className={updatePageCss.container}>
-                <header className={updatePageCss.header}>
-                    <h1>회원 정보 수정</h1>
-                </header>
+        <div className={updatePageCss.container}>
+    <header className={updatePageCss.header}>
+        <h1>회원 정보 수정</h1>
+    </header>
 
-                <button className={updatePageCss.backButton} onClick={() => navigate(-1)}>
-                    돌아가기
-                </button>
-            
-                <section className={updatePageCss.formSection}>
-                    {/* 좌우로 나뉜 레이아웃 */}
-                    <div className={updatePageCss.leftSection}>
-                        <label htmlFor="profileImage">프로필 사진</label>
-                        <button
-                            className={updatePageCss.productImageButton}
-                            onClick={onClickImageUpload}
-                        >
-                            이미지 업로드
-                        </button>
-                        {imagePreview && (
-                            <div className={updatePageCss.imagePreview}>
-                                <img
-                                    className={updatePageCss.productImage}
-                                    src={imagePreview}
-                                    alt="preview"
-                                />
-                                <input
-                                    style={{ display: 'none' }}
-                                    type="file"
-                                    name="profileImage"
-                                    accept="image/jpg,image/png,image/jpeg,image/gif"
-                                    onChange={onChangeImageUpload}
-                                    ref={imageInput}
-                                />
-                            </div>
-                        )}
-                    </div>
-                    
-                    <div className={updatePageCss.rightSection}>
-                        <label htmlFor="nickname">닉네임</label>
-                        <input
-                            type="text"
-                            id="nickname"
-                            name="memberNickName"
-                            value={form.memberNickName}
-                            onChange={onChangeHandler}
-                            className={updatePageCss.inputField}
-                        />
-                    </div>
-                </section>
+    <button className={updatePageCss.backButton} onClick={() => navigate(-1)}>
+        돌아가기
+    </button>
 
-                <div className={updatePageCss.inputContainer}>
-                  <label htmlFor="memberAddress">주소</label>
-                  <input
-                    type="text"
-                    name="memberAddress"
-                    id="memberAddress"
-                    placeholder="주소"
-                    autoComplete="off"
-                    value={form.memberAddress}
-                    onChange={onChangeHandler}
-                    
-                  />
-                  <button className={updatePageCss.registerButton} onClick={onClickAddressHandler}>
-                    주소 검색
-                  </button>
-                </div>
-                    
-            {/*저장 버튼 */}
-                <div className={updatePageCss.buttonSection}>
-                    <button className={updatePageCss.saveButton} onClick={onClickUserUpdateHandler}>
-                        정보 수정 저장하기
-                    </button>
-                </div>
+    <section className={updatePageCss.formSection}>
+    {/* 프로필 사진 */}
+    <div className={updatePageCss.inputGroup}>
+        <div className={updatePageCss.inputGroupLabel}>
+        <label>프로필 사진</label>
+        </div>
+        <div className={updatePageCss.centerInput}>
+            <div className={updatePageCss.imagePreview}>
+                <img
+                    className={updatePageCss.productImage}
+                    src={imagePreview}
+                    alt="preview"
+                />
             </div>
+        </div>
+        <button
+            className={updatePageCss.rightButton}
+            onClick={onClickImageUpload}
+        >
+            이미지 업로드
+        </button>
+        <input
+            style={{ display: 'none' }}
+            type="file"
+            name="profileImage"
+            accept="image/jpg,image/png,image/jpeg,image/gif"
+            onChange={onChangeImageUpload}
+            ref={imageInput}
+        />
+    </div>
+
+    {/* 닉네임 */}
+    <div className={updatePageCss.inputGroup}>
+        <div className={updatePageCss.inputGroupLabel}>
+        <label>닉네임</label>
+        </div>
+        <div>
+            <input
+                type="text"
+                id="nickname"
+                placeholder="닉네임"
+                name="memberNickName"
+                value={form.memberNickName}
+                onChange={onChangeHandler}
+                className={updatePageCss.inputField}
+            />
+        </div>
+        
+    </div>
+
+    {/* 주소 */}
+    <div className={updatePageCss.inputGroup}>
+        <div className={updatePageCss.inputGroupLabel}>
+        <label>주소</label>
+        </div>
+        <div className={updatePageCss.centerInput}>
+            <input
+                type="text"
+                name="memberAddress"
+                id="memberAddress"
+                placeholder="주소"
+                autoComplete="off"
+                value={form.memberAddress}
+                onChange={onChangeHandler}
+                className={updatePageCss.inputField}
+            />
+        </div>
+        <button
+            className={updatePageCss.rightButton}
+            onClick={onClickAddressHandler}
+        >
+            검색
+        </button>
+    </div>
+</section>
+
+
+    <div className={updatePageCss.buttonSection}>
+        <button
+            className={updatePageCss.saveButton}
+            onClick={onClickUserUpdateHandler}
+        >
+            정보 수정 저장하기
+        </button>
+    </div>
+</div>
+
                 
                         
-        );  
+    );  
 };          
     
 export default MyPageUpdate;

@@ -2,7 +2,7 @@
 .container {
     position: relative;
     padding: 30px;
-    max-width: 800px;
+    max-width: 600px;
     margin: 40px auto;
     background-color: #ffebd2;
     border-radius: 12px;
@@ -10,35 +10,24 @@
     display: flex;
     flex-direction: column;
     gap: 30px;
-    font-family: 'Pretendard-Regular', sans-serif;
 }
 
 /* 헤더 */
 .header {
     text-align: center;
-    font-size: 24px;
-    color: #ff6600;
+    font-size: 25px;
+    color: #ff8600;
     margin-bottom: 20px;
 }
 
 /* 폼 섹션 */
 .formSection {
     display: flex;
+    flex-direction: column;
     gap: 20px;
 }
 
-/* 좌우 섹션 */
-.leftSection,
-.rightSection {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    background: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
+
 
 /* 프로필 사진 버튼 */
 .productImageButton {
@@ -57,6 +46,14 @@
     transform: translateY(-2px);
 }
 
+
+/* 이미지 업로드 컨테이너 */
+.imageUploadContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px; /* 이미지와 버튼 사이 간격 */
+}
 /* 프로필 사진 미리보기 */
 .imagePreview {
     margin-top: 15px;
@@ -71,20 +68,60 @@
     border-radius: 8px;
     margin-top: 10px;
     object-fit: cover;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    /* box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); */
+}
+/* 이미지 업로드 버튼 */
+.productImageButton {
+    padding: 10px 15px; /* 버튼 크기 조정 */
+    background-color: #ff8600;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-/* 닉네임 필드 */
-.rightSection label {
+.productImageButton:hover {
+    background-color: #e05a00;
+    transform: translateY(-2px);
+}
+
+/* 폼 섹션 */
+.formSection {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* 인풋 그룹 */
+.inputGroup {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr; /* 왼쪽, 가운데, 오른쪽 */
+    align-items: center;
+    gap: 20px;
+    padding: 10px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.inputGroup label {
+    color: #ff8600;
     font-size: 18px;
     font-weight: bold;
-    margin-bottom: 10px;
+    margin-left: 20px;
 }
 
+.inputGroupLabel {
+    min-width: 100px;
+}
+
+
+/* 입력 필드 */
 .inputField {
-    width: 100%;
-    padding: 12px;
-    font-size: 16px;
+    width: 300px; /* 전체 너비로 확장 */
+    padding: 10px;
+    font-size: 14px;
     border: 1px solid #ccc;
     border-radius: 6px;
     transition: border-color 0.2s ease;
@@ -95,44 +132,70 @@
     outline: none;
 }
 
-/* 주소 검색 섹션 */
-.inputContainer {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    margin-top: 20px;
-}
-
-.inputContainer input {
-    flex: 3;
-    padding: 12px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    transition: border-color 0.2s ease;
-}
-
-.inputContainer input:focus {
-    border-color: #ff8600;
-    outline: none;
-}
-
-.registerButton {
-    flex: 1;
-    padding: 12px;
-    font-size: 16px;
+/* 오른쪽 버튼 */
+.rightButton {
+    padding: 8px 12px;
+    font-size: 14px;
     color: #fff;
     background-color: #ff8600;
     border: none;
     border-radius: 6px;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
+    justify-self: center; /* 버튼 위치를 동일하게 */
 }
 
-.registerButton:hover {
+.rightButton:hover {
     background-color: #e05a00;
     transform: translateY(-2px);
 }
+
+/* 이미지 프리뷰 */
+.imagePreview {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.productImage {
+    max-width: 120px;
+    height: 120px;
+    border-radius: 8px;
+    object-fit: cover;
+    /* box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); */
+}
+
+.inputField:focus {
+    border-color: #ff8600;
+    outline: none;
+}
+
+.addressContainer {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+/* 버튼 */
+.smallRegisterButton {
+    flex: none;
+    padding: 10px 15px; /* 버튼 크기 줄임 */
+    width: auto;
+    font-size: 14px; /* 텍스트 크기 조정 */
+    color: #fff;
+    background-color: #ff8600;
+    border: none;
+    border-radius: 6px;
+    box-sizing: content-box; 
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.smallRegisterButton:hover {
+    background-color: #e05a00;
+    transform: translateY(-2px);
+}
+
 
 /* 저장 버튼 섹션 */
 .buttonSection {
@@ -156,12 +219,29 @@
     transform: translateY(-2px);
 }
 
+/* 오른쪽 버튼 */
+.rightButton {
+    padding: 8px 12px;
+    font-size: 14px;
+    color: #fff;
+    background-color: #ff8600;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.rightButton:hover {
+    background-color: #e05a00;
+    transform: translateY(-2px);
+}
+
 /* 백 버튼 */
 .backButton {
     position: absolute;
     top: 20px;
     left: 20px;
-    background-color: #ff6600;
+    background-color: #ff8600;
     color: #fff;
     font-size: 14px;
     padding: 8px 16px;
