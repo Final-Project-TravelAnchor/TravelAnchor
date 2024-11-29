@@ -1,29 +1,6 @@
-.backgroundDiv {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    background-image: url('/public/images/main/main_bg.png'); /* 배경 이미지 경로 */
-    background-size: cover;
-    background-position: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.5); 
-}
-
-.overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(255, 255, 255, 0.5); /* 흰색 반투명 오버레이 */
-    z-index: 0;
-}
-
 .DestinaitonCardContainer {
 	margin-top: 100px;
-	margin-bottom: 100px;
+	margin-bottom: 150px;
     display: flex;
     gap: 20px;
     font-family: 'Pretendard-Regular';
@@ -79,4 +56,12 @@
 
 .arrowButtonRight {
     right: 10px;
+}
+
+.arrowButtonLeft:hover {
+    background-color: #e07500;
+}
+
+.arrowButtonRight:hover {
+    background-color: #e07500;
 }

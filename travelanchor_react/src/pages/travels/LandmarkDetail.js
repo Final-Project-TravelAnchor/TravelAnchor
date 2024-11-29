@@ -47,23 +47,26 @@ const LandmarkDetail = () => {
 	if (!landmark) return <div>Loading landmark details...</div>;
 
 	return (
-		<div className={styles.container}>
-			<h1 className={styles.title}>{landmark.name}</h1>
-			<p className={styles.address}>{landmark.formatted_address}</p>
+		<div className={styles.landmarkContainer}>
+			<h1>{landmark.name}</h1>
+			<p>{landmark.formatted_address}</p>
 			{landmark.rating && (
 				<p className={styles.rating}>
 					<strong>평점:</strong> {landmark.rating} (
 					{landmark.user_ratings_total || 0}명 평가)
 				</p>
 			)}
-			<div className={styles.photoCarousel}>
+			<div 
+				className={styles.landmarkPhoto}
+				style={{ position: "relative", textAlign: "center" }}
+			>
 				{landmark.photos && landmark.photos.length > 0 ? (
 					<>
 						<button
-							className={styles.prevButton}
+							className={styles.landmarkPrevButton}
 							onClick={handlePrevPhoto}
-							aria-label="Previous Photo"
 						>
+							&#8249;
 						</button>
 						<img
 							src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=600&photoreference=${landmark.photos[currentPhotoIndex].photo_reference}&key=${process.env.REACT_APP_GOOGLE_KEY}`}
@@ -71,10 +74,10 @@ const LandmarkDetail = () => {
 							className={styles.photo}
 						/>
 						<button
-							className={styles.nextButton}
+							className={styles.landmarkNextButton}
 							onClick={handleNextPhoto}
-							aria-label="Next Photo"
 						>
+							&#8250;
 						</button>
 					</>
 				) : (
@@ -82,7 +85,7 @@ const LandmarkDetail = () => {
 				)}
 			</div>
 			{landmark.website && (
-				<p className={styles.website}>
+				<p>
 					<strong>웹사이트:</strong>{" "}
 					<a
 						href={landmark.website}
@@ -93,11 +96,11 @@ const LandmarkDetail = () => {
 					</a>
 				</p>
 			)}
-			<h2 className={styles.reviewTitle}>리뷰</h2>
-			<ul className={styles.reviewList}>
+			<h2>리뷰</h2>
+			<ul className={styles.landmarkReviewList}>
 				{landmark.reviews && landmark.reviews.length > 0 ? (
 					landmark.reviews.map((review, index) => (
-						<li key={index} className={styles.reviewItem}>
+						<li key={index} className={styles.landmarkReviewItem}>
 							<p>
 								<strong>{review.author_name}</strong> (
 								{review.relative_time_description})
@@ -109,6 +112,10 @@ const LandmarkDetail = () => {
 									src={review.profile_photo_url}
 									alt={`${review.author_name}'s profile`}
 									className={styles.profilePhoto}
+									style={{
+										width: "50px",
+                                        borderRadius: "50%",
+									}}
 								/>
 							)}
 						</li>

@@ -60,10 +60,13 @@ function TravelDestinations() {
     };
 
     return (
-        <div style={{ position: "relative", overflow: "hidden", maxWidth: "1000px", margin: "0 auto" }}>
-            <h1>여행지</h1>
-            <button className={`${style.arrowButton} ${style.arrowButtonLeft}`} onClick={handlePrev}>
-                ←
+        <div style={{ position: "relative", overflow: "hidden", maxWidth: "1000px", margin: "0 auto", textAlign: "center" }}>
+            <h1 style={{marginTop: "30px"}}>여행지</h1>
+            <button 
+                className={`${style.arrowButton} ${style.arrowButtonLeft}`} 
+                onClick={handlePrev}
+            >
+                &#8249;
             </button>
             <div
                 className={style.DestinaitonCardContainer}
@@ -99,8 +102,11 @@ function TravelDestinations() {
                     </div>
                 ))}
             </div>
-            <button className={`${style.arrowButton} ${style.arrowButtonRight}`} onClick={handleNext}>
-                →
+            <button 
+                className={`${style.arrowButton} ${style.arrowButtonRight}`} 
+                onClick={handleNext}
+            >
+                &#8250;
             </button>
             {error && <p className="error">{error}</p>}
         </div>

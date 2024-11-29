@@ -28,19 +28,19 @@ const TravelDestinationDetail = () => {
         memberCode: "",
     });
 
-    useEffect(() => {
-        const token = window.localStorage.getItem('accessToken');
-        if (token) {
-            const decodedToken = decodeJwt(token);
-            if (decodedToken.exp * 1000 > Date.now()) {
-                dispatch(callGetMemberAPI({ memberCode: decodedToken.sub }));
-            } else {
-                window.localStorage.removeItem('accessToken');
-            }
-        }
-    }, [dispatch, isLogin]);
+    // useEffect(() => {
+    //     const token = window.localStorage.getItem('accessToken');
+    //     if (token) {
+    //         const decodedToken = decodeJwt(token);
+    //         if (decodedToken.exp * 1000 > Date.now()) {
+    //             dispatch(callGetMemberAPI({ memberCode: decodedToken.sub }));
+    //         } else {
+    //             window.localStorage.removeItem('accessToken');
+    //         }
+    //     }
+    // }, [dispatch, isLogin]);
 
-    const memberCode = member ? member.memberCode : null;
+    const memberCode     = member ? member.memberCode : null;
     console.log("memberCode :" + memberCode);
 
     const fetchTravelDestinationDetails = useCallback(async () => {
@@ -64,6 +64,15 @@ const TravelDestinationDetail = () => {
     useEffect(() => {
         fetchTravelDestinationDetails();
     }, [place_id, fetchTravelDestinationDetails]);
+
+    const imagesContainer = document.querySelector('.DestinatiDetailImages');
+    const images = document.querySelectorAll('.DestinatiDetailImages img');
+    let currentIndex = 0;
+    function updateCarousel() {
+        const imageWidth = images[0].clientWidth; // 이미지의 너비 계산
+        imagesContainer.style.transform = `translateX(${-currentIndex * imageWidth}px)`;
+      }
+    
 
 	const onClickSaveTravelDestinationHandler = async () => {
 		try {
@@ -115,12 +124,12 @@ const TravelDestinationDetail = () => {
                 </p>
             )}
             <h2>사진</h2>
-            <div className={styles.carouselContainer}>
+            <div className={styles.DestinatiDetailImaesContainer}>
                 {travelDestinationDetails.photos &&
                 travelDestinationDetails.photos.length > 0 ? (
                     <>
                         <div
-                            className={styles.carouselImages}
+                            className={styles.DestinatiDetailImages}
                             style={{
                                 transform: `translateX(-${currentPhotoIndex * 100}%)`,
                                 width: "100%", // 크기 맞춤
