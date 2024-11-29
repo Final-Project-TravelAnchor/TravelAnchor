@@ -135,7 +135,7 @@ function ExchangeRate() {
 							<p className="result">{convertedAmount || "결과"}</p>
 						</div>
 						<button onClick={calculateConversion} className="convert-button">
-							계산하기
+							💳 계산하기
 						</button>
 					</div>
 				</div>
