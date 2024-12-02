@@ -1,0 +1,59 @@
+## docker-compose 2.25 버전부터 version을 명시할 필요가 없어짐.
+#version: '3.8'
+#
+services:
+
+  google-server:
+    image: sungkyunshin/server-app
+    container_name: my-server-app
+    ports:
+      - "5000:5000"
+
+  # Front-end : React App
+  web-server:
+    image: sungkyunshin/react-app
+    container_name: my-react-app
+    ports:
+      - "80:3000"
+
+  # Back-end : SpringBoot REST API Server
+  backend-server:
+    image: sungkyunshin/rest-server
+    container_name: my-rest-server
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/travelanchordb # database
+      SPRING_DATASOURCE_USERNAME: travel # username
+      SPRING_DATASOURCE_PASSWORD: travel # password
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./static/productimgs:/springboot-app/productimgs # image root
+    depends_on:
+      - database-server
+
+  # Database : MySQL DBMS
+  database-server:
+    image: mysql:8.0.38
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: qwer1234 # root password
+      MYSQL_DATABASE: travelanchordb # database
+      MYSQL_USER: travel # username
+      MYSQL_PASSWORD: travel # password
+      TZ: Asia/Seoul
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql # 우리 DB TBL 만드는 SQL
+    # volumes:
+    #     - mysql-data:/var/lib/mysql
+    #     - ./01_TravelAnchorDB_create_and_grant_user.sql:/docker-entrypoint-initdb.d/01_TravelAnchorDB_create_and_grant_user.sql # 우리 DB TBL 만드는 SQL
+    #     - ./02_TravelAnchorDB_build_script.sql:/docker-entrypoint-initdb.d/02_TravelAnchorDB_build_script.sql # 우리 DB TBL 만드는 SQL
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --skip-character-set-client-handshake
+
+volumes:
+  mysql-data:
