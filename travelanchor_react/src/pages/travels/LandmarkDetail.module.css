@@ -4,6 +4,7 @@
 	padding: 20px;
 	font-family: 'Pretendard-Regular';
 	color: #333;
+	justify-content: center;
 }
 
 .landmarkContainer h1 {
@@ -16,13 +17,13 @@
 	margin: 10px 0;
 }
 
-.landmarkPhoto {
-	/* position: relative; */
+/* .landmarkPhoto {
+	/* position: relative; 
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	margin: 20px 0;
-}
+} */
 
 .landmarkPhoto img {
 	max-width: 100%;

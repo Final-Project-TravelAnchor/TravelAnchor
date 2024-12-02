@@ -4,6 +4,7 @@
     padding: 20px;
     font-family: 'Pretendard-Regular';
     color: #333;
+    justify-content: center;
 }
 
 .RestaurantDetailContainer img {
