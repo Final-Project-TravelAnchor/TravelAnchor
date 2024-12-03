@@ -104,19 +104,22 @@ export default function PopulationCreate() {
                         onChange={onChangeHandler}
                     />
                     <br />
+                    <div className="mate-create-content-div">
                     <label className="mate-create-label">내용</label>
-                    <input
+                    <textarea
                         className="mate-create-content-input"
                         type="text"
                         name="populationDescription"
                         placeholder="내용을 입력하세요"
                         onChange={onChangeHandler}
                     />
+                    </div>
                     <br />
 
                     <div className="country-group">
-                        <label>국가</label>
+                        <label className="mate-create-label">국가</label>
                         <select
+                            className="mate-create-country"
                             value={selectedCountry || ""}
                             onChange={(e) => setSelectedCountry(e.target.value)}
                         >
@@ -129,9 +132,9 @@ export default function PopulationCreate() {
                     </div>
 
                     <div>
-                        <label>도시</label>
-                        <select
-                            className="city-list"
+                        <label className="mate-create-label">도시</label>
+                        <select 
+                            className="mate-create-city"
                             value={selectedCity || ""}
                             onChange={(e) => setSelectedCity(e.target.value)}
                         >
@@ -146,10 +149,11 @@ export default function PopulationCreate() {
                     <label className="mate-create-label">모집인원</label>
                     <input
                         className="mate-create-people-input"
-                        type="text"
+                        type="number"
                         name="populationPeople"
                         placeholder="공고 모집인원"
                         onChange={onChangeHandler}
+                        defaultValue={2}
                     />
                     <br />
 

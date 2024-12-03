@@ -64,7 +64,7 @@ function AddReportDestination() {
 
             {/* 도시 리스트 */}
             <div className="report-city-container">
-                <h4>도시</h4> <br />
+                <label>도시</label> <br />
                 <ul className="report-city-list">
                     {cityList.length > 0 ? (
                         cityList.map((city) => (

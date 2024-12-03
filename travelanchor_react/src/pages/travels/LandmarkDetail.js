@@ -124,7 +124,7 @@ const LandmarkDetail = () => {
 					<p>리뷰가 없습니다.</p>
 				)}
 			</ul>
-			<button className={styles.backButton} onClick={handleBackToList}>
+			<button className={styles.landmarkBackButton} onClick={handleBackToList}>
 				목록으로 돌아가기
 			</button>
 		</div>

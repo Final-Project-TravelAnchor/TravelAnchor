@@ -60,7 +60,7 @@ export default function Notice() {
             {/* 공지사항 목록 */}
             <div className="notice-list-container">
                 <div className="notice-list-header">
-                    <div>순서</div>
+                    <div>번호</div>
                     <div>제목</div>
                     <div>작성자</div>
                     <div>작성일</div>
@@ -68,15 +68,15 @@ export default function Notice() {
                 </div>
 
                 <div>
-                    {notices?.length > 0 
-                        ? notices.map((notice) => (
-                            <NoticeList 
-                                key={notice.noticeCode} 
-                                population={notice} 
-                            />
-                          ))
-                        : <div>공지사항이 없습니다.</div>
-                    }
+                {notices?.length > 0 
+                    ? [...notices].reverse().map((notice) => ( // notices 배열을 역순으로 정렬
+                        <NoticeList 
+                            key={notice.noticeCode} 
+                            population={notice} 
+                        />
+                    ))
+                    : <div>공지사항이 없습니다.</div>
+                }
                 </div>
             </div>
         </div>

@@ -78,12 +78,18 @@ function Restaurants() {
                 <select name="city" id="city" onChange={(e) => setCity(e.target.value)} value={city}>
                     <option value="seoul">서울</option>
                     <option value="hongkong">홍콩</option>
+                    <option value="tokyo">도쿄</option>
                     <option value="osaka">오사카</option>
                     <option value="taipei">타이페이</option>
                     <option value="bangkok">방콕</option>
-                    <option value="tokyo">도쿄</option>
+                    <option value="hanoi">하노이</option>
+                    <option value="dubai">두바이</option>
+                    <option value="bali">발리</option>
                     <option value="paris">파리</option>
+                    <option value="roma">로마</option>
                     <option value="london">런던</option>
+                    <option value="newyork">뉴욕</option>
+                    <option value="barcelona">바르셀로나</option>
                 </select>
             </form><br/>
             <form>

@@ -196,9 +196,9 @@ return (
 						<li className={HeaderCSS.navItem}>
 							<NavLink to="/plans/TravelPlan">일정</NavLink>
 						</li>
-						<li className={HeaderCSS.navItem}>
-							<NavLink to="/plans/ExpenseList">비용</NavLink>
-						</li>
+						{/* <li className={HeaderCSS.navItem}>
+							<NavLink to="/other">비용</NavLink>
+						</li> */}
 						<li className={HeaderCSS.navItem}>
 							<NavLink to="/items/population">메이트</NavLink>
 						</li>

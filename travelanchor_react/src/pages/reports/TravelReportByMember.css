@@ -28,6 +28,7 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
     transition: transform 0.2s, box-shadow 0.2s; /* 호버 효과 애니메이션 */
     cursor: pointer;
+    margin-bottom: 30px;
 }
 
 .travel-report-my:hover {
