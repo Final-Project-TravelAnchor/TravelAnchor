@@ -6,6 +6,7 @@
     font-family: 'Pretendard-Regular';
     transition: transform 0.5s ease-in-out; /* 부드럽게 이동 */
 	width: 100%;
+    overflow: visible;
 }
 
 .DestnationCard {
@@ -35,19 +36,23 @@
 }
 
 /* 화살표 버튼 스타일 */
-.arrowButton {
+.arrowButtonLeft,
+.arrowButtonRight {
     position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(0, 0, 0, 0.5);
-    color: #fff;
-    border: none;
-    font-size: 2rem;
-    padding: 10px;
-    cursor: pointer;
-    border-radius: 50%;
-    z-index: 1;
-    background-color: #FF8600;
+	background: rgba(0, 0, 0, 0.5);
+	background-color: #FF8600;
+	color: #fff;
+	border: none;
+	font-size: 2rem;
+	padding: 10px 20px;
+	cursor: pointer;
+	border-radius: 50%;
+	top: 50%;
+	transform: translateY(-50%);
+	border-radius: 5px;
+	padding: 10px 20px;
+    z-index: 2;
+    visibility: visible;
 }
 
 .arrowButtonLeft {
@@ -55,7 +60,7 @@
 }
 
 .arrowButtonRight {
-    right: 10px;
+    right: 22px;
 }
 
 .arrowButtonLeft:hover {

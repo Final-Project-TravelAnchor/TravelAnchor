@@ -1,4 +1,4 @@
-require("dotenv").config({ path: "../.env" });
+require("dotenv").config({ path: ".env" });
 const express = require("express");
 const cors = require("cors");
 const axios = require("axios");
@@ -6,10 +6,12 @@ const axios = require("axios");
 const app = express();
 const PORT = 5000;
 
+const allowedOrigin = process.env.REACT_APP_RESTAPI_IP || 'travelanchor.site';
+
 // CORS 설정
 app.use(
 	cors({
-		origin: `http://${process.env.REACT_APP_RESTAPI_IP}:3000`, // 프론트엔드 도메인
+		origin: `http://${allowedOrigin}`, // 프론트엔드 도메인
 		methods: ["GET", "POST", "OPTIONS"],
 		credentials: true,
 	})

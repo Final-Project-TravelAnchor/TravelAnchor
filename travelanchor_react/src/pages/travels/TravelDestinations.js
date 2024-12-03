@@ -63,7 +63,7 @@ function TravelDestinations() {
         <div style={{ position: "relative", overflow: "hidden", maxWidth: "1000px", margin: "0 auto", textAlign: "center" }}>
             <h1 style={{marginTop: "30px"}}>여행지</h1>
             <button 
-                className={`${style.arrowButton} ${style.arrowButtonLeft}`} 
+                className={style.arrowButtonLeft} 
                 onClick={handlePrev}
             >
                 &#8249;
@@ -103,7 +103,7 @@ function TravelDestinations() {
                 ))}
             </div>
             <button 
-                className={`${style.arrowButton} ${style.arrowButtonRight}`} 
+                className={style.arrowButtonRight} 
                 onClick={handleNext}
             >
                 &#8250;

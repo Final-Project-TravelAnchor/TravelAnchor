@@ -36,8 +36,8 @@
 .RestaurantCard {
     border: 1px solid #ddd;
     border-radius: 8px;
-    width: 100%; /* Take full space of the grid cell */
-    max-width: 300px; /* Optional: Limit card width */
+    width: 100%;
+    max-width: 300px; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 16px;
     text-align: center;
