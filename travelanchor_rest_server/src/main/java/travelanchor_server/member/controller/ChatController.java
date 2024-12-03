@@ -2,6 +2,7 @@ package travelanchor_server.member.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -27,6 +28,9 @@ import java.util.List;
 @RestController
 //@RequiredArgsConstructor
 public class ChatController {
+
+    @Value("${image.image-dir}")
+    private String IMAGE_DIR;
 
     private final SimpMessageSendingOperations template;
 
@@ -78,7 +82,8 @@ public class ChatController {
         // 되는 거
 //        String uploadDir = "src/main/resources/static/";
         // 테스트 중
-        String uploadDir = "build/resources/main/static/";
+//        String uploadDir = "build/resources/main/static/productimgs/";
+        String uploadDir = IMAGE_DIR;
 //        String uploadDir = "src/main/resources/static/";
         String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
         Path uploadPath = Paths.get(uploadDir);
