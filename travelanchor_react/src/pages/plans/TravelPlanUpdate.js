@@ -173,7 +173,7 @@ export default function TravelPlanUpdate() {
             <div className="travel-plan-update-form">
                 <h2>제목 수정</h2>
             <label>
-                제목: 
+                제목   
                 <input
                     placeholder="제목"
                     name="travelName"
@@ -186,7 +186,7 @@ export default function TravelPlanUpdate() {
             <div className="travel-plan-update-form">
                 <h2>국가 및 도시 수정</h2>
                 <div>
-            <label>국가 : </label>
+            <label>국가  </label>
                 <select
                     value={selectedCountry}
                     onChange={(e) => setSelectedCountry(e.target.value)} // 국가 선택 시 상태 변경
@@ -208,7 +208,7 @@ export default function TravelPlanUpdate() {
 
             {/* 도시 리스트 */}
             <div>
-            <label>도시 : </label>
+            <label>도시  </label>
                 <select
                     value={selectedCity || ""} // 선택된 도시 상태
                     name="travelDestination"

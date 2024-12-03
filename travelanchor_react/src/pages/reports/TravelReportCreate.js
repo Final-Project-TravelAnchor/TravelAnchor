@@ -65,32 +65,34 @@ export default function ReportCreate() {
             <h1 className="report-create-title">
                 {selectedCityName}의 여행이 어땠는지 남겨주세요</h1>
             <h3 className="report-create-dates">
-                시작일 : {startDate} <br/>
-                종료일 : {endDate}</h3>
+                {startDate} ~ {endDate}</h3>
                 <br/>
+            <div className='report-create-form'>   
             <div className="report-create-section">
+                <label>제목</label>
                 <input
                 type="text"
                 name="reportTitle"
-                placeholder="  제목"
+                placeholder="제목을 입력하세요."
                 onChange={onChangeHandler}
                 className="report-create-input"
-            /></div>
+                /></div>
             <br/>
             <div className="report-create-section">
-                <input
+            <label>내용</label>
+                <textarea
                 type="text"
                 name="reportContent"
                 placeholder=" 내용을 입력하세요."
                 onChange={onChangeHandler}
                 className="report-create-content-input"
-            /></div>
+                /></div>
             <div className="report-create-buttons">
-            <br/>
             <button onClick={onClickCreateTravelReportHandler}
             className='report-create-button'>추가하기</button>
             <button onClick={onClickCancelTravelReportHandler}
             className='report-cancle-button'>취소하기</button>
+            </div>
             </div>
         </div>
     );

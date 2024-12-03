@@ -1,8 +1,9 @@
+
 function Error() {
 
     return (
         <div>
-            <h1>404 Error</h1>
+            <img src="/images/main/404error.png" />
         </div>
     );
 }

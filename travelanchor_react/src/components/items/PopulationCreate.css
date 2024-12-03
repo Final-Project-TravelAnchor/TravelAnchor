@@ -50,6 +50,12 @@
 	background-color: gray
 }
 
+.mate-create-content-div {
+    display: flex; /* label과 textarea를 수평으로 배치 */
+    align-items: center; /* 세로 중앙 정렬 */
+    margin-bottom: 15px; /* 하단에 간격 추가 */
+}
+
 .mate-create-label {
 	font-size: 18px;
 	font-weight: bold;
@@ -62,7 +68,8 @@
 	border-radius: 15px;
 	padding: 10px;
     box-sizing: border-box; /* 패딩을 포함한 크기 설정 */
-	margin-bottom: 20px;
+	margin-bottom: 15px;
+    border-color: #FF8600;
 }
 
 .mate-create-content-input {
@@ -70,17 +77,33 @@
     min-height: 200px;
     border-radius: 15px;
     padding: 10px;
-    box-sizing: border-box; /* 패딩을 포함한 크기 설정 */
+    box-sizing: border-box;
     text-align: left; /* 텍스트 정렬을 왼쪽으로 */
-    vertical-align: top; /* 수직 정렬을 위쪽으로 */
-    resize: none; /* 크기 조정 방지 (선택 사항) */
-	margin-bottom: 20px;
+    padding: 10px;
+    line-height: 1.5;
+    font-size: 16px;
+    resize: none;
+    overflow-y: auto;
+    height: auto;
+    color: #333;
+    border-color: #FF8600;
 }
 
 .mate-create-people-input {
-	width: 15%;
+	width: 7%;
 	border-radius: 15px;
 	padding: 10px;
 	color: #333;
-	margin-bottom: 20px;
+	/* margin-bottom: 10px; */
+    border-color: #FF8600;
+}
+
+.mate-create-city,
+.mate-create-country {
+    width: 20%;
+	border-radius: 15px;
+	padding: 10px;
+	color: #333;
+	margin-bottom: 10px;
+    border-color: #FF8600;
 }

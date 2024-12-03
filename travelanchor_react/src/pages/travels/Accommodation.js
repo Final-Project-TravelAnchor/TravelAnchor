@@ -21,7 +21,18 @@ function Accommodation() {
 	const dispatch = useDispatch();
 	const citiesObj = useSelector(state => state.cityReducer);
   const cities = citiesObj.data;
+  const [isLoading, setIsLoading] = useState(false)
+  const [dots, setDots] = useState("");
 
+  useEffect(() => {
+    if (isLoading) {
+      const interval = setInterval(() => {
+        setDots((prev) => (prev.length < 5 ? prev + "." : ""));
+      }, 500); // 500ms마다 업데이트
+
+      return () => clearInterval(interval); // 컴포넌트 언마운트 시 정리
+    }
+  }, [isLoading]);
 
   useEffect(() => {
 		const fetchCities = async () => {
@@ -101,6 +112,7 @@ function Accommodation() {
   };
 
   const onClickHandlerHotelsAndPrices = async () => {
+    setIsLoading(true);
     try {
       // 1. Access Token 요청
       const tokenResponse = await callAmadeusToken();
@@ -149,6 +161,8 @@ function Accommodation() {
       setHotelList(updatedHotelList);
     } catch (error) {
       console.error("호텔 및 가격 데이터 가져오는 중 오류 발생: ", error);
+    } finally {
+      setIsLoading(false); // 로딩 상태 false로 설정
     }
   };
 
@@ -166,7 +180,8 @@ function Accommodation() {
       /> */}
       <div className="hotel-search-form">
       <label>도시</label>
-      <select ref={ref.cityCode}>
+      <select ref={ref.cityCode}
+      className="hotel-city">
 				{cities?.length > 0 ? (
           cities.map(city => (
             <option key={city.cityCode} value={city.cityIataCode}>{city.cityName}</option>
@@ -221,7 +236,9 @@ function Accommodation() {
       </div>
       
       <div>
-      {hotelList.length > 0 ? (
+      {isLoading ? ( // 로딩 상태에 따라 메시지 표시
+          <p>호텔 검색 중{dots}</p>
+        ) : hotelList.length > 0 ? (
         <div className="cardContainer">
     {hotelList.map((hotel, index) => (
       <div key={index} className="card">

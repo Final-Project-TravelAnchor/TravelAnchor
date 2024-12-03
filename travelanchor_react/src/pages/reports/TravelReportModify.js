@@ -4,6 +4,7 @@ import DatePicker from 'react-datepicker';
 import { callUpdateTravelReportAPI } from "../../apis/TravelReportAPICalls";
 import { callCityByCountryCodeAPI, callCountryAPI } from '../../apis/AreaAPICalls';
 import { useDispatch, useSelector } from "react-redux";
+import './TravelReportModify.css';
 
 export default function TravelReportModify() {
     const location = useLocation();
@@ -134,15 +135,13 @@ export default function TravelReportModify() {
     };
 
     return (
-    <div>
-        <div>
-            <h1>~ 수정하기 ~</h1>
-            </div>
-            <div>
+    <div className="report-modify-container">
+        <h1>작성한 후기 수정하기</h1>
+            <div className="report-modify-form">
                 {loading && <p>수정 중입니다... 잠시만 기다려주세요.</p>}
                 {error && <p style={{ color: "red" }}>{error}</p>}
                 <label>
-                    제목:{" "}
+                    제목{" "}
                     <input
                         placeholder="제목"
                         name="reportTitle"
@@ -150,10 +149,10 @@ export default function TravelReportModify() {
                         value={form.reportTitle}
                     />
                 </label>
-                <br />
                 <label>
-                    내용:{" "}
-                    <input
+                    내용
+                    <textarea
+                        className="report-modify-textarea"
                         placeholder="설명"
                         name="reportContent"
                         onChange={onChangeHandler}
@@ -162,7 +161,7 @@ export default function TravelReportModify() {
                 </label>
             </div>
 
-            <div>
+            <div className="report-modify-form">
                 <h3>여행 날짜를 선택해 주세요</h3>
                 <DatePicker
                     selected={startDate}
@@ -182,19 +181,18 @@ export default function TravelReportModify() {
                     dateFormat="yyyy/MM/dd"
                     minDate={new Date()}
                 />
-            </div>
-
-                {/* 버튼 */}
                 <div>
                     {/* 초기화 버튼 */}
                     <button onClick={reset}>
                     초기화
                     </button>
                 </div>
+            </div>
 
-            <div className="container">
+
+            <div className="report-modify-form">
             {/* 국가 리스트 */}
-            <div className="country-group">
+            <div className="report-modify-country">
                 <label>국가</label>
                 <select
                     value={selectedCountry}
@@ -212,32 +210,35 @@ export default function TravelReportModify() {
             </div>
 
             {/* 도시 리스트 */}
-            <div>
-                <h3>도시</h3>
-                <ul className="city-list"> 
+            <div className="report-modify-city">
+                <label>도시</label>
+                <select
+                value={selectedCity}
+                onChange={(e) => setSelectedCity(e.target.value)}
+            >
                 {cityList.length > 0 ? (
                     cityList.map((city) => (
-                        <li
-                        key={city.cityCode}
-                        onClick={() => setSelectedCity(city.cityName)}
-                        className={`city-item ${selectedCity === city.cityName ? "active" : ""}`}
-                        >
-                        {city.cityName} ({city.cityCode})
-                        </li>
+                        <option key={city.cityCode} value={city.cityName}>
+                            {city.cityName} ({city.cityCode})
+                        </option>
                     ))
                 ) : (
-                <p>표시할 도시 정보가 없습니다.</p>
+                    <option disabled>표시할 도시 정보가 없습니다.</option>
                 )}
-                </ul>
+            </select>
             </div>
         </div>
 
-            <div>
+            <div className="report-modify-buttons">
                 <br />
-                <button onClick={onClickSaveHandler} disabled={loading}>
+                <button 
+                className="report-modify-save-button"
+                onClick={onClickSaveHandler} disabled={loading}>
                     {loading ? "저장 중..." : "수정하기"}
                 </button>
-                <button onClick={onClickCancelHandler} disabled={loading}>
+                <button 
+                className="report-modify-cancel-button"
+                onClick={onClickCancelHandler} disabled={loading}>
                     취소하기
                 </button>
             </div>

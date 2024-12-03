@@ -12,13 +12,13 @@
 .create-travel-report-button-container {
     display: flex;
     justify-content: flex-end;
-    width: 100%;
+    width: 72%;
     margin-bottom: 20px;
     margin-right: 500px;
 }
 
 .create-travel-report-button {
-    padding: 12px 30px; 
+    padding: 12px 30px;
     font-size: 18px;
     background-color: #FF8600;
     color: white;
@@ -27,7 +27,7 @@
     cursor: pointer;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: background-color 0.3s ease;
-    width: 250px;  /* 버튼의 가로 너비를 고정하여 더 넓게 */
+    width: 180px;  /* 버튼의 가로 너비를 고정하여 더 넓게 */
 }
 
 .create-travel-report-button:hover {

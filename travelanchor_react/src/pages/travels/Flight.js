@@ -28,6 +28,18 @@ export default function Flight() {
 	// 	[]
 	// );
 
+	const [dots, setDots] = useState("");
+
+  useEffect(() => {
+    if (loadingAirline) {
+      const interval = setInterval(() => {
+        setDots((prev) => (prev.length < 5 ? prev + "." : ""));
+      }, 500); // 500ms마다 업데이트
+
+      return () => clearInterval(interval); // 컴포넌트 언마운트 시 정리
+    }
+  }, [loadingAirline]);
+
 	useEffect(() => {
 		const fetchCities = async () => {
 			setLoading(true);
@@ -75,6 +87,9 @@ export default function Flight() {
 
 	const onClickHandlerFlight = async () => {
 
+		// 로딩 시작
+		setLoadingAirline(true);
+
 		let newToken = token;
 
 		if(!token) {
@@ -98,8 +113,6 @@ export default function Flight() {
 			offer => offer.itineraries[0]?.segments[0]?.operating?.carrierCode || "Unknown"
 		))];
 
-		// 로딩 시작
-		setLoadingAirline(true);
 
 		// 항공사 이름 매핑
 		const airlineNames = {};
@@ -119,17 +132,17 @@ export default function Flight() {
 
 	return (
 		<div className="filght-container">
-			<h1 className="title">항공권 최저가 검색</h1>
+			<h1 className="flight-title">항공권 최저가 검색</h1>
 			<div className="flight-search-container">
 
-			<div className="content">
+			<div className="flight-content">
 			{/* 입력 섹션 */}
-			<div className="form-section">
+			<div className="flight-form-section">
 				{/* <button className="fetch-token-button" onClick={onClickHandler}>
 				토큰받기
 				</button> */}
 
-				<div className="form-group">
+				<div className="flight-form-group">
 				<label>여행 유형</label>
 				<select ref={ref.tripType} onChange={(e) => setTripType(e.target.value)}>
 					<option value="one-way">편도</option>
@@ -147,7 +160,7 @@ export default function Flight() {
 			<input type="text" ref={ref.destinationRef} placeholder="도착지를 입력하세요" />
 			</div> */}
 
-			<div className="form-group">
+			<div className="flight-form-group">
 			<label>출발지</label>
 			<select ref={ref.originRef}>
 				{cities?.length > 0 ? (
@@ -160,7 +173,7 @@ export default function Flight() {
 			</select>
 			</div>
 
-			<div className="form-group">
+			<div className="flight-form-group">
 			<label>도착지</label>
 			{/* <select ref={ref.destinationRef}>
 				{cities.length > 0 && cities.map(city => (
@@ -178,34 +191,34 @@ export default function Flight() {
 			</select>
 			</div>
 
-			<div className="form-group">
+			<div className="flight-form-group">
 			<label>출발일</label>
 			<input type="date" ref={ref.departureDateRef} />
 			</div>
 
 			{tripType === "round-trip" && (
-			<div className="form-group">
+			<div className="flight-form-group">
 				<label>귀국일</label>
 				<input type="date" ref={ref.returnDateRef} />
 			</div>
 			)}
 
-			<div className="form-group">
+			<div className="flight-form-group">
 			<label>성인</label>
 			<input type="number" ref={ref.adultsRef} min="1" defaultValue="1" />
 			</div>
 
-			<div className="form-group">
+			<div className="flight-form-group">
 			<label>아동</label>
 			<input type="number" ref={ref.childrenRef} min="0" defaultValue="0" />
 			</div>
 
-			<div className="form-group">
+			<div className="flight-form-group">
 			<label>유아</label>
 			<input type="number" ref={ref.infantsRef} min="0" defaultValue="0" />
 			</div>
 
-			<div className="form-group">
+			<div className="flight-form-group">
 			<label>좌석 등급</label>
 			<select ref={ref.travelClassRef}>
 				<option value="ECONOMY">Economy</option>
@@ -215,20 +228,25 @@ export default function Flight() {
 			</select>
 			</div>
 
-			<button className="search-button" onClick={onClickHandlerFlight}>
+			<button className="flight-search-button" onClick={onClickHandlerFlight}>
 			항공권 검색
 			</button>
 			</div>
 
 			{/* 출력 섹션 */}
-			<div className="output-section">
+			<div className="flight-output-section">
+			{!loadingAirline && !flight?.data && (
+				<div className="loading">
+				<p>조건을 입력하고 검색하시면 이곳에 항공권 정보가 출력됩니다 😊</p> 
+				</div>
+			)}
 			{loadingAirline && (
 				<div className="loading">
-				<p>항공권 정보를 불러오는 중</p>
+				<p>항공권 정보를 불러오는 중{dots}</p>
 				</div>
 			)}
 			{!loadingAirline && flight && flight.data && (
-			<div className="card-container">
+			<div className="flight-card-container">
 				{flight.data.map((offer, index) => {
 				const carrierCode = offer.itineraries[0].segments[0].operating.carrierCode;
 				const airlineName = airlineData[carrierCode] || "";
@@ -236,11 +254,11 @@ export default function Flight() {
 				return (
 					<div key={index} className="flight-card">
 					<h3 className="airline-name">{airlineName}</h3>
-					<p className="route">
+					<p className="flight-route">
 						{offer.itineraries[0].segments[0].departure.iataCode} →{" "}
 						{offer.itineraries[0].segments[0].arrival.iataCode}
 					</p>
-					<p className="price">
+					<p className="flightprice">
 						{offer.price.grandTotal} {offer.price.currency}
 					</p>
 					</div>

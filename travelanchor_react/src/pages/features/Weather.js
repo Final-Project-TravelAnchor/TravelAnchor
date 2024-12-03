@@ -40,54 +40,59 @@ export default function Weather() {
 
 	return (
 		<div className="weather-container">
-			<h1>날씨 예보</h1>
+		<h1>날씨 예보</h1>
 
-			{/* 도시 입력 */}
-			<input
-				type="text"
-				value={city}
-				onChange={(e) => setCity(e.target.value)}
-				placeholder="도시를 영문으로 입력하세요 (예: seoul)"
-			/>
-			<button onClick={fetchForecast}>날씨 조회</button>
+		{/* 도시 입력 */}
+		<input
+			type="text"
+			value={city}
+			onChange={(e) => setCity(e.target.value)}
+			placeholder="도시를 영문으로 입력하세요 (예: seoul)"
+		/>
+		<button onClick={fetchForecast}>날씨 조회</button>
 
-			{/* 오류 메시지 */}
-			{error && <p className="error">{error}</p>}
+		{/* 오류 메시지 */}
+		{error && <p className="error">{error}</p>}
 
-			{forecast && (
-				<div className="weather-card-container">
-					<h2>{forecast.city.name}의 날씨 예보</h2>
-					<div className="weather-card-grid">
-						{/* 날짜별 카드 */}
-						{Object.keys(groupedForecast).map((date, index) => (
-							<div key={index} className="weather-card-column">
-								<h3>{date}</h3>
-								{groupedForecast[date].map((item, idx) => (
-									<div key={idx} className="weather-card">
-										<p>
-											<strong>
-												{new Intl.DateTimeFormat('ko-KR', { 
-												hour: 'numeric', 
-												hour12: true 
-												}).format(new Date(item.dt * 1000))} 
-											</strong>
-										</p>
-										{/* 날씨 아이콘 */}
-										<img 
-											src={`http://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`} 
-											alt={item.weather[0].description} 
-											className="weather-icon"
-										/>
-										<p>{item.main.temp}°C</p>
-										<p>{item.weather[0].description}</p>
-										<p>{item.wind.speed} m/s</p>
-									</div>
-								))}
-							</div>
-						))}
-					</div>
+		{/* 날씨 예보 또는 안내 메시지 */}
+		{forecast ? (
+			<div className="weather-card-container">
+				<h2>{forecast.city.name}의 날씨 예보</h2>
+				<div className="weather-card-grid">
+					{/* 날짜별 카드 */}
+					{Object.keys(groupedForecast).map((date, index) => (
+						<div key={index} className="weather-card-column">
+							<h3>{date}</h3>
+							{groupedForecast[date].map((item, idx) => (
+								<div key={idx} className="weather-card">
+									<p>
+										<strong>
+											{new Intl.DateTimeFormat('ko-KR', {
+												hour: 'numeric',
+												hour12: true,
+											}).format(new Date(item.dt * 1000))}
+										</strong>
+									</p>
+									{/* 날씨 아이콘 */}
+									<img
+										src={`http://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`}
+										alt={item.weather[0].description}
+										className="weather-icon"
+									/>
+									<p>{item.main.temp}°C</p>
+									<p>{item.weather[0].description}</p>
+									<p>{item.wind.speed} m/s</p>
+								</div>
+							))}
+						</div>
+					))}
 				</div>
-			)}
-		</div>
+			</div>
+		) : (
+			<p className="info-message">
+				앞으로 5일간의 날씨를 확인하실 수 있습니다😊
+		</p>
+	)}
+</div>
 	);
 }
