@@ -2,25 +2,18 @@
 
 <img src="https://github.com/user-attachments/assets/d683b862-17c5-4279-a257-9a394d8d0423">
 
+## 🌍 여행닻: 여행의 닻을 올리고, 함께 여행을 시작하세요 🚢
 
-#Front
-<img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white">
-<img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white">
-<img src="https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white">
-<img src="https://img.shields.io/badge/nodedotjs-5FA04E?style=for-the-badge&logo=nodedotjs&logoColor=white">
+배의 출발처럼 여행도 닻을 올리는 순간부터 시작됩니다. 여행닻은 여행의 설렘을 함께 나누고, 새로운 여정을 떠날 수 있는 공간입니다.
 
-#Back
-<img src="https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white">
-<img src="https://img.shields.io/badge/springsecurity-6DB33F?style=for-the-badge&logo=springsecurity&logoColor=white">
-<img src="https://img.shields.io/badge/intellijidea-000000?style=for-the-badge&logo=intellijidea&logoColor=white">
+여행 메이트와 함께 추억을 쌓고, 전 세계 숨겨진 명소를 발견하며 잊지 못할 여행을 만들어보세요. 
+여행을 계획하든, 영감을 찾든, 여행닻은 당신의 든든한 나침반이 되어 드립니다.
 
-#DataBase
-<img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white">
+닻을 올리고, 항해를 시작하세요. 그리고 함께 세상을 발견해 보세요!
 
-@Cooperation
-<img src="https://img.shields.io/badge/notion-000000?style=for-the-badge&logo=notion&logoColor=white">
-<img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">
-<img src="https://img.shields.io/badge/kakaotalk-FFCD00?style=for-the-badge&logo=kakaotalk&logoColor=white">
+# 📚 기술 스택
+
+<img src="https://github.com/user-attachments/assets/00cfb12c-63d2-4d85-840b-28720d0bb49f">
 
 ## 🐶 팀원 소개
 |신성균|김지은|백중윤|
@@ -35,13 +28,6 @@
 |BE, FE|BE, FE|BE, FE|
 |여행 일정 CRUD, 여행 후기(API), 자유게시판 CRUD|회원가입 CRUD, 로그인 (API)|여행지 CRUD, 맛집 추천 (API)|
 
-
-## 🎬 프로젝트 소개
-
-# 개요
-‘여행닻(travel anchor)’은 배를 출항할 때 닻을 올리는데, 그 의미를 여행과 접목 시켜 여행의 닻을 올려 출발한다는 뜻입니다.
-
-‘여행닻’ 프로젝트는 여행의 즐거움을 메이트와 함께 할 수 있고, 여행지에 대한 다양한 정보를 찾을 수 있는 사이트입니다.
 
 # 주요기능
  * ✈️ 항공편 조회
